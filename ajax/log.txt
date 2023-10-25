@@ -1,0 +1,26 @@
+$(".nav-item, .breadcrumb-item").click(function() {
+            contador_productos = 0;
+            $('#tbl_ListadoProductos').DataTable().rows().eq(0).each(function(index) {
+                contador_productos = contador_productos + 1;
+                console.log("🚀 ~ file: venta_boleta.php:1686 ~ $ ~ contador_productos:", contador_productos)
+
+            });
+
+            if (contador_productos > 0) {
+                    fnc_CargarDataTableListadoProductos();
+                    console.log("Devolver Stock")
+            }
+
+        })
+
+        const configuracion = {
+            attributes: true,
+            childList: true
+        }
+
+        const nodo = document.querySelector(".nav-link")
+        // console.log("🚀 ~ file: venta_boleta.php:545 ~ $ ~ nodo:", nodo)
+
+        const observer = new MutationObserver(notificar)
+
+        observer.observe(nodo, configuracion);
