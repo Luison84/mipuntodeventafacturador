@@ -1249,7 +1249,7 @@
                     })
                 }
 
-                window.open('http://mipuntodeventa.facturador.com//vistas/generar_ticket.php?id_venta=' + response["id_venta"],
+                window.open('https://tutorialesphperu.com/pos//vistas/generar_ticket.php?id_venta=' + response["id_venta"],
                     "ModalPopUp",
                     "toolbar=no," +
                     "scrollbars=no," +
@@ -1526,7 +1526,7 @@
     }
 
     function fnc_ImprimirBoleta($id_venta){
-        window.open('http://mipuntodeventa.facturador.com//vistas/generar_ticket.php?id_venta=' + $id_venta,
+        window.open('https://tutorialesphperu.com/pos//vistas/generar_ticket.php?id_venta=' + $id_venta,
                     "ModalPopUp",
                     "toolbar=no," +
                     "scrollbars=no," +

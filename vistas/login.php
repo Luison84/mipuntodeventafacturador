@@ -168,7 +168,7 @@
 
                         setInterval(() => {
                             $("#btnIniciarSesion").removeClass('disabled');
-                            window.location = "http://mipuntodeventa.facturador.com/";
+                            window.location = "https://tutorialesphperu.com/pos/";
                         }, 1200);
 
 

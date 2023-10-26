@@ -1673,7 +1673,7 @@ MODAL MOSTRAR DETALLE DE COMPRA
                 })
 
 
-                // window.open('http://mipuntodeventa.facturador.com//vistas/generar_ticket.php?id_venta=' + response["id_venta"],
+                // window.open('https://tutorialesphperu.com/pos//vistas/generar_ticket.php?id_venta=' + response["id_venta"],
                 //     "ModalPopUp",
                 //     "toolbar=no," +
                 //     "scrollbars=no," +
@@ -2248,7 +2248,7 @@ MODAL MOSTRAR DETALLE DE COMPRA
 
         $id_compra = data[1]
 
-        window.open('http://mipuntodeventa.facturador.com/vistas/generar_registro_compra.php?id_compra=' + $id_compra,
+        window.open('https://tutorialesphperu.com/pos/vistas/generar_registro_compra.php?id_compra=' + $id_compra,
             'fullscreen=yes' +
             "resizable=0,"
         );
