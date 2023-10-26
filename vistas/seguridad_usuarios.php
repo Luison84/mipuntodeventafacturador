@@ -116,7 +116,7 @@
                                         </div> -->
 
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card mr-1 my-text-color"></i>Usuario del Sistema</label>
-                                        <input type="text" style="border-radius: 20px;" placeholder="Ingrese el usuario del sistema" class="form-control form-control-sm" id="usuario" name="usuario" aria-label="Small" aria-describedby="inputGroup-sizing-sm" onchange="validateJS(event, 'usuario_sistema')" required>
+                                        <input type="text" style="border-radius: 20px;" placeholder="Ingrese el usuario del sistema" class="form-control form-control-sm" id="usuario" name="usuario" aria-label="Small" id_usuario="0" aria-describedby="inputGroup-sizing-sm" onchange="validateJS(event, 'usuario_sistema')" required>
                                         <div class="invalid-feedback">Ingrese usuario del sistema</div>
                                     </div>
 
