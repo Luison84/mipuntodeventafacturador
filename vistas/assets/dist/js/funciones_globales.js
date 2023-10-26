@@ -218,27 +218,28 @@ function validateJS(event, type) {
     }
 
     if (type == "usuario_sistema") {
-        console.log(event.target.attributes['id_usuario'].value);
-        
-        var formData = new FormData();
-        formData.append('accion', 'validar_usuario_sistema');
-        formData.append('id_usuario', event.target.attributes['id_usuario'].value);
-        formData.append('usuario', event.target.value);
-        response = SolicitudAjax('ajax/usuarios.ajax.php', 'POST', formData);
 
-        if(response['existe'] > 0){
-
-            console.log($(event.target).parent());
+        if(event.target.attributes['id_usuario'].value){
             
-            $(event.target).parent().addClass("was-validated");
-
-            $(event.target).parent().children(".invalid-feedback").html("El usuario ya fue registrado");
+            var formData = new FormData();
+            formData.append('accion', 'validar_usuario_sistema');
+            formData.append('id_usuario', event.target.attributes['id_usuario'].value);
+            formData.append('usuario', event.target.value);
+            response = SolicitudAjax('ajax/usuarios.ajax.php', 'POST', formData);
     
-            event.target.value = "";
-            event.target.focus();
-            return;
+            if(response['existe'] > 0){
+    
+                console.log($(event.target).parent());
+                
+                $(event.target).parent().addClass("was-validated");
+    
+                $(event.target).parent().children(".invalid-feedback").html("El usuario ya fue registrado");
+        
+                event.target.value = "";
+                event.target.focus();
+                return;
+            }
         }
-
         
     }
 
