@@ -219,8 +219,8 @@ function validateJS(event, type) {
 
     if (type == "usuario_sistema") {
 
-        if(event.target.attributes['id_usuario'].value){
-            
+        if(event.target.attributes['id_usuario'].value > 0){
+
             var formData = new FormData();
             formData.append('accion', 'validar_usuario_sistema');
             formData.append('id_usuario', event.target.attributes['id_usuario'].value);
