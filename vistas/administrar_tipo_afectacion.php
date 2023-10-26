@@ -238,7 +238,7 @@
 
 <script>
     $(document).ready(function() {
-        CargarSelects();
+        // CargarSelects();
         fnc_CargarDatatableTipoAfectacionIgv();
 
         $("#btnRegistrarTipoAfectacion").on('click', function() {
@@ -256,9 +256,9 @@
 
     })
 
-    function CargarSelects() {
+    /*function CargarSelects() {
         $('.select2').select2()
-    }
+    }*/
 
     function fnc_CargarDatatableTipoAfectacionIgv() {
 
