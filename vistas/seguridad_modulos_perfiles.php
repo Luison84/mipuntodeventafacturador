@@ -1,33 +1,19 @@
 <!-- Content Header (Page header) -->
 <div class="content-header">
-
     <div class="container-fluid">
-
         <div class="row mb-2">
-
             <div class="col-sm-6">
-
                 <h2 class="m-0 fw-bold">ADMINISTRAR MÓDULOS Y PERFILES</h2>
-
             </div><!-- /.col -->
-
             <div class="col-sm-6">
-
                 <ol class="breadcrumb float-sm-right">
-
                     <li class="breadcrumb-item"><a href="index.php">Inicio</a>
                     </li>
-
                     <li class="breadcrumb-item active">Administrar Módulos y Perfiles</li>
-
                 </ol>
-
             </div><!-- /.col -->
-
         </div><!-- /.row -->
-
     </div>
-
 </div>
 
 <div class="content">
@@ -442,7 +428,13 @@
                     accion: 'obtener_perfiles_asignar'
                 }
             },
-            columnDefs: [{
+            scrollX: true,
+            columnDefs: [
+                {
+                    targets: [3,4],
+                    visible: false
+                },
+                {
                     targets: 2,
                     sortable: false,
                     createdCell: function(td, cellData, rowData, row, col) {
