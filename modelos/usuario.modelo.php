@@ -120,7 +120,7 @@ class UsuarioModelo
                             usu.id_caja, 
                             c.nombre_caja as caja,
                             case when usu.estado = 1 then 'ACTIVO' else 'INACTIVO' end as estado
-                    FROM USUARIOS usu inner join perfiles p on usu.id_perfil_usuario = p.id_perfil
+                    FROM usuarios usu inner join perfiles p on usu.id_perfil_usuario = p.id_perfil
                                     inner join cajas c on c.id = usu.id_caja";
 
         if (isset($post["search"]["value"])) {
