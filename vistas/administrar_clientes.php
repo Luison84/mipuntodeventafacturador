@@ -82,13 +82,6 @@
 
                                         <input type="hidden" name="id_cliente" id="id_cliente" value="0">
 
-                                        <!-- <div class="form-floating mb-2">
-                                            <select class="form-select select2" id="tipo_documento" name="tipo_documento" aria-label="Floating label select example" required>
-                                            </select>
-                                            <label for="tipo_documento">Tipo Documento</label>
-                                            <div class="invalid-feedback">Seleccione el Tipo de Documento</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card-alt mr-1 my-text-color"></i> Tipo Documento <strong class="text-danger fw-bold">*</strong></label>
                                         <select class="form-select" id="tipo_documento" name="tipo_documento" aria-label="Floating label select example" required>
                                         </select>
@@ -97,70 +90,30 @@
                                     </div>
 
                                     <div class="col-3 mb-2">
-
-                                        <!-- <div class="form-floating mb-2" style="position: relative;">
-                                            <input type="text" id="nro_documento" class="form-control" name="nro_documento" onchange="validateJS(event, 'nro_documento')"  required>
-                                            <label for="nro_documento">Nro Documento</label>
-                                            <div class="invalid-feedback">Ingrese el Nro de Documento</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card mr-1 my-text-color"></i>Nro Documento <strong class="text-danger fw-bold">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="nro_documento" onchange="validateJS(event, 'nro_documento')" name="nro_documento" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el Nro de Documento</div>
-
                                     </div>
 
                                     <div class="col-6 mb-2">
-
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="text" id="nombre_cliente_razon_social" class="form-control text-uppercase" name="nombre_cliente_razon_social" required>
-                                            <label for="nombre_cliente_razon_social">Nombre del Cliente / Razón Social</label>
-                                            <div class="invalid-feedback">Ingrese el Nombre/Razón Social del Cliente</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-user-tie mr-1 my-text-color"></i>Nombre del Cliente / Razón Social <strong class="text-danger fw-bold">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="nombre_cliente_razon_social" name="nombre_cliente_razon_social" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el Nombre/Razón Social del Cliente</div>
-
                                     </div>
 
                                     <div class="col-7 mb-2">
-
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="text" id="direccion" class="form-control text-uppercase" name="direccion" required>
-                                            <label for="direccion">Dirección</label>
-                                            <div class="invalid-feedback">Ingrese la dirección del Cliente</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-map-marker-alt mr-1 my-text-color"></i>Dirección <strong class="text-danger fw-bold">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="direccion" name="direccion" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese la dirección del Cliente</div>
-
                                     </div>
 
                                     <div class="col-2 mb-2">
-
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="text" id="telefono" class="form-control" name="telefono">
-                                            <label for="telefono">Teléfono</label>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-phone-alt mr-1 my-text-color"></i>Teléfono</label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="telefono" name="telefono" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-
                                     </div>
 
                                     <!-- ESTADO -->
                                     <div class="col-3 mb-2">
-                                        <!-- <div class="form-floating mb-2">
-                                            <select class="form-select select2" id="estado" name="estado" aria-label="Floating label select example" required>
-                                                <option value="" disabled>--Seleccione un estado--</option>
-                                                <option value="1" selected>ACTIVO</option>
-                                                <option value="0">INACTIVO</option>
-                                            </select>
-                                            <label for="estado">Estado</label>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-toggle-on mr-1 my-text-color"></i>Estado <strong class="text-danger fw-bold">*</strong></label>
                                         <select class="form-select" id="estado" name="estado" aria-label="Floating label select example" required>
                                             <option value="" disabled>--Seleccione un estado--</option>
@@ -172,11 +125,6 @@
 
 
                                     <div class="col-12 mb-2 mt-2">
-                                        <!-- <div class="float-right">
-                                            <a class="btn btn-outline-danger mx-1" id="btnCancelarCliente">CANCELAR</a>
-                                            <a class="btn btn-outline-success mx-1" id="btnRegistrarCliente">GUARDAR CLIENTE</a>
-                                        </div> -->
-
                                         <div class="row">
                                             <div class="offset-6 col-6 text-right">
                                                 <a class="btn btn-sm btn-danger  fw-bold w-25" id="btnCancelarCliente" style="position: relative;">
@@ -254,7 +202,6 @@
 
     function CargarSelects() {
         CargarSelect(null, $("#tipo_documento"), "--Seleccione Tipo Documento--", "ajax/ventas.ajax.php", 'obtener_tipo_documento', null, 0);
-        $('.select2').select2()
     }
 
     function fnc_CargarDatatableClientes() {
