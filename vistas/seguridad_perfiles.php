@@ -86,29 +86,12 @@
                                 <div class="row">
 
                                     <div class="col-8">
-
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="text" id="descripcion" class="form-control text-uppercase" name="descripcion" required>
-                                            <label for="descripcion">Descripción</label>
-                                            <div class="invalid-feedback">Ingrese la descripción</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-users mr-1 my-text-color"></i>Perfil</label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm text-uppercase" id="descripcion" name="descripcion" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-
                                     </div>
 
                                     <!-- ESTADO -->
                                     <div class="col-4">
-                                        <!-- <div class="form-floating mb-2">
-                                            <select class="form-select select2" id="estado" name="estado" aria-label="Floating label select example" required>
-                                                <option value="" disabled>--Seleccione un estado--</option>
-                                                <option value="1" selected>ACTIVO</option>
-                                                <option value="0">INACTIVO</option>
-                                            </select>
-                                            <label for="estado">Estado</label>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-toggle-on mr-1 my-text-color"></i> Estado</label>
                                         <select class="form-select" id="estado" name="estado" aria-label="Floating label select example" required>
                                             <option value="" disabled>--Seleccione un estado--</option>
@@ -120,9 +103,6 @@
 
                                     <div class="col-12 mt-2">
                                         <div class="float-right">
-                                            <!-- <a class="btn btn-outline-danger mx-1" id="btnCancelarPerfil">CANCELAR</a> -->
-                                            <!-- <a class="btn btn-outline-success mx-1" id="btnRegistrarPerfil">GUARDAR</a> -->
-
                                             <a class="btn btn-sm btn-danger  fw-bold " id="btnCancelarPerfil" style="position: relative; width: 160px;">
                                                 <span class="text-button">CANCELAR</span>
                                                 <span class="btn fw-bold icon-btn-danger ">
@@ -141,8 +121,8 @@
                                     </div>
 
                                 </div>
-                            </form>
 
+                            </form>
 
                         </div>
 
@@ -161,7 +141,7 @@
 
 <script>
     $(document).ready(function() {
-        CargarSelects();
+
         fnc_CargarDatatablePerfil();
 
         $("#btnRegistrarPerfil").on('click', function() {
@@ -181,10 +161,6 @@
         })
 
     })
-
-    function CargarSelects() {
-        $('.select2').select2()
-    }
 
     function fnc_CargarDatatablePerfil() {
 
