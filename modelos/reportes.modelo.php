@@ -83,6 +83,107 @@ class ReportesModelo
         return $output;
     }
 
+    static public function mdlReporteKardexPorProducto($post)
+    {
+
+        $column = ["codigo_producto", "producto", "fecha", "tipo_movimiento", "cantidad", "stock"];
+
+        $query = "SELECT 
+                        k.codigo_producto, 
+                        p.descripcion as producto,
+                    date(fecha) as fecha, 
+                    case when (upper(k.concepto) LIKE '%COMPRA%' ) then 'COMPRA'
+                            when (upper(k.concepto) LIKE '%INVENTARIO INICIAL%') then 'INVENTARIO INICIAL'
+                            when (upper(k.concepto) LIKE '%VENTA%') THEN 'VENTA'
+                            end
+                    as tipo_movimiento, 
+                    (select case when (upper(k1.concepto) LIKE '%COMPRA%' OR upper(k1.concepto) LIKE '%INVENTARIO INICIAL%')
+                                        THEN k1.in_unidades 
+                                    when (upper(concepto) LIKE '%VENTA%')
+                                        THEN k1.out_unidades * -1
+                                end 
+                            from kardex k1 
+                        where k1.id = k.id ) 
+                        as cantidad,
+                    ex_unidades as stock
+                from kardex k inner join productos p on k.codigo_producto = p.codigo_producto";
+
+        if (isset($post["search"]["value"])) {
+            $query .= ' WHERE   
+                                k.codigo_producto like "%' . $post["search"]["value"] . '%" 
+                        GROUP BY 
+                                k.codigo_producto, 
+                                p.descripcion,
+                                k.fecha, 
+                                k.concepto, 
+                                in_unidades,        
+                                out_unidades,        
+                                ex_unidades';
+        }
+
+        if (isset($post["order"])) {
+            $query .= ' order by ' . $column[$post['order']['0']['column']] . ' ' . $post['order']['0']['dir'] . ' ';
+        } else {
+            $query .= ' order by k.codigo_producto, k.fecha ';
+        }
+
+        //SE AGREGA PAGINACION
+        if ($post["length"] != -1) {
+            $query1 = " LIMIT " . $post["start"] . ", " . $post["length"];
+        }
+
+        $stmt = Conexion::conectar()->prepare($query);
+
+        $stmt->execute();
+
+        $number_filter_row = $stmt->rowCount();
+
+        $stmt =  Conexion::conectar()->prepare($query . $query1);
+
+        $stmt->execute();
+
+        $results = $stmt->fetchAll();
+
+        $data = array();
+
+        foreach ($results as $row) {
+            $sub_array = array();
+            $sub_array[] = $row['codigo_producto'];
+            $sub_array[] = $row['producto'];
+            $sub_array[] = $row['fecha'];
+            $sub_array[] = $row['tipo_movimiento'];
+            $sub_array[] = $row['cantidad'];
+            $sub_array[] = $row['stock'];
+            $data[] = $sub_array;
+        }
+
+        $stmt = Conexion::conectar()->prepare("SELECT 	
+                                                    *
+                                                from 
+                                                    kardex k inner join productos p on k.codigo_producto = p.codigo_producto
+                                                GROUP BY 
+                                                    k.codigo_producto, 
+                                                    p.descripcion,
+                                                    k.fecha, 
+                                                    k.concepto, 
+                                                    in_unidades,        
+                                                    out_unidades,        
+                                                    ex_unidades");
+
+        $stmt->execute();
+
+        $count_all_data = $stmt->rowCount();
+
+        $output = array(
+            'draw' => $post['draw'],
+            "recordsTotal" => $count_all_data,
+            "recordsFiltered" => $number_filter_row,
+            "data" => $data
+        );
+
+        return $output;
+    }
+
     static public function mdlReporteVentasPorCategoria($post)
     {
 

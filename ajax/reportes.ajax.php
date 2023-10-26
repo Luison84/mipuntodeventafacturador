@@ -15,6 +15,12 @@ if (isset($_POST["accion"])) {
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
             break;
 
+        case 'reporte_kardex_x_producto':
+
+            $response = ReportesModelo::mdlReporteKardexPorProducto($_POST);
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+            break;
+
         case 'reporte_ventas_por_categoria':
 
             $response = ReportesModelo::mdlReporteVentasPorCategoria($_POST);
