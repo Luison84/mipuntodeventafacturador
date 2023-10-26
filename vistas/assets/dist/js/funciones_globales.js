@@ -218,6 +218,7 @@ function validateJS(event, type) {
     }
 
     if (type == "usuario_sistema") {
+        console.log(event.target.attributes['id_usuario'].value);
         
         var formData = new FormData();
         formData.append('accion', 'validar_usuario_sistema');
