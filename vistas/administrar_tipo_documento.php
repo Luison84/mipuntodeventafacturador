@@ -86,13 +86,6 @@
                                 <div class="row">
 
                                     <div class="col-3 mb-2">
-
-                                        <!-- <div class="form-floating mb-2" style="position: relative;">
-                                            <input type="text" id="codigo" class="form-control" name="codigo" onchange="validateJS(event, 'codigo_tipo_documento')" required>
-                                            <label for="codigo">Código</label>
-                                            <div class="invalid-feedback">Ingrese el código</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Código <strong class="text-danger fw-bold">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="codigo" name="codigo" onchange="validateJS(event, 'codigo_tipo_documento')" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el código</div>
@@ -100,13 +93,6 @@
                                     </div>
 
                                     <div class="col-6 mb-2">
-
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="text" id="descripcion" class="form-control text-uppercase" name="descripcion" required>
-                                            <label for="descripcion">Descripción</label>
-                                            <div class="invalid-feedback">Ingrese la descripción</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-signature mr-1 my-text-color"></i>Descripción <strong class="text-danger fw-bold">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="descripcion" name="descripcion" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese la descripción</div>
@@ -115,14 +101,6 @@
 
                                     <!-- ESTADO -->
                                     <div class="col-3 mb-2">
-                                        <!-- <div class="form-floating mb-2">
-                                            <select class="form-select select2" id="estado" name="estado" aria-label="Floating label select example" required>
-                                                <option value="" disabled>--Seleccione un estado--</option>
-                                                <option value="1" selected>ACTIVO</option>
-                                                <option value="0">INACTIVO</option>
-                                            </select>
-                                            <label for="estado">Estado</label>
-                                        </div> -->
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-toggle-on mr-1 my-text-color"></i>Estado <strong class="text-danger fw-bold">*</strong></label>
                                         <select class="form-select" id="estado" name="estado" aria-label="Floating label select example" required>
                                             <option value="" disabled>--Seleccione un estado--</option>
@@ -134,11 +112,6 @@
 
 
                                     <div class="col-12 mb-2 mt-2">
-                                        <!-- <div class="float-right">
-                                            <a class="btn btn-outline-danger mx-1" id="btnCancelarTipoDocumento">CANCELAR</a>
-                                            <a class="btn btn-outline-success mx-1" id="btnRegistrarTipoDocumento">GUARDAR TIPO DE DOCUMENTO</a>
-                                        </div> -->
-
                                         <div class="row">
                                             <div class="offset-6 col-6 text-right">
                                                 <a class="btn btn-sm btn-danger  fw-bold w-25" id="btnCancelarTipoDocumento" style="position: relative;">
@@ -181,7 +154,7 @@
 
 <script>
     $(document).ready(function() {
-        CargarSelects();
+
         fnc_CargarDatatableTipoDocumento();
 
         $("#btnRegistrarTipoDocumento").on('click', function() {
@@ -197,10 +170,6 @@
         })
 
     })
-
-    function CargarSelects() {
-        $('.select2').select2()
-    }
 
     function fnc_CargarDatatableTipoDocumento() {
 
