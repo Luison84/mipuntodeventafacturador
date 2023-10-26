@@ -44,56 +44,35 @@
 
                             <div class="col-4 col-lg-3 mb-2">
 
-                                <!-- <div class="form-floating my-1">
-                                    <input type="text" id="iptCodigoBarras" class="form-control" data-index="2">
-                                    <label for="iptCodigoBarras">Código de Barras</label>
-                                </div> -->
-
                                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Código del Producto</label>
                                 <input data-index="1" type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="iptCodigoBarras" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                             </div>
 
                             <div class="col-4 col-lg-3 mb-2">
-                                <!-- <div class="form-floating my-1">
-                                    <select class="form-select select2" id="id_categoria_busqueda" data-index="3" aria-label="Floating label select example">
-                                    </select>
-                                    <label for="floatingSelect">Categorías</label>
-                                </div> -->
                                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-layer-group mr-1 my-text-color"></i> Categorías</label>
                                 <select data-index="2" class="form-select" id="id_categoria_busqueda" aria-label="Floating label select example" required>
                                 </select>
                             </div>
 
                             <div class="col-4 col-lg-6 mb-2">
-                                <!-- <div class="form-floating my-1">
-                                    <input type="text" id="iptProducto" class="form-control" data-index="6">
-                                    <label for="iptProducto">Producto</label>
-                                </div> -->
                                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-gifts mr-1 my-text-color"></i>Producto</label>
                                 <input data-index="4" type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="iptProducto" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                             </div>
 
                             <div class="col-4 col-lg-3 mb-2">
-                                <!-- <div class="form-floating my-1">
-                                    <input type="text" id="iptPrecioVentaDesde" class="form-control">
-                                    <label for="iptPrecioVentaDesde">P. Venta Desde</label>
-                                </div> -->
                                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-dollar-sign mr-1 my-text-color"></i> P. Venta Desde</label>
                                 <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="iptPrecioVentaDesde" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                             </div>
 
                             <div class="col-4 col-lg-3 mb-2">
-                                <!-- <div class="form-floating my-1">
-                                    <input type="text" id="iptPrecioVentaHasta" class="form-control">
-                                    <label for="iptPrecioVentaHasta">P. Venta Hasta</label>
-                                </div> -->
-
                                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-dollar-sign mr-1 my-text-color"></i> P. Venta Hasta</label>
                                 <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="iptPrecioVentaHasta" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                             </div>
 
                         </div>
+
                     </div> <!-- ./ end card-body -->
+
                 </div>
 
             </div>
@@ -1206,7 +1185,6 @@ VENTA MODAL PARA AUMENTAR O DISMINUIR EL STOCK DEL PRODUCTO
         CargarSelect(null, $("#id_categoria"), "--Seleccione una categoría--", "ajax/categorias.ajax.php", 'obtener_categorias');
         CargarSelect(null, $("#id_tipo_afectacion_igv"), "--Seleccione Tipo de Afectación IGV--", "ajax/productos.ajax.php", 'listar_tipo_afectacion');
         CargarSelect(null, $("#id_unidad_medida"), "--Seleccione una Unidad/Medida--", "ajax/productos.ajax.php", 'listar_unidad_medida');
-        $('.select2').select2()
     }
 
     function dropmenuPostion() {
