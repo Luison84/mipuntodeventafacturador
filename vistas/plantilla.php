@@ -64,14 +64,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css" rel="stylesheet">
-    
+
     <!-- JSTREE CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="vistas/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 
-    
+
 
     <!-- Select2 -->
     <link rel="stylesheet" href="vistas/assets/plugins/select2/css/select2.min.css">
@@ -126,6 +126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- jquery UI -->
     <!-- <script src="vistas/assets/plugins/jquery-ui/js/jquery-ui.js"></script> -->
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
 
     <!-- JS Bootstrap 5 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -145,7 +146,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script src="vistas/assets/dist/js/jquery.tabledit.min.js"></script>
     <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
-    
+
 
     <!-- ============================================================
     =LIBRERIAS PARA EXPORTAR A ARCHIVOS
@@ -190,7 +191,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             function CargarContenido(pagina_php, contenedor) {
                 $("." + contenedor).load(pagina_php);
             }
-
         </script>
 
     </body>
