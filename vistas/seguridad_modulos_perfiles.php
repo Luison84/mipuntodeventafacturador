@@ -237,8 +237,8 @@
         iniciarArbolModulos();
 
         $("#content-modulo-perfil-tab").on('click', function() {
-            // cargarDataTables();
-            // $('#tbl_perfiles_asignar').DataTable().columns.adjust().redraw();
+            cargarDataTables();
+            $('#tbl_perfiles_asignar').DataTable().columns.adjust().redraw();
         })
 
         /* =============================================================
@@ -459,35 +459,35 @@
                     "data": "opciones"
                 }
             ],
-            columnDefs: [{
-                    targets: [3, 4],
-                    visible: false
-                },
-                {
-                    targets: 2,
-                    sortable: false,
-                    createdCell: function(td, cellData, rowData, row, col) {
+            // columnDefs: [{
+            //         targets: [3, 4],
+            //         visible: false
+            //     },
+            //     {
+            //         targets: 2,
+            //         sortable: false,
+            //         createdCell: function(td, cellData, rowData, row, col) {
 
-                        if (parseInt(rowData[2]) == 1) {
-                            $(td).html("Activo")
-                        } else {
-                            $(td).html("Inactivo")
-                        }
+            //             if (parseInt(rowData[2]) == 1) {
+            //                 $(td).html("Activo")
+            //             } else {
+            //                 $(td).html("Inactivo")
+            //             }
 
-                    }
-                },
-                {
-                    targets: 5,
-                    sortable: false,
-                    render: function(data, type, full, meta) {
-                        return "<center>" +
-                            "<span class='btnSeleccionarPerfil text-primary px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Seleccionar perfil'> " +
-                            "<i class='fas fa-check fs-5'></i> " +
-                            "</span> " +
-                            "</center>";
-                    }
-                }
-            ],
+            //         }
+            //     },
+            //     {
+            //         targets: 5,
+            //         sortable: false,
+            //         render: function(data, type, full, meta) {
+            //             return "<center>" +
+            //                 "<span class='btnSeleccionarPerfil text-primary px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Seleccionar perfil'> " +
+            //                 "<i class='fas fa-check fs-5'></i> " +
+            //                 "</span> " +
+            //                 "</center>";
+            //         }
+            //     }
+            // ],
             language: {
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
             }
