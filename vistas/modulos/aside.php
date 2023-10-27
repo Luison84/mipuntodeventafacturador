@@ -68,7 +68,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
                                 <?php foreach ($subMenuUsuario as $subMenu) : ?>
 
                                     <li class="nav-item">
-                                        <a style="cursor: pointer;" class="nav-link item-sidebar-menu <?php if ($subMenu->vista_inicio == 1) : ?>
+                                        <a style="cursor: pointer;" class="nav-link <?php if ($subMenu->vista_inicio == 1) : ?>
                                                 <?php echo 'active '; ?>
                                             <?php endif; ?>" onclick="CargarContenido('vistas/<?php echo $subMenu->vista ?>','content-wrapper')">
                                             <i class="<?php echo $subMenu->icon_menu; ?> nav-icon"></i>
