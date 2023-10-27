@@ -53,7 +53,7 @@ foreach ($productos as $row) {
                                     <div class="text-sm">' . "Stock: " .  $stock_producto . ' - Costo Unit.: ' . $precio_venta_producto . '</div>
                                 </div>
                             </div>
-                            <div class="col-6 d-lg-none">
+                            <div class="d-block col-6 d-lg-none">
                                 <div class="ml-3 text-sm">
                                     <div class="text-sm">Codigo: ' . $codigo_producto . ' - Producto: ' . $descripcion_producto . '</div> 
                                 </div>
