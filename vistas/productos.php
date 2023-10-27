@@ -277,7 +277,7 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
                         </div>
 
                         <!-- BOTONERA -->
-                        <div class="col-12 text-right">
+                        <div class="col-12 text-center mt-3">
                             <a class="btn btn-sm btn-danger  fw-bold " id="btnCancelarRegistro" style="position: relative; width: 160px;">
                                 <span class="text-button">CANCELAR</span>
                                 <span class="btn fw-bold icon-btn-danger ">
