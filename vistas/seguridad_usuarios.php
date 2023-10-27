@@ -501,22 +501,22 @@
 
     }
 
-    function ajustarHeadersDataTables(element) {
+    // function ajustarHeadersDataTables(element) {
 
-        var observer = window.ResizeObserver ? new ResizeObserver(function(entries) {
-            entries.forEach(function(entry) {
-                $(entry.target).DataTable().columns.adjust();
-            });
-        }) : null;
+    //     var observer = window.ResizeObserver ? new ResizeObserver(function(entries) {
+    //         entries.forEach(function(entry) {
+    //             $(entry.target).DataTable().columns.adjust();
+    //         });
+    //     }) : null;
 
-        // Function to add a datatable to the ResizeObserver entries array
-        resizeHandler = function($table) {
-            if (observer)
-                observer.observe($table[0]);
-        };
+    //     // Function to add a datatable to the ResizeObserver entries array
+    //     resizeHandler = function($table) {
+    //         if (observer)
+    //             observer.observe($table[0]);
+    //     };
 
-        // Initiate additional resize handling on datatable
-        resizeHandler(element);
+    //     // Initiate additional resize handling on datatable
+    //     resizeHandler(element);
 
-    }
+    // }
 </script>
