@@ -19,34 +19,14 @@
 
     <div class="row p-0 m-0">
 
+        <div class="col-12 col-lg-4">
 
-        <!--LISTADO DE CATEGORIAS -->
-        <div class="col-12 col-lg-8">
             <div class="card card-gray shadow">
-                <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-list"></i> Listado de Categorias</h3>
-                </div>
-                <div class="card-body">
-                    <table id="tbl_categorias" class="table table-striped w-100 shadow border border-secondary">
-                        <thead class="bg-gray text-left">
-                            <th>id</th>
-                            <th>Categoría</th>
-                            <!-- <th>Medida</th> -->
-                            <th>Estado</th>
-                            <th>F. Creación</th>
 
-                        </thead>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!--FORMULARIO PARA REGISTRO Y EDICION -->
-        <div class="d-none d-lg-block col-lg-4">
-            <div class="card card-gray shadow">
                 <div class="card-header">
                     <h3 class="card-title"><i class="fas fa-edit"></i> Registro de Categorías</h3>
                 </div>
+                
                 <div class="card-body">
 
                     <form class="needs-validation-categorias" novalidate>
@@ -91,6 +71,30 @@
             </div>
 
         </div>
+
+        <!--LISTADO DE CATEGORIAS -->
+        <div class="col-12 col-lg-8">
+            <div class="card card-gray shadow">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-list"></i> Listado de Categorias</h3>
+                </div>
+                <div class="card-body">
+                    <table id="tbl_categorias" class="table table-striped w-100 shadow border border-secondary">
+                        <thead class="bg-gray text-left">
+                            <th>id</th>
+                            <th>Categoría</th>
+                            <!-- <th>Medida</th> -->
+                            <th>Estado</th>
+                            <th>F. Creación</th>
+
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--FORMULARIO PARA REGISTRO Y EDICION -->
+
 
     </div>
 
