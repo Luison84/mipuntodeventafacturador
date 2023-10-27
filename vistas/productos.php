@@ -148,9 +148,9 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
         <div class="modal-content">
 
             <!-- cabecera del modal -->
-            <div class="modal-header bg-gray py-1">
+            <div class="modal-header my-bg py-1">
 
-                <h5 class="modal-title text-white text-lg">Registro de Producto</h5>
+                <h5 class="modal-title text-white text-lg">Registro de Productos</h5>
 
                 <button type="button" class="btn btn-danger btn-sm text-white text-sm" data-bs-dismiss="modal">
                     <i class="fas fa-times text-sm m-0 p-0"></i>

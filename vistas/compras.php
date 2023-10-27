@@ -35,7 +35,7 @@
 
                         <!-- TAB REGISTRO DE COMPRAS -->
                         <li class="nav-item">
-                            <a class="nav-link  my-0" id="registrar-compras-tab" data-toggle="pill" href="#registrar-compras" role="tab" aria-controls="registrar-compras" aria-selected="false"><i class="fas fa-file-signature"></i> Registrar Compra</a>
+                            <a class="nav-link  my-0" id="registrar-compras-tab" data-toggle="pill" href="#registrar-compras" role="tab" aria-controls="registrar-compras" aria-selected="false"><i class="fas fa-file-signature"></i> Registrar</a>
                         </li>
 
                     </ul>
