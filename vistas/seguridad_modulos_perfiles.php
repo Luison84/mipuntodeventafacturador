@@ -128,7 +128,7 @@
 
                                 <table id="tbl_perfiles_asignar" class="table-striped shadow" width: "100%">
 
-                                    <thead class="bg-gray text-left">
+                                    <thead class="bg-main text-left">
                                         <th>id Perfil</th>
                                         <th>Perfil</th>
                                         <th>Estado</th>
