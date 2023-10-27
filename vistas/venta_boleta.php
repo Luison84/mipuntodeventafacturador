@@ -288,14 +288,14 @@
                                                     </div>
 
                                                     <!-- TOTAL RECIBIDO -->
-                                                    <div class="col-6 col-lg-md-3 mb-2">
+                                                    <div class="col-6 col-lg-3 mb-2">
 
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-hand-holding-usd mr-1 my-text-color"></i>Total Recibido</label>
                                                         <input type="number" min="0" step="0.01" placeholder="Dinero recibido" style="border-radius: 20px;" class="form-control form-control-sm" id="total_recibido" name="total_recibido" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                                                     </div>
 
                                                     <!-- VUELTO -->
-                                                    <div class="col-6 col-lg-md-2 mb-2">
+                                                    <div class="col-6 col-lg-2 mb-2">
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-hand-holding-usd mr-1 my-text-color"></i>Vuelto</label>
                                                         <input type="number" min="0" step="0.01" placeholder="Vuelto" style="border-radius: 20px;" class="form-control form-control-sm" id="vuelto" name="vuelto" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                                                     </div>
