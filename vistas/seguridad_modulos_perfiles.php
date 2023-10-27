@@ -440,7 +440,7 @@
             },
             deferRender: true,
             scrollCollapse: true,
-            // scrollX: true,
+            scrollX: true,
             "columns": [{
                     "data": "id_perfil"
                 },
