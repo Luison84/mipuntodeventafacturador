@@ -102,7 +102,9 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
 
 <script>
     $(".nav-link").on('click', function() {
+        alert("click")
         $(".nav-link").removeClass('active');
         $(this).addClass('active');
+        $(".sidebar-mini").addClass('sidebar-collapse')
     })
 </script>
