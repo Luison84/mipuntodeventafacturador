@@ -953,9 +953,7 @@
                 }
             }
         }).data("ui-autocomplete")._renderItem = function(ul, item) {
-            return $('<li>').append('<div class="autocompleteStore">' + item.key +
-                    '</div><div class="autocompleteCashback"><span class="cashback-icon"></span><span class="cashback-text"> <span class="ac_cashback">'+item.desc+'</span></span></div>').appendTo(ul).css("position", "static")
-            // return $("<li class='ui-autocomplete-row'></li>")
+            return $("<li class='ui-autocomplete-row'></li>")
                 .data("item.autocomplete", item)
                 .append(item.label)
                 .appendTo(ul);
