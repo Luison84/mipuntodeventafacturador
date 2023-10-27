@@ -201,13 +201,6 @@
                                                 <div class="row">
 
                                                     <div class="col-12 col-md-6 mb-2">
-
-                                                        <!-- <div class="form-floating mb-2">
-                                                            <select class="form-select select2" id="tipo_documento" name="tipo_documento" aria-label="Floating label select example" required>
-                                                            </select>
-                                                            <label for="tipo_documento">Tipo Documento</label>
-                                                            <div class="invalid-feedback">Seleccione el Tipo de Documento</div>
-                                                        </div> -->
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-signature mr-1 my-text-color"></i>Tipo Documento</label>
                                                         <select class="form-select" id="tipo_documento" name="tipo_documento" aria-label="Floating label select example" required>
                                                         </select>
@@ -215,13 +208,6 @@
                                                     </div>
 
                                                     <div class="col-12 col-md-6 mb-2">
-
-                                                        <!-- <div class="form-floating mb-2" style="position: relative;">
-                                                            <input type="text" id="nro_documento" class="form-control" name="nro_documento">
-                                                            <label for="nro_documento">Nro Documento</label>
-                                                            <i class="fas fa-search fs-5 text-primary" id="btnConsultarDni" style="cursor: pointer; position: absolute; top: 50%; right:20px; transform: translateX(-50%) translateY(-50%);"></i>
-                                                            <div class="invalid-feedback">Ingrese el Nro de Documento</div>
-                                                        </div> -->
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card mr-1 my-text-color"></i> Nro Documento</label>
                                                         <div class="input-group input-group-sm mb-3 ">
                                                             <span class="input-group-text btnConsultarDni" id="inputGroup-sizing-sm" style="cursor: pointer;"><i class="fas fa-search ml-1 text-white"></i></span>
@@ -232,36 +218,17 @@
                                                     </div>
 
                                                     <div class="col-12 col-md-12 mb-2">
-
-                                                        <!-- <div class="form-floating mb-2">
-                                                            <input type="text" id="nombre_cliente_razon_social" class="form-control" name="nombre_cliente_razon_social">
-                                                            <label for="nombre_cliente_razon_social">Nombre del Cliente
-                                                                / Razón Social</label>
-                                                            <div class="invalid-feedback">Ingrese el Nombre/Razón Social del Cliente</div>
-                                                        </div> -->
-
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-user-tie mr-1 my-text-color"></i>Nombre del Cliente/ Razón Social</label>
                                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="nombre_cliente_razon_social" name="nombre_cliente_razon_social" placeholder="Ingrese Nombre del Cliente o Razón Social" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                                                     </div>
 
                                                     <div class="col-12 col-md-9 mb-2">
-
-                                                        <!-- <div class="form-floating mb-2">
-                                                            <input type="text" id="direccion" class="form-control" name="direccion">
-                                                            <label for="direccion">Dirección</label>
-                                                        </div> -->
-
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-map-marker-alt mr-1 my-text-color"></i>Dirección</label>
                                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="direccion" name="direccion" placeholder="Ingrese la dirección" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
 
                                                     </div>
 
                                                     <div class="col-12 col-md-3 mb-2">
-
-                                                        <!-- <div class="form-floating mb-2">
-                                                            <input type="text" id="telefono" class="form-control" name="telefono">
-                                                            <label for="telefono">Teléfono</label>
-                                                        </div> -->
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-phone-alt mr-1 my-text-color"></i>Teléfono</label>
                                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="telefono" name="telefono" placeholder="Teléfono" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
 
@@ -296,7 +263,7 @@
                                                     </div>
 
                                                     <!-- INPUT PARA INGRESO DEL CODIGO DE BARRAS O DESCRIPCION DEL PRODUCTO -->
-                                                    <div class="col-md-12 mb-2">
+                                                    <div class="col-12 mb-2">
                                                         <!-- <div class="form-floating mb-2">
                                                             <input type="text" id="producto" class="form-control" name="producto">
                                                             <label for="producto">Digite el Producto a vender</label>                                                            
@@ -305,15 +272,7 @@
                                                         <input type="text" placeholder="Ingrese el código de barras o el nombre del producto" style="border-radius: 20px;" class="form-control form-control-sm" id="producto" name="producto" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                                                     </div>
 
-                                                    <div class="col-4 mb-2">
-                                                        <!-- <div class="form-floating mb-2"> -->
-                                                        <!-- <select class="form-select select2" id="tipo_operacion" name="tipo_operacion" aria-label="Floating label select example" required>
-                                                            </select>
-                                                            <label for="tipo_operacion">Tipo Operación</label> -->
-                                                        <!-- <div class="invalid-feedback">Ingrese el codigo del Producto</div> -->
-
-                                                        <!-- </div> -->
-
+                                                    <div class="col-12 col-lg-4 mb-2">
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-alt mr-1 my-text-color"></i>Tipo Operación</label>
                                                         <select class="form-select" id="tipo_operacion" name="tipo_operacion" aria-label="Floating label select example" required>
                                                         </select>
@@ -321,13 +280,7 @@
                                                     </div>
 
                                                     <!-- FORMA DE PAGO -->
-                                                    <div class="col-3 mb-2">
-                                                        <!-- <div class="form-floating mb-2">
-                                                            <select class="form-select select2" id="forma_pago" name="forma_pago" aria-label="Floating label select example" required>
-                                                            </select>
-                                                            <label for="forma_pago">Forma de Pago</label>
-                                                            <div class="invalid-feedback">Ingrese el codigo del Producto</div>
-                                                        </div> -->
+                                                    <div class="col-12 col-lg-3 mb-2">
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="far fa-credit-card mr-1 my-text-color"></i>Forma de Pago</label>
                                                         <select class="form-select" id="forma_pago" name="forma_pago" aria-label="Floating label select example" required readonly>
                                                         </select>
@@ -335,24 +288,14 @@
                                                     </div>
 
                                                     <!-- TOTAL RECIBIDO -->
-                                                    <div class="col-md-3 mb-2">
-                                                        <!-- <div class="form-floating mb-2">
-                                                            <input type="number" min="0" step="0.01" id="total_recibido" class="form-control" name="total_recibido">
-                                                            <label for="total_recibido">Total Recibido</label>
-                                                            <div class="invalid-feedback">Ingrese el codigo del Producto</div>
-                                                        </div> -->
+                                                    <div class="col-6 col-lg-md-3 mb-2">
 
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-hand-holding-usd mr-1 my-text-color"></i>Total Recibido</label>
                                                         <input type="number" min="0" step="0.01" placeholder="Dinero recibido" style="border-radius: 20px;" class="form-control form-control-sm" id="total_recibido" name="total_recibido" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                                                     </div>
 
                                                     <!-- VUELTO -->
-                                                    <div class="col-md-2 mb-2">
-                                                        <!-- <div class="form-floating mb-2">
-                                                            <input type="number" min="0" id="vuelto" step="0.01" class="form-control" name="vuelto">
-                                                            <label for="vuelto">Vuelto</label>
-                                                            <div class="invalid-feedback">Ingrese el codigo del Producto</div>
-                                                        </div> -->
+                                                    <div class="col-6 col-lg-md-2 mb-2">
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-hand-holding-usd mr-1 my-text-color"></i>Vuelto</label>
                                                         <input type="number" min="0" step="0.01" placeholder="Vuelto" style="border-radius: 20px;" class="form-control form-control-sm" id="vuelto" name="vuelto" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                                                     </div>
