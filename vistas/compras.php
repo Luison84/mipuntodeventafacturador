@@ -129,19 +129,26 @@
 
                                     <!-- BOTONES: CANCELAR - GUARDAR -->
                                     <div class="col-12 col-lg-9 text-right mt-3 ">
-                                        <a class="btn btn-sm btn-danger w-50 fw-bold" id="btnCancelarCompra" style="position: relative;">
-                                            <span class="text-button">CANCELAR</span>
-                                            <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
-                                                <i class="fas fa-times-circle fs-5"></i>
-                                            </span>
-                                        </a>
 
-                                        <a class="btn btn-sm btn-success w-50 fw-bold" id="btnGuardarCompra" style="position: relative;">
-                                            <span class="text-button">GUARDAR</span>
-                                            <span class="btn fw-bold icon-btn-success d-flex align-items-center">
-                                                <i class="fas fa-save fs-5"></i>
-                                            </span>
-                                        </a>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <a class="btn btn-sm btn-danger w-100 fw-bold" id="btnCancelarCompra" style="position: relative;">
+                                                    <span class="text-button">CANCELAR</span>
+                                                    <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
+                                                        <i class="fas fa-times-circle fs-5"></i>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="col-6">
+                                                <a class="btn btn-sm btn-success w-100 fw-bold" id="btnGuardarCompra" style="position: relative;">
+                                                    <span class="text-button">GUARDAR</span>
+                                                    <span class="btn fw-bold icon-btn-success d-flex align-items-center">
+                                                        <i class="fas fa-save fs-5"></i>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -2185,5 +2192,4 @@ MODAL MOSTRAR DETALLE DE COMPRA
             "resizable=0,"
         );
     }
-
 </script>
