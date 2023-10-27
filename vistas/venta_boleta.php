@@ -951,6 +951,9 @@
                     };
                     ui.content.push(noResult);
                 }
+            },
+            open: function() {
+                $("ul.ui-menu").width($(this).innerWidth());
             }
         }).data("ui-autocomplete")._renderItem = function(ul, item) {
             return $("<li class='ui-autocomplete-row'></li>")
