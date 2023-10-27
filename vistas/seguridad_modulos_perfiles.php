@@ -437,6 +437,7 @@
                     accion: 'obtener_perfiles_asignar'
                 }
             },
+            scrollCollapse: true,
             scrollX: true,
             columnDefs: [
                 {
@@ -472,7 +473,7 @@
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
             }
 
-        }).columns.adjust().draw();;
+        }).columns.adjust().draw();
 
         // $('#tbl_perfiles_asignar').DataTable().columns.adjust().draw();
 
@@ -511,42 +512,6 @@
             $(this).jstree("open_all");
         });
 
-
-        // $.ajax({
-        //     async: false,
-        //     url: "ajax/modulo.ajax.php",
-        //     method: 'POST',
-        //     data: {
-        //         accion: 'obtener_modulos'
-        //     },
-        //     dataType: 'json',
-        //     success: function(respuesta) {
-
-        //         modulos_sistema = respuesta;     
-
-        //         // inline data demo
-        //         $('#modulos').jstree({
-        //             'core': {
-        //                 "check_callback": true,
-        //                 'data': respuesta
-        //             },
-        //             "checkbox": {
-        //                 "keep_selected_style": true
-        //             },
-        //             "types": {
-        //                 "default": {
-        //                     "icon": "fas fa-laptop text-warning"
-        //                 }
-        //             },
-        //             "plugins": ["wholerow", "checkbox", "types", "changed"]
-
-        //         }).bind("loaded.jstree", function(event, data) {
-        //             // you get two params - event & data - check the core docs for a detailed description
-        //             $(this).jstree("open_all");
-        //         });
-
-        //     }
-        // })
     }
 
     function seleccionarModulosPerfil(pin_idPerfil) {
@@ -756,4 +721,5 @@
         });
 
     }
+
 </script>
