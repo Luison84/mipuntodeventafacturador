@@ -441,6 +441,7 @@
             deferRender: true,
             scrollCollapse: true,
             scrollX: true,
+            "sScrollXInner": "100%",
             "columns": [{
                     "data": "id_perfil"
                 },
