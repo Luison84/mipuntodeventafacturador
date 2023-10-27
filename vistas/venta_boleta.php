@@ -416,7 +416,7 @@
                                                 </a> -->
 
                                                 <div class="row">
-                                                    <div class="col-12 offset-lg-6 col-lg-6 text-right">
+                                                    <div class="col-12 text-right">
                                                         <a class="btn btn-sm btn-danger  fw-bold w-25" id="btnCancelarVenta" style="position: relative;">
                                                             <span class="text-button">CANCELAR</span>
                                                             <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
