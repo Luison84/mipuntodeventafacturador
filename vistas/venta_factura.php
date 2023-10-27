@@ -1653,7 +1653,7 @@ MODAL CUOTAS DEL CREDITO
                 },
                 type: 'POST'
             },
-            // scrollX: true,
+            scrollX: true,
             // autoWidth: true,
             scrollY: "50vh",
             columnDefs: [{
