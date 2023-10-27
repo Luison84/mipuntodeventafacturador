@@ -401,14 +401,14 @@
                                             </div>
 
                                             <div class="col-12 text-center my-1">
-                                                <a class="btn btn-sm btn-danger  fw-bold w-100 " id="btnCancelarVenta" style="position: relative;">
+                                                <a class="btn btn-sm btn-danger  fw-bold w-25 " id="btnCancelarVenta" style="position: relative;">
                                                     <span class="text-button">CANCELAR</span>
                                                     <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
                                                         <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
                                                     </span>
                                                 </a>
 
-                                                <a class="btn btn-sm btn-success  fw-bold  w-100" id="btnGuardarComprobante" style="position: relative;">
+                                                <a class="btn btn-sm btn-success  fw-bold  w-25" id="btnGuardarComprobante" style="position: relative;">
                                                     <span class="text-button">VENDER</span>
                                                     <span class="btn fw-bold icon-btn-success d-flex align-items-center">
                                                         <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
