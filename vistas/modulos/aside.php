@@ -118,19 +118,19 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
 
     })
 
-    // $(".nav-item").on('click', function() {
+    $(".nav-item").on('click', function() {
 
-    //     if (!$(this).children().hasClass('nav-treeview')) {
+        if (!$(this).children().hasClass('nav-treeview')) {
 
-    //         if ($(window).width() < 768) {
-    //             $(".sidebar-mini").removeClass('sidebar-open')
-    //             $(".sidebar-mini").addClass('sidebar-collapse')
-    //             $(".sidebar-mini").addClass('sidebar-closed')
-    //             // $(this).addClass('active');
-    //         }
+            if ($(window).width() < 768) {
+                $(".sidebar-mini").removeClass('sidebar-open')
+                $(".sidebar-mini").addClass('sidebar-collapse')
+                $(".sidebar-mini").addClass('sidebar-closed')
+                $(this).children().addClass('active');
+            }
 
-    //     }
+        }
 
-    //     // $(".sidebar-mini").addClass('sidebar-collapse')
-    // })
+        // $(".sidebar-mini").addClass('sidebar-collapse')
+    })
 </script>
