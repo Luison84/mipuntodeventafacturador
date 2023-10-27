@@ -632,7 +632,7 @@
                                     .data(`<input  type="number" min="0"
                                                                     style="width:80px;" 
                                                                     codigoProducto = "` + cod_producto_actual + `" 
-                                                                    class="form-control text-center iptCantidad m-0 p-0 rounded-pill" 
+                                                                    class="form-control form-control-sm text-center iptCantidad m-0 p-0 rounded-pill" 
                                                                     value="1">`).draw();
 
                                 $('#tbl_ListadoProductos').DataTable().cell(index, 8)
@@ -688,7 +688,7 @@
                                                                                                 style="width:80px;" 
                                                                                                 codigoProducto = "` +
                                         cod_producto_actual + `" 
-                                                                                                class="form-control text-center iptCantidad m-0 p-0 rounded-pill" 
+                                                                                                class="form-control form-control-sm text-center iptCantidad m-0 p-0 rounded-pill" 
                                                                                                 value="` +
                                         cantidad_actual + `">`).draw();
 
@@ -1096,7 +1096,7 @@
                             $('#tbl_ListadoProductos').DataTable().cell(index, 7).data(`<input  type="number" min="0"
                                                                     style="width:80px;" 
                                                                     codigoProducto = "` + codigo_producto + `" 
-                                                                    class="form-control text-center iptCantidad m-0 p-0 rounded-pill" 
+                                                                    class="form-control form-control-sm text-center iptCantidad m-0 p-0 rounded-pill" 
                                                                     value="` + cantidad_a_comprar + `">`).draw();
 
                             $('#tbl_ListadoProductos').DataTable().cell(index, 8).data(
@@ -1171,7 +1171,7 @@
                         'precio': parseFloat(respuesta['precio_unitario_sin_igv']).toFixed(2),
                         'cantidad': '<input type="number" style="width:80px;" codigoProducto = "' +
                             respuesta['codigo_producto'] +
-                            '" class="form-control text-center iptCantidad rounded-pill p-0 m-0" value="1">',
+                            '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="1">',
                         'cantidad_final': 1,
                         'subtotal': parseFloat(respuesta['precio_unitario_sin_igv'] * 1).toFixed(2),
                         'igv': parseFloat((respuesta['precio_unitario_sin_igv'] * 1 * respuesta[
@@ -1481,7 +1481,7 @@
                     .data(`<input  type="number" min="0"
                             style="width:80px;background-color:#D98880" 
                             codigoProducto = "` + cod_producto_actual + `" 
-                            class="form-control text-center iptCantidad m-0 p-0 rounded-pill" 
+                            class="form-control form-control-sm text-center iptCantidad m-0 p-0 rounded-pill" 
                             value="` + data["cantidad_final"] + `">`).draw();
                 stock_valido = false;
 
