@@ -121,9 +121,6 @@
 
                                                     <!-- EMITIR POR -->
                                                     <div class="col-12 mb-2">
-                                                        <!-- <select class="form-select select2" id="empresa_emisora" name="empresa_emisora" aria-label="Floating label select example" required>
-                                                            </select>
-                                                            <label for="serie">Empresa Emisora</label> -->
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-building mr-1 my-text-color"></i> Empresa Emisora</label>
                                                         <select class="form-select" id="empresa_emisora" name="empresa_emisora" aria-label="Floating label select example" required>
                                                         </select>
@@ -132,14 +129,6 @@
 
                                                     <!-- FECHA DE EMISION -->
                                                     <div class="col-12 col-md-4 mb-2">
-                                                        <!-- <div class="form-floating mb-2">
-                                                            <input type="text" style="cursor: pointer;position: relative;" class="form-control form-control-sm datetimepicker-input" id="fecha_emision" name="fecha_emision" required>
-                                                            <label for="fecha_emision">Fecha Emisión</label>
-                                                            <div class="invalid-feedback">Ingrese Fecha de Emisión</div>
-
-                                                            <i class="fas fa-calendar-alt text-primary fs-5" data-toggle="datetimepicker" data-target="#fecha_emision" style="z-index:0.5; cursor: pointer; position: absolute; top: 50%; right:10px; transform: translateX(-50%) translateY(-50%);"></i>
-                                                        </div> -->
-
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-calendar-alt mr-1 my-text-color"></i> Fecha Emisión</label>
                                                         <div class="input-group input-group-sm mb-3 ">
                                                             <span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" data-toggle="datetimepicker" data-target="#fecha_emision"><i class="fas fa-calendar-alt ml-1 text-white"></i></span>
@@ -150,13 +139,6 @@
 
                                                     <!-- TIPO COMPROBANTE -->
                                                     <div class="col-12 col-md-8 mb-2">
-                                                        <!-- <div class="form-floating mb-2">
-                                                            <select class="form-select select2" id="tipo_comprobante" name="tipo_comprobante" aria-label="Floating label select example" required readonly>
-                                                            </select>
-                                                            <label for="serie">Tipo de Comprobante</label>
-                                                            <div class="invalid-feedback">Seleccione Tipo de Comprobante
-                                                            </div>
-                                                        </div> -->
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-contract mr-1 my-text-color"></i>Tipo de Comprobante</label>
                                                         <select class="form-select" id="tipo_comprobante" name="tipo_comprobante" aria-label="Floating label select example" required>
                                                         </select>
@@ -165,12 +147,6 @@
 
                                                     <!-- SERIE -->
                                                     <div class="col-12 col-md-4 mb-2">
-                                                        <!-- <div class="form-floating mb-2">
-                                                            <select class="form-select select2" id="serie" name="serie" aria-label="Floating label select example" required>
-                                                            </select>
-                                                            <label for="serie">Serie</label>
-                                                            <div class="invalid-feedback">Seleccione Serie del Comprobante</div>
-                                                        </div> -->
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Serie</label>
                                                         <select class="form-select" id="serie" name="serie" aria-label="Floating label select example" required>
                                                         </select>
@@ -179,23 +155,12 @@
 
                                                     <!-- CORRELATIVO -->
                                                     <div class="col-12 col-md-4 mb-2">
-                                                        <!-- <div class="form-floating mb-2">
-                                                            <input type="text" id="correlativo" class="form-control" name="correlativo" required readonly>
-                                                            <label for="correlativo">Correlativo</label>
-                                                            <div class="invalid-feedback">Ingrese el correlativo</div>
-                                                        </div> -->
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Correlativo</label>
                                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="correlativo" name="correlativo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required readonly>
                                                     </div>
 
                                                     <!-- MONEDA -->
                                                     <div class="col-12 col-md-4 mb-2">
-                                                        <!-- <div class="form-floating mb-2">
-                                                            <select class="form-select select2" id="moneda" name="moneda" aria-label="Floating label select example" required>
-                                                            </select>
-                                                            <label for="moneda">Moneda</label>
-                                                            <div class="invalid-feedback">Seleccione la moneda</div>
-                                                        </div> -->
                                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-money-bill-wave mr-1 my-text-color"></i>Moneda</label>
                                                         <select class="form-select" id="moneda" name="moneda" aria-label="Floating label select example" required>
                                                         </select>
