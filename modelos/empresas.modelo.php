@@ -10,8 +10,8 @@ class EmpresasModelo
     {
 
         $stmt = Conexion::conectar()->prepare("SELECT id_empresa, razon_social 
-                                                FROM EMPRESAS 
-                                                WHERE ESTADO = 1");
+                                                FROM empresas 
+                                                WHERE estado = 1");
 
         $stmt->execute();
         return $stmt->fetchAll();
