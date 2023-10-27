@@ -128,7 +128,7 @@
                                     </div>
 
                                     <!-- BOTONES: CANCELAR - GUARDAR -->
-                                    <div class="col-12 col-lg-9 text-right mt-3 ">
+                                    <div class="col-12 col-lg-9 text-right mt-3 col-botonera">
 
                                         <a class="btn btn-sm btn-danger fw-bold" id="btnCancelarCompra" style="position: relative;">
                                             <span class="text-button">CANCELAR</span>
@@ -709,6 +709,8 @@ MODAL MOSTRAR DETALLE DE COMPRA
         if ($(window).width() < 768) {
             $("#btnCancelarCompra").addClass('w-50')
             $("#btnGuardarCompra").addClass('w-50')
+            $(".col-botonera").css('display','flex')
+            $(".col-botonera").css('column-gap','15')
         }else{
             $("#btnCancelarCompra").addClass('w-25')
             $("#btnGuardarCompra").addClass('w-25')
