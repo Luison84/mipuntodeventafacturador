@@ -48,7 +48,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="vistas/assets/plugins/fontawesome-free/css/all.min.css">
 
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="vistas/assets/dist/css/ionicons.min.css">
 
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="vistas/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
@@ -56,21 +56,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="vistas/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="vistas/assets/dist/css/toastr.min.css">
 
     <!-- Jquery CSS -->
     <link rel="stylesheet" href="vistas/assets/plugins/jquery-ui/css/jquery-ui.css">
 
     <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css" rel="stylesheet">
+    <link href="vistas/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vistas/assets/dist/css/select.dataTables.min.css" rel="stylesheet">
 
     <!-- JSTREE CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+    <link rel="stylesheet" href="vistas/assets/dist/css/jstree.min.css" />
 
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="vistas/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-
 
 
     <!-- Select2 -->
@@ -80,13 +79,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- ============================================================
     =ESTILOS PARA USO DE DATATABLES JS
     ===============================================================-->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.dataTables.min.css">
+    <link rel="stylesheet" href="vistas/assets/dist/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="vistas/assets/dist/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="vistas/assets/dist/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="vistas/assets/dist/css/fixedColumns.dataTables.min.css">
 
-    <!-- toogle switch -->
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 
     <!-- Theme style -->
     <link rel="stylesheet" href="vistas/assets/dist/css/adminlte.min.css">
