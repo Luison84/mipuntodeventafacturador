@@ -237,7 +237,7 @@
         iniciarArbolModulos();
 
         $("#content-modulo-perfil-tab").on('click', function() {
-            cargarDataTables();
+            // cargarDataTables();
             // $('#tbl_perfiles_asignar').DataTable().columns.adjust().redraw();
         })
 
