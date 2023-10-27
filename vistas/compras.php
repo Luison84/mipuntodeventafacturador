@@ -131,7 +131,7 @@
                                     <div class="col-12 col-lg-9  mt-3 ">
 
                                         <div class="row">
-                                            <div class="col-8 text-right">
+                                            <div class="col-10 text-right">
                                                 <a class="btn btn-sm btn-danger w-lg-50 fw-bold" id="btnCancelarCompra" style="position: relative;">
                                                     <span class="text-button">CANCELAR</span>
                                                     <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
@@ -139,7 +139,7 @@
                                                     </span>
                                                 </a>
                                             </div>
-                                            <div class="col-4 text-right">
+                                            <div class="col-2 text-right">
                                                 <a class="btn btn-sm btn-success w-lg-50 fw-bold" id="btnGuardarCompra" style="position: relative;">
                                                     <span class="text-button">GUARDAR</span>
                                                     <span class="btn fw-bold icon-btn-success d-flex align-items-center">
