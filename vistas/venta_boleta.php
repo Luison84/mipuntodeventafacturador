@@ -72,17 +72,21 @@
                                     <!-- --------------------------------------------------------- -->
                                     <!-- OPCIONES DE REGISTRO DE VENTA (ENVIO SUNAT O SOLO REGISTRAR) -->
                                     <!-- --------------------------------------------------------- -->
-                                    <div class="col-12 text-center mb-2">
-                                        <div class="form-group clearfix w-100 d-flex justify-content-evenly my-0 ">
+                                    <div class="col-12 col-lg-6 text-center mb-2">
+                                        <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-center my-0 ">
                                             <div class="icheck-warning d-inline mx-2">
-                                                <input type="radio" id="rb-venta-envio" value="1" name="rb_generar_venta">
+                                                <input type="radio" id="rb-venta-envio" value="1" name="rb_generar_venta" checked="">
                                                 <label for="rb-venta-envio">
                                                     Generar Venta y Enviar Comprobante
                                                 </label>
                                             </div>
+                                        </div>
+                                    </div>
 
+                                    <div class="col-12 col-lg-6 text-center mb-2">
+                                        <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-center my-0 ">
                                             <div class="icheck-success d-inline mx-2">
-                                                <input type="radio" id="rb-venta" value="2" name="rb_generar_venta" checked="">
+                                                <input type="radio" id="rb-venta" value="2" name="rb_generar_venta">
                                                 <label for="rb-venta">
                                                     Solo Generar Venta
                                                 </label>
@@ -1084,7 +1088,7 @@
             }],
             scrollX: true,
             // autoWidth: true,
-            scrollY  : "50vh",
+            scrollY: "50vh",
             "order": [
                 [0, 'desc']
             ],
@@ -1659,7 +1663,7 @@
             // scrollCollapse: true,
             scrollX: true,
             // scrollY: false,
-            scrollY  : "63vh",
+            scrollY: "63vh",
             columnDefs: [{
                     "className": "dt-center",
                     "targets": "_all"
