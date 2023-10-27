@@ -710,7 +710,7 @@ MODAL MOSTRAR DETALLE DE COMPRA
             $("#btnCancelarCompra").addClass('w-50')
             $("#btnGuardarCompra").addClass('w-50')
             $(".col-botonera").css('display','flex')
-            $(".col-botonera").css('column-gap','15')
+            $(".col-botonera").css('column-gap','15px')
         }else{
             $("#btnCancelarCompra").addClass('w-25')
             $("#btnGuardarCompra").addClass('w-25')
