@@ -45,7 +45,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
 
                 <?php foreach ($menuUsuario as $menu) : ?>
                     <li class="nav-item <?php if ($menu->abrir_arbol == 1) : ?> <?php echo ' menu-is-opening menu-open'; ?> <?php endif; ?>">
-                        <a style="cursor: pointer;" class="nav-link item-sidebar-menu <?php if ($menu->vista_inicio == 1) : ?>
+                        <a style="cursor: pointer;" class="nav-link  <?php if ($menu->vista_inicio == 1) : ?>
                                                 <?php echo 'active'; ?>
                                             <?php endif; ?>" <?php if (!empty($menu->vista)) : ?> onclick="CargarContenido('vistas/<?php echo $menu->vista; ?>','content-wrapper')" <?php endif; ?>>
                             <i class="nav-icon <?php echo $menu->icon_menu; ?>"></i>
@@ -107,6 +107,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
         $(this).addClass('active');
 
         if ($(window).width() < 768) {
+            console.log($(".sidebar-mini"))
             $(".sidebar-mini").removeClass('sidebar-open')
             $(".sidebar-mini").addClass('sidebar-collapse')
             $(".sidebar-mini").addClass('sidebar-closed')
