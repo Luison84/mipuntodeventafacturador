@@ -256,7 +256,7 @@
 
                                                 <div class="row">
 
-                                                    <div class="d-block col-12 d-lg-none col-lg-12 mb-3">
+                                                    <div class="d-block col-12 d-lg-none mb-3">
                                                         <div class="col-12 text-center px-2 rounded-3">
                                                             <div class="btn fw-bold fs-3  text-warning my-bg w-100" id="totalVenta">S/0.00</div>
                                                         </div>
