@@ -11,7 +11,7 @@
 
             </div><!-- /.col -->
 
-            <div class="col-sm-6">
+            <div class="col-sm-6 d-none d-md-block">
 
                 <ol class="breadcrumb float-sm-right">
 
