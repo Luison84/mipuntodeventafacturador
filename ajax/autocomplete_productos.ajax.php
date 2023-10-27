@@ -46,11 +46,16 @@ foreach ($productos as $row) {
     $data["id"] = $codigo_producto;
     $data["value"] = $codigo_producto . ' - ' . $descripcion_producto;
     $data["label"] = '<div class="row mx-0 border border-secondary border-left-0 border-right-0 border-top-0">                           
-                            <div class="col-6 offset-6 col-lg-12 d-flex flex-row align-items-center">
-                            <img src="vistas/assets/imagenes/productos/' . $imagen_producto . '" class="border rounded-pill text-center border-secondary" style="object-fit: cover; width: 40px; height: 40px; transition: transform .2s;" alt="">
+                            <div class="d-none col-lg-12 d-flex flex-row align-items-center">
+                                <img src="vistas/assets/imagenes/productos/' . $imagen_producto . '" class="border rounded-pill text-center border-secondary" style="object-fit: cover; width: 40px; height: 40px; transition: transform .2s;" alt="">
                                 <div class="d-flex flex-column ml-3 text-sm">
                                     <div class="text-sm">Codigo: ' . $codigo_producto . ' - Producto: ' . $descripcion_producto . '</div> 
                                     <div class="text-sm">' . "Stock: " .  $stock_producto . ' - Costo Unit.: ' . $precio_venta_producto . '</div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-lg-none d-flex flex-row align-items-center">                                
+                                <div class="d-flex flex-column ml-3 text-sm">
+                                    <div class="text-sm">Codigo: ' . $codigo_producto . ' - Producto: ' . $descripcion_producto . '</div> 
                                 </div>
                             </div>
                         </div>';
