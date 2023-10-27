@@ -123,10 +123,10 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
         if (!$(this).children().hasClass('nav-treeview')) {
 
             if ($(window).width() < 768) {
-                // $(".sidebar-mini").removeClass('sidebar-open')
+                $(".sidebar-mini").removeClass('sidebar-open')
                 $(".sidebar-mini").addClass('sidebar-collapse')
                 $(".sidebar-mini").addClass('sidebar-closed')
-                $(this).addClass('active');
+                // $(this).addClass('active');
             }
 
         }
