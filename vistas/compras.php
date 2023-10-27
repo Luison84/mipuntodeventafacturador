@@ -707,8 +707,8 @@ MODAL MOSTRAR DETALLE DE COMPRA
     $(document).ready(function() {
 
         if ($(window).width() < 768) {
-            $("#btnCancelarCompra").addClass('w-100')
-            $("#btnGuardarCompra").addClass('w-100')
+            $("#btnCancelarCompra").addClass('w-50')
+            $("#btnGuardarCompra").addClass('w-50')
         }else{
             $("#btnCancelarCompra").addClass('w-25')
             $("#btnGuardarCompra").addClass('w-25')
