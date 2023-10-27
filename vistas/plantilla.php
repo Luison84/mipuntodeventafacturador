@@ -111,7 +111,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- ChartJS -->
     <script src="vistas/assets/plugins/chart.js/Chart.min.js"></script>
 
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="vistas/assets/dist/js/canvasjs.min.js"></script>
 
     <!-- InputMask -->
     <script src="vistas/assets/plugins/moment/moment.min.js"></script>
@@ -120,22 +120,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- SweetAlert2 -->
     <script src="vistas/assets/plugins/sweetalert2/sweetalert2.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="vistas/assets/dist/js/toastr.min.js"></script>
 
     <!-- jquery UI -->
-    <!-- <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script> -->
-
     <script src="vistas/assets/plugins/jquery-ui/js/jquery-ui.js"></script>
-    <!-- <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script> -->
-
+ 
     <!-- JS Bootstrap 5 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="vistas/assets/dist/js/bootstrap.bundle.min.js"></script>
 
 
     <!-- JSTREE JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+    <script src="vistas/assets/dist/js/jstree.min.js"></script>
 
 
     <!-- date-range-picker -->
@@ -144,23 +139,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- ============================================================
     =LIBRERIAS PARA USO DE DATATABLES JS
     ===============================================================-->
-    <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="vistas/assets/dist/js/jquery.dataTables.min.js"></script>
+    <script src="vistas/assets/dist/js/dataTables.responsive.min.js"></script>
     <script src="vistas/assets/dist/js/jquery.tabledit.min.js"></script>
-    <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
+    <script src="vistas/assets/dist/js/dataTables.fixedColumns.min.js"></script>
 
 
     <!-- ============================================================
     =LIBRERIAS PARA EXPORTAR A ARCHIVOS
     ===============================================================-->
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+    <script src="vistas/assets/dist/js/dataTables.buttons.min.js"></script>
+    <script src="vistas/assets/dist/js/jszip.min.js"></script>
+    <script src="vistas/assets/dist/js/buttons.html5.min.js"></script>
+    <script src="vistas/assets/dist/js/buttons.print.min.js"></script>
 
     <!-- Bootstrap Switch -->
-    <script src="https://unpkg.com/bootstrap-switch"></script>
-    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script src="vistas/assets/dist/js/bootstrap-switch"></script>
+    <script src="vistas/assets/dist/js/bootstrap4-toggle.min.js"></script>
 
     <!-- Select2 -->
     <!-- <script src="vistas/assets/plugins/select2/js/select2.full.min.js"></script> -->
