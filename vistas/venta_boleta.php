@@ -952,8 +952,8 @@
                     ui.content.push(noResult);
                 }
             }
-        }).data("ui-autocomplete w-75")._renderItem = function(ul, item) {
-            return $("<li class='ui-autocomplete-row'></li>")
+        }).data("ui-autocomplete")._renderItem = function(ul, item) {
+            return $("<li class='ui-autocomplete-row w-75'></li>")
                 .data("item.autocomplete", item)
                 .append(item.label)
                 .appendTo(ul);
