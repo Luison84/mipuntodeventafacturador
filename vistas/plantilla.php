@@ -105,7 +105,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- ============================================================================================================= -->
 
     <!-- jQuery -->
-    <!-- <script src="vistas/assets/plugins/jquery/jquery.min.js"></script> -->
+    <script src="vistas/assets/plugins/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap 4 -->
     <script src="vistas/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -125,7 +125,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <!-- jquery UI -->
-    <script src="vistas/assets/plugins/jquery-ui/js/jquery-ui.js"></script>
+    <!-- <script src="vistas/assets/plugins/jquery-ui/js/jquery-ui.js"></script> -->
 
     <!-- JS Bootstrap 5 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
