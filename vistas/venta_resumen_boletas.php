@@ -68,7 +68,7 @@
                             </div>
                         </div>
 
-                        <div class="col-2">
+                        <div class="col-12 col-lg-2">
                             <a class="btn btn-sm btn-success fw-bold mt-4" id="btnBuscarComprobantes" style="position: relative; width: 160px;">
                                 <span class="text-button">BUSCAR</span>
                                 <span class="btn fw-bold icon-btn-success d-flex align-items-center">
@@ -78,14 +78,7 @@
 
                         </div>
 
-                        <div class="col-2">
-                            <!-- 
-                            <a class="btn btn-sm btn-danger fw-bold mt-4 float-right" id="btnAnularComprobantes" style="position: relative; width: 160px;">
-                                <span class="text-button">ANULAR</span>
-                                <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
-                                    <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
-                                </span>
-                            </a> -->
+                        <div class="col-12 col-lg-2">
                             <a class="btn btn-sm btn-info fw-bold mt-4 float-right mx-2" id="btnEnviarResumen" style="position: relative; width: 180px;">
                                 <span class="text-button">ENVIAR RESUMEN</span>
                                 <span class="btn fw-bold  icon-btn-custom d-flex align-items-center">

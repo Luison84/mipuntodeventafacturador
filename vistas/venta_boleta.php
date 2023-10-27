@@ -47,7 +47,7 @@
 
                         <!-- TAB REGISTRO DE BOLETAS -->
                         <li class="nav-item">
-                            <a class="nav-link active my-0" id="registrar-boletas-tab" data-toggle="pill" href="#registrar-boletas" role="tab" aria-controls="registrar-boletas" aria-selected="false"><i class="fas fa-file-signature"></i> Registrar Boleta</a>
+                            <a class="nav-link active my-0" id="registrar-boletas-tab" data-toggle="pill" href="#registrar-boletas" role="tab" aria-controls="registrar-boletas" aria-selected="false"><i class="fas fa-file-signature"></i> Registrar</a>
                         </li>
 
                         <!-- TAB LISTADO DE BOLETAS -->

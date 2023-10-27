@@ -46,7 +46,7 @@
 
                         <!-- TAB REGISTRO DE FACTURAS -->
                         <li class="nav-item">
-                            <a class="nav-link active my-0" id="registrar-facturas-tab" data-toggle="pill" href="#registrar-facturas" role="tab" aria-controls="registrar-facturas" aria-selected="false"><i class="fas fa-file-signature"></i> Registrar Factura</a>
+                            <a class="nav-link active my-0" id="registrar-facturas-tab" data-toggle="pill" href="#registrar-facturas" role="tab" aria-controls="registrar-facturas" aria-selected="false"><i class="fas fa-file-signature"></i> Registrar</a>
                         </li>
 
                         <!-- TAB LISTADO DE FACTURAS -->
