@@ -1821,7 +1821,7 @@ MODAL MOSTRAR DETALLE DE COMPRA
         $("#registrar-compras-tab").attr('aria-selected', false)
         $("#registrar-compras").removeClass('active show')
 
-        $("#registrar-compras-tab").html('<i class="fas fa-file-signature"></i> Registrar Compra')
+        $("#registrar-compras-tab").html('<i class="fas fa-file-signature"></i> Registrar')
         fnc_CargarDataTableListadoCompras();
 
     }
