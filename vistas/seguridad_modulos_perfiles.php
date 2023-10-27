@@ -225,7 +225,7 @@
     /* =============================================================
     VARIABLES GLOBALES
     ============================================================= */
-    var tbl_perfiles_asignar, tbl_modulos, modulos_usuario, modulos_sistema;
+    var tbl_modulos, modulos_usuario, modulos_sistema;
 
     $(document).ready(function() {
 
@@ -251,7 +251,7 @@
         ============================================================= */
         $('#tbl_perfiles_asignar tbody').on('click', '.btnSeleccionarPerfil', function() {
 
-            var data = tbl_perfiles_asignar.row($(this).parents('tr')).data();
+            var data = $('#tbl_perfiles_asignar').DataTable().row($(this).parents('tr')).data();
 
             if ($(this).parents('tr').hasClass('selected')) {
 
@@ -267,7 +267,7 @@
 
             } else {
 
-                tbl_perfiles_asignar.$('tr.selected').removeClass('selected');
+                $('#tbl_perfiles_asignar').DataTable().$('tr.selected').removeClass('selected');
 
                 $(this).parents('tr').addClass('selected');
 
@@ -424,7 +424,6 @@
             $('#tbl_perfiles_asignar').DataTable().destroy();
             $('#tbl_perfiles_asignar tbody').empty();
         }
-
 
 
         $('#tbl_perfiles_asignar').DataTable({
