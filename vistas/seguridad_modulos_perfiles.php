@@ -126,7 +126,7 @@
 
                             <div class="card-body">
 
-                                <table id="tbl_perfiles_asignar" class="display nowrap table-striped w-100 shadow rounded min-w-full">
+                                <table id="tbl_perfiles_asignar" class="table-striped shadow" width: "100%">
 
                                     <thead class="bg-gray text-left">
                                         <th>id Perfil</th>
@@ -238,7 +238,7 @@
 
         $("#content-modulo-perfil-tab").on('click', function() {
             cargarDataTables();
-            $('#tbl_perfiles_asignar').DataTable().columns.adjust().redraw();
+            // $('#tbl_perfiles_asignar').DataTable().columns.adjust().redraw();
         })
 
         /* =============================================================
@@ -438,6 +438,7 @@
                     accion: 'obtener_perfiles_asignar'
                 }
             },
+            deferRender: true,
             scrollCollapse: true,
             scrollX: true,
             "columns": [{
@@ -459,42 +460,45 @@
                     "data": "opciones"
                 }
             ],
-            // columnDefs: [{
-            //         targets: [3, 4],
-            //         visible: false
-            //     },
-            //     {
-            //         targets: 2,
-            //         sortable: false,
-            //         createdCell: function(td, cellData, rowData, row, col) {
+            columnDefs: [{
+                    targets: [3, 4],
+                    visible: false
+                },
+                {
+                    targets: 2,
+                    sortable: false,
+                    createdCell: function(td, cellData, rowData, row, col) {
 
-            //             if (parseInt(rowData[2]) == 1) {
-            //                 $(td).html("Activo")
-            //             } else {
-            //                 $(td).html("Inactivo")
-            //             }
+                        if (parseInt(rowData[2]) == 1) {
+                            $(td).html("Activo")
+                        } else {
+                            $(td).html("Inactivo")
+                        }
 
-            //         }
-            //     },
-            //     {
-            //         targets: 5,
-            //         sortable: false,
-            //         render: function(data, type, full, meta) {
-            //             return "<center>" +
-            //                 "<span class='btnSeleccionarPerfil text-primary px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Seleccionar perfil'> " +
-            //                 "<i class='fas fa-check fs-5'></i> " +
-            //                 "</span> " +
-            //                 "</center>";
-            //         }
-            //     }
-            // ],
+                    }
+                },
+                {
+                    targets: 5,
+                    sortable: false,
+                    render: function(data, type, full, meta) {
+                        return "<center>" +
+                            "<span class='btnSeleccionarPerfil text-primary px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Seleccionar perfil'> " +
+                            "<i class='fas fa-check fs-5'></i> " +
+                            "</span> " +
+                            "</center>";
+                    }
+                }
+            ],
+            // initComplete: function(settings, json){
+            //     $('#tbl_perfiles_asignar').DataTable().columns.adjust();
+            // },
             language: {
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
             }
 
         });
 
-
+        // $('#tbl_perfiles_asignar').DataTable().columns.adjust();
 
     }
 
