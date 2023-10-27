@@ -120,7 +120,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
 
     $(".nav-item").on('click', function() {        
 
-        if($(this).parent().hasClass('nav-treeview')){
+        if($(this).children().hasClass('nav-treeview')){
             alert("SI")
         }else{
             alert("NO")
