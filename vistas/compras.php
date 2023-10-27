@@ -1350,10 +1350,10 @@ MODAL MOSTRAR DETALLE DE COMPRA
             //     [1, 'desc']
             // ],
 
-            fixedColumns: {
-                left: 2,
-                right: 1
-            },
+            // fixedColumns: {
+            //     left: 2,
+            //     right: 1
+            // },
             scrollX: true,
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
