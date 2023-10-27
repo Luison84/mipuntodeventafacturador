@@ -130,7 +130,7 @@
                                     <!-- BOTONES: CANCELAR - GUARDAR -->
                                     <div class="col-12 col-lg-9 text-right mt-3 ">
 
-                                        <a class="btn btn-sm btn-danger w-25 fw-bold" id="btnCancelarCompra" style="position: relative;">
+                                        <a class="btn btn-sm btn-danger fw-bold" id="btnCancelarCompra" style="position: relative;">
                                             <span class="text-button">CANCELAR</span>
                                             <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
                                                 <i class="fas fa-times-circle fs-5"></i>
@@ -138,7 +138,7 @@
                                         </a>
 
 
-                                        <a class="btn btn-sm btn-success w-25 fw-bold" id="btnGuardarCompra" style="position: relative;">
+                                        <a class="btn btn-sm btn-success  fw-bold" id="btnGuardarCompra" style="position: relative;">
                                             <span class="text-button">GUARDAR</span>
                                             <span class="btn fw-bold icon-btn-success d-flex align-items-center">
                                                 <i class="fas fa-save fs-5"></i>
@@ -705,6 +705,14 @@ MODAL MOSTRAR DETALLE DE COMPRA
     var itemProducto = 1;
 
     $(document).ready(function() {
+
+        if ($(window).width() < 768) {
+            $("#btnCancelarCompra").addClass('w-100')
+            $("#btnGuardarCompra").addClass('w-100')
+        }else{
+            $("#btnCancelarCompra").addClass('w-25')
+            $("#btnGuardarCompra").addClass('w-25')
+        }
 
         fnc_CargarSelects();
         fnc_cargarSelectsRegistroProducto();
