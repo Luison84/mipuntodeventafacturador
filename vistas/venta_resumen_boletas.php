@@ -79,7 +79,7 @@
                         </div>
 
                         <div class="col-12 col-lg-2">
-                            <a class="btn btn-sm btn-info fw-bold mt-4 float-right mx-2 w-100" id="btnEnviarResumen" style="position: relative;">
+                            <a class="btn btn-sm btn-info fw-bold mt-4 float-right w-100" id="btnEnviarResumen" style="position: relative;">
                                 <span class="text-button">ENVIAR RESUMEN</span>
                                 <span class="btn fw-bold  icon-btn-custom d-flex align-items-center">
                                     <i class="fas fa-share fs-5 text-white m-0 p-0"></i>
