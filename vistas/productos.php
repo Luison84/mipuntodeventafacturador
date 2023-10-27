@@ -42,29 +42,29 @@
 
                         <div class="row">
 
-                            <div class="col-4 col-lg-3 mb-2">
+                            <div class="col-12 col-lg-3 mb-2">
 
                                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Código del Producto</label>
                                 <input data-index="1" type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="iptCodigoBarras" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                             </div>
 
-                            <div class="col-4 col-lg-3 mb-2">
+                            <div class="col-12 col-lg-3 mb-2">
                                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-layer-group mr-1 my-text-color"></i> Categorías</label>
                                 <select data-index="2" class="form-select" id="id_categoria_busqueda" aria-label="Floating label select example" required>
                                 </select>
                             </div>
 
-                            <div class="col-4 col-lg-6 mb-2">
+                            <div class="col-12 col-lg-6 mb-2">
                                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-gifts mr-1 my-text-color"></i>Producto</label>
                                 <input data-index="4" type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="iptProducto" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                             </div>
 
-                            <div class="col-4 col-lg-3 mb-2">
+                            <div class="col-12 col-lg-3 mb-2">
                                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-dollar-sign mr-1 my-text-color"></i> P. Venta Desde</label>
                                 <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="iptPrecioVentaDesde" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                             </div>
 
-                            <div class="col-4 col-lg-3 mb-2">
+                            <div class="col-12 col-lg-3 mb-2">
                                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-dollar-sign mr-1 my-text-color"></i> P. Venta Hasta</label>
                                 <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="iptPrecioVentaHasta" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                             </div>
