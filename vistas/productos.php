@@ -788,19 +788,6 @@ VENTA MODAL PARA AUMENTAR O DISMINUIR EL STOCK DEL PRODUCTO
                                     </div>`)
                         }
 
-                        // console.log($('.dropdown-menu').children())
-                        // $(".dropdown-menu").html(`<a class="dropdown-item btnEditarProducto" style='cursor:pointer;'><i class='fas fa-pencil-alt fs-6 text-primary mr-2'></i> <span class='my-color'>Editar</span></a>`  )
-                        var appendString = '<p> Goodbye </p>';
-
-                        // console.log($(td).children().appendChild(`<a class="dropdown-item btnEditarProducto" style='cursor:pointer;'><i class='fas fa-pencil-alt fs-6 text-primary mr-2'></i> <span class='my-color'>Editar</span></a>`));
-
-
-                        // <div class="dropdown-divider"></div>
-                        // <a class="dropdown-item btnAumentarStock" style='cursor:pointer;'><i class='fas fa-plus-circle fs-6 mr-2 text-success'></i> <span class='my-color'>Aumentar Stock</span></a>
-                        // <div class="dropdown-divider"></div>
-                        // <a class="dropdown-item btnDisminuirStock" style='cursor:pointer;'><i class='fas fa-minus-circle fs-6 mr-2 text-warning'></i> <span class='my-color'>Disminuir Stock</span></a>
-                        // <div class="dropdown-divider"></div>
-                        // <a class="dropdown-item btnActivarProducto" style='cursor:pointer;'><i class='fas fa-toggle-off fs-6 text-danger mr-2'> </i> <span class='my-color'>Activar / Desactivar</span></a>
                     }
                 }
 

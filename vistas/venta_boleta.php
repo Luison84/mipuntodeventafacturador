@@ -1414,7 +1414,6 @@
                 formData.append('arr_detalle_productos', JSON.stringify(detalle_productos));
 
                 response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
-                console.log("🚀 ~ file: venta_boleta.php:1480 ~ fnc_GuardarVenta ~ response:", response)
 
                 if ($("input[name='rb_generar_venta']:checked").val() == 1) {
                     Swal.fire({
@@ -1834,7 +1833,6 @@
                 formData.append('id_venta', $id_venta)
 
                 response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
-                console.log("🚀 ~ file: venta_resumen_boletas.php:328 ~ fnc_EnviarResumenComprobantes ~ response:", response)
 
                 if (response) {
                     Swal.fire({
@@ -1866,7 +1864,6 @@
         datos.append('accion', 'obtener_estado_caja_por_dia');
 
         response = SolicitudAjax('ajax/arqueo_caja.ajax.php', 'POST', datos)
-        // console.log("🚀 ~ file: venta_boleta.php:1869 ~ fnc_ObtenerEstadoCajaPorDia ~ response:", response)
 
         //CUANDO LA CAJA ESTA CERRADA
         if (response['cantidad'] == '0' || response['estado'] == '0') {

@@ -2025,7 +2025,6 @@ MODAL MOSTRAR DETALLE DE COMPRA
 
         $("#registrar-compras-tab").html('<i class="fas fa-sync-alt"></i> Actualizar Compra')
 
-        // console.log("🚀 ~ file: compras.php:1831 ~ fnc_EditarCompra ~ data:", data)
         $("#id_compra").val(data["1"])
 
         var formDataCompra = new FormData();

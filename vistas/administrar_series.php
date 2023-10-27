@@ -302,7 +302,6 @@
                     }
                 },
                 onSuccess: function(data, textStatus, jqXHR) {
-                    console.log("🚀 ~ file: administrar_series.php:304 ~ $ ~ data:", data)
                     if (data.action == "delete") {
                         mensajeToast("success", "Se desactivó la Categoría")
                         $("#tbl_categorias").DataTable().ajax.reload();

@@ -539,9 +539,6 @@ M O D A L   C I E R R E   D E   C A J A
         datos.append('accion', 'obtener_estado_caja_por_dia');
 
         response = SolicitudAjax('ajax/arqueo_caja.ajax.php', 'POST', datos)
-        console.log("🚀 ~ file: caja.php:329 ~ fnc_ObtenerEstadoCajaPorDia ~ response:", response)
-
-        // return;
 
         //CUANDO LA CAJA ESTA ABIERTA
         if (response['estado'] == '1') {
@@ -1093,9 +1090,6 @@ M O D A L   C I E R R E   D E   C A J A
     }
 
     function fnc_ImprimirArqueo($id_arqueo_caja) {
-        console.log("🚀 ~ file: caja.php:943 ~ fnc_ImprimirArqueo ~ id_arqueo_caja:", $id_arqueo_caja)
-        // return;
-
         window.open('https://tutorialesphperu.com/pos/vistas/imprimir_arqueo.php?id_arqueo_caja=' + $id_arqueo_caja,
             "ModalPopUp",
             "toolbar=no," +

@@ -375,8 +375,6 @@
 
             let modulo_inicio = $("#select_modulos").val();
 
-            // console.log(modulosSeleccionados);
-
             if (idPerfil != 0 && modulosSeleccionados.length > 0) {
                 registrarPerfilModulos(modulosSeleccionados, idPerfil, modulo_inicio);
             } else {

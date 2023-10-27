@@ -1508,9 +1508,6 @@ MODAL CUOTAS DEL CREDITO
 
             //FIN DE LAS VALIDACIONES
 
-            console.log($("#frm-datos-venta-factura").serialize());
-            // return;
-
             Swal.fire({
                 title: 'Está seguro(a) de registrar la Venta?',
                 icon: 'warning',

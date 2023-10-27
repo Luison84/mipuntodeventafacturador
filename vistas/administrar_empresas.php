@@ -448,7 +448,6 @@
     }
 
     function fnc_ModalActualizarEmpresa(fila_actualizar) {
-        console.log("🚀 ~ file: administrar_empresas.php:530 ~ fnc_ModalActualizarEmpresa ~ fila_actualizar:", fila_actualizar)
 
         if (fila_actualizar.parents('tr').hasClass('selected')) {
             fnc_LimpiarFomulario();
@@ -478,7 +477,6 @@
             datos.append('id_empresa', data['2']);
 
             response = SolicitudAjax('ajax/empresas.ajax.php', 'POST', datos);
-            console.log("🚀 ~ file: administrar_empresas.php:479 ~ fnc_ModalActualizarEmpresa ~ response:", response)
 
 
             $("#id_empresa").val(response.id_empresa);
