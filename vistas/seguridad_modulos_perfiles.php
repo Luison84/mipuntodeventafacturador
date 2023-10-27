@@ -233,10 +233,10 @@
         /* =============================================================
         FUNCIONES PARA LAS CARGAS INICIALES DE DATATABLES, ARBOL DE MODULOS Y REAJUSTE DE CABECERAS DE DATATABLES
         ============================================================= */
-        
+
         iniciarArbolModulos();
 
-        $("#content-modulo-perfil-tab").on('click', function(){
+        $("#content-modulo-perfil-tab").on('click', function() {
             cargarDataTables();
             $('#tbl_perfiles_asignar').DataTable().columns.adjust().redraw();
         })
@@ -440,9 +440,27 @@
             },
             scrollCollapse: true,
             scrollX: true,
-            columnDefs: [
+            "columns": [{
+                    "data": "id_perfil"
+                },
                 {
-                    targets: [3,4],
+                    "data": "descripcion"
+                },
+                {
+                    "data": "estado"
+                },
+                {
+                    "data": "fecha_creacion"
+                },
+                {
+                    "data": "fecha_actualizacion"
+                },
+                {
+                    "data": "opciones"
+                }
+            ],
+            columnDefs: [{
+                    targets: [3, 4],
                     visible: false
                 },
                 {
@@ -476,7 +494,7 @@
 
         });
 
-        
+
 
     }
 
@@ -722,5 +740,4 @@
         });
 
     }
-
 </script>
