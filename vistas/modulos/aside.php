@@ -107,7 +107,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
         $(this).addClass('active');
 
         if ($(window).width() < 768) {
-            console.log($(".sidebar-mini"))
+            console.log($(this))
             $(".sidebar-mini").removeClass('sidebar-open')
             $(".sidebar-mini").addClass('sidebar-collapse')
             $(".sidebar-mini").addClass('sidebar-closed')
