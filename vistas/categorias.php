@@ -141,6 +141,7 @@
                 },
                 type: 'POST'
             },
+            scrollX: true,
             columnDefs: [{
                     targets: 2,
                     createdCell: function(td, cellData, rowData, row, col) {
