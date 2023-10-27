@@ -102,7 +102,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
 
 <script>
     $(".nav-link").on('click', function() {
-        
+
         $(".nav-link").removeClass('active');
         $(this).addClass('active');
 
@@ -115,15 +115,19 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
         //     alert("click")
         // } 
 
-        
+
     })
 
-    $(".nav-item").on('click', function() {        
+    $(".nav-item").on('click', function() {
 
-        if(!$(this).children().hasClass('nav-treeview')){            
-            $(".sidebar-mini").removeClass('sidebar-open')
-            $(".sidebar-mini").addClass('sidebar-collapse')
-            $(".sidebar-mini").addClass('sidebar-closed')
+        if (!$(this).children().hasClass('nav-treeview')) {
+
+            if ($(window).width() < 768) {
+                $(".sidebar-mini").removeClass('sidebar-open')
+                $(".sidebar-mini").addClass('sidebar-collapse')
+                $(".sidebar-mini").addClass('sidebar-closed')
+            }
+
         }
 
         // $(".sidebar-mini").addClass('sidebar-collapse')
