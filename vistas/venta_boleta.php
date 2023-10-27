@@ -952,7 +952,7 @@
                     ui.content.push(noResult);
                 }
             }
-        }).data("ui-autocomplete")._renderItem = function(ul, item) {
+        }).data("ui-autocomplete w-75")._renderItem = function(ul, item) {
             return $("<li class='ui-autocomplete-row'></li>")
                 .data("item.autocomplete", item)
                 .append(item.label)
