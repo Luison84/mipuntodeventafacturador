@@ -126,7 +126,7 @@
 
                             <div class="card-body">
 
-                                <table id="tbl_perfiles_asignar" class="display nowrap table-striped w-100 shadow rounded">
+                                <table id="tbl_perfiles_asignar" class="display nowrap table-striped w-100 shadow rounded min-w-full">
 
                                     <thead class="bg-gray text-left">
                                         <th>id Perfil</th>
@@ -473,6 +473,8 @@
             }
 
         });
+
+        $('#tbl_perfiles_asignar').DataTable().columns.adjust().draw();
 
     }
 
