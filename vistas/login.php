@@ -46,7 +46,7 @@
                         <input type="password" placeholder="Contraseña" id="loginPassword" required/>
                     </div>
                     <a class="btn btn-md w-50" id="btnIniciarSesion">
-                        Iniciar Sesion
+                        INGRESAR
                     </a>
                     
                 </form>
