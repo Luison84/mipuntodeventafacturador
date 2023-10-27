@@ -496,7 +496,7 @@
         $("#registrar-usuarios-tab").attr('aria-selected', false)
         $("#registrar-usuarios").removeClass('active show')
 
-        $("#registrar-usuarios-tab").html('<i class="fas fa-file-signature"></i> Registrar Cliente')
+        $("#registrar-usuarios-tab").html('<i class="fas fa-file-signature"></i> Registrar')
 
 
     }
