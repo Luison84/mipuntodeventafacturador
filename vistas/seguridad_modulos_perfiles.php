@@ -238,6 +238,7 @@
 
         $("#content-modulo-perfil-tab").on('click', function(){
             cargarDataTables();
+            $('#tbl_perfiles_asignar').DataTable().columns.adjust().draw();
         })
 
         /* =============================================================
@@ -473,9 +474,9 @@
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
             }
 
-        }).columns.adjust().draw();
+        });
 
-        // $('#tbl_perfiles_asignar').DataTable().columns.adjust().draw();
+        
 
     }
 
