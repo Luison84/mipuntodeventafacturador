@@ -59,26 +59,6 @@
                                 <div class="row mb-2">
 
                                     <!-- RUC PROVEEDOR -->
-                                    <!-- <div class="col-12 col-md-5 col-lg-3">
-
-                                        <div class="input-group mb-3">
-
-                                            <div class="form-floating flex-grow-1">
-                                                <input class="mx-0" type="hidden" name="id_proveedor" id="id_proveedor" value="0">
-                                                <input type="text" class="form-control " name="proveedor" id="proveedor" required>
-                                                <label for="proveedor">RUC</label>
-                                                <div class="invalid-feedback">Ingrese al Proveedor </div>
-                                            </div>
-
-                                            <span class="input-group-text my-bg btnBuscarProveedor" style="cursor: pointer;max-height: 59px" style="position: absolute">
-                                                <i class="fas fa-search fs-5 text-white  "></i>
-                                            </span>
-
-                                        </div>
-
-                                    </div> -->
-
-                                    <!-- RUC PROVEEDOR -->
                                     <div class="col-12 col-md-5 col-lg-3 mb-2">
                                         <input type="hidden" name="id_proveedor" id="id_proveedor" value="0">
 
@@ -90,16 +70,6 @@
                                         </div>
                                     </div>
 
-
-
-                                    <!-- RAZON SOCIAL PROVEEDOR -->
-                                    <!-- <div class="col-12 col-md-7 col-lg-6">
-                                        <div class="form-floating mb-2" style="position: relative;">
-                                            <input type="text" id="razon_social" class="form-control" name="razon_social" readonly required>
-                                            <label for="razon_social">Razón Social </label>
-                                        </div>                                       
-                                    </div> -->
-
                                     <!-- RAZON SOCIAL -->
                                     <div class="col-12 col-md-5 col-lg-6 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-signature mr-1 my-text-color"></i> Razón Social</label>
@@ -108,36 +78,16 @@
 
                                     <!-- FECHA DE COMPRA -->
                                     <div class="col-12 col-md-4 col-lg-3 mb-2">
-                                        <!-- <div class="input-group mb-3">
-
-                                            <div class="form-floating flex-grow-1">
-                                                <input type="text" class="form-control form-control-sm datetimepicker-input" id="fecha_registro" name="fecha_registro" required>
-                                                <label for="fecha_registro">Fecha Registro</label>
-                                                <div class="invalid-feedback">Ingrese Fecha de Registro</div>
-                                            </div>
-                                            <span class="input-group-text my-bg">
-                                                <i class=" fas fa-calendar-alt text-white fs-5" data-toggle="datetimepicker" data-target="#fecha_registro"></i>
-                                            </span>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card mr-1 my-text-color"></i> Fecha Registro</label>
                                         <div class="input-group input-group-sm mb-3 ">
                                             <span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" data-toggle="datetimepicker" data-target="#fecha_registro"><i class="fas fa-calendar-alt ml-1 text-white"></i></span>
                                             <input type="text" class="form-control form-control-sm datetimepicker-input" style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;" aria-label="Sizing example input" id="fecha_registro" name="fecha_registro" aria-describedby="inputGroup-sizing-sm" required>
                                             <div class="invalid-feedback">Ingrese Fecha de Registro</div>
                                         </div>
-
                                     </div>
 
                                     <!-- TIPO COMPROBANTE -->
                                     <div class="col-12 col-md-4 col-lg-3 mb-2">
-                                        <!-- <div class="form-floating mb-2">
-                                            <select class="form-select select2" id="tipo_comprobante" name="tipo_comprobante" aria-label="Floating label select example" required>
-                                            </select>
-                                            <label for="serie">Tipo de Comprobante</label>
-                                            <div class="invalid-feedback">Seleccione Tipo de Comprobante</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-alt mr-1 my-text-color"></i> Comprobante</label>
                                         <select class="form-select" id="tipo_comprobante" name="tipo_comprobante" aria-label="Floating label select example" required>
                                         </select>
@@ -146,11 +96,6 @@
 
                                     <!-- SERIE -->
                                     <div class="col-12 col-md-4 col-lg-3 mb-2">
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="text" id="serie" class="form-control text-uppercase" maxlength="4" name="serie" required>
-                                            <label for="serie">Serie</label>
-                                            <div class="invalid-feedback">Ingrese la serie</div>
-                                        </div> -->
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Serie</label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm text-uppercase" id="serie" name="serie" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese la serie</div>
@@ -158,11 +103,6 @@
 
                                     <!-- CORRELATIVO -->
                                     <div class="col-12 col-md-4 col-lg-3 mb-2">
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="number" id="correlativo" class="form-control" maxlength="8" name="correlativo" required>
-                                            <label for="correlativo">Correlativo *(Referencial)</label>
-                                            <div class="invalid-feedback">Ingrese el correlativo</div>
-                                        </div> -->
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Correlativo</label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" maxlength="8" name="correlativo" id="correlativo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el correlativo</div>
@@ -170,13 +110,6 @@
 
                                     <!-- MONEDA -->
                                     <div class="col-12 col-md-4 col-lg-3 mb-2">
-                                        <!-- <input type="hidden" name="simbolo_moneda" id="simbolo_moneda" value="">
-                                        <div class="form-floating mb-2">
-                                            <select class="form-select select2" id="moneda" name="moneda" aria-label="Floating label select example" required>
-                                            </select>
-                                            <label for="moneda">Moneda</label>
-                                            <div class="invalid-feedback">Seleccione la moneda</div>
-                                        </div> -->
                                         <input type="hidden" name="simbolo_moneda" id="simbolo_moneda" value="">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-alt mr-1 my-text-color"></i> Moneda</label>
                                         <select class="form-select" id="moneda" name="moneda" aria-label="Floating label select example" required>
@@ -195,7 +128,7 @@
                                     </div>
 
                                     <!-- BOTONES: CANCELAR - GUARDAR -->
-                                    <div class="col-lg-9 text-right mt-3 ">
+                                    <div class="col-12 col-lg-9 text-right mt-3 ">
                                         <a class="btn btn-sm btn-danger w-25 fw-bold" id="btnCancelarCompra" style="position: relative;">
                                             <span class="text-button">CANCELAR</span>
                                             <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
