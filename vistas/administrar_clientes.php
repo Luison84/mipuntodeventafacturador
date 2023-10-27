@@ -211,64 +211,67 @@
             $('#tbl_clientes tbody').empty();
         }
 
-        $("#tbl_clientes").DataTable({
-            dom: 'Bfrtip',
-            buttons: [{
-                extend: 'excel',
-                title: function() {
-                    var printTitle = 'LISTADO DE CLIENTES';
-                    return printTitle
-                }
-            }, 'pageLength'],
-            pageLength: 10,
-            processing: true,
-            serverSide: true,
-            order: [],
-            ajax: {
-                url: 'ajax/clientes.ajax.php',
-                data: {
-                    'accion': 'obtener_clientes'
+        setTimeout(function() {
+            $("#tbl_clientes").DataTable({
+                dom: 'Bfrtip',
+                buttons: [{
+                    extend: 'excel',
+                    title: function() {
+                        var printTitle = 'LISTADO DE CLIENTES';
+                        return printTitle
+                    }
+                }, 'pageLength'],
+                pageLength: 10,
+                processing: true,
+                serverSide: true,
+                order: [],
+                ajax: {
+                    url: 'ajax/clientes.ajax.php',
+                    data: {
+                        'accion': 'obtener_clientes'
+                    },
+                    type: 'POST'
                 },
-                type: 'POST'
-            },
-            responsive: {
-                details: {
-                    type: 'column'
-                }
-            },
-            columnDefs: [{
-                    targets: 0,
-                    orderable: false,
-                    className: 'control'
+                responsive: {
+                    details: {
+                        type: 'column'
+                    }
                 },
-                {
-                    targets: [3],
-                    visible: false
-                },
-                {
-                    targets: 9,
-                    createdCell: function(td, cellData, rowData, row, col) {
-                        if (rowData[9] != 'ACTIVO') {
-                            $(td).parent().css('background', '#F2D7D5')
-                            $(td).parent().css('color', 'black')
+                columnDefs: [{
+                        targets: 0,
+                        orderable: false,
+                        className: 'control'
+                    },
+                    {
+                        targets: [3],
+                        visible: false
+                    },
+                    {
+                        targets: 9,
+                        createdCell: function(td, cellData, rowData, row, col) {
+                            if (rowData[9] != 'ACTIVO') {
+                                $(td).parent().css('background', '#F2D7D5')
+                                $(td).parent().css('color', 'black')
+                            }
+                        }
+                    },
+                    {
+                        targets: 1,
+                        orderable: false,
+                        createdCell: function(td, cellData, rowData, row, col) {
+                            $(td).html("<span class='btnEditarCliente text-primary px-1' style='cursor:pointer;'>" +
+                                "<i class='fas fa-pencil-alt fs-6'></i>" +
+                                "</span>")
                         }
                     }
-                },
-                {
-                    targets: 1,
-                    orderable: false,
-                    createdCell: function(td, cellData, rowData, row, col) {
-                        $(td).html("<span class='btnEditarCliente text-primary px-1' style='cursor:pointer;'>" +
-                            "<i class='fas fa-pencil-alt fs-6'></i>" +
-                            "</span>")
-                    }
-                }
 
-            ],
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
-            }
-        })
+                ],
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+                }
+            })
+        }, 1)
+
     }
 
     function fnc_GuardarDatosCliente() {
