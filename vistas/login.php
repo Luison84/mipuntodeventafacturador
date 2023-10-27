@@ -114,9 +114,6 @@
     <!-- AdminLTE App -->
     <script src="vistas/assets/dist/js/adminlte.min.js"></script>
 
-    <script src="vistas/assets/dist/js/app_login.js"></script>
-
-
     <script>
         $(document).ready(function() {
 
