@@ -69,7 +69,7 @@
                         </div>
 
                         <div class="col-12 col-lg-2">
-                            <a class="btn btn-sm btn-success fw-bold mt-4" id="btnBuscarComprobantes" style="position: relative; width: 160px;">
+                            <a class="btn btn-sm btn-success fw-bold mt-4" id="btnBuscarComprobantes" style="position: relative;">
                                 <span class="text-button">BUSCAR</span>
                                 <span class="btn fw-bold icon-btn-success d-flex align-items-center">
                                     <i class="fas fa-search fs-5 text-white m-0 p-0"></i>
@@ -79,7 +79,7 @@
                         </div>
 
                         <div class="col-12 col-lg-2">
-                            <a class="btn btn-sm btn-info fw-bold mt-4 float-right mx-2" id="btnEnviarResumen" style="position: relative; width: 180px;">
+                            <a class="btn btn-sm btn-info fw-bold mt-4 float-right mx-2" id="btnEnviarResumen" style="position: relative;">
                                 <span class="text-button">ENVIAR RESUMEN</span>
                                 <span class="btn fw-bold  icon-btn-custom d-flex align-items-center">
                                     <i class="fas fa-share fs-5 text-white m-0 p-0"></i>
