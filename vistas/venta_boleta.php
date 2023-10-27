@@ -401,7 +401,7 @@
                                             </div>
 
                                             <div class="col-12 text-center my-1">
-                                                <!-- <a class="btn btn-sm btn-danger  fw-bold " id="btnCancelarVenta" style="position: relative; width: 160px;">
+                                                <a class="btn btn-sm btn-danger  fw-bold " id="btnCancelarVenta" style="position: relative; width: 160px;">
                                                     <span class="text-button">CANCELAR</span>
                                                     <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
                                                         <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
@@ -413,9 +413,9 @@
                                                     <span class="btn fw-bold icon-btn-success d-flex align-items-center">
                                                         <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
                                                     </span>
-                                                </a> -->
+                                                </a>
 
-                                                <div class="row">
+                                                <!-- <div class="row">
                                                     <div class="col-12 text-right">
                                                         <a class="btn btn-sm btn-danger  fw-bold w-25" id="btnCancelarVenta" style="position: relative;">
                                                             <span class="text-button">CANCELAR</span>
@@ -432,7 +432,7 @@
                                                         </a>
 
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
 
                                             <!-- <div class="col-12 text-center">
