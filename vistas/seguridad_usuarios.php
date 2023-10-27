@@ -82,12 +82,6 @@
                                     <!-- NOMBRES -->
                                     <div class="col-4 mb-2">
                                         <input type="hidden" name="id_usuario" id="id_usuario" value="0">
-                                        <!-- <div class="form-floating mb-2" style="position: relative;">
-                                            <input type="text" id="nombres" class="form-control text-uppercase" name="nombres" required>
-                                            <label for="nombres">Nombres</label>
-                                            <div class="invalid-feedback">Ingrese el nombre del usuario</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-user-alt mr-1 my-text-color"></i>Nombres</label>
                                         <input type="text" style="border-radius: 20px;" placeholder="Ingrese los nombres del usuario" class="form-control form-control-sm " id="nombres" name="nombres" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el nombre del usuario</div>
@@ -95,10 +89,6 @@
 
                                     <!-- APELLIDOS -->
                                     <div class="col-4 mb-2">
-
-                                        <!-- <div class="form-floating mb-2"> -->
-                                        <!-- <input type="text" id="apellidos" class="form-control " name="apellidos" required>
-                                            <label for="apellidos">Apellidos</label> -->
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-user-alt mr-1 my-text-color"></i>Apellidos</label>
                                         <input type="text" style="border-radius: 20px;" placeholder="Ingrese los apellidos del usuario" class="form-control form-control-sm " id="apellidos" name="apellidos" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el apellidos del usuario</div>
@@ -108,13 +98,6 @@
 
                                     <!-- USUARIO DEL SISTEMA -->
                                     <div class="col-4 mb-2">
-
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="text" id="usuario" class="form-control" name="usuario" onchange="validateJS(event, 'usuario_sistema')" required>
-                                            <label for="usuario">Usuario del Sistema</label>
-                                            <div class="invalid-feedback">Ingrese el usuario</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card mr-1 my-text-color"></i>Usuario del Sistema</label>
                                         <input type="text" style="border-radius: 20px;" placeholder="Ingrese el usuario del sistema" class="form-control form-control-sm" id="usuario" name="usuario" aria-label="Small" id_usuario="0" aria-describedby="inputGroup-sizing-sm" onchange="validateJS(event, 'usuario_sistema')" required>
                                         <div class="invalid-feedback">Ingrese usuario del sistema</div>
@@ -122,13 +105,6 @@
 
                                     <!-- PASSWORD -->
                                     <div class="col-3 mb-2">
-
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="password" id="password" class="form-control" name="password" required>
-                                            <label for="password">Contraseña</label>
-                                            <div class="invalid-feedback">Ingrese la contraseña</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-lock mr-1 my-text-color"></i>Contraseña</label>
                                         <input type="password" style="border-radius: 20px;" placeholder="Ingrese el password" class="form-control form-control-sm" id="password" name="password" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese la contraseña</div>
@@ -137,13 +113,6 @@
 
                                     <!-- CONFIRMAR PASSWORD -->
                                     <div class="col-3 mb-2">
-
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="password" id="confirmar_password" class="form-control" name="confirmar_password" required>
-                                            <label for="confirmar_password">Confirmar Contraseña</label>
-                                            <div class="invalid-feedback">Ingrese la confirmación</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-lock mr-1 my-text-color"></i>Confirmar Contraseña</label>
                                         <input type="password" style="border-radius: 20px;" placeholder="Ingrese confirmacion de password" class="form-control form-control-sm" id="confirmar_password" name="confirmar_password" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese la confirmación</div>
@@ -153,13 +122,6 @@
                                     <!-- PERFIL -->
                                     <div class="col-3 mb-2">
 
-                                        <!-- <div class="form-floating mb-2">
-                                            <select class="form-select select2" id="perfil" name="perfil" aria-label="Floating label select example" required>
-                                            </select>
-                                            <label for="perfil">Perfil</label>
-                                            <div class="invalid-feedback">Seleccione el Perfil</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card-alt mr-1 my-text-color"></i>Perfil</label>
                                         <select class="form-select" id="perfil" name="perfil" aria-label="Floating label select example" required>
                                         </select>
@@ -168,32 +130,14 @@
 
                                     <!-- CAJA -->
                                     <div class="col-3 mb-2">
-
-                                        <!-- <div class="form-floating mb-2">
-                                            <select class="form-select select2" id="caja" name="caja" aria-label="Floating label select example" required>
-                                            </select>
-                                            <label for="caja">Caja</label>
-                                            <div class="invalid-feedback">Seleccione la caja</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-cash-register mr-1 my-text-color"></i>Caja</label>
                                         <select class="form-select" id="caja" name="caja" aria-label="Floating label select example" required>
                                         </select>
                                         <div class="invalid-feedback">Seleccione la caja</div>
-
                                     </div>
 
                                     <!-- ESTADO -->
                                     <div class="col-3 mb-2">
-                                        <!-- <div class="form-floating mb-2">
-                                            <select class="form-select select2" id="estado" name="estado" aria-label="Floating label select example" required>
-                                                <option value="" disabled>--Seleccione un estado--</option>
-                                                <option value="1" selected>ACTIVO</option>
-                                                <option value="0">INACTIVO</option>
-                                            </select>
-                                            <label for="estado">Estado</label>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-toggle-on mr-1 my-text-color"></i>Estado</label>
                                         <select class="form-select" id="estado" name="estado" aria-label="Floating label select example" required>
                                             <option value="" disabled>--Seleccione un estado--</option>
@@ -206,9 +150,6 @@
 
                                     <div class="col-12 mt-2">
                                         <div class="float-right">
-                                            <!-- <a class="btn btn-outline-danger mx-1" id="btnCancelarUsuario">CANCELAR</a>
-                                            <a class="btn btn-outline-success mx-1" id="btnRegistrarUsuario">GUARDAR USUARIO</a> -->
-
                                             <a class="btn btn-sm btn-danger  fw-bold " id="btnCancelarUsuario" style="position: relative; width: 160px;">
                                                 <span class="text-button">CANCELAR</span>
                                                 <span class="btn fw-bold icon-btn-danger ">
@@ -299,7 +240,6 @@
     function CargarSelects() {
         CargarSelect(null, $("#perfil"), "--Seleccione Perfil--", "ajax/perfiles.ajax.php", 'listar_perfiles_select', null, 0);
         CargarSelect(null, $("#caja"), "--Seleccione Caja--", "ajax/cajas.ajax.php", 'listar_cajas_select', null, 0);
-        // $('.select2').select2()
     }
 
     function fnc_CargarDatatableUsuarios() {
@@ -455,8 +395,8 @@
             $("#usuario").attr('id_usuario', data['2'])
             $("#perfil").val(data['6']);
             $("#caja").val((data['8']));
-            if (data['10'] == "ACTIVO") $("#estado").select2("val", "1")
-            else $("#estado").select2("val", "0");
+            if (data['10'] == "ACTIVO") $("#estado").val("1")
+            else $("#estado").select2.val("0");
 
 
         }
