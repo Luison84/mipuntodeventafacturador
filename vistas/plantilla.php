@@ -108,7 +108,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="vistas/assets/plugins/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap 4 -->
-    <script src="vistas/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="vistas/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
     <!-- ChartJS -->
     <script src="vistas/assets/plugins/chart.js/Chart.min.js"></script>
@@ -125,9 +125,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <!-- jquery UI -->
-    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+    <!-- <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script> -->
 
-    <!-- <script src="vistas/assets/plugins/jquery-ui/js/jquery-ui.js"></script> -->
+    <script src="vistas/assets/plugins/jquery-ui/js/jquery-ui.js"></script>
     <!-- <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script> -->
     <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script> -->
     <!-- <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script> -->
@@ -165,7 +165,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
     <!-- Select2 -->
-    <script src="vistas/assets/plugins/select2/js/select2.full.min.js"></script>
+    <!-- <script src="vistas/assets/plugins/select2/js/select2.full.min.js"></script> -->
 
     <!-- AdminLTE App -->
     <script src="vistas/assets/dist/js/adminlte.min.js"></script>
