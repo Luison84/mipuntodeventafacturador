@@ -233,9 +233,12 @@
         /* =============================================================
         FUNCIONES PARA LAS CARGAS INICIALES DE DATATABLES, ARBOL DE MODULOS Y REAJUSTE DE CABECERAS DE DATATABLES
         ============================================================= */
-        cargarDataTables();
+        
         iniciarArbolModulos();
 
+        $("#content-modulo-perfil-tab").on('click', function(){
+            cargarDataTables();
+        })
 
         /* =============================================================
         VARIABLES PARA REGISTRAR EL PERFIL Y LOS MODULOS SELECCIOMADOS
@@ -417,7 +420,14 @@
 
     function cargarDataTables() {
 
-        tbl_perfiles_asignar = $('#tbl_perfiles_asignar').DataTable({
+        if ($.fn.DataTable.isDataTable('#tbl_perfiles_asignar')) {
+            $('#tbl_perfiles_asignar').DataTable().destroy();
+            $('#tbl_perfiles_asignar tbody').empty();
+        }
+
+
+
+        $('#tbl_perfiles_asignar').DataTable({
             ajax: {
                 async: false,
                 url: 'ajax/perfiles.ajax.php',
@@ -588,7 +598,7 @@
 
                     $("#select_modulos option").remove();
                     $('#modulos').jstree("deselect_all", false);
-                    tbl_perfiles_asignar.ajax.reload();
+                    $('#tbl_perfiles_asignar').DataTable().ajax.reload();
                     $("#card-modulos").css("display", "none");
 
                 } else {
