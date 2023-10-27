@@ -427,77 +427,80 @@
         }
 
 
-        $('#tbl_perfiles_asignar').DataTable({
-            ajax: {
-                async: false,
-                url: 'ajax/perfiles.ajax.php',
-                type: 'POST',
-                dataType: 'json',
-                dataSrc: "",
-                data: {
-                    accion: 'obtener_perfiles_asignar'
-                }
-            },
-            deferRender: true,
-            scrollCollapse: true,
-            scrollX: true,
-            "sScrollXInner": "100%",
-            "columns": [{
-                    "data": "id_perfil"
+        setTimeout(function() {
+            $('#tbl_perfiles_asignar').DataTable({
+                ajax: {
+                    async: false,
+                    url: 'ajax/perfiles.ajax.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    dataSrc: "",
+                    data: {
+                        accion: 'obtener_perfiles_asignar'
+                    }
                 },
-                {
-                    "data": "descripcion"
-                },
-                {
-                    "data": "estado"
-                },
-                {
-                    "data": "fecha_creacion"
-                },
-                {
-                    "data": "fecha_actualizacion"
-                },
-                {
-                    "data": "opciones"
-                }
-            ],
-            columnDefs: [{
-                    targets: [3, 4],
-                    visible: false
-                },
-                {
-                    targets: 2,
-                    sortable: false,
-                    createdCell: function(td, cellData, rowData, row, col) {
+                deferRender: true,
+                scrollCollapse: true,
+                scrollX: true,
+                "sScrollXInner": "100%",
+                "columns": [{
+                        "data": "id_perfil"
+                    },
+                    {
+                        "data": "descripcion"
+                    },
+                    {
+                        "data": "estado"
+                    },
+                    {
+                        "data": "fecha_creacion"
+                    },
+                    {
+                        "data": "fecha_actualizacion"
+                    },
+                    {
+                        "data": "opciones"
+                    }
+                ],
+                columnDefs: [{
+                        targets: [3, 4],
+                        visible: false
+                    },
+                    {
+                        targets: 2,
+                        sortable: false,
+                        createdCell: function(td, cellData, rowData, row, col) {
 
-                        if (parseInt(rowData[2]) == 1) {
-                            $(td).html("Activo")
-                        } else {
-                            $(td).html("Inactivo")
+                            if (parseInt(rowData[2]) == 1) {
+                                $(td).html("Activo")
+                            } else {
+                                $(td).html("Inactivo")
+                            }
+
                         }
-
+                    },
+                    {
+                        targets: 5,
+                        sortable: false,
+                        render: function(data, type, full, meta) {
+                            return "<center>" +
+                                "<span class='btnSeleccionarPerfil text-primary px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Seleccionar perfil'> " +
+                                "<i class='fas fa-check fs-5'></i> " +
+                                "</span> " +
+                                "</center>";
+                        }
                     }
+                ],
+                initComplete: function(settings, json) {
+                    $('#tbl_perfiles_asignar').DataTable().columns.adjust();
                 },
-                {
-                    targets: 5,
-                    sortable: false,
-                    render: function(data, type, full, meta) {
-                        return "<center>" +
-                            "<span class='btnSeleccionarPerfil text-primary px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Seleccionar perfil'> " +
-                            "<i class='fas fa-check fs-5'></i> " +
-                            "</span> " +
-                            "</center>";
-                    }
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
                 }
-            ],
-            initComplete: function(settings, json){
-                $('#tbl_perfiles_asignar').DataTable().columns.adjust();
-            },
-            language: {
-                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
-            }
 
-        });
+            });
+        }, 1000);
+
 
         // $('#tbl_perfiles_asignar').DataTable().columns.adjust();
 
