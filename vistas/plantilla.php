@@ -2,17 +2,16 @@
 
 session_start();
 
-$rutaProyecto = Rutas::RutaProyecyo();
 
 if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
 
     session_destroy();
 
-    echo `
+    echo '
             <script>
-                window.location =  <?php echo $rutaProyecto: ?> + ;
+                window.location = "https://tutorialesphperu.com/pos/";
             </script>        
-            `;
+        ';
 }
 ?>
 
