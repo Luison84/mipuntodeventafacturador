@@ -328,6 +328,7 @@
 
     function fnc_IrFormularioActualizarCliente(fila_actualizar) {
 
+        alert("entro")
         if (fila_actualizar.parents('tr').hasClass('selected')) {
             fnc_LimpiarFomulario();
         } else {
@@ -345,7 +346,7 @@
             $("#listado-clientes").removeClass('active show');
 
             // $("#registrar-proveedores-tab").html('Actualizar Proveedor')
-            $("#registrar-clientes-tab").html('<i class="fas fa-sync-alt"></i> Actualizar Cliente')
+            $("#registrar-clientes-tab").html('<i class="fas fa-sync-alt"></i> Actualizar')
 
             var data = (fila_actualizar.parents('tr').hasClass('child')) ?
                 $("#tbl_clientes").DataTable().row(fila_actualizar.parents().prev('tr')).data() :
