@@ -19,7 +19,7 @@ class ClientesModelo
             "estado"
         ];
 
-        $query = " SELECT '' as detalles,
+        $query = " SELECT 
                     '' as opciones,
                     cli.id,
                     cli.id_tipo_documento,
@@ -67,7 +67,6 @@ class ClientesModelo
 
         foreach ($results as $row) {
             $sub_array = array();
-            $sub_array[] = $row['detalles'];
             $sub_array[] = $row['opciones'];
             $sub_array[] = $row['id'];
             $sub_array[] = $row['id_tipo_documento'];
