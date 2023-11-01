@@ -82,7 +82,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="vistas/assets/dist/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="vistas/assets/dist/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="vistas/assets/dist/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="vistas/assets/dist/css/fixedColumns.dataTables.min.css">
+    <!-- <link rel="stylesheet" href="vistas/assets/dist/css/fixedColumns.dataTables.min.css"> -->
 
 
     <!-- Theme style -->
@@ -144,7 +144,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="vistas/assets/dist/js/jquery.dataTables.min.js"></script>
     <script src="vistas/assets/dist/js/dataTables.responsive.min.js"></script>
     <script src="vistas/assets/dist/js/jquery.tabledit.min.js"></script>
-    <script src="vistas/assets/dist/js/dataTables.fixedColumns.min.js"></script>
+    <!-- <script src="vistas/assets/dist/js/dataTables.fixedColumns.min.js"></script> -->
 
 
     <!-- ============================================================
