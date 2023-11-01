@@ -212,6 +212,7 @@
     $(document).ready(function() {
         CargarSelects();
         fnc_CargarDatatableSeries();
+        fnc_LoadDataTableEdit();
 
         $("#btnRegistrarSerie").on('click', function() {
             fnc_RegistrarSerie();
@@ -276,8 +277,9 @@
             }
         })
 
+    }
 
-
+    function fnc_LoadDataTableEdit() {
         var datos = new FormData();
         datos.append('accion', 'obtener_tipo_comprobante');
 
