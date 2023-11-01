@@ -240,6 +240,7 @@
     $(document).ready(function() {
         // CargarSelects();
         fnc_CargarDatatableTipoAfectacionIgv();
+        fnc_LoadDataTableEdit();
 
         $("#btnRegistrarTipoAfectacion").on('click', function() {
             fnc_GuardarTipoAfectacion();
@@ -251,6 +252,10 @@
         });
 
         $("#registrar-tipo-afectacion-igv-tab").on('click', function() {
+            fnc_LimpiarFomulario();
+        })
+
+        $("#listado-tipo-afectacion-igv-tab").on('click', function() {
             fnc_LimpiarFomulario();
         })
 
@@ -311,6 +316,9 @@
         })
 
 
+    }
+
+    function fnc_LoadDataTableEdit() {
 
         $("#tbl_tipo_afectacion_igv").on('draw.dt', function() {
 
@@ -366,13 +374,12 @@
                             showConfirmButton: true,
                             timer: 2000
                         })
-                        $("#tbl_tipo_afectacion_igv").DataTable().ajax.reload();
+                        // $("#tbl_tipo_afectacion_igv").DataTable().ajax.reload();
+                        fnc_CargarDatatableTipoAfectacionIgv();
                     }
                 }
             })
         })
-
-        $("#tbl_tipo_afectacion_igv").DataTable().columns.adjust().draw();
     }
 
     function fnc_GuardarTipoAfectacion() {
@@ -436,6 +443,7 @@
 
 
 
-        $("#tbl_tipo_afectacion_igv").DataTable().ajax.reload();
+        // $("#tbl_tipo_afectacion_igv").DataTable().ajax.reload();
+        fnc_CargarDatatableTipoAfectacionIgv();
     }
 </script>
