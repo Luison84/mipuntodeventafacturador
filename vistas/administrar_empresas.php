@@ -67,7 +67,6 @@
                                 <div class="col-md-12">
                                     <table id="tbl_empresas" class="table table-striped w-100 shadow border border-secondary">
                                         <thead class="bg-main text-left">
-                                            <th> </th> <!-- 0 -->
                                             <th></th>
                                             <th>ID</th>
                                             <th>Razon Social</th>
@@ -338,31 +337,33 @@
                 },
                 type: 'POST'
             },
-            responsive: {
-                details: {
-                    type: 'column'
-                }
-            },
+            // responsive: {
+            //     details: {
+            //         type: 'column'
+            //     }
+            // },
+            scrollX: true,
+            scrollY: "63vh",
             columnDefs: [{
                     targets: 0,
                     orderable: false,
                     className: 'control'
                 },
                 {
-                    targets: 5,
+                    targets: 4,
                     visible: false
                 },
                 {
-                    targets: 18,
+                    targets: 17,
                     createdCell: function(td, cellData, rowData, row, col) {
-                        if (rowData[18] != 'ACTIVO') {
+                        if (rowData[17] != 'ACTIVO') {
                             $(td).parent().css('background', '#F2D7D5')
                             $(td).parent().css('color', 'black')
                         }
                     }
                 },
                 {
-                    targets: 1,
+                    targets: 0,
                     orderable: false,
                     createdCell: function(td, cellData, rowData, row, col) {
                         $(td).html("<span class='btnEditarEmpresa text-primary px-1' style='cursor:pointer;'>" +

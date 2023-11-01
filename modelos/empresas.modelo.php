@@ -40,7 +40,7 @@ class EmpresasModelo
             "estado"
         ];
 
-        $query = " SELECT  '' as detalles,
+        $query = " SELECT 
                             '' as opciones,
                             e.id_empresa, 
                             e.razon_social, 
@@ -102,7 +102,6 @@ class EmpresasModelo
 
         foreach ($results as $row) {
             $sub_array = array();
-            $sub_array[] = $row['detalles'];
             $sub_array[] = $row['opciones'];
             $sub_array[] = $row['id_empresa'];
             $sub_array[] = $row['razon_social'];
