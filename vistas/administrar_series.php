@@ -230,7 +230,6 @@
 
     function CargarSelects() {
         CargarSelect(null, $("#tipo_comprobante"), "--Seleccione Tipo Comprobante--", "ajax/series.ajax.php", 'obtener_tipo_comprobante', null, 0);
-        // $('.select2').select2()
     }
 
     function fnc_CargarDatatableSeries() {
@@ -240,37 +239,40 @@
             $('#tbl_series tbody').empty();
         }
 
-        $("#tbl_series").DataTable({
-            dom: 'Bfrtip',
-            buttons: ['pageLength'],
-            pageLength: 10,
-            processing: true,
-            serverSide: true,
-            order: [],
-            ajax: {
-                url: 'ajax/series.ajax.php',
-                data: {
-                    'accion': 'obtener_series'
+        setTimeout(function() {
+            $("#tbl_series").DataTable({
+                dom: 'Bfrtip',
+                buttons: ['pageLength'],
+                pageLength: 10,
+                processing: true,
+                serverSide: true,
+                order: [],
+                ajax: {
+                    url: 'ajax/series.ajax.php',
+                    data: {
+                        'accion': 'obtener_series'
+                    },
+                    type: 'POST'
                 },
-                type: 'POST'
-            },
-            scrollX: true,
-            scrollY: "63vh",
-            columnDefs: [{
-                    targets: 4,
-                    createdCell: function(td, cellData, rowData, row, col) {
-                        if (rowData[4] != 'ACTIVO') {
-                            $(td).parent().css('background', '#F2D7D5')
-                            $(td).parent().css('color', 'black')
+                scrollX: true,
+                scrollY: "63vh",
+                columnDefs: [{
+                        targets: 4,
+                        createdCell: function(td, cellData, rowData, row, col) {
+                            if (rowData[4] != 'ACTIVO') {
+                                $(td).parent().css('background', '#F2D7D5')
+                                $(td).parent().css('color', 'black')
+                            }
                         }
-                    }
-                },
+                    },
 
-            ],
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
-            }
-        })
+                ],
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+                }
+            })
+        }, 1)
+
 
         var datos = new FormData();
         datos.append('accion', 'obtener_tipo_comprobante');
