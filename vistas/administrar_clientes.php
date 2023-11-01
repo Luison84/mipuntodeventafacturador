@@ -353,16 +353,16 @@
                 $("#tbl_clientes").DataTable().row(fila_actualizar.parents('tr')).data();
 
 
-            $("#id_cliente").val(data['2']);
-            $("#tipo_documento").select2("val", (data['3']));
-            $("#nro_documento").val(data['5']);
+            $("#id_cliente").val(data['1']);
+            $("#tipo_documento").select2("val", (data['2']));
+            $("#nro_documento").val(data['4']);
             $("#nro_documento").prop('disabled', false);
-            $("#nro_documento").attr('id_cliente', data['2'])
-            $("#nombre_cliente_razon_social").val(data['6']);
-            $("#direccion").val(data['7']);
-            $("#telefono").val(data['8']);
-            if (data['9'] == "ACTIVO") $("#estado").select2("val", "1")
-            else $("#estado").select2("val", "0");
+            $("#nro_documento").attr('id_cliente', data['1'])
+            $("#nombre_cliente_razon_social").val(data['5']);
+            $("#direccion").val(data['6']);
+            $("#telefono").val(data['7']);
+            if (data['9'] == "ACTIVO") $("#estado").val("1")
+            else $("#estado").val("0");
 
 
         }
