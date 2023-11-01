@@ -343,8 +343,6 @@
                             title: data.msj,
                             showConfirmButton: true
                         })
-                        // fnc_ObtenerEstadoCajaPorDia();
-                        // fnc_CargarDatatableSeries
                         fnc_CargarDatatableSeries();
                     }
                 }

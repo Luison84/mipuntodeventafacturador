@@ -157,6 +157,7 @@
     $(document).ready(function() {
 
         fnc_CargarDatatableTipoComprobante();
+        fnc_LoadDataTableEdit();
 
         $("#btnRegistrarComprobante").on('click', function() {
             fnc_RegistrarComprobante();
@@ -207,7 +208,9 @@
             }
         })
 
+    }
 
+    function fnc_LoadDataTableEdit() {
         $("#tbl_tipo_comprobante").on('draw.dt', function() {
 
             $("#tbl_tipo_comprobante").Tabledit({
@@ -257,9 +260,7 @@
                             showConfirmButton: true,
                             timer: 2000
                         })
-                        // fnc_ObtenerEstadoCajaPorDia();
-                        // fnc_CargarDatatableSeries
-                        $("#tbl_tipo_comprobante").DataTable().ajax.reload();
+                        fnc_CargarDatatableTipoComprobante();
                     }
                 }
             })
