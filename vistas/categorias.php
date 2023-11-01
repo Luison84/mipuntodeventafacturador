@@ -34,32 +34,18 @@
                         <div class="row">
 
                             <div class="col-md-12">
-
-                                <!-- <div class="form-floating mb-2">
-
-                                    <input type="text" id="descripcion" class="form-control" name="descripcion" required>
-                                    <label for="descripcion">Categoria</label>
-                                    <div class="invalid-feedback">Ingrese la categoría</div>
-                                </div> -->
                                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-layer-group mr-1 my-text-color"></i>Categorpia</label>
                                 <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="descripcion" name="descripcion" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                 <div class="invalid-feedback">Ingrese la categoría</div>
                             </div>
 
                             <div class="col-md-12 mt-3 text-center">
-
-                                <!-- <div class="form-group m-0 mt-2">
-                                    <a style="cursor:pointer;" class="btn btn-primary btn-sm w-100" id="btnRegistrarCategoria">Registrar Categoría
-                                    </a>
-                                </div> -->
-
                                 <a class="btn btn-sm btn-success  fw-bold " id="btnRegistrarCategoria" style="position: relative; width: 50%;">
                                     <span class="text-button">GUARDAR</span>
                                     <span class="btn fw-bold icon-btn-success d-flex align-items-center">
                                         <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
                                     </span>
                                 </a>
-
                             </div>
 
                         </div>
@@ -80,10 +66,9 @@
                 </div>
                 <div class="card-body">
                     <table id="tbl_categorias" class="table table-striped w-100 shadow border border-secondary">
-                        <thead class="bg-gray text-left">
+                        <thead class="bg-main text-left">
                             <th>id</th>
                             <th>Categoría</th>
-                            <!-- <th>Medida</th> -->
                             <th>Estado</th>
                             <th>F. Creación</th>
 
@@ -212,7 +197,8 @@
                     if (data.action == "edit") {
                         mensajeToast("success", "Se actualizó la Categoría")
                         // fnc_ObtenerEstadoCajaPorDia();
-                        $("#tbl_categorias").DataTable().ajax.reload();
+                        // $("#tbl_categorias").DataTable().ajax.reload();
+                        fnc_CargarDatatableCategorias();
                     }
                 }
             })
@@ -316,7 +302,7 @@
 
                 $("#descripcion").val("");
 
-                $('#tbl_categorias').DataTable().ajax.reload();
+                fnc_CargarDatatableCategorias();
                 $(".needs-validation-categorias").removeClass("was-validated");
 
             }
