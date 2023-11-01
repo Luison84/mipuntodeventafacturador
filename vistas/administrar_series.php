@@ -213,6 +213,7 @@
                 },
                 type: 'POST'
             },
+            fixedHeader: false,
             scrollX: true,
             scrollCollapse: false,
             scrollY: "63vh",
