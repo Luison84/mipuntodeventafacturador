@@ -121,29 +121,40 @@
 
                                                     <!-- EMITIR POR -->
                                                     <div class="col-12 mb-2">
-                                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-building mr-1 my-text-color"></i> Empresa Emisora</label>
+                                                        <label class="mb-0 ml-1 text-sm my-text-color">
+                                                            <i class="fas fa-building mr-1 my-text-color"></i> Empresa Emisora
+                                                        </label>
                                                         <select class="form-select" id="empresa_emisora" name="empresa_emisora" aria-label="Floating label select example" required>
                                                         </select>
                                                         <div class="invalid-feedback">Seleccione Empresa</div>
                                                     </div>
 
+
                                                     <!-- FECHA DE EMISION -->
                                                     <div class="col-12 col-md-4 mb-2">
-                                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-calendar-alt mr-1 my-text-color"></i> Fecha Emisión</label>
+                                                        <label class="mb-0 ml-1 text-sm my-text-color">
+                                                            <i class="fas fa-calendar-alt mr-1 my-text-color"></i> Fecha Emisión
+                                                        </label>
                                                         <div class="input-group input-group-sm mb-3 ">
-                                                            <span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" data-toggle="datetimepicker" data-target="#fecha_emision"><i class="fas fa-calendar-alt ml-1 text-white"></i></span>
+                                                            <span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" data-toggle="datetimepicker" data-target="#fecha_emision">
+                                                                <i class="fas fa-calendar-alt ml-1 text-white"></i>
+                                                            </span>
                                                             <input type="text" class="form-control form-control-sm datetimepicker-input" style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;" aria-label="Sizing example input" id="fecha_emision" name="fecha_emision" aria-describedby="inputGroup-sizing-sm" required>
                                                             <div class="invalid-feedback">Ingrese Fecha de Emisión</div>
                                                         </div>
                                                     </div>
 
+
                                                     <!-- TIPO COMPROBANTE -->
                                                     <div class="col-12 col-md-8 mb-2">
-                                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-contract mr-1 my-text-color"></i>Tipo de Comprobante</label>
+                                                        <label class="mb-0 ml-1 text-sm my-text-color">
+                                                            <i class="fas fa-file-contract mr-1 my-text-color"></i>Tipo de Comprobante
+                                                        </label>
                                                         <select class="form-select" id="tipo_comprobante" name="tipo_comprobante" aria-label="Floating label select example" required>
                                                         </select>
                                                         <div class="invalid-feedback">Seleccione Tipo de Comprobante</div>
                                                     </div>
+
 
                                                     <!-- SERIE -->
                                                     <div class="col-12 col-md-4 mb-2">

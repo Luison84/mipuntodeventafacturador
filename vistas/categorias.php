@@ -4,7 +4,7 @@
             <div class="col-md-6">
                 <h2 class="m-0 fw-bold">ADMINISTRAR CATEGORÍAS</h2>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 d-none d-md-block">
                 <ol class="breadcrumb float-md-right">
                     <li class="breadcrumb-item"><a href="index.php">Inicio</a></li>
                     <li class="breadcrumb-item">Productos</li>
