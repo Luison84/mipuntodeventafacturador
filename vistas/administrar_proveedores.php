@@ -241,22 +241,18 @@
             },
             scrollX: true,
             scrollY: "63vh",
-            columnDefs: [{
-                    targets: 0,
-                    orderable: false,
-                    className: 'control'
-                },
+            columnDefs: [
                 {
-                    targets: 8,
+                    targets: 7,
                     createdCell: function(td, cellData, rowData, row, col) {
-                        if (rowData[8] != 'ACTIVO') {
+                        if (rowData[7] != 'ACTIVO') {
                             $(td).parent().css('background', '#F2D7D5')
                             $(td).parent().css('color', 'black')
                         }
                     }
                 },
                 {
-                    targets: 1,
+                    targets: 0,
                     orderable: false,
                     createdCell: function(td, cellData, rowData, row, col) {
                         $(td).html("<span class='btnEditarProducto text-primary px-1' style='cursor:pointer;'>" +
@@ -265,9 +261,6 @@
                     }
                 }
 
-            ],
-            order: [
-                [0, 'DESC']
             ],
             // scrollX: true,
             language: {
