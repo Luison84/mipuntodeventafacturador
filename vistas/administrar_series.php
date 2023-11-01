@@ -244,7 +244,6 @@
             $('#tbl_series tbody').empty();
         }
 
-
         $("#tbl_series").DataTable({
             dom: 'Bfrtip',
             buttons: ['pageLength'],
@@ -411,5 +410,16 @@
         // $("#tbl_series").DataTable().ajax.reload();
         fnc_CargarDatatableSeries();
         $(".needs-validation-serie").removeClass("was-validated");
+
+        $("#listado-serie-tab").addClass('active')
+        $("#listado-serie-tab").attr('aria-selected', true)
+        $("#listado-serie").addClass('active show')
+
+        //DESACTIVAR PANE LISTADO DE PROVEEDORES:
+        $("#registrar-serie-tab").removeClass('active')
+        $("#registrar-serie-tab").attr('aria-selected', false)
+        $("#registrar-serie").removeClass('active show')
+
+        $("#registrar-serie-tab").html('<i class="fas fa-file-signature"></i> Registrar')
     }
 </script>
