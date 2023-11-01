@@ -198,15 +198,12 @@
                 },
                 type: 'POST'
             },
+            scrollX: true,
+            scrollY: "63vh",
             columnDefs: [{
                     "className": "dt-center",
                     "targets": "_all"
-                },
-                {
-                    targets: 0,
-                    orderable: false,
-                    className: 'control'
-                },
+                },                
                 {
                     targets: 2,
                     createdCell: function(td, cellData, rowData, row, col) {
@@ -218,10 +215,6 @@
                 },
 
             ],
-            order: [
-                [0, 'ASC']
-            ],
-            // scrollX: true,
             language: {
                 url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
             }
