@@ -243,39 +243,39 @@
             $('#tbl_series tbody').empty();
         }
 
-        setTimeout(function() {
-            $("#tbl_series").DataTable({
-                dom: 'Bfrtip',
-                buttons: ['pageLength'],
-                pageLength: 10,
-                processing: true,
-                serverSide: true,
-                order: [],
-                ajax: {
-                    url: 'ajax/series.ajax.php',
-                    data: {
-                        'accion': 'obtener_series'
-                    },
-                    type: 'POST'
-                },
-                scrollX: true,
-                scrollY: "63vh",
-                columnDefs: [{
-                        targets: 4,
-                        createdCell: function(td, cellData, rowData, row, col) {
-                            if (rowData[4] != 'ACTIVO') {
-                                $(td).parent().css('background', '#F2D7D5')
-                                $(td).parent().css('color', 'black')
-                            }
-                        }
-                    },
 
-                ],
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
-                }
-            })
-        }, 1)
+        $("#tbl_series").DataTable({
+            dom: 'Bfrtip',
+            buttons: ['pageLength'],
+            pageLength: 10,
+            processing: true,
+            serverSide: true,
+            order: [],
+            ajax: {
+                url: 'ajax/series.ajax.php',
+                data: {
+                    'accion': 'obtener_series'
+                },
+                type: 'POST'
+            },
+            scrollX: true,
+            scrollY: "63vh",
+            columnDefs: [{
+                    targets: 4,
+                    createdCell: function(td, cellData, rowData, row, col) {
+                        if (rowData[4] != 'ACTIVO') {
+                            $(td).parent().css('background', '#F2D7D5')
+                            $(td).parent().css('color', 'black')
+                        }
+                    }
+                },
+
+            ],
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+            }
+        })
+
 
 
         var datos = new FormData();
