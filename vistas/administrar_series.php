@@ -66,7 +66,7 @@
                                 <!--LISTADO DE CATEGORIAS -->
                                 <div class="col-md-12">
                                     <table id="tbl_series" class="table table-striped w-100 shadow border border-secondary">
-                                        <!-- <thead class="bg-main text-left">
+                                        <thead class="bg-main text-left">
                                             <tr>
                                                 <th>id</th>
                                                 <th>Tipo Comprobante</th>
@@ -74,7 +74,7 @@
                                                 <th>Correlativo</th>
                                                 <th>Estado</th>
                                             </tr>
-                                        </thead> -->
+                                        </thead>
                                     </table>
                                 </div>
 
