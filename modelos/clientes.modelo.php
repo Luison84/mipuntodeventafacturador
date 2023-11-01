@@ -79,7 +79,7 @@ class ClientesModelo
             $data[] = $sub_array;
         }
 
-        $stmt = Conexion::conectar()->prepare(" SELECT '' as detalles,
+        $stmt = Conexion::conectar()->prepare(" SELECT 
                                                         '' as opciones,
                                                         cli.id,
                                                         cli.id_tipo_documento,
