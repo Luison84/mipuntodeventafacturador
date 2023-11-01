@@ -78,7 +78,7 @@
 
                                 <div class="row">
 
-                                    <div class="col-3 mb-2">
+                                    <div class="col-12 col-lg-3 mb-2">
 
                                         <input type="hidden" name="id_cliente" id="id_cliente" value="0">
 
@@ -89,31 +89,31 @@
 
                                     </div>
 
-                                    <div class="col-3 mb-2">
+                                    <div class="col-12 col-lg-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card mr-1 my-text-color"></i>Nro Documento <strong class="text-danger fw-bold">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="nro_documento" onchange="validateJS(event, 'nro_documento')" name="nro_documento" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el Nro de Documento</div>
                                     </div>
 
-                                    <div class="col-6 mb-2">
+                                    <div class="col-12 col-lg-6 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-user-tie mr-1 my-text-color"></i>Nombre del Cliente / Razón Social <strong class="text-danger fw-bold">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="nombre_cliente_razon_social" name="nombre_cliente_razon_social" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el Nombre/Razón Social del Cliente</div>
                                     </div>
 
-                                    <div class="col-7 mb-2">
+                                    <div class="col-12 col-lg-7 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-map-marker-alt mr-1 my-text-color"></i>Dirección <strong class="text-danger fw-bold">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="direccion" name="direccion" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese la dirección del Cliente</div>
                                     </div>
 
-                                    <div class="col-2 mb-2">
+                                    <div class="col-12 col-lg-2 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-phone-alt mr-1 my-text-color"></i>Teléfono</label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="telefono" name="telefono" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                                     </div>
 
                                     <!-- ESTADO -->
-                                    <div class="col-3 mb-2">
+                                    <div class="col-12 col-lg-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-toggle-on mr-1 my-text-color"></i>Estado <strong class="text-danger fw-bold">*</strong></label>
                                         <select class="form-select" id="estado" name="estado" aria-label="Floating label select example" required>
                                             <option value="" disabled>--Seleccione un estado--</option>
@@ -124,23 +124,25 @@
                                     </div>
 
 
-                                    <div class="col-12 mb-2 mt-2">
+                                    <div class="col-12 col-lg-2 mb-2 mt-2">
                                         <div class="row">
-                                            <div class="offset-6 col-6 text-right">
-                                                <a class="btn btn-sm btn-danger  fw-bold w-25" id="btnCancelarCliente" style="position: relative;">
+                                            <div class="col-6 text-right">
+                                                <a class="btn btn-sm btn-danger  fw-bold w-100" id="btnCancelarCliente" style="position: relative;">
                                                     <span class="text-button">CANCELAR</span>
                                                     <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
                                                         <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
                                                     </span>
                                                 </a>
 
-                                                <a class="btn btn-sm btn-success  fw-bold w-25" id="btnRegistrarCliente" style="position: relative;">
+                                            </div>
+
+                                            <div class="col-6">
+                                                <a class="btn btn-sm btn-success  fw-bold w-100" id="btnRegistrarCliente" style="position: relative;">
                                                     <span class="text-button">GUARDAR</span>
                                                     <span class="btn fw-bold icon-btn-success d-flex align-items-center">
                                                         <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
                                                     </span>
                                                 </a>
-
                                             </div>
                                         </div>
 
