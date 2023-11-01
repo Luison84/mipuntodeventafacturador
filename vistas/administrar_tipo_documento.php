@@ -43,7 +43,7 @@
 
                         <!-- TAB LISTADO DE TIPOS DE DOCUMENTO -->
                         <li class="nav-item">
-                            <a class="nav-link active my-0" id="listado-tipo-documento-tab" data-toggle="pill" href="#listado-tipo-documento" role="tab" aria-controls="listado-tipo-documento" aria-selected="true"><i class="fas fa-list"></i> Listado de Tipo de Documento</a>
+                            <a class="nav-link active my-0" id="listado-tipo-documento-tab" data-toggle="pill" href="#listado-tipo-documento" role="tab" aria-controls="listado-tipo-documento" aria-selected="true"><i class="fas fa-list"></i> Listado </a>
                         </li>
 
                         <!-- TAB REGISTRO DE TIPO DE DOCUMENTO -->
@@ -85,14 +85,14 @@
 
                                 <div class="row">
 
-                                    <div class="col-3 mb-2">
+                                    <div class="col-12 col-lg-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Código <strong class="text-danger fw-bold">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="codigo" name="codigo" onchange="validateJS(event, 'codigo_tipo_documento')" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el código</div>
 
                                     </div>
 
-                                    <div class="col-6 mb-2">
+                                    <div class="col-12 col-lg-6 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-signature mr-1 my-text-color"></i>Descripción <strong class="text-danger fw-bold">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="descripcion" name="descripcion" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese la descripción</div>
@@ -100,7 +100,7 @@
                                     </div>
 
                                     <!-- ESTADO -->
-                                    <div class="col-3 mb-2">
+                                    <div class="col-12 col-lg-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-toggle-on mr-1 my-text-color"></i>Estado <strong class="text-danger fw-bold">*</strong></label>
                                         <select class="form-select" id="estado" name="estado" aria-label="Floating label select example" required>
                                             <option value="" disabled>--Seleccione un estado--</option>
