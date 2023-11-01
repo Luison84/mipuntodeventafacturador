@@ -91,7 +91,7 @@
 
                                 <div class="row">
 
-                                    <div class="col-3 mb-2">
+                                    <div class="col-12 col-lg-3 mb-2">
 
                                         <input type="hidden" name="id_proveedor" id="id_proveedor" value="0">
 
@@ -102,34 +102,34 @@
 
                                     </div>
 
-                                    <div class="col-3 mb-2">
+                                    <div class="col-12 col-lg-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card mr-1 my-text-color"></i>Nro Documento <strong class="text-danger fw-bold">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="nro_documento" onchange="validateJS(event, 'ruc')" name="nro_documento" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el Nro de Documento</div>
                                     </div>
 
-                                    <div class="col-6 mb-2">
+                                    <div class="col-12 col-lg-6 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-user-tie mr-1 my-text-color"></i>Nombre del Cliente / Razón Social <strong class="text-danger fw-bold">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="nombre_cliente_razon_social" name="nombre_cliente_razon_social" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el Nombre/Razón Social del Proveedor</div>
 
                                     </div>
 
-                                    <div class="col-7 mb-2">
+                                    <div class="col-12 col-lg-7 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-map-marker-alt mr-1 my-text-color"></i>Dirección <strong class="text-danger fw-bold">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="direccion" name="direccion" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese la dirección</div>
 
                                     </div>
 
-                                    <div class="col-2 mb-2">
+                                    <div class="col-12 col-lg-2 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-phone-alt mr-1 my-text-color"></i>Teléfono</label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="telefono" name="telefono" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
 
                                     </div>
 
                                     <!-- ESTADO -->
-                                    <div class="col-3 mb-2">
+                                    <div class="col-12 col-lg-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-toggle-on mr-1 my-text-color"></i>Estado <strong class="text-danger fw-bold">*</strong></label>
                                         <select class="form-select" id="estado" name="estado" aria-label="Floating label select example" required>
                                             <option value="" disabled>--Seleccione un estado--</option>
