@@ -29,7 +29,7 @@
 
                         <!-- TAB LISTADO DE CLIENTES -->
                         <li class="nav-item">
-                            <a class="nav-link active my-0" id="listado-clientes-tab" data-toggle="pill" href="#listado-clientes" role="tab" aria-controls="listado-clientes" aria-selected="true"><i class="fas fa-list"></i> Listado de Clientes</a>
+                            <a class="nav-link active my-0" id="listado-clientes-tab" data-toggle="pill" href="#listado-clientes" role="tab" aria-controls="listado-clientes" aria-selected="true"><i class="fas fa-list"></i> Listado</a>
                         </li>
 
                         <!-- TAB REGISTRO DE CLIENTES -->

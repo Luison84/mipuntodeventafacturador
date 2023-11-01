@@ -43,7 +43,7 @@
 
                         <!-- TAB LISTADO DE TIPOS DE DOCUMENTO -->
                         <li class="nav-item">
-                            <a class="nav-link active my-0" id="listado-tipo-afectacion-igv-tab" data-toggle="pill" href="#listado-tipo-afectacion-igv" role="tab" aria-controls="listado-tipo-afectacion-igv" aria-selected="true"><i class="fas fa-list"></i> Listado de Tipo de Documento</a>
+                            <a class="nav-link active my-0" id="listado-tipo-afectacion-igv-tab" data-toggle="pill" href="#listado-tipo-afectacion-igv" role="tab" aria-controls="listado-tipo-afectacion-igv" aria-selected="true"><i class="fas fa-list"></i> Listado</a>
                         </li>
 
                         <!-- TAB REGISTRO DE TIPO DE DOCUMENTO -->

@@ -43,7 +43,7 @@
 
                         <!-- TAB LISTADO DE PROVEEDORES -->
                         <li class="nav-item">
-                            <a class="nav-link active my-0" id="listado-proveedores-tab" data-toggle="pill" href="#listado-proveedores" role="tab" aria-controls="listado-proveedores" aria-selected="true"><i class="fas fa-list"></i> Listado de Proveedores</a>
+                            <a class="nav-link active my-0" id="listado-proveedores-tab" data-toggle="pill" href="#listado-proveedores" role="tab" aria-controls="listado-proveedores" aria-selected="true"><i class="fas fa-list"></i> Listado </a>
                         </li>
 
                         <!-- TAB REGISTRO DE PROVEEDORES -->

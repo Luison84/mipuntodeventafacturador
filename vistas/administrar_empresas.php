@@ -43,7 +43,7 @@
 
                         <!-- TAB LISTADO DE SERIES -->
                         <li class="nav-item">
-                            <a class="nav-link active my-0" id="listado-empresas-tab" data-toggle="pill" href="#listado-empresas" role="tab" aria-controls="listado-empresas" aria-selected="true"><i class="fas fa-list"></i> Listado de Empresas</a>
+                            <a class="nav-link active my-0" id="listado-empresas-tab" data-toggle="pill" href="#listado-empresas" role="tab" aria-controls="listado-empresas" aria-selected="true"><i class="fas fa-list"></i> Listado</a>
                         </li>
 
                         <!-- TAB REGISTRO DE SERIES -->

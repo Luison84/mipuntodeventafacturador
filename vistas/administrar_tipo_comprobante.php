@@ -43,7 +43,7 @@
 
                         <!-- TAB LISTADO DE SERIES -->
                         <li class="nav-item">
-                            <a class="nav-link active" id="listado-comprobantes-tab" data-toggle="pill" href="#listado-comprobantes" role="tab" aria-controls="listado-comprobantes" aria-selected="true"><i class="fas fa-list"></i> Listado de Comprobantes</a>
+                            <a class="nav-link active" id="listado-comprobantes-tab" data-toggle="pill" href="#listado-comprobantes" role="tab" aria-controls="listado-comprobantes" aria-selected="true"><i class="fas fa-list"></i> Listado</a>
                         </li>
 
                         <!-- TAB REGISTRO DE SERIES -->

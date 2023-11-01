@@ -43,7 +43,7 @@
 
                         <!-- TAB LISTADO DE SERIES -->
                         <li class="nav-item">
-                            <a class="nav-link active" id="listado-serie-tab" data-toggle="pill" href="#listado-serie" role="tab" aria-controls="listado-serie" aria-selected="true"><i class="fas fa-list"></i> Listado de Series</a>
+                            <a class="nav-link active" id="listado-serie-tab" data-toggle="pill" href="#listado-serie" role="tab" aria-controls="listado-serie" aria-selected="true"><i class="fas fa-list"></i> Listado</a>
                         </li>
 
                         <!-- TAB REGISTRO DE SERIES -->
