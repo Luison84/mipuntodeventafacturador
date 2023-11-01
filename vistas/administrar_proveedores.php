@@ -67,7 +67,6 @@
                                 <div class="col-md-12">
                                     <table id="tbl_proveedores" class="table table-striped w-100 shadow border border-secondary">
                                         <thead class="bg-main text-left">
-                                            <th> </th> <!-- 0 -->
                                             <th></th>
                                             <th>id</th>
                                             <th>Tipo Doc.</th>
@@ -240,11 +239,8 @@
                 },
                 type: 'POST'
             },
-            responsive: {
-                details: {
-                    type: 'column'
-                }
-            },
+            scrollX: true,
+            scrollY: "63vh",
             columnDefs: [{
                     targets: 0,
                     orderable: false,

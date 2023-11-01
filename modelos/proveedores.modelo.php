@@ -11,7 +11,7 @@ class ProveedoresModelo
 
         $column = ["id", "tipo_documento", "ruc", "razon_social", "direccion", "telefono", "estado"];
 
-        $query = " SELECT '' as detalles,
+        $query = " SELECT 
                             '' as opciones,
                             p.id, 
                             td.descripcion as tipo_documento, 
@@ -57,7 +57,6 @@ class ProveedoresModelo
 
         foreach ($results as $row) {
             $sub_array = array();
-            $sub_array[] = $row['detalles'];
             $sub_array[] = $row['opciones'];
             $sub_array[] = $row['id'];
             $sub_array[] = $row['tipo_documento'];

@@ -235,11 +235,6 @@
                     },
                     type: 'POST'
                 },
-                // responsive: {
-                //     details: {
-                //         type: 'column'
-                //     }
-                // },
                 scrollX: true,
                 scrollY: "63vh",
                 columnDefs: [                    
