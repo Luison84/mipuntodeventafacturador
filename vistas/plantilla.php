@@ -88,6 +88,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Theme style -->
     <link rel="stylesheet" href="vistas/assets/dist/css/adminlte.min.css">
 
+    <link rel="stylesheet" href="https://drive.google.com/uc?export=view&id=1yTLwNiCZhIdCWolQldwq4spHQkgZDqkG">
+    
     <!-- Estilos personzalidos -->
     <link rel="stylesheet" href="vistas/assets/dist/css/plantilla.css">
 
