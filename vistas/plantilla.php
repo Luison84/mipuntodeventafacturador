@@ -156,8 +156,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="vistas/assets/dist/js/buttons.print.min.js"></script>
 
     <!-- Bootstrap Switch -->
-    <script src="vistas/assets/dist/js/bootstrap-switch"></script>
-    <script src="vistas/assets/dist/js/bootstrap4-toggle.min.js"></script>
+    <!-- <script src="vistas/assets/dist/js/bootstrap-switch"></script>
+    <script src="vistas/assets/dist/js/bootstrap4-toggle.min.js"></script> -->
 
     <!-- Select2 -->
     <!-- <script src="vistas/assets/plugins/select2/js/select2.full.min.js"></script> -->
