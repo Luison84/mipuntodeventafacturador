@@ -345,7 +345,7 @@
                         })
                         // fnc_ObtenerEstadoCajaPorDia();
                         // fnc_CargarDatatableSeries
-                        $("#tbl_series").DataTable().ajax.reload();
+                        fnc_CargarDatatableSeries();
                     }
                 }
             })
