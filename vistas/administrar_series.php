@@ -220,8 +220,8 @@
         $("#btnCancelarSerie").on('click', function() {
             fnc_LimpiarFomulario();
         })
-        
-        $("#registrar-serie-tab").on('click', function(){
+
+        $("#registrar-serie-tab").on('click', function() {
             fnc_LimpiarFomulario();
         })
 
@@ -254,6 +254,8 @@
                 },
                 type: 'POST'
             },
+            scrollX: true,
+            scrollY: "63vh",
             columnDefs: [{
                     targets: 4,
                     createdCell: function(td, cellData, rowData, row, col) {
