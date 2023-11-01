@@ -406,7 +406,8 @@
         $("#serie").val('')
         $("#correlativo").val('')
         $("#estado").val('1');
-        $("#tbl_series").DataTable().ajax.reload();
+        // $("#tbl_series").DataTable().ajax.reload();
+        fnc_CargarDatatableSeries();
         $(".needs-validation-serie").removeClass("was-validated");
     }
 </script>
