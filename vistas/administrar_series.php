@@ -166,7 +166,7 @@
                                         </div> -->
 
                                         <div class="row">
-                                            <div class="col-6 text-center">
+                                            <div class="col-6 text-right">
                                                 <a class="btn btn-sm btn-danger fw-bold w-lg-25 w-100" id="btnCancelarSerie" style="position: relative;">
                                                     <span class="text-button">CANCELAR</span>
                                                     <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
@@ -176,7 +176,7 @@
 
                                             </div>
 
-                                            <div class="col-6">
+                                            <div class="col-6 text-left">
                                                 <a class="btn btn-sm btn-success  fw-bold w-lg-25 w-100" id="btnRegistrarSerie" style="position: relative;">
                                                     <span class="text-button">GUARDAR</span>
                                                     <span class="btn fw-bold icon-btn-success d-flex align-items-center">
