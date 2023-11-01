@@ -467,7 +467,7 @@
             $("#listado-empresas").removeClass('active show');
 
             // $("#registrar-proveedores-tab").html('Actualizar Proveedor')
-            $("#registrar-empresas-tab").html('<i class="fas fa-sync-alt"></i> Actualizar Empresa')
+            $("#registrar-empresas-tab").html('<i class="fas fa-sync-alt"></i> Actualizar')
 
             var data = (fila_actualizar.parents('tr').hasClass('child')) ?
                 $("#tbl_empresas").DataTable().row(fila_actualizar.parents().prev('tr')).data() :

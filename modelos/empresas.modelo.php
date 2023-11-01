@@ -288,11 +288,11 @@ class EmpresasModelo
             }
 
             $respuesta['tipo_msj'] = 'success';
-            $respuesta['msj'] = 'Se actualizó el cliente correctamente';
+            $respuesta['msj'] = 'Se actualizó la empresa correctamente';
         } catch (Exception $e) {
             $dbh->rollBack();
             $respuesta['tipo_msj'] = 'error';
-            $respuesta['msj'] = 'Error al registrar al cliente ' . $e->getMessage();
+            $respuesta['msj'] = 'Error al actualizar la empresa ' . $e->getMessage();
         }
 
         return $respuesta;
