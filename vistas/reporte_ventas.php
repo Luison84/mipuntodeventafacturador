@@ -5,7 +5,7 @@
             <div class="col-sm-6">
                 <h2 class="m-0 fw-bold">REPORTE VENTAS POR CATEGORIA</h2>
             </div><!-- /.col -->
-            <div class="col-sm-6">
+            <div class="col-sm-6 d-none d-md-block">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="index.php">Inicio</a></li>
                     <li class="breadcrumb-item active">Reporte Ventas por Categoría</li>
