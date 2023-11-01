@@ -225,6 +225,10 @@
             fnc_LimpiarFomulario();
         })
 
+        $("#listado-serie-tab").on('click', function() {
+            fnc_LimpiarFomulario();
+        })
+
 
     })
 
