@@ -213,8 +213,8 @@
                 },
                 type: 'POST'
             },
-            scrollX: true,
-            scrollY: "63vh",
+            // scrollX: true,
+            // scrollY: "63vh",
             columnDefs: [{
                     targets: 4,
                     createdCell: function(td, cellData, rowData, row, col) {
