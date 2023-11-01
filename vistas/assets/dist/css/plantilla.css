@@ -174,10 +174,10 @@ select[readonly]{
   background-color: #e9ecef;
 } 
 
-#tbl_series .tabledit-toolbar {
+/* #tbl_series .tabledit-toolbar {
   width: 100px !important;
   text-align: center;
-}
+} */
 
 .table td,
 .table th {
