@@ -214,7 +214,7 @@
                 type: 'POST'
             },
             scrollX: true,
-            scrollCollapse: true,
+            scrollCollapse: false,
             scrollY: "63vh",
             columnDefs: [{
                     targets: 4,
