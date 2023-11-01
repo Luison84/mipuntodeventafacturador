@@ -155,7 +155,7 @@
 
 <script>
     $(document).ready(function() {
-        
+
         fnc_CargarDatatableTipoComprobante();
 
         $("#btnRegistrarComprobante").on('click', function() {
@@ -167,7 +167,7 @@
         });
 
     })
-    
+
     function fnc_CargarDatatableTipoComprobante() {
 
         if ($.fn.DataTable.isDataTable('#tbl_tipo_comprobante')) {
@@ -189,6 +189,8 @@
                 },
                 type: 'POST'
             },
+            scrollX: true,
+            scrollY: "63vh",
             columnDefs: [{
                     targets: 3,
                     createdCell: function(td, cellData, rowData, row, col) {
