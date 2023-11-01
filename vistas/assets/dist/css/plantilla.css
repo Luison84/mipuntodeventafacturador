@@ -526,3 +526,7 @@ margin-top: -190px;
 .ui-autocomplete{
   width: 75% !important;
 } */
+
+.dataTables_scrollBody thead tr[role="row"]{
+  visibility: collapse !important;
+}

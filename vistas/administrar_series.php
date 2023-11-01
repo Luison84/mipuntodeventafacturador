@@ -213,8 +213,8 @@
                 },
                 type: 'POST'
             },
-            // scrollX: true,
-            scrollXInner: true,
+            scrollX: true,
+            // scrollXInner: true,
             scrollY: "63vh",
             columnDefs: [{
                     targets: 4,
