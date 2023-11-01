@@ -66,13 +66,13 @@
                                 <!--LISTADO DE CATEGORIAS -->
                                 <div class="col-md-12">
                                     <table id="tbl_series" class="table table-striped w-100 shadow border border-secondary">
-                                        <thead class="bg-main text-left">
+                                        <!-- <thead class="bg-main text-left">
                                             <th>id</th>
                                             <th>Tipo Comprobante</th>
                                             <th>Serie</th>
                                             <th>Correlativo</th>
                                             <th>Estado</th>
-                                        </thead>
+                                        </thead> -->
                                     </table>
                                 </div>
 
@@ -200,8 +200,6 @@
         }
 
         $("#tbl_series").DataTable({
-            // dom: 'Bfrtip',
-            // buttons: ['pageLength'],
             pageLength: 10,
             processing: true,
             serverSide: true,
@@ -215,6 +213,22 @@
             },
             scrollX: true,
             scrollY: "63vh",
+            columns: [{
+                    title: 'id'
+                },
+                {
+                    title: 'Tipo Comprobante'
+                },
+                {
+                    title: 'Serie'
+                },
+                {
+                    title: 'Correlativo'
+                },
+                {
+                    title: 'Estado'
+                }
+            ],
             columnDefs: [{
                     targets: 4,
                     createdCell: function(td, cellData, rowData, row, col) {
