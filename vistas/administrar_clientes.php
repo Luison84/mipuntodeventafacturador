@@ -185,6 +185,7 @@
         });
 
         $('#tbl_clientes tbody').on('click', '.btnEditarCliente', function() {
+            alert("entro")
             fnc_IrFormularioActualizarCliente($(this));
         });
 
@@ -354,7 +355,7 @@
 
 
             $("#id_cliente").val(data['1']);
-            $("#tipo_documento").select2("val", (data['2']));
+            $("#tipo_documento").val(data['2']);
             $("#nro_documento").val(data['4']);
             $("#nro_documento").prop('disabled', false);
             $("#nro_documento").attr('id_cliente', data['1'])
