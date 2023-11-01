@@ -101,7 +101,7 @@
 
                                 <div class="row">
 
-                                    <div class="col-3 mb-2">
+                                    <div class="col-12 col-lg-3 mb-2">
                                         <input type="hidden" name="id_empresa" id="id_empresa" value="0">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-contract mr-1 my-text-color"></i>Tipo Documento <strong class="text-danger">*</strong></label>
                                         <select class="form-select" id="tipo_documento" name="tipo_documento" aria-label="Floating label select example" required readonly>
@@ -109,25 +109,25 @@
                                         <div class="invalid-feedback">Seleccione el Tipo de Documento</div>
                                     </div>
 
-                                    <div class="col-3 mb-2">
+                                    <div class="col-12 col-lg-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Nro Documento <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="nro_documento" name="nro_documento" onchange="validateJS(event, 'ruc_empresa')" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el Nro de Documento</div>
                                     </div>
 
-                                    <div class="col-6 mb-2">
+                                    <div class="col-12 col-lg-6 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Razón Social <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="razon_social" name="razon_social" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese Razón Social</div>
                                     </div>
 
-                                    <div class="col-6 mb-2">
+                                    <div class="col-12 col-lg-6 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Nombre Comercial <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="nombre_comercial" name="nombre_comercial" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese Nombre Comercial</div>
                                     </div>
 
-                                    <div class="col-6 mb-2">
+                                    <div class="col-12 col-lg-6 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Dirección <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="direccion" name="direccion" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese Dirección</div>
@@ -135,21 +135,21 @@
                                     </div>
 
                                     <!-- EMAIL -->
-                                    <div class="col-3 mb-2">
+                                    <div class="col-12 col-lg-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Email</label>
                                         <input type="email" style="border-radius: 20px;" class="form-control form-control-sm" id="email" name="email" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
 
                                     </div>
 
                                     <!-- TELEFONO -->
-                                    <div class="col-2 mb-2">
+                                    <div class="col-12 col-lg-2 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Teléfono</label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="telefono" name="telefono" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
 
                                     </div>
 
                                     <!-- PROVINCIA -->
-                                    <div class="col-2 mb-2">
+                                    <div class="col-12 col-lg-2 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Provincia <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="provincia" name="provincia" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese Provincia</div>
@@ -157,7 +157,7 @@
                                     </div>
 
                                     <!-- DEPARTAMENTO -->
-                                    <div class="col-2 mb-2">
+                                    <div class="col-12 col-lg-2 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Departamento <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="departamento" name="departamento" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese Departamento</div>
@@ -165,7 +165,7 @@
                                     </div>
 
                                     <!-- DISTRITO -->
-                                    <div class="col-2 mb-2">
+                                    <div class="col-12 col-lg-2 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Distrito <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="distrito" name="distrito" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese Distrito</div>
@@ -173,7 +173,7 @@
                                     </div>
 
                                     <!-- UBIGEO -->
-                                    <div class="col-1 mb-2">
+                                    <div class="col-12 col-lg-1 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Ubigeo <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" onchange="validateJS(event, 'ubigeo')" id="ubigeo" name="ubigeo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese Ubigeo</div>
@@ -181,20 +181,20 @@
                                     </div>
 
                                     <!-- RUTA CERTIFICADO -->
-                                    <div class="col-2 mb-2">
+                                    <div class="col-12 col-lg-2 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Ruta Certificado</label>
                                         <input type="text" value="../fe/certificado/" style="border-radius: 20px;" class="form-control form-control-sm" id="ruta_certificado" name="ruta_certificado" aria-label="Small" aria-describedby="inputGroup-sizing-sm" readonly>
                                     </div>
 
                                     <!-- SELECCIONAR CERTIFICADO DIGITAL -->
-                                    <div class="col-4 mb-2">
+                                    <div class="col-12 col-lg-4 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Seleccione el Certificado Digital <strong class="text-danger">*</strong> </label>
                                         <input type="file" class="form-control" id="certificado" name="certificado" accept=".pfx">
                                         <div class="invalid-feedback">Seleccione Certificado</div>
                                     </div>
 
                                     <!-- CLAVE CERTIFICADO DIGITAL -->
-                                    <div class="col-2 mb-2">
+                                    <div class="col-12 col-lg-2 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Clave Certificado <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="clave_certificado" name="clave_certificado" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                                         <div class="invalid-feedback">Ingrese clave</div>
@@ -202,21 +202,21 @@
 
 
                                     <!-- USUARIO SOL -->
-                                    <div class="col-2 mb-2">
+                                    <div class="col-12 col-lg-2 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Usuario SOL <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="usuario_sol" name="usuario_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese Usuario SOL</div>
                                     </div>
 
                                     <!-- CLAVE SOL -->
-                                    <div class="col-2 mb-2">
+                                    <div class="col-12 col-lg-2 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Clave SOL <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="clave_sol" name="clave_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese Clave SOL</div>
                                     </div>
 
                                     <!-- ESTADO -->
-                                    <div class="col-3 mb-2">
+                                    <div class="col-12 col-lg-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-toggle-on mr-1 my-text-color"></i>Estado <strong class="text-danger">*</strong></label>
                                         <select class="form-select" id="estado" name="estado" aria-label="Floating label select example" required>
                                             <option value="" disabled>--Seleccione un estado--</option>
