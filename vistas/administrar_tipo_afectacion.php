@@ -91,100 +91,43 @@
                                 <div class="row">
 
                                     <div class="col-3 mb-2">
-
-                                        <!-- <div class="form-floating mb-2" style="position: relative;">
-                                            <input type="text" id="codigo" class="form-control" name="codigo" onchange="validateJS(event, 'codigo_tipo_afectacion')" required>
-                                            <label for="codigo">Código</label>
-                                            <div class="invalid-feedback">Ingrese el código de Afectación</div>
-                                        </div> -->
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Código</label>
                                         <input type="text" placeholder="Ingrese el código" maxlength="4" style="border-radius: 20px;" class="form-control form-control-sm " id="codigo" name="codigo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" onchange="validateJS(event, 'codigo_tipo_afectacion')" required>
                                         <div class="invalid-feedback">Ingrese el código de Afectación</div>
-
                                     </div>
 
                                     <div class="col-9 mb-2">
-
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="text" id="descripcion" class="form-control " name="descripcion" required>
-                                            <label for="descripcion">Descripción</label>
-                                            <div class="invalid-feedback">Ingrese la descripción</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-align-left mr-1 my-text-color"></i>Descripción</label>
                                         <input type="text" placeholder="Ingrese la descripción" maxlength="4" style="border-radius: 20px;" class="form-control form-control-sm " id="descripcion" name="descripcion" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese la descripción</div>
-
                                     </div>
 
                                     <div class="col-2 mb-2">
-
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="text" id="letra_tributo" class="form-control " name="letra_tributo" required>
-                                            <label for="letra_tributo">Letra Tributo</label>
-                                            <div class="invalid-feedback">Ingrese la Letra del tributo</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-font mr-1 my-text-color"></i>Letra Tributo</label>
                                         <input type="text" placeholder="Ingrese la descripción" maxlength="4" style="border-radius: 20px;" class="form-control form-control-sm " id="letra_tributo" name="letra_tributo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese la Letra del tributo</div>
-
                                     </div>
 
                                     <div class="col-2 mb-2">
-
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="text" id="codigo_tributo" class="form-control " name="codigo_tributo" required>
-                                            <label for="codigo_tributo">Código Tributo</label>
-                                            <div class="invalid-feedback">Ingrese el codigo del tributo</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Código Tributo</label>
                                         <input type="text" placeholder="Ingrese la descripción" maxlength="4" style="border-radius: 20px;" class="form-control form-control-sm " id="codigo_tributo" name="codigo_tributo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el codigo del tributo</div>
-
                                     </div>
 
                                     <div class="col-3 mb-2">
-
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="text" id="nombre_tributo" class="form-control " name="nombre_tributo" required>
-                                            <label for="nombre_tributo">Nombre Tributo</label>
-                                            <div class="invalid-feedback">Ingrese nombre del tributo</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-signature mr-1 my-text-color"></i>Nombre Tributo</label>
                                         <input type="text" placeholder="Ingrese la descripción" maxlength="4" style="border-radius: 20px;" class="form-control form-control-sm " id="nombre_tributo" name="nombre_tributo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese nombre del tributo</div>
-
-
                                     </div>
 
                                     <div class="col-2 mb-2">
-
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="text" id="tipo_tributo" class="form-control " name="tipo_tributo" required>
-                                            <label for="tipo_tributo">Tipo Tributo</label>
-                                            <div class="invalid-feedback">Ingrese tipo de tributo</div>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-layer-group mr-1 my-text-color"></i>Tipo Tributo</label>
                                         <input type="text" placeholder="Ingrese la descripción" maxlength="4" style="border-radius: 20px;" class="form-control form-control-sm " id="tipo_tributo" name="tipo_tributo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese tipo de tributo</div>
-
                                     </div>
 
                                     <!-- ESTADO -->
                                     <div class="col-3 mb-2">
-                                        <!-- <div class="form-floating mb-2">
-                                            <select class="form-select select2" id="estado" name="estado" aria-label="Floating label select example" required>
-                                                <option value="" disabled>--Seleccione un estado--</option>
-                                                <option value="1" selected>ACTIVO</option>
-                                                <option value="0">INACTIVO</option>
-                                            </select>
-                                            <label for="estado">Estado</label>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-toggle-on mr-1 my-text-color"></i>Estado</label>
                                         <select class="form-select" id="estado" name="estado" aria-label="Floating label select example" required>
                                             <option value="" disabled>--Seleccione un estado--</option>
@@ -194,19 +137,14 @@
                                         <div class="invalid-feedback">Seleccione el estado</div>
                                     </div>
 
-
                                     <div class="col-12 mt-2">
-                                        <div class="float-right">
-                                            <!-- <a class="btn btn-outline-danger mx-1" id="btnCancelarTipoAfectacion">CANCELAR</a>
-                                            <a class="btn btn-outline-success mx-1" id="btnRegistrarTipoAfectacion">GUARDAR TIPO DE DOCUMENTO</a> -->
-
+                                        <div class="float-right">                                        
                                             <a class="btn btn-sm btn-danger  fw-bold " id="btnCancelarTipoAfectacion" style="position: relative; width: 160px;">
                                                 <span class="text-button">CANCELAR</span>
                                                 <span class="btn fw-bold icon-btn-danger ">
                                                     <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
                                                 </span>
                                             </a>
-
                                             <a class="btn btn-sm btn-success  fw-bold " id="btnRegistrarTipoAfectacion" style="position: relative; width: 160px;">
                                                 <span class="text-button">GUARDAR</span>
                                                 <span class="btn fw-bold icon-btn-success ">
@@ -218,8 +156,8 @@
                                     </div>
 
                                 </div>
-                            </form>
 
+                            </form>
 
                         </div>
 
@@ -261,9 +199,6 @@
 
     })
 
-    /*function CargarSelects() {
-        $('.select2').select2()
-    }*/
 
     function fnc_CargarDatatableTipoAfectacionIgv() {
 
@@ -291,6 +226,8 @@
                 },
                 type: 'POST'
             },
+            scrollX: true,
+            scrollY: "63vh",
             columnDefs: [{
                     "className": "dt-center",
                     "targets": "_all"

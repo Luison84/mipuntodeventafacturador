@@ -227,44 +227,6 @@
 
                                     <!-- CANCELAR - GUARDAR -->
                                     <div class="col-12 mt-2">
-
-                                        <!-- <div class="float-right">
-
-                                            <a class="btn btn-sm btn-danger  fw-bold " id="btnCancelarEmpresa" style="position: relative; width: 160px;">
-                                                <span class="text-button">CANCELAR</span>
-                                                <span class="btn fw-bold icon-btn-danger ">
-                                                    <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
-                                                </span>
-                                            </a>
-
-                                            <a class="btn btn-sm btn-success  fw-bold " id="btnRegistrarEmpresa" style="position: relative; width: 160px;">
-                                                <span class="text-button">GUARDAR</span>
-                                                <span class="btn fw-bold icon-btn-success ">
-                                                    <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
-                                                </span>
-                                            </a>
-
-                                        </div> -->
-
-                                        <!-- <div class="row">
-                                            <div class="offset-6 col-6 text-right">
-                                                <a class="btn btn-sm btn-danger  fw-bold w-25" id="btnCancelarEmpresa" style="position: relative;">
-                                                    <span class="text-button">CANCELAR</span>
-                                                    <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
-                                                        <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
-                                                    </span>
-                                                </a>
-
-                                                <a class="btn btn-sm btn-success  fw-bold w-25" id="btnRegistrarEmpresa" style="position: relative;">
-                                                    <span class="text-button">GUARDAR</span>
-                                                    <span class="btn fw-bold icon-btn-success d-flex align-items-center">
-                                                        <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
-                                                    </span>
-                                                </a>
-
-                                            </div>
-                                        </div> -->
-
                                         <div class="row">
                                             <div class="col-6 text-right">
                                                 <a class="btn btn-sm btn-danger fw-bold w-lg-25 w-100" id="btnCancelarEmpresa" style="position: relative;">
@@ -273,10 +235,8 @@
                                                         <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
                                                     </span>
                                                 </a>
-
                                             </div>
-
-                                            <div class="col-6">
+                                            <div class="col-6 text-left">
                                                 <a class="btn btn-sm btn-success  fw-bold w-lg-25 w-100" id="btnRegistrarEmpresa" style="position: relative;">
                                                     <span class="text-button">GUARDAR</span>
                                                     <span class="btn fw-bold icon-btn-success d-flex align-items-center">
@@ -285,7 +245,6 @@
                                                 </a>
                                             </div>
                                         </div>
-
                                     </div>
 
                                 </div>

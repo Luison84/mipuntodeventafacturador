@@ -90,12 +90,6 @@
 
                                     <!-- TIPO COMPROBANTE -->
                                     <div class="col-12 col-lg-3 mb-2">
-                                        <!-- <div class="form-floating mb-2">
-                                            <select class="form-select select2" id="tipo_comprobante" name="tipo_comprobante" aria-label="Floating label select example" required>
-                                            </select>
-                                            <label for="serie">Tipo de Comprobante</label>
-                                            <div class="invalid-feedback">Seleccione Tipo de Comprobante</div>
-                                        </div> -->
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-alt mr-1 my-text-color"></i>Tipo de Comprobante</label>
                                         <select class="form-select" id="tipo_comprobante" name="tipo_comprobante" aria-label="Floating label select example" required>
                                         </select>
@@ -104,11 +98,6 @@
 
                                     <!-- SERIE -->
                                     <div class="col-12 col-lg-3 mb-2">
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="text" id="serie" maxlength="4" class="form-control text-uppercase" name="serie" required>
-                                            <label for="serie">Serie</label>
-                                            <div class="invalid-feedback">Ingrese la serie</div>
-                                        </div> -->
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-cart-plus mr-1 my-text-color"></i>Serie</label>
                                         <input type="text" placeholder="Ingrese la serie" maxlength="4" style="border-radius: 20px;" class="form-control form-control-sm text-uppercase" id="serie" name="serie" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese la serie</div>
@@ -116,11 +105,6 @@
 
                                     <!-- CORRELATIVO -->
                                     <div class="col-12 col-lg-3 mb-2">
-                                        <!-- <div class="form-floating mb-2">
-                                            <input type="text" id="correlativo" class="form-control" name="correlativo" required>
-                                            <label for="correlativo">Correlativo</label>
-                                            <div class="invalid-feedback">Ingrese el correlativo</div>
-                                        </div> -->
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-cart-plus mr-1 my-text-color"></i>Correlativo</label>
                                         <input type="text" placeholder="Ingrese la serie" style="border-radius: 20px;" class="form-control form-control-sm" id="correlativo" name="correlativo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el correlativo</div>
@@ -128,15 +112,6 @@
 
                                     <!-- ESTADO -->
                                     <div class="col-12 col-lg-3 mb-2">
-                                        <!-- <div class="form-floating mb-2">
-                                            <select class="form-select select2" id="estado" name="estado" aria-label="Floating label select example" required>
-                                                <option value="" disabled>--Seleccione un estado--</option>
-                                                <option value="1" selected>ACTIVO</option>
-                                                <option value="0">INACTIVO</option>
-                                            </select>
-                                            <label for="estado">Estado</label>
-                                        </div> -->
-
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-toggle-on mr-1 my-text-color"></i>Estado</label>
                                         <select class="form-select" id="estado" name="estado" aria-label="Floating label select example" required>
                                             <option value="" disabled>--Seleccione un estado--</option>
@@ -147,24 +122,6 @@
                                     </div>
 
                                     <div class="col-12 mt-2">
-                                        <!-- <div class="float-right">
-                                           
-
-                                            <a class="btn btn-sm btn-danger  fw-bold " id="btnCancelarSerie" style="position: relative; width: 160px;">
-                                                <span class="text-button">CANCELAR</span>
-                                                <span class="btn fw-bold icon-btn-danger ">
-                                                    <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
-                                                </span>
-                                            </a>
-
-                                            <a class="btn btn-sm btn-success  fw-bold " id="btnRegistrarSerie" style="position: relative; width: 160px;">
-                                                <span class="text-button">GUARDAR</span>
-                                                <span class="btn fw-bold icon-btn-success ">
-                                                    <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
-                                                </span>
-                                            </a>
-                                        </div> -->
-
                                         <div class="row">
                                             <div class="col-6 text-right">
                                                 <a class="btn btn-sm btn-danger fw-bold w-lg-25 w-100" id="btnCancelarSerie" style="position: relative;">
@@ -185,13 +142,11 @@
                                                 </a>
                                             </div>
                                         </div>
-
-
                                     </div>
 
                                 </div>
-                            </form>
 
+                            </form>
 
                         </div>
 

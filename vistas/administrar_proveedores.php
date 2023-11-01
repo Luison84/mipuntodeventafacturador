@@ -139,28 +139,7 @@
                                         <div class="invalid-feedback">Seleccione el estado</div>
                                     </div>
 
-
                                     <div class="col-12 mt-2">
-
-                                        <!-- <div class="row">
-                                            <div class="offset-6 col-6 text-right">
-                                                <a class="btn btn-sm btn-danger  fw-bold w-25" id="btnCancelarProveedor" style="position: relative;">
-                                                    <span class="text-button">CANCELAR</span>
-                                                    <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
-                                                        <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
-                                                    </span>
-                                                </a>
-
-                                                <a class="btn btn-sm btn-success  fw-bold w-25" id="btnRegistrarProveedor" style="position: relative;">
-                                                    <span class="text-button">GUARDAR</span>
-                                                    <span class="btn fw-bold icon-btn-success d-flex align-items-center">
-                                                        <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
-                                                    </span>
-                                                </a>
-
-                                            </div>
-                                        </div> -->
-
                                         <div class="row">
                                             <div class="col-6 text-right">
                                                 <a class="btn btn-sm btn-danger fw-bold w-lg-25 w-100" id="btnCancelarProveedor" style="position: relative;">
@@ -169,10 +148,9 @@
                                                         <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
                                                     </span>
                                                 </a>
-
                                             </div>
 
-                                            <div class="col-6">
+                                            <div class="col-6 text-left">
                                                 <a class="btn btn-sm btn-success  fw-bold w-lg-25 w-100" id="btnRegistrarProveedor" style="position: relative;">
                                                     <span class="text-button">GUARDAR</span>
                                                     <span class="btn fw-bold icon-btn-success d-flex align-items-center">
@@ -185,8 +163,8 @@
                                     </div>
 
                                 </div>
-                            </form>
 
+                            </form>
 
                         </div>
 
@@ -385,16 +363,10 @@
             $("#nombre_cliente_razon_social").val(data['5']);
             $("#direccion").val(data['6']);
             $("#telefono").val(data['7']);
-            if (data['8'] == "ACTIVO") $("#estado").select2("val", "1")
-            else $("#estado").select2("val", "0");
+            if (data['8'] == "ACTIVO") $("#estado").val("1")
+            else $("#estado").val("0");
 
         }
-
-        // var formData = new FormData();
-        // formData.append('accion', 'obtener_impuesto_tipo_operacion')
-        // formData.append('id_tipo_afectacion', $('#id_tipo_afectacion_igv').val());
-        // response = SolicitudAjax('ajax/productos.ajax.php', 'POST', formData);
-
 
     }
 

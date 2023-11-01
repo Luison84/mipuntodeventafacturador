@@ -121,7 +121,6 @@
                                                         <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
                                                     </span>
                                                 </a>
-
                                                 <a class="btn btn-sm btn-success  fw-bold w-25" id="btnRegistrarComprobante" style="position: relative;">
                                                     <span class="text-button">GUARDAR</span>
                                                     <span class="btn fw-bold icon-btn-success d-flex align-items-center">
@@ -135,8 +134,8 @@
                                     </div>
 
                                 </div>
-                            </form>
 
+                            </form>
 
                         </div>
 
@@ -314,7 +313,7 @@
         $("#codigo").val('')
         $("#descripcion").val('')
         $("#estado").val('1');
-        $("#tbl_tipo_comprobante").DataTable().ajax.reload();
+        fnc_CargarDatatableTipoComprobante();
         $(".needs-validation-comprobante").removeClass("was-validated");
     }
 </script>
