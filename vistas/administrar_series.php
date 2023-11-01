@@ -203,7 +203,6 @@
 
         $("#tbl_series").DataTable({
             pageLength: 10,
-            deferRender: true,
             processing: true,
             serverSide: true,
             order: [],
@@ -215,7 +214,7 @@
                 type: 'POST'
             },
             scrollX: true,
-            // scrollY: "63vh",
+            scrollY: "63vh",
             columnDefs: [{
                     targets: 4,
                     createdCell: function(td, cellData, rowData, row, col) {

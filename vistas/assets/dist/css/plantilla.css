@@ -148,10 +148,10 @@ select {
   height: 35px !important;
 }
 
-.bg-main {
+/* .bg-main {
   background-color: #34495e !important;
   color: white !important;
-}
+} */
 
 .card-primary.card-outline-tabs > .card-header a.active {
   border-top: 3px solid #17202a;
