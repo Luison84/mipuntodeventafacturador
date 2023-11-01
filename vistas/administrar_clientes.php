@@ -126,7 +126,7 @@
                                     <div class="col-12 mb-2 mt-2">
 
                                         <div class="row">
-                                            <div class="col-6 text-right">
+                                            <div class="col-6 text-center">
                                                 <a class="btn btn-sm btn-danger fw-bold w-lg-25 w-100" id="btnCancelarCliente" style="position: relative;">
                                                     <span class="text-button">CANCELAR</span>
                                                     <span class="btn fw-bold icon-btn-danger d-flex align-items-center">

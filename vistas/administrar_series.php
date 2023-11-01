@@ -89,7 +89,7 @@
                                 <div class="row">
 
                                     <!-- TIPO COMPROBANTE -->
-                                    <div class="col-3">
+                                    <div class="col-12 col-lg-3 mb-2">
                                         <!-- <div class="form-floating mb-2">
                                             <select class="form-select select2" id="tipo_comprobante" name="tipo_comprobante" aria-label="Floating label select example" required>
                                             </select>
@@ -103,7 +103,7 @@
                                     </div>
 
                                     <!-- SERIE -->
-                                    <div class="col-3">
+                                    <div class="col-12 col-lg-3 mb-2">
                                         <!-- <div class="form-floating mb-2">
                                             <input type="text" id="serie" maxlength="4" class="form-control text-uppercase" name="serie" required>
                                             <label for="serie">Serie</label>
@@ -115,7 +115,7 @@
                                     </div>
 
                                     <!-- CORRELATIVO -->
-                                    <div class="col-3">
+                                    <div class="col-12 col-lg-3 mb-2">
                                         <!-- <div class="form-floating mb-2">
                                             <input type="text" id="correlativo" class="form-control" name="correlativo" required>
                                             <label for="correlativo">Correlativo</label>
@@ -127,7 +127,7 @@
                                     </div>
 
                                     <!-- ESTADO -->
-                                    <div class="col-3">
+                                    <div class="col-12 col-lg-3 mb-2">
                                         <!-- <div class="form-floating mb-2">
                                             <select class="form-select select2" id="estado" name="estado" aria-label="Floating label select example" required>
                                                 <option value="" disabled>--Seleccione un estado--</option>
@@ -147,9 +147,8 @@
                                     </div>
 
                                     <div class="col-12 mt-2">
-                                        <div class="float-right">
-                                            <!-- <a class="btn btn-outline-danger mx-1" id="btnCancelarSerie">CANCELAR</a>
-                                            <a class="btn btn-outline-success mx-1" id="btnRegistrarSerie">GUARDAR SERIE</a> -->
+                                        <!-- <div class="float-right">
+                                           
 
                                             <a class="btn btn-sm btn-danger  fw-bold " id="btnCancelarSerie" style="position: relative; width: 160px;">
                                                 <span class="text-button">CANCELAR</span>
@@ -164,7 +163,29 @@
                                                     <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
                                                 </span>
                                             </a>
+                                        </div> -->
+
+                                        <div class="row">
+                                            <div class="col-6 text-center">
+                                                <a class="btn btn-sm btn-danger fw-bold w-lg-25 w-100" id="btnCancelarSerie" style="position: relative;">
+                                                    <span class="text-button">CANCELAR</span>
+                                                    <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
+                                                        <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
+                                                    </span>
+                                                </a>
+
+                                            </div>
+
+                                            <div class="col-6">
+                                                <a class="btn btn-sm btn-success  fw-bold w-lg-25 w-100" id="btnRegistrarSerie" style="position: relative;">
+                                                    <span class="text-button">GUARDAR</span>
+                                                    <span class="btn fw-bold icon-btn-success d-flex align-items-center">
+                                                        <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
+                                                    </span>
+                                                </a>
+                                            </div>
                                         </div>
+
 
                                     </div>
 
