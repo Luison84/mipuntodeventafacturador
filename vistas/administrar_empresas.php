@@ -246,7 +246,7 @@
 
                                         </div> -->
 
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <div class="offset-6 col-6 text-right">
                                                 <a class="btn btn-sm btn-danger  fw-bold w-25" id="btnCancelarEmpresa" style="position: relative;">
                                                     <span class="text-button">CANCELAR</span>
@@ -262,6 +262,27 @@
                                                     </span>
                                                 </a>
 
+                                            </div>
+                                        </div> -->
+
+                                        <div class="row">
+                                            <div class="col-6 text-right">
+                                                <a class="btn btn-sm btn-danger fw-bold w-25" id="btnCancelarEmpresa" style="position: relative;">
+                                                    <span class="text-button">CANCELAR</span>
+                                                    <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
+                                                        <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
+                                                    </span>
+                                                </a>
+
+                                            </div>
+
+                                            <div class="col-6">
+                                                <a class="btn btn-sm btn-success  fw-bold w-25" id="btnRegistrarEmpresa" style="position: relative;">
+                                                    <span class="text-button">GUARDAR</span>
+                                                    <span class="btn fw-bold icon-btn-success d-flex align-items-center">
+                                                        <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
+                                                    </span>
+                                                </a>
                                             </div>
                                         </div>
 
