@@ -200,7 +200,7 @@
         }
 
         $("#tbl_series").DataTable({
-            dom: 'Bfrtip',
+            // dom: 'Bfrtip',
             // buttons: ['pageLength'],
             pageLength: 10,
             processing: true,
