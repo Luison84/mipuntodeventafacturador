@@ -527,6 +527,6 @@ margin-top: -190px;
   width: 75% !important;
 } */
 
-.dataTables_scrollBody thead tr[role="row"]{
+.dataTables_scrollBody thead tr{
   visibility: collapse !important;
 }
