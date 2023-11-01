@@ -247,20 +247,20 @@
                         className: 'control'
                     },
                     {
-                        targets: [3],
+                        targets: [2],
                         visible: false
                     },
                     {
-                        targets: 9,
+                        targets: 8,
                         createdCell: function(td, cellData, rowData, row, col) {
-                            if (rowData[9] != 'ACTIVO') {
+                            if (rowData[8] != 'ACTIVO') {
                                 $(td).parent().css('background', '#F2D7D5')
                                 $(td).parent().css('color', 'black')
                             }
                         }
                     },
                     {
-                        targets: 1,
+                        targets: 0,
                         orderable: false,
                         createdCell: function(td, cellData, rowData, row, col) {
                             $(td).html("<span class='btnEditarCliente text-primary px-1' style='cursor:pointer;'>" +
