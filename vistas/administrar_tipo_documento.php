@@ -169,6 +169,10 @@
             fnc_LimpiarFomulario();
         })
 
+        $("#listado-tipo-documento-tab").on('click', function() {
+            fnc_LimpiarFomulario();
+        })
+
     })
 
     function fnc_CargarDatatableTipoDocumento() {
