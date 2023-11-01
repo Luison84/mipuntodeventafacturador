@@ -163,7 +163,7 @@
 
                                         <div class="row">
                                             <div class="col-6 text-right">
-                                                <a class="btn btn-sm btn-danger fw-bold w-25" id="btnCancelarProveedor" style="position: relative;">
+                                                <a class="btn btn-sm btn-danger fw-bold w-lg-25 w-100" id="btnCancelarProveedor" style="position: relative;">
                                                     <span class="text-button">CANCELAR</span>
                                                     <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
                                                         <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
@@ -173,7 +173,7 @@
                                             </div>
 
                                             <div class="col-6">
-                                                <a class="btn btn-sm btn-success  fw-bold w-25" id="btnRegistrarProveedor" style="position: relative;">
+                                                <a class="btn btn-sm btn-success  fw-bold w-lg-25 w-100" id="btnRegistrarProveedor" style="position: relative;">
                                                     <span class="text-button">GUARDAR</span>
                                                     <span class="btn fw-bold icon-btn-success d-flex align-items-center">
                                                         <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
