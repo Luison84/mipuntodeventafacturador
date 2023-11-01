@@ -124,7 +124,7 @@
                                     </div>
 
 
-                                    <div class="col-12 col-lg-2 mb-2 mt-2">
+                                    <div class="col-12 mb-2 mt-2">
                                         <div class="row">
                                             <div class="col-6 text-right">
                                                 <a class="btn btn-sm btn-danger  fw-bold w-100" id="btnCancelarCliente" style="position: relative;">
