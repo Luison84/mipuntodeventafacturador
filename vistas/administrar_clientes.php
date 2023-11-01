@@ -242,11 +242,7 @@
                 // },
                 scrollX: true,
                 scrollY: "63vh",
-                columnDefs: [{
-                        targets: 0,
-                        orderable: false,
-                        className: 'control'
-                    },
+                columnDefs: [                    
                     {
                         targets: [2],
                         visible: false
