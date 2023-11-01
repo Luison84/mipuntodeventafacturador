@@ -213,9 +213,7 @@
                 },
                 type: 'POST'
             },
-            fixedHeader: false,
             scrollX: true,
-            scrollCollapse: false,
             scrollY: "63vh",
             columnDefs: [{
                     targets: 4,
@@ -228,6 +226,11 @@
                 },
 
             ],
+            "initComplete": function(settings, json) {
+                $('.dataTables_scrollBody thead tr').css({
+                    visibility: 'collapse'
+                });
+            },
             language: {
                 url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
             }
