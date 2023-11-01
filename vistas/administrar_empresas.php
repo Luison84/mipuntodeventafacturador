@@ -475,7 +475,7 @@
 
             var datos = new FormData();
             datos.append('accion', 'obtener_datos_empresa_x_id');
-            datos.append('id_empresa', data['2']);
+            datos.append('id_empresa', data['1']);
 
             response = SolicitudAjax('ajax/empresas.ajax.php', 'POST', datos);
 
