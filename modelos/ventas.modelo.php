@@ -1222,7 +1222,7 @@ class VentasModelo
             "saldo_pendiente"
         ];
 
-        $query = `SELECT '' as opciones,
+        $query = "SELECT '' as opciones,
                         v.id,
                     concat(v.serie,'-',v.correlativo) as factura,
                     date(v.fecha_emision) as fecha_emision,
@@ -1232,23 +1232,23 @@ class VentasModelo
                     (select round(sum(ifnull(c.saldo_pendiente,0)),2) from cuotas c where c.id_venta = v.id and c.cuota_pagada = 0) as saldo_pendiente
                 FROM venta v inner join serie s on v.id_serie = s.id
                 WHERE s.id_tipo_comprobante = '01'
-                and upper(v.forma_pago) = 'CREDITO'`;
+                and upper(v.forma_pago) = 'CREDITO'";
 
         if (isset($post["search"]["value"])) {
-            $query .= `  AND  (v.fecha_emision like '%'` . $post["search"]["value"] . `'%'
-                                or concat(v.serie,'-',v.correlativo) like '%'` . $post["search"]["value"] . `'%'`;
+            $query .= '  AND  (v.fecha_emision like "%' . $post["search"]["value"] . '%"
+                                or concat(v.serie,'-',v.correlativo) like "%' . $post["search"]["value"] . '%")';
         }
 
         var_dump($query);
         if (isset($post["order"])) {
-            $query .= ` ORDER BY ` . $columns[$post['order']['0']['column']] . ` ` . $post['order']['0']['dir'] . ` `;
+            $query .= ' ORDER BY ' . $columns[$post['order']['0']['column']] . ' ' . $post['order']['0']['dir'] . ' ';
         } else {
-            $query .= ` ORDER BY v.id desc `;
+            $query .= ' ORDER BY v.id desc ';
         }
 
         //SE AGREGA PAGINACION
         if ($post["length"] != -1) {
-            $query1 = ` LIMIT ` . $post["start"] . `, ` . $post["length"];
+            $query1 = " LIMIT " . $post["start"] . ", " . $post["length"];
         }
 
         $stmt = Conexion::conectar()->prepare($query);
