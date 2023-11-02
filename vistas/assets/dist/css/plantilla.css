@@ -399,6 +399,7 @@ table.dataTable tfoot tr > .dtfc-fixed-right {
 input[type=search] {
   border-radius: 20px !important;
   padding: 0.25rem 0.9rem !important;
+  background-color: white !important;
 }
 
 .buttons-page-length, .buttons-excel, .buttons-print{
