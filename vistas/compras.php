@@ -1093,7 +1093,7 @@ MODAL MOSTRAR DETALLE DE COMPRA
             },
             columnDefs: [
                 {
-                    targets: 8,
+                    targets: 7,
                     createdCell: function(td, cellData, rowData, row, col) {
                         if (rowData[8] != 'ACTIVO') {
                             $(td).parent().css('background', '#F2D7D5')
@@ -1102,7 +1102,7 @@ MODAL MOSTRAR DETALLE DE COMPRA
                     }
                 },
                 {
-                    targets: 1,
+                    targets: 0,
                     orderable: false,
                     createdCell: function(td, cellData, rowData, row, col) {
                         $(td).html(
