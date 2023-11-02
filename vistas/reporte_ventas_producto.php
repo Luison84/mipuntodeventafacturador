@@ -28,6 +28,7 @@
 
                 <table id="tbl_ventas_productos" class="table shadow border border-secondary" style="width:100%">
                     <thead class="bg-main text-left">
+                        <th> </th> <!-- 0 -->
                         <th>Cod. Producto</th>
                         <th>Producto</th>
                         <th>Cantidad</th>
