@@ -28,7 +28,7 @@
                 <table id="tbl_facturas_x_cobrar" class="table shadow border border-secondary" style="width:100%">
                     <thead class="bg-main text-left">
                         <th></th>
-                        <th>Id</th>
+                        <th>Venta Nro°</th>
                         <th>Comprobante</th>
                         <th>Fecha Emisión</th>
                         <th>Total</th>
