@@ -124,7 +124,7 @@ class ReportesModelo
         if (isset($post["order"])) {
             $query .= ' order by ' . $column[$post['order']['0']['column']] . ' ' . $post['order']['0']['dir'] . ' ';
         } else {
-            $query .= ' order by k.codigo_producto, k.fecha ';
+            $query .= ' order by k.id ';
         }
 
         //SE AGREGA PAGINACION
