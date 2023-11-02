@@ -1095,7 +1095,7 @@ MODAL MOSTRAR DETALLE DE COMPRA
                 {
                     targets: 7,
                     createdCell: function(td, cellData, rowData, row, col) {
-                        if (rowData[8] != 'ACTIVO') {
+                        if (rowData[7] != 'ACTIVO') {
                             $(td).parent().css('background', '#F2D7D5')
                             $(td).parent().css('color', 'black')
                         }
