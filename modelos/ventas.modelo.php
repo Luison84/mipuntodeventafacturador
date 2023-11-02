@@ -1234,10 +1234,10 @@ class VentasModelo
                 WHERE s.id_tipo_comprobante = '01'
                 and upper(v.forma_pago) = 'CREDITO' ";
 
-        // if (isset($post["search"]["value"])) {
-        //     $query .= '  AND  (v.fecha_emision like "%' . $post["search"]["value"] . '%"
-        //                         or concat(v.serie,"-",v.correlativo) like "%' . $post["search"]["value"] . '%")';
-        // }
+        if (isset($post["search"]["value"])) {
+            $query .= '  AND  (v.fecha_emision like "%' . $post["search"]["value"] . '%"
+                                or concat(v.serie,"-",v.correlativo) like "%' . $post["search"]["value"] . '%")';
+        }
 
         // var_dump($query);
         if (isset($post["order"])) {
