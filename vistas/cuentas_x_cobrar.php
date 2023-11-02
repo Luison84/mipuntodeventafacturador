@@ -86,7 +86,7 @@
                        
                         $(td).html(`<center> 
                                         <span class='btnPagarCuotas px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Pagar Cuotas'> 
-                                            <i class='fas fa-money-bill-alt fs-5 text-info'></i>
+                                            <i class='fas fa-money-bill-alt fs-5 text-success'></i>
                                         </span>
                                     </center>
                         `)
