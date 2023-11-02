@@ -758,20 +758,6 @@ MODAL MOSTRAR DETALLE DE COMPRA
                     // cantidad_actual
                     $('#tbl_ListadoProductos').DataTable().cell(index, 4).data(cantidad_actual)
 
-                    // $costo_unitario = $('#tbl_ListadoProductos').DataTable().cell(index, 6).data()
-
-                    // $descuento = $('#tbl_ListadoProductos').DataTable().cell(index, 8).data()
-
-                    // $factor_igv = data["factor_igv"];
-                    // $porcentaje_igv = data["porcentaje_igv"];
-
-                    // $subtotal = (($costo_unitario) * cantidad_actual) - $descuento;
-                    // $impuesto = ((($costo_unitario) * cantidad_actual)) * $porcentaje_igv;
-                    // $total = ((($costo_unitario) * cantidad_actual)) + (((($costo_unitario) * cantidad_actual)) * $porcentaje_igv);
-
-                    // $('#tbl_ListadoProductos').DataTable().cell(index, 9).data(parseFloat($subtotal).toFixed(2))
-                    // $('#tbl_ListadoProductos').DataTable().cell(index, 10).data(parseFloat($impuesto).toFixed(2))
-                    // $('#tbl_ListadoProductos').DataTable().cell(index, 11).data(parseFloat($total).toFixed(2));
                 }
             })
 
@@ -798,22 +784,6 @@ MODAL MOSTRAR DETALLE DE COMPRA
 
                     $('#tbl_ListadoProductos').DataTable().cell(index, 6).data($costo_actual)
 
-                    // // obtener cantidad
-                    // $cantidad = $('#tbl_ListadoProductos').DataTable().cell(index, 4).data()
-
-                    // //obtener descuento
-                    // $descuento = $('#tbl_ListadoProductos').DataTable().cell(index, 8).data()
-
-                    // $factor_igv = data["factor_igv"];
-                    // $porcentaje_igv = data["porcentaje_igv"];
-
-                    // $subtotal = (($costo_actual / $factor_igv) * $cantidad) - $descuento
-                    // $impuesto = ((($costo_actual / $factor_igv) * $cantidad)) * $porcentaje_igv;
-                    // $total = ((($costo_actual / $factor_igv) * $cantidad)) + (((($costo_actual / $factor_igv) * $cantidad)) * $porcentaje_igv);
-
-                    // $('#tbl_ListadoProductos').DataTable().cell(index, 9).data(parseFloat($subtotal).toFixed(2))
-                    // $('#tbl_ListadoProductos').DataTable().cell(index, 10).data(parseFloat($impuesto).toFixed(2))
-                    // $('#tbl_ListadoProductos').DataTable().cell(index, 11).data(parseFloat($total).toFixed(2));
                 }
             })
 
@@ -839,23 +809,6 @@ MODAL MOSTRAR DETALLE DE COMPRA
 
                     $('#tbl_ListadoProductos').DataTable().cell(index, 8).data($descuento_actual)
 
-                    // // obtener cantidad
-                    // $cantidad = $('#tbl_ListadoProductos').DataTable().cell(index, 4).data()
-
-                    // //obtener costo unitario
-                    // $costo_unitario = $('#tbl_ListadoProductos').DataTable().cell(index, 6).data()
-
-                    // $factor_igv = data["factor_igv"];
-                    // $porcentaje_igv = data["porcentaje_igv"];
-
-                    // $subtotal = (($costo_unitario / $factor_igv) * $cantidad);
-                    // $impuesto = ((($costo_unitario / $factor_igv) * $cantidad)) * $porcentaje_igv;
-                    // $total = (((($costo_unitario / $factor_igv) * $cantidad)) + (((($costo_unitario / $factor_igv) * $cantidad)) * $porcentaje_igv)) - $descuento_actual;
-
-
-                    // $('#tbl_ListadoProductos').DataTable().cell(index, 9).data(parseFloat($subtotal).toFixed(2))
-                    // $('#tbl_ListadoProductos').DataTable().cell(index, 10).data(parseFloat($impuesto).toFixed(2))
-                    // $('#tbl_ListadoProductos').DataTable().cell(index, 11).data(parseFloat($total).toFixed(2));
                 }
             })
 
@@ -1504,9 +1457,9 @@ MODAL MOSTRAR DETALLE DE COMPRA
     }
 
     function fnc_SeleccionarProveedor(data) {
-        $("#id_proveedor").val(data["2"]);
-        $("#proveedor").val(data["4"]);
-        $("#razon_social").val(data["5"]);
+        $("#id_proveedor").val(data["1"]);
+        $("#proveedor").val(data["3"]);
+        $("#razon_social").val(data["4"]);
         $("#mdlListadoProveedores").modal('hide');
     }
 
