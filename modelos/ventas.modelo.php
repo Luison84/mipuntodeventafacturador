@@ -1239,7 +1239,7 @@ class VentasModelo
                                 or concat(v.serie,"-",v.correlativo) like "%' . $post["search"]["value"] . '%")';
         }
 
-        var_dump($query);
+        // var_dump($query);
         if (isset($post["order"])) {
             $query .= ' ORDER BY ' . $columns[$post['order']['0']['column']] . ' ' . $post['order']['0']['dir'] . ' ';
         } else {
