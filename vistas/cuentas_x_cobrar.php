@@ -101,7 +101,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
     $(document).ready(function() {
         fnc_CargarDataTableFacturasPorCobrar();
 
-        $('#tbl_facturas_x_cobrar tbody').on('click', '.btnMostrarCompra', function() {
+        $('#tbl_facturas_x_cobrar tbody').on('click', '.btnPagarCuotas', function() {
             fnc_MostrarListadoCuotas($("#tbl_facturas_x_cobrar").DataTable().row($(this).parents('tr')).data());
         });
     })
