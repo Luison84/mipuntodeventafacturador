@@ -77,6 +77,11 @@
                 },
                 type: 'POST'
             },
+            responsive: {
+                details: {
+                    type: 'column'
+                }
+            },
             scrollX: true,
             columnDefs: [{
                     "className": "dt-center",
