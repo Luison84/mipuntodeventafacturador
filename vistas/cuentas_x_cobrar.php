@@ -84,11 +84,10 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
                 <div class="row mt-3">
 
-                    <!--LISTADO DE PRODUCTOS COMPRADOS -->
+                    <!--LISTADO DE CUOTAS DE LA FACTURA SELECCIONADA -->
                     <div class="col-md-12">
                         <table id="tbl_cuotas_factura" class="table w-100 shadow border border-secondary">
                             <thead class="bg-main text-left">
-                                <th></th>
                                 <th>Id Cuota</th>
                                 <th>Cuota</th>
                                 <th>Importe</th>
@@ -209,26 +208,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
             columnDefs: [{
                     "className": "dt-center",
                     "targets": "_all"
-                },
-                {
-                    targets: [1],
-                    visible: false
-                },
-                {
-                    targets: 0,
-                    orderable: false,
-                    createdCell: function(td, cellData, rowData, row, col) {
-
-                        $(td).html(`<center> 
-                                        <span class='btnIngresarImporte px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Ingresar Importe'> 
-                                            <i class='fas fa-money-bill-alt fs-5 text-success'></i>
-                                        </span>
-                                    </center>
-                        `)
-
-                    }
                 }
-
 
             ],
             language: {

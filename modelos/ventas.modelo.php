@@ -1315,7 +1315,7 @@ class VentasModelo
     static public function mdlObtenerCuotasPorIdVenta($id_venta)
     {
 
-        $stmt = Conexion::conectar()->prepare("SELECT '' as opciones,
+        $stmt = Conexion::conectar()->prepare("SELECT 
                                                 id, 
                                                 cuota, 
                                                 round(importe,2) as  importe,
