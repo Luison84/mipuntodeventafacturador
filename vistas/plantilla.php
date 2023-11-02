@@ -33,7 +33,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- REQUIRED CSS -->
     <!-- ============================================================================================================= -->
 
-    <!-- Google Font: Source Sans Pro -->
+    <!-- Google Font: Source Sans Pro 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +42,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">-->
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="vistas/assets/plugins/fontawesome-free/css/all.min.css">
