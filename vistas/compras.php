@@ -1485,14 +1485,6 @@ MODAL MOSTRAR DETALLE DE COMPRA
             return;
         }
 
-        // $(event.target).parent().addClass("was-validated");
-
-        // $(event.target).parent().children(".invalid-feedback").html("El RUC ya fue registrado");
-
-
-
-        // return;
-
 
         $('#tbl_ListadoProductos').DataTable().rows().eq(0).each(function(index) {
             count = count + 1;
@@ -1505,7 +1497,6 @@ MODAL MOSTRAR DETALLE DE COMPRA
             if (data['cantidad_temp'] == 0 || data["costo_unitario_temp"] == 0 || data['cantidad_temp'] == '' ||
                 data["costo_unitario_temp"] == '') {
                 valores_en_cero = 1;
-                // exit;
             }
         });
 
@@ -1563,20 +1554,6 @@ MODAL MOSTRAR DETALLE DE COMPRA
                     title: response.msj,
                     showConfirmButton: true
                 })
-
-
-                // window.open('https://tutorialesphperu.com/pos//vistas/generar_ticket.php?id_venta=' + response["id_venta"],
-                //     "ModalPopUp",
-                //     "toolbar=no," +
-                //     "scrollbars=no," +
-                //     "location=no," +
-                //     "statusbar=no," +
-                //     "menubar=no," +
-                //     "resizable=0," +
-                //     "width=400," +
-                //     "height=600," +
-                //     "left = 450," +
-                //     "top=200");
 
                 if (response.tipo_msj == "success") fnc_LimpiarFomulario();
 
