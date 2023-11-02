@@ -64,7 +64,6 @@
             pageLength: 10,
             processing: true,
             serverSide: true,
-            "ordering": false,
             order: [],
             ajax: {
                 url: 'ajax/ventas.ajax.php',
