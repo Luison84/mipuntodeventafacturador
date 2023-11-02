@@ -88,6 +88,11 @@
                     "className": "dt-center",
                     "targets": "_all"
                 },
+                {
+                    targets: 0,
+                    orderable: false,
+                    className: 'control'
+                },
             ],
             language: {
                 url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
