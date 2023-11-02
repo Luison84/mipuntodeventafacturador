@@ -554,11 +554,11 @@
         }
 
         /*OCULTAMOS LA OPCION DE MODULOS Y PERFILES PARA EL PERFIL DE ADMINISTRADOR*/
-        if (pin_idPerfil == 1) { //SOLO PERFIL ADMINISTRADOR
-            $("#modulos").jstree(true).hide_node(13);
-        } else {
-            $('#modulos').jstree(true).show_all();
-        }
+        // if (pin_idPerfil == 1) { //SOLO PERFIL ADMINISTRADOR
+        //     $("#modulos").jstree(true).hide_node(13);
+        // } else {
+        //     $('#modulos').jstree(true).show_all();
+        // }
 
     }
 
