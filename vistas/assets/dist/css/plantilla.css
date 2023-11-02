@@ -393,7 +393,7 @@ table.dataTable tfoot tr > .dtfc-fixed-right {
   border-radius: 20px !important;
   height: 31px !important;
   font-size: 13px !important;
-  line-height: 0.7;
+  line-height: 0.8;
 }
 
 input[type=search] {
