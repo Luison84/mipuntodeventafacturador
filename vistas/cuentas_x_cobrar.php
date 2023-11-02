@@ -64,6 +64,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
                 <div class="row">
 
+                    <input type="hidden" name="id_venta" id="id_venta" value="0">
                     <div class="col-lg-3">
                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Importe a pagar</label>
                         <input type="text" class="form-control form-control-sm" id="importe_a_pagar" name="importe_a_pagar" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
@@ -117,10 +118,14 @@ MODAL MOSTRAR DETALLE DE CUOTAS
             fnc_MostrarListadoCuotas($("#tbl_facturas_x_cobrar").DataTable().row($(this).parents('tr')).data());
         });
 
-        $("#btnPagar").on('click', function(){
-            if(!$("#importe_a_pagar").val()){
+        $("#btnPagar").on('click', function() {
+            if (!$("#importe_a_pagar").val()) {
                 mensajeToast("error", "Ingrese el monto a pagar");
+                return;
             }
+
+            fnc_Pagar();
+
         })
     })
 
@@ -173,6 +178,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
     function fnc_MostrarListadoCuotas(data) {
         $("#mdlCuotas").modal("show")
+        $("#id_venta").val(data["1"]);
         fnc_CargarDataTableCuotas(data["1"])
     }
 
@@ -227,6 +233,34 @@ MODAL MOSTRAR DETALLE DE CUOTAS
             ],
             language: {
                 url: "vistas/assets/languages/spanish.json"
+            }
+        })
+    }
+
+    function fnc_Pagar() {
+
+        Swal.fire({
+            title: 'Está seguro(a) de realizar el Pago?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, deseo pagarlo!',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                var formData = new FormData();
+
+                formData.append('accion', 'pagar_cuota');
+                formData.append('id_venta', $("#id_venta").val());
+                formData.append('monto_a_pagar', $("#importe_a_pagar").val())
+
+                response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
+
+                fnc_CargarDataTableCuotas($("#id_venta").val());
+
             }
         })
     }

@@ -184,6 +184,7 @@ class VentasModelo
 
         return $id_venta;
     }
+
     static public function mdlListarVentas($fechaDesde, $fechaHasta)
     {
 
@@ -1328,5 +1329,33 @@ class VentasModelo
         $stmt->execute();
 
         return $stmt->fetchAll();
+    }
+
+    static public function mdlPagarCuotas($id_venta, $importe_a_pagar)
+    {
+
+        $dbh = Conexion::conectar();
+
+        try {
+
+            $stmt = $dbh->prepare("call prc_pagar_cuotas_factura(:id_venta, :importe_a_pagar)");
+
+            $dbh->beginTransaction();
+            $stmt->execute(array(
+                ':id_venta'            => $id_venta,
+                ':importe_a_pagar'     => $importe_a_pagar
+            ));
+
+            $dbh->commit();
+
+            $respuesta["tipo_msj"] = "success";
+            $respuesta["msj"] = "Se registró el pago correctamente";
+        } catch (Exception $e) {
+            $dbh->rollBack();
+            $respuesta["tipo_msj"] = "error";
+            $respuesta["msj"] = "Error al registrar el pago " . $e->getMessage();
+        }
+
+        return $respuesta;
     }
 }
