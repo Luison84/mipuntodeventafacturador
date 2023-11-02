@@ -46,9 +46,64 @@
 
 </div>
 
+<!-- =============================================================================================================================
+MODAL MOSTRAR DETALLE DE CUOTAS
+===============================================================================================================================-->
+<div class="modal fade" id="mdlCuotas" role="dialog" tabindex="-1">
+
+    <div class="modal-dialog modal-xl" role="document">
+
+        <!-- contenido del modal -->
+        <div class="modal-content">
+
+            <!-- cabecera del modal -->
+            <div class="modal-header my-bg py-1">
+
+                <h5 class="modal-title text-white text-lg">Detalle de Cuotas</h5>
+
+                <button type="button" class="btn btn-danger btn-sm text-white text-sm" data-bs-dismiss="modal">
+                    <i class="fas fa-times text-sm m-0 p-0"></i>
+                </button>
+
+            </div>
+
+            <!-- cuerpo del modal -->
+            <div class="modal-body">
+
+                <div class="row mt-3">
+
+                    <!--LISTADO DE PRODUCTOS COMPRADOS -->
+                    <div class="col-md-12">
+                        <table id="tbl_cuotas_factura" class="table w-100 shadow border border-secondary">
+                            <thead class="bg-main text-left">
+                                <th></th>
+                                <th>Cuota</th>
+                                <th>Importe</th>
+                                <th>Importe Pagado</th>
+                                <th>Saldo Pendiente</th>
+                                <th>Cuota Pagada?</th>
+                                <th>Fecha Vencimiento</th>
+                            </thead>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 <script>
     $(document).ready(function() {
         fnc_CargarDataTableFacturasPorCobrar();
+
+        $('#tbl_facturas_x_cobrar tbody').on('click', '.btnMostrarCompra', function() {
+            fnc_MostrarListadoCuotas($("#tbl_facturas_x_cobrar").DataTable().row($(this).parents('tr')).data());
+        });
     })
 
     function fnc_CargarDataTableFacturasPorCobrar() {
@@ -97,5 +152,9 @@
                 url: "vistas/assets/languages/spanish.json"
             }
         })
+    }
+
+    function fnc_MostrarListadoCuotas(data) {
+        $("#mdlCuotas").modal("show")
     }
 </script>
