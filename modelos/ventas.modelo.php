@@ -1338,6 +1338,7 @@ class VentasModelo
 
         try {
 
+            var_dump($id_venta);
             $stmt = $dbh->prepare("call prc_pagar_cuotas_factura(:id_venta, :importe_a_pagar)");
 
             $dbh->beginTransaction();
