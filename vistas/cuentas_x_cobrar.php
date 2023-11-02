@@ -140,7 +140,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
                         $(td).html(`<center> 
                                         <span class='btnPagarCuotas px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Pagar Cuotas'> 
-                                            <i class='fas fa-money-bill-alt fs-5 text-success'></i>
+                                            <i class='fas fa-check-circle fs-5 my-color '></i>
                                         </span>
                                     </center>
                         `)
@@ -170,7 +170,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
             dom: 'Bfrtip',
             buttons: ['pageLength'],
             pageLength: [5, 10, 15, 30, 50, 100],
-            pageLength: 10,        
+            pageLength: 10,
             ajax: {
                 url: 'ajax/ventas.ajax.php',
                 dataSrc: '',
@@ -181,25 +181,31 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                 type: 'POST'
             },
             scrollX: true,
-            // columnDefs: [{
-            //         "className": "dt-center",
-            //         "targets": "_all"
-            //     },
-            //     {
-            //         targets: 0,
-            //         orderable: false,
-            //         createdCell: function(td, cellData, rowData, row, col) {
+            columnDefs: [{
+                    "className": "dt-center",
+                    "targets": "_all"
+                },
+                {
+                    targets: [1],
+                    visible: false
+                },
+                {
+                    targets: 0,
+                    orderable: false,
+                    createdCell: function(td, cellData, rowData, row, col) {
 
-            //             $(td).html(`<center> 
-            //                     <span class='btnPagarCuotas px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Pagar Cuotas'> 
-            //                         <i class='fas fa-money-bill-alt fs-5 text-success'></i>
-            //                     </span>
-            //                 </center>
-            //     `)
+                        $(td).html(`<center> 
+                                        <span class='btnIngresarImporte px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Ingresar Importe'> 
+                                            <i class='fas fa-money-bill-alt fs-5 text-success'></i>
+                                        </span>
+                                    </center>
+                        `)
 
-            //         }
-            //     }
-            // ],
+                    }
+                }
+
+
+            ],
             language: {
                 url: "vistas/assets/languages/spanish.json"
             }
