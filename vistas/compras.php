@@ -328,7 +328,6 @@ MODAL LISTADO DE PROVEEDORES
                         <!--LISTADO DE PROVEEDORES -->
                         <table id="tbl_proveedores" class="table table-striped w-100 shadow border border-secondary">
                             <thead class="bg-main text-left">
-                                <th> </th> <!-- 0 -->
                                 <th></th>
                                 <th>id</th>
                                 <th>Tipo Doc.</th>
@@ -1092,12 +1091,7 @@ MODAL MOSTRAR DETALLE DE COMPRA
                     type: 'column'
                 }
             },
-            columnDefs: [{
-                    targets: 0,
-                    orderable: false,
-                    className: 'control',
-                    visible: false
-                },
+            columnDefs: [
                 {
                     targets: 8,
                     createdCell: function(td, cellData, rowData, row, col) {
