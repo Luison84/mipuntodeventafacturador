@@ -70,7 +70,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                     </div>
 
                     <div class="col-lg-9 text-right col-lg-8 text-right d-flex align-items-end justify-content-end">
-                        <a class="btn btn-sm btn-success  fw-bold w-25" id="" style="position: relative;">
+                        <a class="btn btn-sm btn-success  fw-bold w-25" id="btnPagar" style="position: relative;">
                             <span class="text-button">PAGAR</span>
                             <span class="btn fw-bold icon-btn-success d-flex align-items-center">
                                 <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
@@ -116,6 +116,12 @@ MODAL MOSTRAR DETALLE DE CUOTAS
         $('#tbl_facturas_x_cobrar tbody').on('click', '.btnPagarCuotas', function() {
             fnc_MostrarListadoCuotas($("#tbl_facturas_x_cobrar").DataTable().row($(this).parents('tr')).data());
         });
+
+        $("#btnPagar").on('click', function(){
+            if(!$("#importe_a_pagar").val()){
+                mensajeToast("error", "Ingrese el monto a pagar");
+            }
+        })
     })
 
     function fnc_CargarDataTableFacturasPorCobrar() {
