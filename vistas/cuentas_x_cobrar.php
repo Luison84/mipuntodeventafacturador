@@ -17,14 +17,10 @@
 
 <!-- Main content -->
 <div class="content mb-3">
-
     <div class="container-fluid">
-
         <!-- row para criterios de busqueda -->
         <div class="row">
-
             <div class="col-md-12">
-
                 <table id="tbl_facturas_x_cobrar" class="table shadow border border-secondary" style="width:100%">
                     <thead class="bg-main text-left">
                         <th></th>
@@ -37,13 +33,9 @@
                         <th>Saldo Pendiente</th>
                     </thead>
                 </table>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 <!-- =============================================================================================================================
@@ -69,6 +61,17 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
             <!-- cuerpo del modal -->
             <div class="modal-body">
+
+                <div class="row">
+
+                    <div class="col-12">
+
+                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Importe a pagar</label>
+                        <input type="text" class="form-control form-control-sm" id="importe_a_pagar" name="importe_a_pagar" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+
+                    </div>
+
+                </div>
 
                 <div class="row mt-3">
 
