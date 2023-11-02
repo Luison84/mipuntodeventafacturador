@@ -1170,14 +1170,16 @@ class VentasModelo
 
             for ($i = 0; $i < count($cronograma); $i++) {
 
-                $stmt = $dbh->prepare("INSERT INTO cuotas(id_venta, cuota, importe, fecha_vencimiento, estado)
-                VALUES (:id_venta, :cuota, :importe, :fecha_vencimiento, '1')");
+                $stmt = $dbh->prepare("INSERT INTO cuotas(id_venta, cuota, importe, saldo_pendiente, cuota_pagada,fecha_vencimiento, estado)
+                VALUES (:id_venta, :cuota, :importe, :saldo_pendiente, :cuota_pagada, :fecha_vencimiento, '1')");
 
                 $dbh->beginTransaction();
                 $stmt->execute(array(
                     ':id_venta'            => $id_venta,
                     ':cuota'            => $cronograma[$i]["cuota"],
                     ':importe'            => $cronograma[$i]["importe"],
+                    ':saldo_pendiente'   => $cronograma[$i]["importe"],
+                    ':cuota_pagada'      => 0,
                     ':fecha_vencimiento' => $cronograma[$i]["vencimiento"]
                 ));
 
