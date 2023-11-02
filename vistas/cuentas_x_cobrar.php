@@ -28,7 +28,7 @@
                 <table id="tbl_facturas_x_cobrar" class="table shadow border border-secondary" style="width:100%">
                     <thead class="bg-main text-left">
                         <th></th>
-                        <th>Venta Nro°</th>
+                        <th>Venta N°</th>
                         <th>Comprobante</th>
                         <th>Fecha Emisión</th>
                         <th>Total</th>
@@ -74,10 +74,26 @@
                 type: 'POST'
             },
             scrollX: true,
-            columnDefs: [{
+            columnDefs: [
+                {
                 "className": "dt-center",
                 "targets": "_all"
-            }, ],
+                }, 
+                {
+                    targets: 0,
+                    orderable: false,
+                    createdCell: function(td, cellData, rowData, row, col) {
+                       
+                        $(td).html(`<center> 
+                                        <span class='btnPagarCuotas px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Pagar Cuotas'> 
+                                            <i class='fas fa-money-bill-alt fs-5 text-info'></i>
+                                        </span>
+                                    </center>
+                        `)
+
+                    }
+                }
+            ],
             language: {
                 url: "vistas/assets/languages/spanish.json"
             }
