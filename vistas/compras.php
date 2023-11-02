@@ -62,7 +62,7 @@
                                     <div class="col-12 col-md-5 col-lg-3 mb-2">
                                         <input type="hidden" name="id_proveedor" id="id_proveedor" value="0">
 
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card mr-1 my-text-color"></i> Ruc</label>
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card mr-1 my-text-color"></i> Nro Documento</label>
                                         <div class="input-group input-group-sm mb-3 ">
                                             <span class="input-group-text btnBuscarProveedor" id="inputGroup-sizing-sm" style="cursor: pointer;"><i class="fas fa-search ml-1 text-white "></i></span>
                                             <input type="text" class="form-control form-control-sm readonly" style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;" aria-label="Sizing example input" id="proveedor" name="proveedor" aria-describedby="inputGroup-sizing-sm" required>
@@ -72,7 +72,7 @@
 
                                     <!-- RAZON SOCIAL -->
                                     <div class="col-12 col-md-5 col-lg-6 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-signature mr-1 my-text-color"></i> Razón Social</label>
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-signature mr-1 my-text-color"></i> Razón Social/Nombre Completo</label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="razon_social" name="razon_social" aria-label="Small" aria-describedby="inputGroup-sizing-sm" disabled>
                                     </div>
 
