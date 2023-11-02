@@ -1232,11 +1232,11 @@ class VentasModelo
                     (select round(sum(ifnull(c.saldo_pendiente,0)),2) from cuotas c where c.id_venta = v.id and c.cuota_pagada = 0) as saldo_pendiente
                 FROM venta v inner join serie s on v.id_serie = s.id
                 WHERE s.id_tipo_comprobante = '01'
-                and upper(v.forma_pago) = 'CREDITO'";
+                and upper(v.forma_pago) = 'CREDITO' ";
 
         if (isset($post["search"]["value"])) {
             $query .= '  AND  (v.fecha_emision like "%' . $post["search"]["value"] . '%"
-                                or concat(v.serie,'-',v.correlativo) like "%' . $post["search"]["value"] . '%")';
+                                or concat(v.serie,"-",v.correlativo) like "%' . $post["search"]["value"] . '%")';
         }
 
         var_dump($query);
