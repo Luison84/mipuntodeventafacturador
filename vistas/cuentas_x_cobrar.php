@@ -128,16 +128,15 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                 type: 'POST'
             },
             scrollX: true,
-            columnDefs: [
-                {
-                "className": "dt-center",
-                "targets": "_all"
-                }, 
+            columnDefs: [{
+                    "className": "dt-center",
+                    "targets": "_all"
+                },
                 {
                     targets: 0,
                     orderable: false,
                     createdCell: function(td, cellData, rowData, row, col) {
-                       
+
                         $(td).html(`<center> 
                                         <span class='btnPagarCuotas px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Pagar Cuotas'> 
                                             <i class='fas fa-money-bill-alt fs-5 text-success'></i>
@@ -156,5 +155,50 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
     function fnc_MostrarListadoCuotas(data) {
         $("#mdlCuotas").modal("show")
+        fnc_CargarDataTableCuotas(data["1"])
+    }
+
+    function fnc_CargarDataTableCuotas($id_venta) {
+
+        if ($.fn.DataTable.isDataTable('#tbl_cuotas_factura')) {
+            $('#tbl_cuotas_factura').DataTable().destroy();
+            $('#tbl_cuotas_factura tbody').empty();
+        }
+
+        $("#tbl_cuotas_factura").DataTable({
+            dom: 'Bfrtip',
+            buttons: ['pageLength'],
+            pageLength: 10,           
+            ajax: {
+                url: 'ajax/ventas.ajax.php',
+                data: {
+                    'accion': 'obtener_cuotas_x_id_venta'
+                },
+                type: 'POST'
+            },
+            scrollX: true,
+            // columnDefs: [{
+            //         "className": "dt-center",
+            //         "targets": "_all"
+            //     },
+            //     {
+            //         targets: 0,
+            //         orderable: false,
+            //         createdCell: function(td, cellData, rowData, row, col) {
+
+            //             $(td).html(`<center> 
+            //                     <span class='btnPagarCuotas px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Pagar Cuotas'> 
+            //                         <i class='fas fa-money-bill-alt fs-5 text-success'></i>
+            //                     </span>
+            //                 </center>
+            //     `)
+
+            //         }
+            //     }
+            // ],
+            language: {
+                url: "vistas/assets/languages/spanish.json"
+            }
+        })
     }
 </script>

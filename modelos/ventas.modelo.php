@@ -1292,7 +1292,8 @@ class VentasModelo
                         (select round(sum(ifnull(c.saldo_pendiente,0)),2) from cuotas c where c.id_venta = v.id and c.cuota_pagada = 0) as saldo_pendiente
                     FROM venta v inner join serie s on v.id_serie = s.id
                     WHERE s.id_tipo_comprobante = '01'
-                    and upper(v.forma_pago) = 'CREDITO'`);
+                    and upper(v.forma_pago) = 'CREDITO'`
+        );
 
         $stmt->execute();
 
@@ -1306,5 +1307,26 @@ class VentasModelo
         );
 
         return $facturas;
+    }
+
+
+    static public function mdlObtenerCuotasPorIdVenta($id_venta)
+    {
+
+        $stmt = Conexion::conectar()->prepare("select id, 
+                                                id_venta, 
+                                                cuota, 
+                                                importe, 
+                                                saldo_pendiente, 
+                                                cuota_pagada, 
+                                                fecha_vencimiento, 
+                                                estado
+                                        from cuotas c
+                                        where c.id_venta = :id_venta");
+
+        $stmt->bindParam(":id_venta", $id_venta, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
     }
 }

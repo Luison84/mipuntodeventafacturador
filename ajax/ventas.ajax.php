@@ -690,6 +690,14 @@ if (isset($_POST["accion"])) {
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
 
             break;
+
+        case "obtener_cuotas_x_id_venta":
+
+            $response = VentasModelo::mdlObtenerCuotasPorIdVenta($_POST, $_POST["id_venta"]);
+
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+
+            break;
     }
 }
 
