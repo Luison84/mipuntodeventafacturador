@@ -1227,8 +1227,8 @@ class VentasModelo
                     concat(v.serie,'-',v.correlativo) as factura,
                     date(v.fecha_emision) as fecha_emision,
                     v.importe_total,
-                    (select count(1) from cuotas c where c.id_venta = v.id) as nro_cuotas,
-                    (select count(1) from cuotas c where c.id_venta = v.id and c.cuota_pagada = 1) as cuotas_pagadas,
+                    (select count(c.id) from cuotas c where c.id_venta = v.id) as nro_cuotas,
+                    (select count(c.id) from cuotas c where c.id_venta = v.id and c.cuota_pagada = 1) as cuotas_pagadas,
                     (select round(sum(ifnull(c.saldo_pendiente,0)),2) from cuotas c where c.id_venta = v.id and c.cuota_pagada = 0) as saldo_pendiente
                 FROM venta v inner join serie s on v.id_serie = s.id
                 WHERE s.id_tipo_comprobante = '01'
