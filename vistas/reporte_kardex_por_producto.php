@@ -28,6 +28,7 @@
 
                 <table id="tbl_kardex_x_producto" class="table shadow border border-secondary" style="width:100%">
                     <thead class="bg-main text-left">
+                        <th> </th> <!-- 0 -->
                         <th>Cod. Producto</th>
                         <th>Producto</th>
                         <th>Fecha Mov.</th>
@@ -79,9 +80,19 @@
                 type: 'POST'
             },
             scrollX: true,
+            responsive: {
+                details: {
+                    type: 'column'
+                }
+            },
             columnDefs: [{
                     "className": "dt-center",
                     "targets": "_all"
+                },
+                {
+                    targets: 0,
+                    orderable: false,
+                    className: 'control'
                 },
             ],
             language: {

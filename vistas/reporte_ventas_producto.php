@@ -28,7 +28,6 @@
 
                 <table id="tbl_ventas_productos" class="table shadow border border-secondary" style="width:100%">
                     <thead class="bg-main text-left">
-                        <th> </th> <!-- 0 -->
                         <th>Cod. Producto</th>
                         <th>Producto</th>
                         <th>Cantidad</th>
@@ -78,21 +77,13 @@
                 },
                 type: 'POST'
             },
-            responsive: {
-                details: {
-                    type: 'column'
-                }
-            },
+            
             scrollX: true,
             columnDefs: [{
                     "className": "dt-center",
                     "targets": "_all"
                 },
-                {
-                    targets: 0,
-                    orderable: false,
-                    className: 'control'
-                },
+               
             ],
             language: {
                 url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
