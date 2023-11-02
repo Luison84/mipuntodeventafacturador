@@ -64,12 +64,12 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
                 <div class="row">
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Importe a pagar</label>
                         <input type="text" class="form-control form-control-sm" id="importe_a_pagar" name="importe_a_pagar" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                     </div>
 
-                    <div class="col-lg-8 text-right col-lg-8 text-right d-flex align-items-end justify-content-end">
+                    <div class="col-lg-9 text-right col-lg-8 text-right d-flex align-items-end justify-content-end">
                         <a class="btn btn-sm btn-success  fw-bold w-25" id="" style="position: relative;">
                             <span class="text-button">PAGAR</span>
                             <span class="btn fw-bold icon-btn-success d-flex align-items-center">
