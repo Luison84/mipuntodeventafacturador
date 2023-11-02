@@ -88,7 +88,7 @@ class ReportesModelo
 
         $column = ["codigo_producto", "producto", "fecha", "tipo_movimiento", "cantidad", "stock"];
 
-        $query = "SELECT '' as detalles,
+        $query = "SELECT 
                         k.codigo_producto, 
                         p.descripcion as producto,
                     date(fecha) as fecha, 
@@ -148,7 +148,6 @@ class ReportesModelo
 
         foreach ($results as $row) {
             $sub_array = array();
-            $sub_array[] = $row['detalles'];
             $sub_array[] = $row['codigo_producto'];
             $sub_array[] = $row['producto'];
             $sub_array[] = $row['fecha'];
