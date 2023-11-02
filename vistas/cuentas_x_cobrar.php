@@ -172,7 +172,8 @@ MODAL MOSTRAR DETALLE DE CUOTAS
             ajax: {
                 url: 'ajax/ventas.ajax.php',
                 data: {
-                    'accion': 'obtener_cuotas_x_id_venta'
+                    'accion': 'obtener_cuotas_x_id_venta',
+                    'id_venta': $id_venta
                 },
                 type: 'POST'
             },
