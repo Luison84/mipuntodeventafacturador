@@ -1314,13 +1314,12 @@ class VentasModelo
     {
 
         $stmt = Conexion::conectar()->prepare("SELECT id, 
-                                                id_venta, 
                                                 cuota, 
                                                 round(importe,2) as  importe,
+                                                round(importe_pagado,2) as  importe_pagado,
                                                 round(saldo_pendiente,2) as saldo_pendiente,
                                                 case when cuota_pagada = 0 then 'NO' else 'SI' end as cuota_pagada, 
-                                                fecha_vencimiento, 
-                                                estado
+                                                fecha_vencimiento
                                         from cuotas c
                                         where c.id_venta = :id_venta");
 

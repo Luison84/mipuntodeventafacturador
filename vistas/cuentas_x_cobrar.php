@@ -77,6 +77,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                         <table id="tbl_cuotas_factura" class="table w-100 shadow border border-secondary">
                             <thead class="bg-main text-left">
                                 <th></th>
+                                <th>Id Cuota</th>
                                 <th>Cuota</th>
                                 <th>Importe</th>
                                 <th>Importe Pagado</th>
