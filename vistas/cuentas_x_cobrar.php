@@ -168,7 +168,8 @@ MODAL MOSTRAR DETALLE DE CUOTAS
         $("#tbl_cuotas_factura").DataTable({
             dom: 'Bfrtip',
             buttons: ['pageLength'],
-            pageLength: 10,           
+            pageLength: [5, 10, 15, 30, 50, 100],
+            pageLength: 10,        
             ajax: {
                 url: 'ajax/ventas.ajax.php',
                 data: {
