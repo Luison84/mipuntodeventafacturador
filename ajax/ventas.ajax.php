@@ -682,6 +682,14 @@ if (isset($_POST["accion"])) {
             $resultado["actualizacion_resumen"] =  $actualizacion_resumen;
             echo json_encode($resultado);
             break;
+
+        case "facturas_x_cobrar":
+
+            $response = VentasModelo::mdlObtenerFacturasPorCobrar($_POST);
+
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+
+            break;
     }
 }
 

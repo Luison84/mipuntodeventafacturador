@@ -1208,4 +1208,99 @@ class VentasModelo
 
         return $stmt->fetchAll(PDO::FETCH_NAMED);
     }
+
+    static public function mdlObtenerFacturasPorCobrar($post)
+    {
+
+        $columns = [
+            "id",
+            "factura",
+            "fecha_emision",
+            "importe_total",
+            "nro_cuotas",
+            "cuotas_pagadas",
+            "saldo_pendiente"
+        ];
+
+        $query = `SELECT '' as opciones,
+                        v.id,
+                    concat(v.serie,'-',v.correlativo) as factura,
+                    date(v.fecha_emision) as fecha_emision,
+                    v.importe_total,
+                    (select count(1) from cuotas c where c.id_venta = v.id) as nro_cuotas,
+                    (select count(1) from cuotas c where c.id_venta = v.id and c.cuota_pagada = 1) as cuotas_pagadas,
+                    (select round(sum(ifnull(c.saldo_pendiente,0)),2) from cuotas c where c.id_venta = v.id and c.cuota_pagada = 0) as saldo_pendiente
+                FROM venta v inner join serie s on v.id_serie = s.id
+                WHERE s.id_tipo_comprobante = '01'
+                and upper(v.forma_pago) = 'CREDITO'`;
+
+        if (isset($post["search"]["value"])) {
+            $query .= `  AND  (v.fecha_emision like '%'` . $post["search"]["value"] . `'%'
+                                or concat(v.serie,'-',v.correlativo) like '%'` . $post["search"]["value"] . `'%'`;
+        }
+
+        if (isset($post["order"])) {
+            $query .= ` ORDER BY ` . $columns[$post['order']['0']['column']] . ` ` . $post['order']['0']['dir'] . ` `;
+        } else {
+            $query .= ` ORDER BY v.id desc `;
+        }
+
+        //SE AGREGA PAGINACION
+        if ($post["length"] != -1) {
+            $query1 = ` LIMIT ` . $post["start"] . `, ` . $post["length"];
+        }
+
+        $stmt = Conexion::conectar()->prepare($query);
+
+        $stmt->execute();
+
+        $number_filter_row = $stmt->rowCount();
+
+        $stmt =  Conexion::conectar()->prepare($query . $query1);
+
+        $stmt->execute();
+
+        $results = $stmt->fetchAll(PDO::FETCH_NAMED);
+
+        $data = array();
+
+        foreach ($results as $row) {
+            $sub_array = array();
+            $sub_array[] = $row['opciones'];
+            $sub_array[] = $row['id'];
+            $sub_array[] = $row['factura'];
+            $sub_array[] = $row['fecha_emision'];
+            $sub_array[] = $row['importe_total'];
+            $sub_array[] = $row['nro_cuotas'];
+            $sub_array[] = $row['cuotas_pagadas'];
+            $sub_array[] = $row['saldo_pendiente'];
+            $data[] = $sub_array;
+        }
+
+        $stmt = Conexion::conectar()->prepare(
+            $query = `SELECT '' as opciones,
+                            v.id,
+                        concat(v.serie,'-',v.correlativo) as factura,
+                        date(v.fecha_emision) as fecha_emision,
+                        v.importe_total,
+                        (select count(1) from cuotas c where c.id_venta = v.id) as nro_cuotas,
+                        (select count(1) from cuotas c where c.id_venta = v.id and c.cuota_pagada = 1) as cuotas_pagadas,
+                        (select round(sum(ifnull(c.saldo_pendiente,0)),2) from cuotas c where c.id_venta = v.id and c.cuota_pagada = 0) as saldo_pendiente
+                    FROM venta v inner join serie s on v.id_serie = s.id
+                    WHERE s.id_tipo_comprobante = '01'
+                    and upper(v.forma_pago) = 'CREDITO'`);
+
+        $stmt->execute();
+
+        $count_all_data = $stmt->rowCount();
+
+        $facturas = array(
+            'draw' => $post['draw'],
+            "recordsTotal" => $count_all_data,
+            "recordsFiltered" => $number_filter_row,
+            "data" => $data
+        );
+
+        return $facturas;
+    }
 }

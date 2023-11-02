@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_ActualizarDetalleVenta` (IN `p_codigo_producto` VARCHAR(20), IN `p_cantidad` FLOAT, IN `p_id` INT)   BEGIN
+CREATE  PROCEDURE `prc_ActualizarDetalleVenta` (IN `p_codigo_producto` VARCHAR(20), IN `p_cantidad` FLOAT, IN `p_id` INT)   BEGIN
 
  declare v_nro_boleta varchar(20);
  declare v_total_venta float;
@@ -56,45 +56,12 @@ ACTULIZAR CODIGO, CANTIDAD Y TOTAL DEL ITEM MODIFICADO
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_eliminar_venta` (IN `p_nro_boleta` VARCHAR(8))   BEGIN
 
-DECLARE v_codigo VARCHAR(20);
-DECLARE v_cantidad FLOAT;
-DECLARE done INT DEFAULT FALSE;
-
-DECLARE cursor_i CURSOR FOR 
-SELECT codigo_producto,cantidad 
-FROM venta_detalle 
-where CAST(nro_boleta AS CHAR CHARACTER SET utf8)  = CAST(p_nro_boleta AS CHAR CHARACTER SET utf8) ;
-
-DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-
-OPEN cursor_i;
-read_loop: LOOP
-FETCH cursor_i INTO v_codigo, v_cantidad;
-
-	IF done THEN
-	  LEAVE read_loop;
-	END IF;
-    
-    UPDATE PRODUCTOS 
-       SET stock_producto = stock_producto + v_cantidad
-    WHERE CAST(codigo_producto AS CHAR CHARACTER SET utf8) = CAST(v_codigo AS CHAR CHARACTER SET utf8);
-    
-END LOOP;
-CLOSE cursor_i;
-
-DELETE FROM VENTA_DETALLE WHERE CAST(nro_boleta AS CHAR CHARACTER SET utf8) = CAST(p_nro_boleta AS CHAR CHARACTER SET utf8) ;
-DELETE FROM VENTA_CABECERA WHERE CAST(nro_boleta AS CHAR CHARACTER SET utf8)  = CAST(p_nro_boleta AS CHAR CHARACTER SET utf8) ;
-
-SELECT 'Se eliminó correctamente la venta';
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_ListarCategorias` ()   BEGIN
+CREATE  PROCEDURE `prc_ListarCategorias` ()   BEGIN
 select * from categorias;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_ListarProductos` ()   SELECT  '' as acciones,
+CREATE  PROCEDURE `prc_ListarProductos` ()   SELECT  '' as acciones,
 		codigo_producto,
 		p.id_categoria,
         
@@ -125,7 +92,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_ListarProductos` ()   SELECT  '
     WHERE p.estado in (0,1)
 	order by p.codigo_producto desc$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_ListarProductosMasVendidos` ()  NO SQL BEGIN
+CREATE  PROCEDURE `prc_ListarProductosMasVendidos` ()  NO SQL BEGIN
 
 select  p.codigo_producto,
 		p.descripcion,
@@ -139,7 +106,7 @@ limit 10;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_ListarProductosPocoStock` ()  NO SQL BEGIN
+CREATE  PROCEDURE `prc_ListarProductosPocoStock` ()  NO SQL BEGIN
 select p.codigo_producto,
 		p.descripcion,
         p.stock,
@@ -149,7 +116,7 @@ where p.stock <= p.minimo_stock
 order by p.stock asc;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_movimentos_arqueo_caja_por_usuario` (`p_id_usuario` INT, `p_id_caja` INT)   BEGIN
+CREATE  PROCEDURE `prc_movimentos_arqueo_caja_por_usuario` (`p_id_usuario` INT, `p_id_caja` INT)   BEGIN
 
 	select 
 	ac.monto_apertura as y,
@@ -188,7 +155,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_movimentos_arqueo_caja_por_usua
 	and date(ac.fecha_apertura) = curdate();
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_ObtenerDatosDashboard` ()  NO SQL BEGIN
+CREATE  PROCEDURE `prc_ObtenerDatosDashboard` ()  NO SQL BEGIN
   DECLARE totalProductos int;
   DECLARE totalCompras float;
   DECLARE totalVentas float;
@@ -237,11 +204,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_ObtenerDatosDashboard` ()  NO S
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_obtenerNroBoleta` ()  NO SQL select serie_boleta,
+CREATE  PROCEDURE `prc_obtenerNroBoleta` ()  NO SQL select serie_boleta,
 		IFNULL(LPAD(max(c.nro_correlativo_venta)+1,8,'0'),'00000001') nro_venta 
 from empresa c$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_ObtenerVentasMesActual` ()  NO SQL BEGIN
+CREATE  PROCEDURE `prc_ObtenerVentasMesActual` ()  NO SQL BEGIN
 SELECT date(vc.fecha_emision) as fecha_venta,
 		sum(round(vc.importe_total,2)) as total_venta,
         ifnull((SELECT sum(round(vc1.importe_total,2))
@@ -258,7 +225,7 @@ group by date(vc.fecha_emision);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_ObtenerVentasMesAnterior` ()  NO SQL BEGIN
+CREATE  PROCEDURE `prc_ObtenerVentasMesAnterior` ()  NO SQL BEGIN
 SELECT date(vc.fecha_venta) as fecha_venta,
 		sum(round(vc.total_venta,2)) as total_venta,
         sum(round(vc.total_venta,2)) as total_venta_ant
@@ -268,7 +235,7 @@ and date(vc.fecha_venta) <= last_day(last_day(now() - INTERVAL 2 month) + INTERV
 group by date(vc.fecha_venta);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_kardex_anulacion` (IN `p_id_venta` INT, IN `p_codigo_producto` VARCHAR(20))   BEGIN
+CREATE PROCEDURE `prc_registrar_kardex_anulacion` (IN `p_id_venta` INT, IN `p_codigo_producto` VARCHAR(20))   BEGIN
 
 	/*VARIABLES PARA EXISTENCIAS ACTUALES*/
 	declare v_unidades_ex float;
@@ -287,9 +254,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_kardex_anulacion` (IN
 	/*OBTENEMOS LAS ULTIMAS EXISTENCIAS DEL PRODUCTO*/    
     SELECT k.ex_costo_unitario , k.ex_unidades, k.ex_costo_total
     into v_costo_unitario_ex, v_unidades_ex, v_costo_total_ex
-    FROM KARDEX K
-    WHERE K.CODIGO_PRODUCTO = p_codigo_producto
-    ORDER BY ID DESC
+    FROM kardex k
+    WHERE k.codigo_producto = p_codigo_producto
+    ORDER BY id DESC
     LIMIT 1;
     
     select   cantidad, 
@@ -312,7 +279,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_kardex_anulacion` (IN
     SET v_costo_unitario_ex = ROUND(v_costo_total_ex/v_unidades_ex,2);
 
 
-	INSERT INTO KARDEX(codigo_producto,
+	INSERT INTO kardex(codigo_producto,
 						fecha,
                         concepto,
                         comprobante,
@@ -334,7 +301,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_kardex_anulacion` (IN
                         v_costo_total_ex);
 
 	/*ACTUALIZAMOS EL STOCK, EL NRO DE VENTAS DEL PRODUCTO*/
-	UPDATE PRODUCTOS 
+	UPDATE productos 
 	SET stock = v_unidades_ex, 
          costo_unitario = v_costo_unitario_ex,
          costo_total= v_costo_total_ex
@@ -342,7 +309,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_kardex_anulacion` (IN
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_kardex_bono` (IN `p_codigo_producto` VARCHAR(20), IN `p_concepto` VARCHAR(100), IN `p_nuevo_stock` FLOAT)   BEGIN
+CREATE  PROCEDURE `prc_registrar_kardex_bono` (IN `p_codigo_producto` VARCHAR(20), IN `p_concepto` VARCHAR(100), IN `p_nuevo_stock` FLOAT)   BEGIN
 
 	/*VARIABLES PARA EXISTENCIAS ACTUALES*/
 	declare v_unidades_ex float;
@@ -356,9 +323,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_kardex_bono` (IN `p_c
 	/*OBTENEMOS LAS ULTIMAS EXISTENCIAS DEL PRODUCTO*/    
     SELECT k.ex_costo_unitario , k.ex_unidades, k.ex_costo_total
     into v_costo_unitario_ex, v_unidades_ex, v_costo_total_ex
-    FROM KARDEX K
-    WHERE K.CODIGO_PRODUCTO = p_codigo_producto
-    ORDER BY ID DESC
+    FROM kardex k
+    WHERE k.codigo_producto = p_codigo_producto
+    ORDER BY id DESC
     LIMIT 1;
     
     /*SETEAMOS LOS VALORES PARA EL REGISTRO DE INGRESO*/
@@ -377,7 +344,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_kardex_bono` (IN `p_c
     END IF;
     
         
-	INSERT INTO KARDEX(codigo_producto,
+	INSERT INTO kardex(codigo_producto,
 						fecha,
                         concepto,
                         comprobante,
@@ -399,7 +366,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_kardex_bono` (IN `p_c
                         v_costo_total_ex);
 
 	/*ACTUALIZAMOS EL STOCK, EL NRO DE VENTAS DEL PRODUCTO*/
-	UPDATE PRODUCTOS 
+	UPDATE productos 
 	SET stock = v_unidades_ex, 
          costo_unitario = v_costo_unitario_ex,
          costo_total= v_costo_total_ex
@@ -467,13 +434,13 @@ CREATE PROCEDURE `prc_registrar_kardex_compra` (IN `p_id_compra` INT, IN `p_comp
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_kardex_existencias` (IN `p_codigo_producto` VARCHAR(25), IN `p_concepto` VARCHAR(100), IN `p_comprobante` VARCHAR(100), IN `p_unidades` FLOAT, IN `p_costo_unitario` FLOAT, IN `p_costo_total` FLOAT)   BEGIN
+CREATE  PROCEDURE `prc_registrar_kardex_existencias` (IN `p_codigo_producto` VARCHAR(25), IN `p_concepto` VARCHAR(100), IN `p_comprobante` VARCHAR(100), IN `p_unidades` FLOAT, IN `p_costo_unitario` FLOAT, IN `p_costo_total` FLOAT)   BEGIN
   INSERT INTO kardex (codigo_producto, fecha, concepto, comprobante, in_unidades, in_costo_unitario, in_costo_total,ex_unidades, ex_costo_unitario, ex_costo_total)
     VALUES (p_codigo_producto, CURDATE(), p_concepto, p_comprobante, p_unidades, p_costo_unitario, p_costo_total, p_unidades, p_costo_unitario, p_costo_total);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_kardex_vencido` (IN `p_codigo_producto` VARCHAR(20), IN `p_concepto` VARCHAR(100), IN `p_nuevo_stock` FLOAT)   BEGIN
+CREATE  PROCEDURE `prc_registrar_kardex_vencido` (IN `p_codigo_producto` VARCHAR(20), IN `p_concepto` VARCHAR(100), IN `p_nuevo_stock` FLOAT)   BEGIN
 
 	declare v_unidades_ex float;
 	declare v_costo_unitario_ex float;    
@@ -486,8 +453,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_kardex_vencido` (IN `
 	/*OBTENEMOS LAS ULTIMAS EXISTENCIAS DEL PRODUCTO*/    
     SELECT k.ex_costo_unitario , k.ex_unidades, k.ex_costo_total
     into v_costo_unitario_ex, v_unidades_ex, v_costo_total_ex
-    FROM KARDEX K
-    WHERE K.CODIGO_PRODUCTO = p_codigo_producto
+    FROM kardex k
+    WHERE k.codigo_producto = p_codigo_producto
     ORDER BY ID DESC
     LIMIT 1;
     
@@ -507,7 +474,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_kardex_vencido` (IN `
     END IF;
     
         
-	INSERT INTO KARDEX(codigo_producto,
+	INSERT INTO kardex(codigo_producto,
 						fecha,
                         concepto,
                         comprobante,
@@ -529,7 +496,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_kardex_vencido` (IN `
                         v_costo_total_ex);
 
 	/*ACTUALIZAMOS EL STOCK, EL NRO DE VENTAS DEL PRODUCTO*/
-	UPDATE PRODUCTOS 
+	UPDATE productos 
 	SET stock = v_unidades_ex, 
          costo_unitario = v_costo_unitario_ex,
         costo_total = v_costo_total_ex
@@ -604,7 +571,7 @@ CREATE PROCEDURE `prc_registrar_kardex_venta` (IN `p_codigo_producto` VARCHAR(20
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_registrar_venta_detalle` (IN `p_nro_boleta` VARCHAR(8), IN `p_codigo_producto` VARCHAR(20), IN `p_cantidad` FLOAT, IN `p_total_venta` FLOAT)   BEGIN
+CREATE  PROCEDURE `prc_registrar_venta_detalle` (IN `p_nro_boleta` VARCHAR(8), IN `p_codigo_producto` VARCHAR(20), IN `p_cantidad` FLOAT, IN `p_total_venta` FLOAT)   BEGIN
 declare v_precio_compra float;
 declare v_precio_venta float;
 
@@ -618,7 +585,7 @@ VALUES(p_nro_boleta,p_codigo_producto,p_cantidad, v_precio_compra, v_precio_vent
                                                         
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_top_ventas_categorias` ()   BEGIN
+CREATE  PROCEDURE `prc_top_ventas_categorias` ()   BEGIN
 
 select cast(sum(vd.importe_total)  AS DECIMAL(8,2)) as y, c.descripcion as label
     from detalle_venta vd inner join productos p on vd.codigo_producto = p.codigo_producto
@@ -627,7 +594,7 @@ select cast(sum(vd.importe_total)  AS DECIMAL(8,2)) as y, c.descripcion as label
     LIMIT 10;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prc_truncate_all_tables` ()   BEGIN
+CREATE  PROCEDURE `prc_truncate_all_tables` ()   BEGIN
 
 SET FOREIGN_KEY_CHECKS = 0;
 

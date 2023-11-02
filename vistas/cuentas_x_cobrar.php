@@ -14,3 +14,72 @@
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </div><!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content mb-3">
+
+    <div class="container-fluid">
+
+        <!-- row para criterios de busqueda -->
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <table id="tbl_facturas_x_cobrar" class="table shadow border border-secondary" style="width:100%">
+                    <thead class="bg-main text-left">
+                        <th>Id</th>
+                        <th>Comprobante</th>
+                        <th>Fecha Emisión</th>
+                        <th>Total</th>
+                        <th>Nro Cuotas</th>
+                        <th>Cuotas Pagadas</th>
+                        <th>Saldo Pendiente</th>
+                    </thead>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        fnc_CargarDataTableFacturasPorCobrar();
+    })
+
+    function fnc_CargarDataTableFacturasPorCobrar() {
+
+        if ($.fn.DataTable.isDataTable('#tbl_facturas_x_cobrar')) {
+            $('#tbl_facturas_x_cobrar').DataTable().destroy();
+            $('#tbl_facturas_x_cobrar tbody').empty();
+        }
+
+        $("#tbl_facturas_x_cobrar").DataTable({
+            dom: 'Bfrtip',
+            buttons: ['pageLength'],
+            pageLength: 10,
+            processing: true,
+            serverSide: true,
+            "ordering": false,
+            order: [],
+            ajax: {
+                url: 'ajax/ventas.ajax.php',
+                data: {
+                    'accion': 'facturas_x_cobrar'
+                },
+                type: 'POST'
+            },
+            scrollX: true,
+            columnDefs: [{
+                "className": "dt-center",
+                "targets": "_all"
+            }, ],
+            language: {
+                url: "vistas/assets/languages/spanish.json"
+            }
+        })
+    }
+</script>

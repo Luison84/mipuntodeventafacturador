@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 02-11-2023 a las 02:03:26
+-- Tiempo de generación: 02-11-2023 a las 02:47:25
 -- Versión del servidor: 10.6.15-MariaDB-cll-lve
 -- Versión de PHP: 8.1.16
 
@@ -25,39 +25,485 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-$$
+CREATE  PROCEDURE `prc_ActualizarDetalleVenta` (IN `p_codigo_producto` VARCHAR(20), IN `p_cantidad` FLOAT, IN `p_id` INT)   BEGIN
 
-$$
+ declare v_nro_boleta varchar(20);
+ declare v_total_venta float;
 
-$$
+/*
+ACTUALIZAR EL STOCK DEL PRODUCTO QUE SEA MODIFICADO
+......
+.....
+.......
+*/
 
-$$
+/*
+ACTULIZAR CODIGO, CANTIDAD Y TOTAL DEL ITEM MODIFICADO
+*/
 
-$$
+ UPDATE venta_detalle 
+ SET codigo_producto = p_codigo_producto, 
+ cantidad = p_cantidad, 
+ total_venta = (p_cantidad * (select precio_venta_producto from productos where codigo_producto = p_codigo_producto))
+ WHERE id = p_id;
+ 
+ set v_nro_boleta = (select nro_boleta from venta_detalle where id = p_id);
+ set v_total_venta = (select sum(total_venta) from venta_detalle where nro_boleta = v_nro_boleta);
+ 
+ update venta_cabecera
+   set total_venta = v_total_venta
+ where nro_boleta = v_nro_boleta;
 
-$$
+END$$
 
-$$
+CREATE  PROCEDURE `prc_ListarCategorias` ()   BEGIN
+select * from categorias;
+END$$
 
-$$
+CREATE  PROCEDURE `prc_ListarProductos` ()   SELECT  '' as acciones,
+		codigo_producto,
+		p.id_categoria,
+        
+		upper(c.descripcion) as nombre_categoria,
+		upper(p.descripcion) as producto,
+        imagen,
+        p.id_tipo_afectacion_igv,
+        upper(tai.descripcion) as tipo_afectacion_igv,
+        p.id_unidad_medida,
+        upper(cum.descripcion) as unidad_medida,
+		ROUND(costo_unitario,2) as costo_unitario,
+		ROUND(precio_unitario_con_igv,2) as precio_unitario_con_igv,
+        ROUND(precio_unitario_sin_igv,2) as precio_unitario_sin_igv,
+        ROUND(precio_unitario_mayor_con_igv,2) as precio_unitario_mayor_con_igv,
+        ROUND(precio_unitario_mayor_sin_igv,2) as precio_unitario_mayor_sin_igv,
+        ROUND(precio_unitario_oferta_con_igv,2) as precio_unitario_oferta_con_igv,
+        ROUND(precio_unitario_oferta_sin_igv,2) as precio_unitario_oferta_sin_igv,
+		stock,
+		minimo_stock,
+		ventas,
+		ROUND(costo_total,2) as costo_total,
+		p.fecha_creacion,
+		p.fecha_actualizacion,
+        case when p.estado = 1 then 'ACTIVO' else 'INACTIVO' end estado
+	FROM productos p INNER JOIN categorias c on p.id_categoria = c.id
+					 inner join tipo_afectacion_igv tai on tai.codigo = p.id_tipo_afectacion_igv
+					inner join codigo_unidad_medida cum on cum.id = p.id_unidad_medida
+    WHERE p.estado in (0,1)
+	order by p.codigo_producto desc$$
 
-$$
+CREATE  PROCEDURE `prc_ListarProductosMasVendidos` ()  NO SQL BEGIN
 
-$$
+select  p.codigo_producto,
+		p.descripcion,
+        sum(vd.cantidad) as cantidad,
+        sum(Round(vd.importe_total,2)) as total_venta
+from detalle_venta vd inner join productos p on vd.codigo_producto = p.codigo_producto
+group by p.codigo_producto,
+		p.descripcion
+order by  sum(Round(vd.importe_total,2)) DESC
+limit 10;
 
-$$
+END$$
 
-$$
+CREATE  PROCEDURE `prc_ListarProductosPocoStock` ()  NO SQL BEGIN
+select p.codigo_producto,
+		p.descripcion,
+        p.stock,
+        p.minimo_stock
+from productos p
+where p.stock <= p.minimo_stock
+order by p.stock asc;
+END$$
 
-$$
+CREATE  PROCEDURE `prc_movimentos_arqueo_caja_por_usuario` (`p_id_usuario` INT, `p_id_caja` INT)   BEGIN
 
-$$
+	select 
+	ac.monto_apertura as y,
+	'APERTURA' as label,
+	"#6c757d" as color
+	from arqueo_caja ac inner join usuarios usu on ac.id_usuario = usu.id_usuario
+	where ac.id_usuario = p_id_usuario
+    and ac.id = p_id_caja
+	and date(ac.fecha_apertura) = curdate()
+	union  
+	select 
+	ac.ingresos as y,
+	'INGRESOS' as label,
+	"#28a745" as color
+	from arqueo_caja ac inner join usuarios usu on ac.id_usuario = usu.id_usuario
+	where ac.id_usuario = p_id_usuario
+    and ac.id = p_id_caja
+	and date(ac.fecha_apertura) = curdate()
+	union
+	select 
+	ac.devoluciones as y,
+	'DEVOLUCIONES' as label,
+	"#ffc107" as color
+	from arqueo_caja ac inner join usuarios usu on ac.id_usuario = usu.id_usuario
+	where ac.id_usuario = p_id_usuario
+    and ac.id = p_id_caja
+	and date(ac.fecha_apertura) = curdate()
+	union
+	select 
+	ac.gastos as y,
+	'GASTOS' as label,
+	"#17a2b8" as color
+	from arqueo_caja ac inner join usuarios usu on ac.id_usuario = usu.id_usuario
+	where ac.id_usuario = p_id_usuario
+    and ac.id = p_id_caja
+	and date(ac.fecha_apertura) = curdate();
+END$$
 
-$$
+CREATE  PROCEDURE `prc_ObtenerDatosDashboard` ()  NO SQL BEGIN
+  DECLARE totalProductos int;
+  DECLARE totalCompras float;
+  DECLARE totalVentas float;
+  DECLARE ganancias float;
+  DECLARE productosPocoStock int;
+  DECLARE ventasHoy float;
 
-$$
+  SET totalProductos = (SELECT
+      COUNT(*)
+    FROM productos p);
+    
+  SET totalCompras = (SELECT
+      SUM(p.costo_total)
+    FROM productos p);  
 
-CREATE DEFINER=`cpses_tuq9khkk0h`@`localhost` PROCEDURE `prc_registrar_kardex_venta` (IN `p_codigo_producto` VARCHAR(20), IN `p_fecha` DATE, IN `p_concepto` VARCHAR(100), IN `p_comprobante` VARCHAR(100), IN `p_unidades` FLOAT)   BEGIN
+	SET totalVentas = 0;
+  SET totalVentas = (SELECT
+      SUM(v.importe_total)
+    FROM venta v);
+
+  SET ganancias = 0;
+  SET ganancias = (SELECT
+      SUM(dv.importe_total) - SUM(dv.cantidad * dv.costo_unitario)
+    FROM detalle_venta dv);
+    
+  SET productosPocoStock = (SELECT
+      COUNT(1)
+    FROM productos p
+    WHERE p.stock <= p.minimo_stock);
+    
+    SET ventasHoy = 0;
+  SET ventasHoy = (SELECT
+      SUM(v.importe_total)
+    FROM venta v
+    WHERE DATE(v.fecha_emision) = CURDATE());
+
+  SELECT
+    IFNULL(totalProductos, 0) AS totalProductos,
+    IFNULL(CONCAT('S./ ', FORMAT(totalCompras, 2)), 0) AS totalCompras,
+    IFNULL(CONCAT('S./ ', FORMAT(totalVentas, 2)), 0) AS totalVentas,
+    IFNULL(CONCAT('S./ ', FORMAT(ganancias, 2), ' - ','  % ', FORMAT((ganancias / totalVentas) *100,2)), 0) AS ganancias,
+    IFNULL(productosPocoStock, 0) AS productosPocoStock,
+    IFNULL(CONCAT('S./ ', FORMAT(ventasHoy, 2)), 0) AS ventasHoy;
+
+
+
+END$$
+
+CREATE  PROCEDURE `prc_obtenerNroBoleta` ()  NO SQL select serie_boleta,
+		IFNULL(LPAD(max(c.nro_correlativo_venta)+1,8,'0'),'00000001') nro_venta 
+from empresa c$$
+
+CREATE  PROCEDURE `prc_ObtenerVentasMesActual` ()  NO SQL BEGIN
+SELECT date(vc.fecha_emision) as fecha_venta,
+		sum(round(vc.importe_total,2)) as total_venta,
+        ifnull((SELECT sum(round(vc1.importe_total,2))
+			FROM venta vc1
+		where date(vc1.fecha_emision) >= date(last_day(now() - INTERVAL 2 month) + INTERVAL 1 day)
+		and date(vc1.fecha_emision) <= last_day(last_day(now() - INTERVAL 2 month) + INTERVAL 1 day)
+        and date(vc1.fecha_emision) = DATE_ADD(date(vc.fecha_emision), INTERVAL -1 MONTH)
+		group by date(vc1.fecha_emision)),0) as total_venta_ant
+FROM venta vc
+where date(vc.fecha_emision) >= date(last_day(now() - INTERVAL 1 month) + INTERVAL 1 day)
+and date(vc.fecha_emision) <= last_day(date(CURRENT_DATE))
+group by date(vc.fecha_emision);
+
+
+END$$
+
+CREATE  PROCEDURE `prc_ObtenerVentasMesAnterior` ()  NO SQL BEGIN
+SELECT date(vc.fecha_venta) as fecha_venta,
+		sum(round(vc.total_venta,2)) as total_venta,
+        sum(round(vc.total_venta,2)) as total_venta_ant
+FROM venta_cabecera vc
+where date(vc.fecha_venta) >= date(last_day(now() - INTERVAL 2 month) + INTERVAL 1 day)
+and date(vc.fecha_venta) <= last_day(last_day(now() - INTERVAL 2 month) + INTERVAL 1 day)
+group by date(vc.fecha_venta);
+END$$
+
+CREATE  PROCEDURE `prc_registrar_kardex_anulacion` (IN `p_id_venta` INT, IN `p_codigo_producto` VARCHAR(20))   BEGIN
+
+	/*VARIABLES PARA EXISTENCIAS ACTUALES*/
+	declare v_unidades_ex float;
+	declare v_costo_unitario_ex float;    
+	declare v_costo_total_ex float;
+    
+    declare v_unidades_in float;
+	declare v_costo_unitario_in float;    
+	declare v_costo_total_in float;
+    
+    declare v_cantidad_devolucion float;
+	declare v_costo_unitario_devolucion float;   
+    declare v_comprobante_devolucion varchar(20);   
+    declare v_concepto_devolucion varchar(50);   
+    
+	/*OBTENEMOS LAS ULTIMAS EXISTENCIAS DEL PRODUCTO*/    
+    SELECT k.ex_costo_unitario , k.ex_unidades, k.ex_costo_total
+    into v_costo_unitario_ex, v_unidades_ex, v_costo_total_ex
+    FROM kardex k
+    WHERE k.codigo_producto = p_codigo_producto
+    ORDER BY id DESC
+    LIMIT 1;
+    
+    select   cantidad, 
+			costo_unitario,
+			concat(v.serie,'-',v.correlativo) as comprobante,
+			'DEVOLUCIÓN' as concepto
+	  into v_cantidad_devolucion, v_costo_unitario_devolucion,
+			v_comprobante_devolucion, v_concepto_devolucion 
+	from detalle_venta dv inner join venta v on dv.id_venta = v.id
+    where dv.id_venta = p_id_venta and dv.codigo_producto = p_codigo_producto;
+    
+      /*SETEAMOS LOS VALORES PARA EL REGISTRO DE INGRESO*/
+    SET v_unidades_in = v_cantidad_devolucion;
+    SET v_costo_unitario_in = v_costo_unitario_devolucion;
+    SET v_costo_total_in = v_unidades_in * v_costo_unitario_in;
+    
+    /*SETEAMOS LAS EXISTENCIAS ACTUALES*/
+    SET v_unidades_ex = v_unidades_ex + ROUND(v_cantidad_devolucion,2);    
+    SET v_costo_total_ex = ROUND(v_costo_total_ex + v_costo_total_in,2);
+    SET v_costo_unitario_ex = ROUND(v_costo_total_ex/v_unidades_ex,2);
+
+
+	INSERT INTO kardex(codigo_producto,
+						fecha,
+                        concepto,
+                        comprobante,
+                        in_unidades,
+                        in_costo_unitario,
+                        in_costo_total,
+                        ex_unidades,
+                        ex_costo_unitario,
+                        ex_costo_total)
+				VALUES(p_codigo_producto,
+						curdate(),
+                        v_concepto_devolucion,
+                        v_comprobante_devolucion,
+                        v_unidades_in,
+                        v_costo_unitario_in,
+                        v_costo_total_in,
+                        v_unidades_ex,
+                        v_costo_unitario_ex,
+                        v_costo_total_ex);
+
+	/*ACTUALIZAMOS EL STOCK, EL NRO DE VENTAS DEL PRODUCTO*/
+	UPDATE productos 
+	SET stock = v_unidades_ex, 
+         costo_unitario = v_costo_unitario_ex,
+         costo_total= v_costo_total_ex
+	WHERE codigo_producto = p_codigo_producto ;  
+
+END$$
+
+CREATE  PROCEDURE `prc_registrar_kardex_bono` (IN `p_codigo_producto` VARCHAR(20), IN `p_concepto` VARCHAR(100), IN `p_nuevo_stock` FLOAT)   BEGIN
+
+	/*VARIABLES PARA EXISTENCIAS ACTUALES*/
+	declare v_unidades_ex float;
+	declare v_costo_unitario_ex float;    
+	declare v_costo_total_ex float;
+    
+    declare v_unidades_in float;
+	declare v_costo_unitario_in float;    
+	declare v_costo_total_in float;
+    
+	/*OBTENEMOS LAS ULTIMAS EXISTENCIAS DEL PRODUCTO*/    
+    SELECT k.ex_costo_unitario , k.ex_unidades, k.ex_costo_total
+    into v_costo_unitario_ex, v_unidades_ex, v_costo_total_ex
+    FROM kardex k
+    WHERE k.codigo_producto = p_codigo_producto
+    ORDER BY id DESC
+    LIMIT 1;
+    
+    /*SETEAMOS LOS VALORES PARA EL REGISTRO DE INGRESO*/
+    SET v_unidades_in = p_nuevo_stock - v_unidades_ex;
+    SET v_costo_unitario_in = v_costo_unitario_ex;
+    SET v_costo_total_in = v_unidades_in * v_costo_unitario_in;
+    
+    /*SETEAMOS LAS EXISTENCIAS ACTUALES*/
+    SET v_unidades_ex = ROUND(p_nuevo_stock,2);    
+    SET v_costo_total_ex = ROUND(v_costo_total_ex + v_costo_total_in,2);
+    
+    IF(v_costo_total_ex > 0) THEN
+		SET v_costo_unitario_ex = ROUND(v_costo_total_ex/v_unidades_ex,2);
+	else
+		SET v_costo_unitario_ex = ROUND(0,2);
+    END IF;
+    
+        
+	INSERT INTO kardex(codigo_producto,
+						fecha,
+                        concepto,
+                        comprobante,
+                        in_unidades,
+                        in_costo_unitario,
+                        in_costo_total,
+                        ex_unidades,
+                        ex_costo_unitario,
+                        ex_costo_total)
+				VALUES(p_codigo_producto,
+						curdate(),
+                        p_concepto,
+                        '',
+                        v_unidades_in,
+                        v_costo_unitario_in,
+                        v_costo_total_in,
+                        v_unidades_ex,
+                        v_costo_unitario_ex,
+                        v_costo_total_ex);
+
+	/*ACTUALIZAMOS EL STOCK, EL NRO DE VENTAS DEL PRODUCTO*/
+	UPDATE productos 
+	SET stock = v_unidades_ex, 
+         costo_unitario = v_costo_unitario_ex,
+         costo_total= v_costo_total_ex
+	WHERE codigo_producto = p_codigo_producto ;                      
+
+END$$
+
+CREATE  PROCEDURE `prc_registrar_kardex_compra` (IN `p_id_compra` INT, IN `p_comprobante` VARCHAR(20), IN `p_codigo_producto` VARCHAR(20), IN `p_concepto` VARCHAR(100), IN `p_cantidad_compra` FLOAT, IN `p_costo_compra` FLOAT)   BEGIN
+
+	/*VARIABLES PARA EXISTENCIAS ACTUALES*/
+	declare v_unidades_ex float;
+	declare v_costo_unitario_ex float;    
+	declare v_costo_total_ex float;
+    
+    declare v_unidades_in float;
+	declare v_costo_unitario_in float;    
+	declare v_costo_total_in float;
+    
+	/*OBTENEMOS LAS ULTIMAS EXISTENCIAS DEL PRODUCTO*/    
+    SELECT k.ex_costo_unitario , k.ex_unidades, k.ex_costo_total
+    into v_costo_unitario_ex, v_unidades_ex, v_costo_total_ex
+    FROM kardex k
+    WHERE k.codigo_producto = p_codigo_producto
+    ORDER BY id DESC
+    LIMIT 1;
+    
+    /*SETEAMOS LOS VALORES PARA EL REGISTRO DE INGRESO*/
+    SET v_unidades_in = p_cantidad_compra;
+    SET v_costo_unitario_in = p_costo_compra;
+    SET v_costo_total_in = v_unidades_in * v_costo_unitario_in;
+    
+    /*SETEAMOS LAS EXISTENCIAS ACTUALES*/
+    SET v_unidades_ex = v_unidades_ex + ROUND(p_cantidad_compra,2);    
+    SET v_costo_total_ex = ROUND(v_costo_total_ex + v_costo_total_in,2);
+    SET v_costo_unitario_ex = ROUND(v_costo_total_ex/v_unidades_ex,2);
+
+	INSERT INTO kardex(codigo_producto,
+						fecha,
+                        concepto,
+                        comprobante,
+                        in_unidades,
+                        in_costo_unitario,
+                        in_costo_total,
+                        ex_unidades,
+                        ex_costo_unitario,
+                        ex_costo_total)
+				VALUES(p_codigo_producto,
+						curdate(),
+                        p_concepto,
+                        p_comprobante,
+                        v_unidades_in,
+                        v_costo_unitario_in,
+                        v_costo_total_in,
+                        v_unidades_ex,
+                        v_costo_unitario_ex,
+                        v_costo_total_ex);
+
+	/*ACTUALIZAMOS EL STOCK, EL NRO DE VENTAS DEL PRODUCTO*/
+	UPDATE productos 
+	SET stock = v_unidades_ex, 
+         costo_unitario = v_costo_unitario_ex,
+         costo_total= v_costo_total_ex
+	WHERE codigo_producto = p_codigo_producto ;  
+  
+
+END$$
+
+CREATE  PROCEDURE `prc_registrar_kardex_existencias` (IN `p_codigo_producto` VARCHAR(25), IN `p_concepto` VARCHAR(100), IN `p_comprobante` VARCHAR(100), IN `p_unidades` FLOAT, IN `p_costo_unitario` FLOAT, IN `p_costo_total` FLOAT)   BEGIN
+  INSERT INTO kardex (codigo_producto, fecha, concepto, comprobante, in_unidades, in_costo_unitario, in_costo_total,ex_unidades, ex_costo_unitario, ex_costo_total)
+    VALUES (p_codigo_producto, CURDATE(), p_concepto, p_comprobante, p_unidades, p_costo_unitario, p_costo_total, p_unidades, p_costo_unitario, p_costo_total);
+
+END$$
+
+CREATE  PROCEDURE `prc_registrar_kardex_vencido` (IN `p_codigo_producto` VARCHAR(20), IN `p_concepto` VARCHAR(100), IN `p_nuevo_stock` FLOAT)   BEGIN
+
+	declare v_unidades_ex float;
+	declare v_costo_unitario_ex float;    
+	declare v_costo_total_ex float;
+    
+    declare v_unidades_out float;
+	declare v_costo_unitario_out float;    
+	declare v_costo_total_out float;
+    
+	/*OBTENEMOS LAS ULTIMAS EXISTENCIAS DEL PRODUCTO*/    
+    SELECT k.ex_costo_unitario , k.ex_unidades, k.ex_costo_total
+    into v_costo_unitario_ex, v_unidades_ex, v_costo_total_ex
+    FROM kardex k
+    WHERE k.codigo_producto = p_codigo_producto
+    ORDER BY ID DESC
+    LIMIT 1;
+    
+    /*SETEAMOS LOS VALORES PARA EL REGISTRO DE SALIDA*/
+    SET v_unidades_out = v_unidades_ex - p_nuevo_stock;
+    SET v_costo_unitario_out = v_costo_unitario_ex;
+    SET v_costo_total_out = v_unidades_out * v_costo_unitario_out;
+    
+    /*SETEAMOS LAS EXISTENCIAS ACTUALES*/
+    SET v_unidades_ex = ROUND(p_nuevo_stock,2);    
+    SET v_costo_total_ex = ROUND(v_costo_total_ex - v_costo_total_out,2);
+    
+    IF(v_costo_total_ex > 0) THEN
+		SET v_costo_unitario_ex = ROUND(v_costo_total_ex/v_unidades_ex,2);
+	else
+		SET v_costo_unitario_ex = ROUND(0,2);
+    END IF;
+    
+        
+	INSERT INTO kardex(codigo_producto,
+						fecha,
+                        concepto,
+                        comprobante,
+                        out_unidades,
+                        out_costo_unitario,
+                        out_costo_total,
+                        ex_unidades,
+                        ex_costo_unitario,
+                        ex_costo_total)
+				VALUES(p_codigo_producto,
+						curdate(),
+                        p_concepto,
+                        '',
+                        v_unidades_out,
+                        v_costo_unitario_out,
+                        v_costo_total_out,
+                        v_unidades_ex,
+                        v_costo_unitario_ex,
+                        v_costo_total_ex);
+
+	/*ACTUALIZAMOS EL STOCK, EL NRO DE VENTAS DEL PRODUCTO*/
+	UPDATE productos 
+	SET stock = v_unidades_ex, 
+         costo_unitario = v_costo_unitario_ex,
+        costo_total = v_costo_total_ex
+	WHERE codigo_producto = p_codigo_producto ;                      
+
+END$$
+
+CREATE  PROCEDURE `prc_registrar_kardex_venta` (IN `p_codigo_producto` VARCHAR(20), IN `p_fecha` DATE, IN `p_concepto` VARCHAR(100), IN `p_comprobante` VARCHAR(100), IN `p_unidades` FLOAT)   BEGIN
 
 	declare v_unidades_ex float;
 	declare v_costo_unitario_ex float;    
@@ -124,11 +570,63 @@ CREATE DEFINER=`cpses_tuq9khkk0h`@`localhost` PROCEDURE `prc_registrar_kardex_ve
 
 END$$
 
-$$
+CREATE  PROCEDURE `prc_registrar_venta_detalle` (IN `p_nro_boleta` VARCHAR(8), IN `p_codigo_producto` VARCHAR(20), IN `p_cantidad` FLOAT, IN `p_total_venta` FLOAT)   BEGIN
+declare v_precio_compra float;
+declare v_precio_venta float;
 
-$$
+SELECT p.precio_compra_producto,p.precio_venta_producto
+into v_precio_compra, v_precio_venta
+FROM productos p
+WHERE p.codigo_producto  = p_codigo_producto;
+    
+INSERT INTO venta_detalle(nro_boleta,codigo_producto, cantidad, costo_unitario_venta,precio_unitario_venta,total_venta, fecha_venta) 
+VALUES(p_nro_boleta,p_codigo_producto,p_cantidad, v_precio_compra, v_precio_venta,p_total_venta,curdate());
+                                                        
+END$$
 
-$$
+CREATE  PROCEDURE `prc_top_ventas_categorias` ()   BEGIN
+
+select cast(sum(vd.importe_total)  AS DECIMAL(8,2)) as y, c.descripcion as label
+    from detalle_venta vd inner join productos p on vd.codigo_producto = p.codigo_producto
+                        inner join categorias c on c.id = p.id_categoria
+    group by c.descripcion
+    LIMIT 10;
+END$$
+
+CREATE  PROCEDURE `prc_truncate_all_tables` ()   BEGIN
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+truncate table venta;
+truncate table detalle_venta;
+truncate table cuotas;
+
+truncate table resumenes;
+truncate table resumenes_detalle;
+
+
+truncate table compras;
+truncate table detalle_compra;
+
+truncate table kardex;
+
+truncate table categorias;
+
+truncate table tipo_afectacion_igv;
+
+truncate table codigo_unidad_medida;
+
+truncate table arqueo_caja;
+truncate table movimientos_arqueo_caja;
+
+truncate table proveedores;
+truncate table clientes;
+
+truncate table productos;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+END$$
 
 DELIMITER ;
 
@@ -159,7 +657,7 @@ CREATE TABLE `arqueo_caja` (
 --
 
 INSERT INTO `arqueo_caja` (`id`, `id_usuario`, `fecha_apertura`, `fecha_cierre`, `monto_apertura`, `ingresos`, `devoluciones`, `gastos`, `monto_final`, `monto_real`, `sobrante`, `faltante`, `estado`) VALUES
-(1, 2, '2023-11-01 21:11:58', NULL, 50, 265.12, NULL, NULL, 315.12, NULL, NULL, NULL, 1);
+(1, 2, '2023-11-01 22:24:42', NULL, 100, 274.28, NULL, NULL, 374.28, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -202,25 +700,25 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id`, `descripcion`, `fecha_creacion`, `fecha_actualizacion`, `estado`) VALUES
-(1, 'Frutas', '2023-11-02 01:11:31', NULL, 1),
-(2, 'Verduras', '2023-11-02 01:11:31', NULL, 1),
-(3, 'Snack', '2023-11-02 01:11:31', NULL, 1),
-(4, 'Avena', '2023-11-02 01:11:31', NULL, 1),
-(5, 'Energizante', '2023-11-02 01:11:31', NULL, 1),
-(6, 'Jugo', '2023-11-02 01:11:31', NULL, 1),
-(7, 'Refresco', '2023-11-02 01:11:31', NULL, 1),
-(8, 'Mantequilla', '2023-11-02 01:11:31', NULL, 1),
-(9, 'Gaseosa', '2023-11-02 01:11:31', NULL, 1),
-(10, 'Aceite', '2023-11-02 01:11:31', NULL, 1),
-(11, 'Yogurt', '2023-11-02 01:11:31', NULL, 1),
-(12, 'Arroz', '2023-11-02 01:11:31', NULL, 1),
-(13, 'Leche', '2023-11-02 01:11:31', NULL, 1),
-(14, 'Papel Higiénico', '2023-11-02 01:11:31', NULL, 1),
-(15, 'Atún', '2023-11-02 01:11:31', NULL, 1),
-(16, 'Chocolate', '2023-11-02 01:11:31', NULL, 1),
-(17, 'Wafer', '2023-11-02 01:11:31', NULL, 1),
-(18, 'Golosina', '2023-11-02 01:11:31', NULL, 1),
-(19, 'Galletas', '2023-11-02 01:11:31', NULL, 1);
+(1, 'Frutas', '2023-11-02 02:24:19', NULL, 1),
+(2, 'Verduras', '2023-11-02 02:24:19', NULL, 1),
+(3, 'Snack', '2023-11-02 02:24:19', NULL, 1),
+(4, 'Avena', '2023-11-02 02:24:19', NULL, 1),
+(5, 'Energizante', '2023-11-02 02:24:19', NULL, 1),
+(6, 'Jugo', '2023-11-02 02:24:19', NULL, 1),
+(7, 'Refresco', '2023-11-02 02:24:19', NULL, 1),
+(8, 'Mantequilla', '2023-11-02 02:24:19', NULL, 1),
+(9, 'Gaseosa', '2023-11-02 02:24:19', NULL, 1),
+(10, 'Aceite', '2023-11-02 02:24:19', NULL, 1),
+(11, 'Yogurt', '2023-11-02 02:24:19', NULL, 1),
+(12, 'Arroz', '2023-11-02 02:24:19', NULL, 1),
+(13, 'Leche', '2023-11-02 02:24:19', NULL, 1),
+(14, 'Papel Higiénico', '2023-11-02 02:24:19', NULL, 1),
+(15, 'Atún', '2023-11-02 02:24:19', NULL, 1),
+(16, 'Chocolate', '2023-11-02 02:24:19', NULL, 1),
+(17, 'Wafer', '2023-11-02 02:24:19', NULL, 1),
+(18, 'Golosina', '2023-11-02 02:24:19', NULL, 1),
+(19, 'Galletas', '2023-11-02 02:24:19', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -243,8 +741,7 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `id_tipo_documento`, `nro_documento`, `nombres_apellidos_razon_social`, `direccion`, `telefono`, `estado`) VALUES
-(1, 0, '99999999', 'CLIENTES VARIOS', '-', '-', 1),
-(2, 6, '1210932309', 'pruebasv', 'oeeoiwe', '88923898', 1);
+(1, 0, '99999999', 'CLIENTES VARIOS', '-', '-', 1);
 
 -- --------------------------------------------------------
 
@@ -295,6 +792,13 @@ CREATE TABLE `compras` (
   `estado` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
+--
+-- Volcado de datos para la tabla `compras`
+--
+
+INSERT INTO `compras` (`id`, `id_proveedor`, `fecha_compra`, `id_tipo_comprobante`, `serie`, `correlativo`, `id_moneda`, `ope_exonerada`, `ope_inafecta`, `ope_gravada`, `total_igv`, `descuento`, `total_compra`, `estado`) VALUES
+(1, 1, '2023-11-01 00:00:00', '01', 'F001', '1234', 'PEN', 0, 0, 1550, 279, 0, 1829, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -328,6 +832,13 @@ CREATE TABLE `detalle_compra` (
   `total` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
+--
+-- Volcado de datos para la tabla `detalle_compra`
+--
+
+INSERT INTO `detalle_compra` (`id`, `id_compra`, `codigo_producto`, `cantidad`, `costo_unitario`, `descuento`, `subtotal`, `impuesto`, `total`) VALUES
+(1, 1, '7755139002809', 100, 18.29, 0, 1550, 279, 1829);
+
 -- --------------------------------------------------------
 
 --
@@ -355,10 +866,7 @@ CREATE TABLE `detalle_venta` (
 --
 
 INSERT INTO `detalle_venta` (`id`, `id_venta`, `item`, `codigo_producto`, `descripcion`, `porcentaje_igv`, `cantidad`, `costo_unitario`, `valor_unitario`, `precio_unitario`, `valor_total`, `igv`, `importe_total`) VALUES
-(1, 1, 1, '7755139002809', 'Paisana extra 5k', 18, 11, 18.29, 19.37, 22.86, 213.07, 38.35, 251.42),
-(2, 2, 1, '7755139002833', 'chin chin 32g', 18, 3, 0.88, 0.93, 1.1, 2.79, 0.5, 3.29),
-(3, 2, 2, '7755139002892', 'Filete de atún Campomar', 18, 1, 5.08, 5.38, 6.35, 5.38, 0.97, 6.35),
-(4, 2, 3, '7755139002870', 'Canchita natural', 18, 1, 3.25, 3.44, 4.06, 3.44, 0.62, 4.06);
+(1, 1, 1, '7755139002809', 'Paisana extra 5k', 18, 12, 18.29, 19.37, 22.86, 232.44, 41.84, 274.28);
 
 -- --------------------------------------------------------
 
@@ -565,10 +1073,8 @@ INSERT INTO `kardex` (`id`, `codigo_producto`, `fecha`, `concepto`, `comprobante
 (94, '7755139002873', '2023-11-01 00:00:00', 'INVENTARIO INICIAL', '', 25, 2.89, 72.25, NULL, NULL, NULL, 25, 2.89, 72.25),
 (95, '7755139002820', '2023-11-01 00:00:00', 'INVENTARIO INICIAL', '', 21, 0.57, 11.97, NULL, NULL, NULL, 21, 0.57, 11.97),
 (96, '7755139002821', '2023-11-01 00:00:00', 'INVENTARIO INICIAL', '', 22, 0.53, 11.66, NULL, NULL, NULL, 22, 0.53, 11.66),
-(97, '7755139002809', '2023-11-01 00:00:00', 'VENTA', 'B001-373', NULL, NULL, NULL, 11, 18.29, 201.19, 10, 18.29, 182.9),
-(98, '7755139002833', '2023-11-01 00:00:00', 'VENTA', 'F001-132', NULL, NULL, NULL, 3, 0.88, 2.64, 21, 0.88, 18.48),
-(99, '7755139002892', '2023-11-01 00:00:00', 'VENTA', 'F001-132', NULL, NULL, NULL, 1, 5.08, 5.08, 20, 5.08, 101.6),
-(100, '7755139002870', '2023-11-01 00:00:00', 'VENTA', 'F001-132', NULL, NULL, NULL, 1, 3.25, 3.25, 25, 3.25, 81.25);
+(97, '7755139002809', '2023-11-01 00:00:00', 'VENTA', 'B001-375', NULL, NULL, NULL, 12, 18.29, 219.48, 9, 18.29, 164.61),
+(98, '7755139002809', '2023-11-01 00:00:00', 'COMPRA', 'F001-1234', 100, 18.29, 1829, NULL, NULL, NULL, 109, 18.29, 1993.61);
 
 -- --------------------------------------------------------
 
@@ -666,11 +1172,8 @@ CREATE TABLE `movimientos_arqueo_caja` (
 --
 
 INSERT INTO `movimientos_arqueo_caja` (`id`, `id_arqueo_caja`, `id_tipo_movimiento`, `descripcion`, `monto`, `estado`) VALUES
-(1, 1, 4, 'APERTURA CAJA', 50, 1),
-(2, 1, 3, 'INGRESO - Contado', 251.42, 1),
-(3, 1, 3, 'INGRESO - Contado', 3.29, 1),
-(4, 1, 3, 'INGRESO - Contado', 6.35, 1),
-(5, 1, 3, 'INGRESO - Contado', 4.06, 1);
+(1, 1, 4, 'APERTURA CAJA', 100, 1),
+(2, 1, 3, 'INGRESO - Contado', 274.28, 1);
 
 -- --------------------------------------------------------
 
@@ -755,7 +1258,6 @@ INSERT INTO `perfil_modulo` (`idperfil_modulo`, `id_perfil`, `id_modulo`, `vista
 (924, 2, 8, 0, 1),
 (925, 2, 5, 0, 1),
 (926, 2, 6, 0, 1),
-(927, 2, 7, 0, 1),
 (928, 2, 15, 0, 1),
 (929, 2, 43, 1, 1),
 (930, 2, 9, 0, 1),
@@ -838,102 +1340,102 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`codigo_producto`, `id_categoria`, `descripcion`, `id_tipo_afectacion_igv`, `id_unidad_medida`, `costo_unitario`, `precio_unitario_con_igv`, `precio_unitario_sin_igv`, `precio_unitario_mayor_con_igv`, `precio_unitario_mayor_sin_igv`, `precio_unitario_oferta_con_igv`, `precio_unitario_oferta_sin_igv`, `stock`, `minimo_stock`, `ventas`, `costo_total`, `imagen`, `fecha_creacion`, `fecha_actualizacion`, `estado`) VALUES
-('7755139002809', 12, 'Paisana extra 5k', 10, 'NIU', 18.29, 22.86, 19.37, 21.95, 18.6, 21.4, 18.13, 10, 11, 11, 182.9, 'no_image.jpg', '2023-11-02 01:12:13', NULL, 1),
-('7755139002810', 11, 'Gloria Fresa 500ml', 10, 'NIU', 3.79, 4.74, 4.01, 4.55, 3.85, 4.43, 3.76, 21, 11, 0, 79.59, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002811', 13, 'Gloria evaporada ligth 400g', 10, 'NIU', 3.4, 4.25, 3.6, 4.08, 3.46, 3.98, 3.37, 25, 15, 0, 85, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002812', 19, 'soda san jorge 40g', 10, 'NIU', 0.5, 0.62, 0.53, 0.6, 0.51, 0.58, 0.5, 28, 18, 0, 14, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002813', 19, 'vainilla field 37g', 10, 'NIU', 0.33, 0.41, 0.35, 0.4, 0.34, 0.39, 0.33, 22, 12, 0, 7.26, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002814', 19, 'Margarita', 10, 'NIU', 0.53, 0.66, 0.56, 0.64, 0.54, 0.62, 0.53, 25, 15, 0, 13.25, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002815', 19, 'soda field 34g', 10, 'NIU', 0.37, 0.46, 0.39, 0.44, 0.38, 0.43, 0.37, 29, 19, 0, 10.73, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002816', 19, 'ritz original', 10, 'NIU', 0.43, 0.54, 0.46, 0.52, 0.44, 0.5, 0.43, 20, 10, 0, 8.6, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002817', 19, 'ritz queso 34g', 10, 'NIU', 0.68, 0.85, 0.72, 0.82, 0.69, 0.8, 0.67, 21, 11, 0, 14.28, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002818', 16, 'Chocobum', 10, 'NIU', 0.62, 0.77, 0.66, 0.74, 0.63, 0.73, 0.61, 24, 14, 0, 14.88, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002819', 19, 'Picaras', 10, 'NIU', 0.6, 0.75, 0.64, 0.72, 0.61, 0.7, 0.59, 28, 18, 0, 16.8, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002820', 19, 'oreo original 36g', 10, 'NIU', 0.57, 0.71, 0.6, 0.68, 0.58, 0.67, 0.57, 21, 11, 0, 11.97, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002821', 19, 'club social 26g', 10, 'NIU', 0.53, 0.66, 0.56, 0.64, 0.54, 0.62, 0.53, 22, 12, 0, 11.66, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002822', 19, 'frac vanilla 45.5g', 10, 'NIU', 0.52, 0.65, 0.55, 0.62, 0.53, 0.61, 0.52, 24, 14, 0, 12.48, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002823', 19, 'frac chocolate 45.5g', 10, 'NIU', 0.52, 0.65, 0.55, 0.62, 0.53, 0.61, 0.52, 20, 10, 0, 10.4, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002824', 19, 'frac chasica 45.5g', 10, 'NIU', 0.52, 0.65, 0.55, 0.62, 0.53, 0.61, 0.52, 23, 13, 0, 11.96, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002825', 16, 'tuyo 22g', 10, 'NIU', 0.5, 0.62, 0.53, 0.6, 0.51, 0.58, 0.5, 25, 15, 0, 12.5, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002826', 19, 'gn rellenitas 36g chocolate', 10, 'NIU', 0.47, 0.59, 0.5, 0.56, 0.48, 0.55, 0.47, 27, 17, 0, 12.69, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002827', 19, 'gn rellenitas 36g coco', 10, 'NIU', 0.47, 0.59, 0.5, 0.56, 0.48, 0.55, 0.47, 24, 14, 0, 11.28, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002828', 19, 'gn rellenitas 36g coco', 10, 'NIU', 0.47, 0.59, 0.5, 0.56, 0.48, 0.55, 0.47, 29, 19, 0, 13.63, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002829', 16, 'cancun', 10, 'NIU', 0.75, 0.94, 0.79, 0.9, 0.76, 0.88, 0.74, 29, 19, 0, 21.75, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002830', 9, 'Big cola 400ml', 10, 'NIU', 1, 1.25, 1.06, 1.2, 1.02, 1.17, 0.99, 20, 10, 0, 20, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002831', 7, 'Zuko Piña', 10, 'NIU', 0.9, 1.12, 0.95, 1.08, 0.92, 1.05, 0.89, 23, 13, 0, 20.7, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002832', 7, 'Zuko Durazno', 10, 'NIU', 0.9, 1.12, 0.95, 1.08, 0.92, 1.05, 0.89, 25, 15, 0, 22.5, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002833', 16, 'chin chin 32g', 10, 'NIU', 0.88, 1.1, 0.93, 1.06, 0.89, 1.03, 0.87, 21, 14, 3, 18.48, 'no_image.jpg', '2023-11-02 01:29:22', NULL, 1),
-('7755139002834', 19, 'Morocha 30g', 10, 'NIU', 0.85, 1.06, 0.9, 1.02, 0.86, 0.99, 0.84, 21, 11, 0, 17.85, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002835', 7, 'Zuko Emoliente', 10, 'NIU', 0.67, 0.84, 0.71, 0.8, 0.68, 0.78, 0.66, 30, 20, 0, 20.1, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002836', 19, 'Choco donuts', 10, 'NIU', 0.56, 0.7, 0.59, 0.67, 0.57, 0.66, 0.56, 22, 12, 0, 12.32, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002837', 9, 'Pepsi 355ml', 10, 'NIU', 1.5, 1.88, 1.59, 1.8, 1.53, 1.75, 1.49, 24, 14, 0, 36, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002838', 4, 'Quaker 120gr', 10, 'NIU', 1.29, 1.61, 1.37, 1.55, 1.31, 1.51, 1.28, 27, 17, 0, 34.83, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002839', 6, 'Pulp Durazno 315ml', 10, 'NIU', 1, 1.25, 1.06, 1.2, 1.02, 1.17, 0.99, 27, 17, 0, 27, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002840', 19, 'morochas wafer 37g', 10, 'NIU', 1, 1.25, 1.06, 1.2, 1.02, 1.17, 0.99, 29, 19, 0, 29, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002841', 16, 'Wafer sublime', 10, 'NIU', 0.92, 1.15, 0.97, 1.1, 0.94, 1.08, 0.91, 26, 16, 0, 23.92, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002842', 19, 'hony bran 33g', 10, 'NIU', 0.9, 1.12, 0.95, 1.08, 0.92, 1.05, 0.89, 29, 19, 0, 26.1, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002843', 16, 'Sublime clásico', 10, 'NIU', 1.06, 1.33, 1.12, 1.27, 1.08, 1.24, 1.05, 23, 13, 0, 24.38, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002844', 11, 'Gloria fresa 180ml', 10, 'NIU', 1.5, 1.88, 1.59, 1.8, 1.53, 1.75, 1.49, 26, 16, 0, 39, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002845', 11, 'Gloria durazno 180ml', 10, 'NIU', 1.5, 1.88, 1.59, 1.8, 1.53, 1.75, 1.49, 21, 11, 0, 31.5, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002846', 11, 'Frutado fresa vasito', 10, 'NIU', 1.39, 1.74, 1.47, 1.67, 1.41, 1.63, 1.38, 22, 12, 0, 30.58, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002847', 11, 'Frutado durazno vasito', 10, 'NIU', 1.39, 1.74, 1.47, 1.67, 1.41, 1.63, 1.38, 30, 20, 0, 41.7, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002848', 4, '3 ositos quinua', 10, 'NIU', 1.9, 2.38, 2.01, 2.28, 1.93, 2.22, 1.88, 25, 15, 0, 47.5, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002849', 9, 'Seven Up 500ml', 10, 'NIU', 1.8, 2.25, 1.91, 2.16, 1.83, 2.11, 1.78, 28, 18, 0, 50.4, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002850', 9, 'Fanta Kola Inglesa 500ml', 10, 'NIU', 1.39, 1.74, 1.47, 1.67, 1.41, 1.63, 1.38, 21, 11, 0, 29.19, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002851', 9, 'Fanta Naranja 500ml', 10, 'NIU', 1.39, 1.74, 1.47, 1.67, 1.41, 1.63, 1.38, 25, 15, 0, 34.75, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002852', 14, 'Noble pq 2 unid', 10, 'NIU', 1.3, 1.62, 1.38, 1.56, 1.32, 1.52, 1.29, 20, 10, 0, 26, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002853', 14, 'Suave pq 2 unid', 10, 'NIU', 1.99, 2.49, 2.11, 2.39, 2.02, 2.33, 1.97, 28, 18, 0, 55.72, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002854', 9, 'Pepsi 750ml', 10, 'NIU', 2.8, 3.5, 2.97, 3.36, 2.85, 3.28, 2.78, 21, 11, 0, 58.8, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002855', 9, 'Coca cola 600ml', 10, 'NIU', 2.6, 3.25, 2.75, 3.12, 2.64, 3.04, 2.58, 22, 12, 0, 57.2, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002856', 9, 'Inca Kola 600ml', 10, 'NIU', 2.6, 3.25, 2.75, 3.12, 2.64, 3.04, 2.58, 24, 14, 0, 62.4, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002857', 14, 'Elite Megarrollo', 10, 'NIU', 2.19, 2.74, 2.32, 2.63, 2.23, 2.56, 2.17, 24, 14, 0, 52.56, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002858', 13, 'Pura vida 395g', 10, 'NIU', 2.6, 3.25, 2.75, 3.12, 2.64, 3.04, 2.58, 23, 13, 0, 59.8, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002859', 13, 'Ideal cremosita 395g', 10, 'NIU', 3, 3.75, 3.18, 3.6, 3.05, 3.51, 2.97, 21, 11, 0, 63, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002860', 13, 'Ideal Light 395g', 10, 'NIU', 2.8, 3.5, 2.97, 3.36, 2.85, 3.28, 2.78, 27, 17, 0, 75.6, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002861', 11, 'Fresa 370ml Laive', 10, 'NIU', 2.19, 2.74, 2.32, 2.63, 2.23, 2.56, 2.17, 28, 18, 0, 61.32, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002862', 13, 'Gloria evaporada entera', 10, 'NIU', 3.2, 4, 3.39, 3.84, 3.25, 3.74, 3.17, 26, 16, 0, 83.2, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002863', 13, 'Laive Ligth caja 480ml', 10, 'NIU', 2.8, 3.5, 2.97, 3.36, 2.85, 3.28, 2.78, 27, 17, 0, 75.6, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002864', 9, 'Pepsi 1.5L', 10, 'NIU', 4.4, 5.5, 4.66, 5.28, 4.47, 5.15, 4.36, 20, 10, 0, 88, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002865', 11, 'Gloria durazno 500ml', 10, 'NIU', 3.79, 4.74, 4.01, 4.55, 3.85, 4.43, 3.76, 23, 13, 0, 87.17, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002866', 11, 'Gloria Vainilla Francesa 500ml', 10, 'NIU', 3.79, 4.74, 4.01, 4.55, 3.85, 4.43, 3.76, 26, 16, 0, 98.54, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002867', 11, 'Griego gloria', 10, 'NIU', 3.65, 4.56, 3.87, 4.38, 3.71, 4.27, 3.62, 24, 14, 0, 87.6, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002868', 9, 'Sabor Oro 1.7L', 10, 'NIU', 3.5, 4.38, 3.71, 4.2, 3.56, 4.09, 3.47, 20, 10, 0, 70, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002869', 3, 'Canchita mantequilla', 10, 'NIU', 3.25, 4.06, 3.44, 3.9, 3.31, 3.8, 3.22, 21, 11, 0, 68.25, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002870', 3, 'Canchita natural', 10, 'NIU', 3.25, 4.06, 3.44, 3.9, 3.31, 3.8, 3.22, 25, 16, 1, 81.25, 'no_image.jpg', '2023-11-02 01:29:22', NULL, 1),
-('7755139002871', 13, 'Laive sin lactosa caja 480ml', 10, 'NIU', 3.17, 3.96, 3.36, 3.8, 3.22, 3.71, 3.14, 27, 17, 0, 85.59, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002872', 12, 'Valle Norte 750g', 10, 'NIU', 3.1, 3.88, 3.28, 3.72, 3.15, 3.63, 3.07, 30, 20, 0, 93, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002873', 11, 'Battimix', 10, 'NIU', 2.89, 3.61, 3.06, 3.47, 2.94, 3.38, 2.87, 25, 15, 0, 72.25, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002874', 3, 'Pringles papas', 10, 'NIU', 2.8, 3.5, 2.97, 3.36, 2.85, 3.28, 2.78, 28, 18, 0, 78.4, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002875', 12, 'Costeño 750g', 10, 'NIU', 3.69, 4.61, 3.91, 4.43, 3.75, 4.32, 3.66, 22, 12, 0, 81.18, 'no_image.jpg', '2023-11-02 01:11:32', NULL, 1),
-('7755139002876', 12, 'Faraon amarillo 1k', 10, 'NIU', 3.39, 4.24, 3.59, 4.07, 3.45, 3.97, 3.36, 21, 11, 0, 71.19, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002877', 15, 'A1 Trozos', 10, 'NIU', 5.17, 6.46, 5.48, 6.2, 5.26, 6.05, 5.13, 30, 20, 0, 155.1, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002878', 14, 'Nova pq 2 unid', 10, 'NIU', 3.99, 4.99, 4.23, 4.79, 4.06, 4.67, 3.96, 25, 15, 0, 99.75, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002879', 14, 'Suave pq 4 unid', 10, 'NIU', 4.58, 5.72, 4.85, 5.5, 4.66, 5.36, 4.54, 28, 18, 0, 128.24, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002880', 15, 'Florida Trozos', 10, 'NIU', 5.15, 6.44, 5.46, 6.18, 5.24, 6.03, 5.11, 23, 13, 0, 118.45, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002881', 14, 'Paracas pq 4 unid', 10, 'NIU', 5, 6.25, 5.3, 6, 5.08, 5.85, 4.96, 22, 12, 0, 110, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002882', 15, 'Trozos de atún Campomar', 10, 'NIU', 4.66, 5.82, 4.94, 5.59, 4.74, 5.45, 4.62, 27, 17, 0, 125.82, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002883', 15, 'A1 Filete', 10, 'NIU', 4.65, 5.81, 4.93, 5.58, 4.73, 5.44, 4.61, 23, 13, 0, 106.95, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002884', 15, 'Real Trozos', 10, 'NIU', 4.63, 5.79, 4.9, 5.56, 4.71, 5.42, 4.59, 21, 11, 0, 97.23, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002885', 11, 'Durazno 1L laive', 10, 'NIU', 5.7, 7.12, 6.04, 6.84, 5.8, 6.67, 5.65, 27, 17, 0, 153.9, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002886', 11, 'Fresa 1L Laive', 10, 'NIU', 5.7, 7.12, 6.04, 6.84, 5.8, 6.67, 5.65, 21, 11, 0, 119.7, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002887', 15, 'A1 Filete Ligth', 10, 'NIU', 6.08, 7.6, 6.44, 7.3, 6.18, 7.11, 6.03, 27, 17, 0, 164.16, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002888', 11, 'Lúcuma 1L Gloria', 10, 'NIU', 5.9, 7.38, 6.25, 7.08, 6, 6.9, 5.85, 22, 12, 0, 129.8, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002889', 11, 'Fresa 1L Gloria', 10, 'NIU', 5.9, 7.38, 6.25, 7.08, 6, 6.9, 5.85, 28, 18, 0, 165.2, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002890', 11, 'Milkito fresa 1L', 10, 'NIU', 5.9, 7.38, 6.25, 7.08, 6, 6.9, 5.85, 24, 14, 0, 141.6, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002891', 11, 'Gloria Durazno 1L', 10, 'NIU', 5.9, 7.38, 6.25, 7.08, 6, 6.9, 5.85, 29, 19, 0, 171.1, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002892', 15, 'Filete de atún Campomar', 10, 'NIU', 5.08, 6.35, 5.38, 6.1, 5.17, 5.94, 5.04, 20, 11, 1, 101.6, 'no_image.jpg', '2023-11-02 01:29:22', NULL, 1),
-('7755139002893', 15, 'Florida Filete Ligth', 10, 'NIU', 5.63, 7.04, 5.96, 6.76, 5.73, 6.59, 5.58, 29, 19, 0, 163.27, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002894', 15, 'Filete de atún Florida', 10, 'NIU', 5.4, 6.75, 5.72, 6.48, 5.49, 6.32, 5.35, 23, 13, 0, 124.2, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002895', 9, 'Inca Kola 1.5L', 10, 'NIU', 5.9, 7.38, 6.25, 7.08, 6, 6.9, 5.85, 29, 19, 0, 171.1, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002896', 9, 'Coca Cola 1.5L', 10, 'NIU', 5.9, 7.38, 6.25, 7.08, 6, 6.9, 5.85, 27, 17, 0, 159.3, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002897', 5, 'Red Bull 250ml', 10, 'NIU', 5.33, 6.66, 5.65, 6.4, 5.42, 6.24, 5.28, 22, 12, 0, 117.26, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002898', 9, 'Sprite 3L', 10, 'NIU', 7.49, 9.36, 7.93, 8.99, 7.62, 8.76, 7.43, 27, 17, 0, 202.23, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002899', 9, 'Pepsi 3L', 10, 'NIU', 8, 10, 8.47, 9.6, 8.14, 9.36, 7.93, 26, 16, 0, 208, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002900', 13, 'Laive 200gr', 10, 'NIU', 8.9, 11.12, 9.43, 10.68, 9.05, 10.41, 8.82, 21, 11, 0, 186.9, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002901', 8, 'Gloria Pote con sal', 10, 'NIU', 10, 11.49, 9.74, 11.03, 9.35, 10.75, 9.11, 26, 16, 0, 260, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002902', 10, 'Deleite 1L', 10, 'NIU', 9.8, 12.25, 10.38, 11.76, 9.97, 11.47, 9.72, 29, 19, 0, 284.2, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002903', 10, 'Sao 1L', 10, 'NIU', 12.1, 15.12, 12.82, 14.52, 12.31, 14.16, 12, 23, 13, 0, 278.3, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1),
-('7755139002904', 10, 'Cocinero 1L', 10, 'NIU', 12.4, 15.5, 13.14, 14.88, 12.61, 14.51, 12.29, 29, 19, 0, 359.6, 'no_image.jpg', '2023-11-02 01:11:31', NULL, 1);
+('7755139002809', 12, 'Paisana extra 5k', 10, 'NIU', 18.29, 22.86, 19.37, 21.95, 18.6, 21.4, 18.13, 109, 11, 12, 1993.61, 'no_image.jpg', '2023-11-02 02:27:10', NULL, 1),
+('7755139002810', 11, 'Gloria Fresa 500ml', 10, 'NIU', 3.79, 4.74, 4.01, 4.55, 3.85, 4.43, 3.76, 21, 11, 0, 79.59, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002811', 13, 'Gloria evaporada ligth 400g', 10, 'NIU', 3.4, 4.25, 3.6, 4.08, 3.46, 3.98, 3.37, 25, 15, 0, 85, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002812', 19, 'soda san jorge 40g', 10, 'NIU', 0.5, 0.62, 0.53, 0.6, 0.51, 0.58, 0.5, 28, 18, 0, 14, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002813', 19, 'vainilla field 37g', 10, 'NIU', 0.33, 0.41, 0.35, 0.4, 0.34, 0.39, 0.33, 22, 12, 0, 7.26, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002814', 19, 'Margarita', 10, 'NIU', 0.53, 0.66, 0.56, 0.64, 0.54, 0.62, 0.53, 25, 15, 0, 13.25, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002815', 19, 'soda field 34g', 10, 'NIU', 0.37, 0.46, 0.39, 0.44, 0.38, 0.43, 0.37, 29, 19, 0, 10.73, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002816', 19, 'ritz original', 10, 'NIU', 0.43, 0.54, 0.46, 0.52, 0.44, 0.5, 0.43, 20, 10, 0, 8.6, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002817', 19, 'ritz queso 34g', 10, 'NIU', 0.68, 0.85, 0.72, 0.82, 0.69, 0.8, 0.67, 21, 11, 0, 14.28, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002818', 16, 'Chocobum', 10, 'NIU', 0.62, 0.77, 0.66, 0.74, 0.63, 0.73, 0.61, 24, 14, 0, 14.88, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002819', 19, 'Picaras', 10, 'NIU', 0.6, 0.75, 0.64, 0.72, 0.61, 0.7, 0.59, 28, 18, 0, 16.8, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002820', 19, 'oreo original 36g', 10, 'NIU', 0.57, 0.71, 0.6, 0.68, 0.58, 0.67, 0.57, 21, 11, 0, 11.97, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002821', 19, 'club social 26g', 10, 'NIU', 0.53, 0.66, 0.56, 0.64, 0.54, 0.62, 0.53, 22, 12, 0, 11.66, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002822', 19, 'frac vanilla 45.5g', 10, 'NIU', 0.52, 0.65, 0.55, 0.62, 0.53, 0.61, 0.52, 24, 14, 0, 12.48, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002823', 19, 'frac chocolate 45.5g', 10, 'NIU', 0.52, 0.65, 0.55, 0.62, 0.53, 0.61, 0.52, 20, 10, 0, 10.4, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002824', 19, 'frac chasica 45.5g', 10, 'NIU', 0.52, 0.65, 0.55, 0.62, 0.53, 0.61, 0.52, 23, 13, 0, 11.96, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002825', 16, 'tuyo 22g', 10, 'NIU', 0.5, 0.62, 0.53, 0.6, 0.51, 0.58, 0.5, 25, 15, 0, 12.5, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002826', 19, 'gn rellenitas 36g chocolate', 10, 'NIU', 0.47, 0.59, 0.5, 0.56, 0.48, 0.55, 0.47, 27, 17, 0, 12.69, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002827', 19, 'gn rellenitas 36g coco', 10, 'NIU', 0.47, 0.59, 0.5, 0.56, 0.48, 0.55, 0.47, 24, 14, 0, 11.28, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002828', 19, 'gn rellenitas 36g coco', 10, 'NIU', 0.47, 0.59, 0.5, 0.56, 0.48, 0.55, 0.47, 29, 19, 0, 13.63, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002829', 16, 'cancun', 10, 'NIU', 0.75, 0.94, 0.79, 0.9, 0.76, 0.88, 0.74, 29, 19, 0, 21.75, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002830', 9, 'Big cola 400ml', 10, 'NIU', 1, 1.25, 1.06, 1.2, 1.02, 1.17, 0.99, 20, 10, 0, 20, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002831', 7, 'Zuko Piña', 10, 'NIU', 0.9, 1.12, 0.95, 1.08, 0.92, 1.05, 0.89, 23, 13, 0, 20.7, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002832', 7, 'Zuko Durazno', 10, 'NIU', 0.9, 1.12, 0.95, 1.08, 0.92, 1.05, 0.89, 25, 15, 0, 22.5, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002833', 16, 'chin chin 32g', 10, 'NIU', 0.88, 1.1, 0.93, 1.06, 0.89, 1.03, 0.87, 24, 14, 0, 21.12, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002834', 19, 'Morocha 30g', 10, 'NIU', 0.85, 1.06, 0.9, 1.02, 0.86, 0.99, 0.84, 21, 11, 0, 17.85, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002835', 7, 'Zuko Emoliente', 10, 'NIU', 0.67, 0.84, 0.71, 0.8, 0.68, 0.78, 0.66, 30, 20, 0, 20.1, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002836', 19, 'Choco donuts', 10, 'NIU', 0.56, 0.7, 0.59, 0.67, 0.57, 0.66, 0.56, 22, 12, 0, 12.32, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002837', 9, 'Pepsi 355ml', 10, 'NIU', 1.5, 1.88, 1.59, 1.8, 1.53, 1.75, 1.49, 24, 14, 0, 36, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002838', 4, 'Quaker 120gr', 10, 'NIU', 1.29, 1.61, 1.37, 1.55, 1.31, 1.51, 1.28, 27, 17, 0, 34.83, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002839', 6, 'Pulp Durazno 315ml', 10, 'NIU', 1, 1.25, 1.06, 1.2, 1.02, 1.17, 0.99, 27, 17, 0, 27, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002840', 19, 'morochas wafer 37g', 10, 'NIU', 1, 1.25, 1.06, 1.2, 1.02, 1.17, 0.99, 29, 19, 0, 29, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002841', 16, 'Wafer sublime', 10, 'NIU', 0.92, 1.15, 0.97, 1.1, 0.94, 1.08, 0.91, 26, 16, 0, 23.92, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002842', 19, 'hony bran 33g', 10, 'NIU', 0.9, 1.12, 0.95, 1.08, 0.92, 1.05, 0.89, 29, 19, 0, 26.1, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002843', 16, 'Sublime clásico', 10, 'NIU', 1.06, 1.33, 1.12, 1.27, 1.08, 1.24, 1.05, 23, 13, 0, 24.38, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002844', 11, 'Gloria fresa 180ml', 10, 'NIU', 1.5, 1.88, 1.59, 1.8, 1.53, 1.75, 1.49, 26, 16, 0, 39, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002845', 11, 'Gloria durazno 180ml', 10, 'NIU', 1.5, 1.88, 1.59, 1.8, 1.53, 1.75, 1.49, 21, 11, 0, 31.5, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002846', 11, 'Frutado fresa vasito', 10, 'NIU', 1.39, 1.74, 1.47, 1.67, 1.41, 1.63, 1.38, 22, 12, 0, 30.58, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002847', 11, 'Frutado durazno vasito', 10, 'NIU', 1.39, 1.74, 1.47, 1.67, 1.41, 1.63, 1.38, 30, 20, 0, 41.7, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002848', 4, '3 ositos quinua', 10, 'NIU', 1.9, 2.38, 2.01, 2.28, 1.93, 2.22, 1.88, 25, 15, 0, 47.5, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002849', 9, 'Seven Up 500ml', 10, 'NIU', 1.8, 2.25, 1.91, 2.16, 1.83, 2.11, 1.78, 28, 18, 0, 50.4, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002850', 9, 'Fanta Kola Inglesa 500ml', 10, 'NIU', 1.39, 1.74, 1.47, 1.67, 1.41, 1.63, 1.38, 21, 11, 0, 29.19, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002851', 9, 'Fanta Naranja 500ml', 10, 'NIU', 1.39, 1.74, 1.47, 1.67, 1.41, 1.63, 1.38, 25, 15, 0, 34.75, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002852', 14, 'Noble pq 2 unid', 10, 'NIU', 1.3, 1.62, 1.38, 1.56, 1.32, 1.52, 1.29, 20, 10, 0, 26, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002853', 14, 'Suave pq 2 unid', 10, 'NIU', 1.99, 2.49, 2.11, 2.39, 2.02, 2.33, 1.97, 28, 18, 0, 55.72, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002854', 9, 'Pepsi 750ml', 10, 'NIU', 2.8, 3.5, 2.97, 3.36, 2.85, 3.28, 2.78, 21, 11, 0, 58.8, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002855', 9, 'Coca cola 600ml', 10, 'NIU', 2.6, 3.25, 2.75, 3.12, 2.64, 3.04, 2.58, 22, 12, 0, 57.2, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002856', 9, 'Inca Kola 600ml', 10, 'NIU', 2.6, 3.25, 2.75, 3.12, 2.64, 3.04, 2.58, 24, 14, 0, 62.4, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002857', 14, 'Elite Megarrollo', 10, 'NIU', 2.19, 2.74, 2.32, 2.63, 2.23, 2.56, 2.17, 24, 14, 0, 52.56, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002858', 13, 'Pura vida 395g', 10, 'NIU', 2.6, 3.25, 2.75, 3.12, 2.64, 3.04, 2.58, 23, 13, 0, 59.8, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002859', 13, 'Ideal cremosita 395g', 10, 'NIU', 3, 3.75, 3.18, 3.6, 3.05, 3.51, 2.97, 21, 11, 0, 63, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002860', 13, 'Ideal Light 395g', 10, 'NIU', 2.8, 3.5, 2.97, 3.36, 2.85, 3.28, 2.78, 27, 17, 0, 75.6, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002861', 11, 'Fresa 370ml Laive', 10, 'NIU', 2.19, 2.74, 2.32, 2.63, 2.23, 2.56, 2.17, 28, 18, 0, 61.32, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002862', 13, 'Gloria evaporada entera', 10, 'NIU', 3.2, 4, 3.39, 3.84, 3.25, 3.74, 3.17, 26, 16, 0, 83.2, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002863', 13, 'Laive Ligth caja 480ml', 10, 'NIU', 2.8, 3.5, 2.97, 3.36, 2.85, 3.28, 2.78, 27, 17, 0, 75.6, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002864', 9, 'Pepsi 1.5L', 10, 'NIU', 4.4, 5.5, 4.66, 5.28, 4.47, 5.15, 4.36, 20, 10, 0, 88, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002865', 11, 'Gloria durazno 500ml', 10, 'NIU', 3.79, 4.74, 4.01, 4.55, 3.85, 4.43, 3.76, 23, 13, 0, 87.17, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002866', 11, 'Gloria Vainilla Francesa 500ml', 10, 'NIU', 3.79, 4.74, 4.01, 4.55, 3.85, 4.43, 3.76, 26, 16, 0, 98.54, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002867', 11, 'Griego gloria', 10, 'NIU', 3.65, 4.56, 3.87, 4.38, 3.71, 4.27, 3.62, 24, 14, 0, 87.6, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002868', 9, 'Sabor Oro 1.7L', 10, 'NIU', 3.5, 4.38, 3.71, 4.2, 3.56, 4.09, 3.47, 20, 10, 0, 70, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002869', 3, 'Canchita mantequilla', 10, 'NIU', 3.25, 4.06, 3.44, 3.9, 3.31, 3.8, 3.22, 21, 11, 0, 68.25, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002870', 3, 'Canchita natural', 10, 'NIU', 3.25, 4.06, 3.44, 3.9, 3.31, 3.8, 3.22, 26, 16, 0, 84.5, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002871', 13, 'Laive sin lactosa caja 480ml', 10, 'NIU', 3.17, 3.96, 3.36, 3.8, 3.22, 3.71, 3.14, 27, 17, 0, 85.59, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002872', 12, 'Valle Norte 750g', 10, 'NIU', 3.1, 3.88, 3.28, 3.72, 3.15, 3.63, 3.07, 30, 20, 0, 93, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002873', 11, 'Battimix', 10, 'NIU', 2.89, 3.61, 3.06, 3.47, 2.94, 3.38, 2.87, 25, 15, 0, 72.25, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002874', 3, 'Pringles papas', 10, 'NIU', 2.8, 3.5, 2.97, 3.36, 2.85, 3.28, 2.78, 28, 18, 0, 78.4, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002875', 12, 'Costeño 750g', 10, 'NIU', 3.69, 4.61, 3.91, 4.43, 3.75, 4.32, 3.66, 22, 12, 0, 81.18, 'no_image.jpg', '2023-11-02 02:24:20', NULL, 1),
+('7755139002876', 12, 'Faraon amarillo 1k', 10, 'NIU', 3.39, 4.24, 3.59, 4.07, 3.45, 3.97, 3.36, 21, 11, 0, 71.19, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002877', 15, 'A1 Trozos', 10, 'NIU', 5.17, 6.46, 5.48, 6.2, 5.26, 6.05, 5.13, 30, 20, 0, 155.1, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002878', 14, 'Nova pq 2 unid', 10, 'NIU', 3.99, 4.99, 4.23, 4.79, 4.06, 4.67, 3.96, 25, 15, 0, 99.75, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002879', 14, 'Suave pq 4 unid', 10, 'NIU', 4.58, 5.72, 4.85, 5.5, 4.66, 5.36, 4.54, 28, 18, 0, 128.24, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002880', 15, 'Florida Trozos', 10, 'NIU', 5.15, 6.44, 5.46, 6.18, 5.24, 6.03, 5.11, 23, 13, 0, 118.45, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002881', 14, 'Paracas pq 4 unid', 10, 'NIU', 5, 6.25, 5.3, 6, 5.08, 5.85, 4.96, 22, 12, 0, 110, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002882', 15, 'Trozos de atún Campomar', 10, 'NIU', 4.66, 5.82, 4.94, 5.59, 4.74, 5.45, 4.62, 27, 17, 0, 125.82, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002883', 15, 'A1 Filete', 10, 'NIU', 4.65, 5.81, 4.93, 5.58, 4.73, 5.44, 4.61, 23, 13, 0, 106.95, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002884', 15, 'Real Trozos', 10, 'NIU', 4.63, 5.79, 4.9, 5.56, 4.71, 5.42, 4.59, 21, 11, 0, 97.23, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002885', 11, 'Durazno 1L laive', 10, 'NIU', 5.7, 7.12, 6.04, 6.84, 5.8, 6.67, 5.65, 27, 17, 0, 153.9, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002886', 11, 'Fresa 1L Laive', 10, 'NIU', 5.7, 7.12, 6.04, 6.84, 5.8, 6.67, 5.65, 21, 11, 0, 119.7, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002887', 15, 'A1 Filete Ligth', 10, 'NIU', 6.08, 7.6, 6.44, 7.3, 6.18, 7.11, 6.03, 27, 17, 0, 164.16, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002888', 11, 'Lúcuma 1L Gloria', 10, 'NIU', 5.9, 7.38, 6.25, 7.08, 6, 6.9, 5.85, 22, 12, 0, 129.8, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002889', 11, 'Fresa 1L Gloria', 10, 'NIU', 5.9, 7.38, 6.25, 7.08, 6, 6.9, 5.85, 28, 18, 0, 165.2, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002890', 11, 'Milkito fresa 1L', 10, 'NIU', 5.9, 7.38, 6.25, 7.08, 6, 6.9, 5.85, 24, 14, 0, 141.6, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002891', 11, 'Gloria Durazno 1L', 10, 'NIU', 5.9, 7.38, 6.25, 7.08, 6, 6.9, 5.85, 29, 19, 0, 171.1, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002892', 15, 'Filete de atún Campomar', 10, 'NIU', 5.08, 6.35, 5.38, 6.1, 5.17, 5.94, 5.04, 21, 11, 0, 106.68, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002893', 15, 'Florida Filete Ligth', 10, 'NIU', 5.63, 7.04, 5.96, 6.76, 5.73, 6.59, 5.58, 29, 19, 0, 163.27, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002894', 15, 'Filete de atún Florida', 10, 'NIU', 5.4, 6.75, 5.72, 6.48, 5.49, 6.32, 5.35, 23, 13, 0, 124.2, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002895', 9, 'Inca Kola 1.5L', 10, 'NIU', 5.9, 7.38, 6.25, 7.08, 6, 6.9, 5.85, 29, 19, 0, 171.1, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002896', 9, 'Coca Cola 1.5L', 10, 'NIU', 5.9, 7.38, 6.25, 7.08, 6, 6.9, 5.85, 27, 17, 0, 159.3, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002897', 5, 'Red Bull 250ml', 10, 'NIU', 5.33, 6.66, 5.65, 6.4, 5.42, 6.24, 5.28, 22, 12, 0, 117.26, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002898', 9, 'Sprite 3L', 10, 'NIU', 7.49, 9.36, 7.93, 8.99, 7.62, 8.76, 7.43, 27, 17, 0, 202.23, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002899', 9, 'Pepsi 3L', 10, 'NIU', 8, 10, 8.47, 9.6, 8.14, 9.36, 7.93, 26, 16, 0, 208, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002900', 13, 'Laive 200gr', 10, 'NIU', 8.9, 11.12, 9.43, 10.68, 9.05, 10.41, 8.82, 21, 11, 0, 186.9, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002901', 8, 'Gloria Pote con sal', 10, 'NIU', 10, 11.49, 9.74, 11.03, 9.35, 10.75, 9.11, 26, 16, 0, 260, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002902', 10, 'Deleite 1L', 10, 'NIU', 9.8, 12.25, 10.38, 11.76, 9.97, 11.47, 9.72, 29, 19, 0, 284.2, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002903', 10, 'Sao 1L', 10, 'NIU', 12.1, 15.12, 12.82, 14.52, 12.31, 14.16, 12, 23, 13, 0, 278.3, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1),
+('7755139002904', 10, 'Cocinero 1L', 10, 'NIU', 12.4, 15.5, 13.14, 14.88, 12.61, 14.51, 12.29, 29, 19, 0, 359.6, 'no_image.jpg', '2023-11-02 02:24:19', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -950,6 +1452,13 @@ CREATE TABLE `proveedores` (
   `telefono` varchar(20) DEFAULT NULL,
   `estado` tinyint(4) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+--
+-- Volcado de datos para la tabla `proveedores`
+--
+
+INSERT INTO `proveedores` (`id`, `id_tipo_documento`, `ruc`, `razon_social`, `direccion`, `telefono`, `estado`) VALUES
+(1, '1', '45257895', 'LUIS ANGEL LOZANO ARICA ', 'Calle Faning 123', '978675645', 1);
 
 -- --------------------------------------------------------
 
@@ -1003,7 +1512,7 @@ CREATE TABLE `serie` (
 --
 
 INSERT INTO `serie` (`id`, `id_tipo_comprobante`, `serie`, `correlativo`, `estado`) VALUES
-(1, '03 ', 'B001', 373, 1),
+(1, '03 ', 'B001', 375, 1),
 (2, '01', 'F001', 132, 1),
 (3, '03', 'B002', 2, 1),
 (4, '03 ', 'B003', 15, 1),
@@ -1240,9 +1749,7 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`id`, `id_empresa_emisora`, `id_cliente`, `id_serie`, `serie`, `correlativo`, `fecha_emision`, `hora_emision`, `fecha_vencimiento`, `id_moneda`, `forma_pago`, `tipo_operacion`, `total_operaciones_gravadas`, `total_operaciones_exoneradas`, `total_operaciones_inafectas`, `total_igv`, `importe_total`, `nombre_xml`, `xml_base64`, `xml_cdr_sunat_base64`, `codigo_error_sunat`, `mensaje_respuesta_sunat`, `hash_signature`, `estado_respuesta_sunat`, `estado_comprobante`, `id_usuario`) VALUES
-(1, 1, 1, 1, 'B001', 373, '2023-11-01', '09:11:13', '2023-11-01', 'PEN', 'Contado', NULL, 213.07, 0, 0, 38.35, 251.42, '10467291240-03-B001-373.XML', 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPEludm9pY2UgeG1sbnM6eHNpPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYS1pbnN0YW5jZSIgeG1sbnM6eHNkPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYSIgeG1sbnM6Y2FjPSJ1cm46b2FzaXM6bmFtZXM6c3BlY2lmaWNhdGlvbjp1Ymw6c2NoZW1hOnhzZDpDb21tb25BZ2dyZWdhdGVDb21wb25lbnRzLTIiIHhtbG5zOmNiYz0idXJuOm9hc2lzOm5hbWVzOnNwZWNpZmljYXRpb246dWJsOnNjaGVtYTp4c2Q6Q29tbW9uQmFzaWNDb21wb25lbnRzLTIiIHhtbG5zOmNjdHM9InVybjp1bjp1bmVjZTp1bmNlZmFjdDpkb2N1bWVudGF0aW9uOjIiIHhtbG5zOmRzPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjIiB4bWxuczpleHQ9InVybjpvYXNpczpuYW1lczpzcGVjaWZpY2F0aW9uOnVibDpzY2hlbWE6eHNkOkNvbW1vbkV4dGVuc2lvbkNvbXBvbmVudHMtMiIgeG1sbnM6cWR0PSJ1cm46b2FzaXM6bmFtZXM6c3BlY2lmaWNhdGlvbjp1Ymw6c2NoZW1hOnhzZDpRdWFsaWZpZWREYXRhdHlwZXMtMiIgeG1sbnM6dWR0PSJ1cm46dW46dW5lY2U6dW5jZWZhY3Q6ZGF0YTpzcGVjaWZpY2F0aW9uOlVucXVhbGlmaWVkRGF0YVR5cGVzU2NoZW1hTW9kdWxlOjIiIHhtbG5zPSJ1cm46b2FzaXM6bmFtZXM6c3BlY2lmaWNhdGlvbjp1Ymw6c2NoZW1hOnhzZDpJbnZvaWNlLTIiPgogICAgICAgICAgICAgICAgICAgIDxleHQ6VUJMRXh0ZW5zaW9ucz4KICAgICAgICAgICAgICAgICAgICAgICAgPGV4dDpVQkxFeHRlbnNpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZXh0OkV4dGVuc2lvbkNvbnRlbnQ+PGRzOlNpZ25hdHVyZSBJZD0iU2lnbmF0dXJlU1AiPjxkczpTaWduZWRJbmZvPjxkczpDYW5vbmljYWxpemF0aW9uTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvVFIvMjAwMS9SRUMteG1sLWMxNG4tMjAwMTAzMTUiLz48ZHM6U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGExIi8+PGRzOlJlZmVyZW5jZSBVUkk9IiI+PGRzOlRyYW5zZm9ybXM+PGRzOlRyYW5zZm9ybSBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvMDkveG1sZHNpZyNlbnZlbG9wZWQtc2lnbmF0dXJlIi8+PC9kczpUcmFuc2Zvcm1zPjxkczpEaWdlc3RNZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjc2hhMSIvPjxkczpEaWdlc3RWYWx1ZT5qbDVTeEpTMlBPdldUN2x6a0s0amZ5MHNxV0k9PC9kczpEaWdlc3RWYWx1ZT48L2RzOlJlZmVyZW5jZT48L2RzOlNpZ25lZEluZm8+PGRzOlNpZ25hdHVyZVZhbHVlPm15MzFhRXY0ZVNWcHlzNmViR04yQktON0gwVCtsZG80cjM3Vmxoa1VVRkdzT1RMR2k2TXhoaDkxdzV6dUJBNjVxb1VUVEx5ZDJzS2dwSnM4MTRaTW1rSG1ZRzY1SVFzc0RDWUxxTWNvb2R0UGh6anBKNU95MEFhVU51WFczdGl3R0dHT2kvK3lObWJWdm4zc0ljVWxrcTVQV0UrRURHWWJ3RVpnS2NGM3I4Z0tYSm9aVUJzaUJvMHZZTzR4TkVkZWkyV21FL08zK0t5ZkxCOTRzUXp1L0VYVDhtRG5SdCt1T3daUFhXeXBWeGwxK1gzb3dFSDBiVVhybFNMT2svTUxsdTdVa3VGTXdldjBrblI4amZzV0g5aTRZN2RWdXdRZCtCeHJjdTYvUmVSU2srSjZnbWFWVEpIS1NnRTI0Y2N0Q2FUM004SGFEZUhCT1dUd1JHTUdNdz09PC9kczpTaWduYXR1cmVWYWx1ZT48ZHM6S2V5SW5mbz48ZHM6WDUwOURhdGE+PGRzOlg1MDlDZXJ0aWZpY2F0ZT5NSUlGQ0RDQ0EvQ2dBd0lCQWdJSkFJSCtMeDBORnRVU01BMEdDU3FHU0liM0RRRUJDd1VBTUlJQkRURWJNQmtHQ2dtU0pvbVQ4aXhrQVJrV0MweE1RVTFCTGxCRklGTkJNUXN3Q1FZRFZRUUdFd0pRUlRFTk1Bc0dBMVVFQ0F3RVRFbE5RVEVOTUFzR0ExVUVCd3dFVEVsTlFURVlNQllHQTFVRUNnd1BWRlVnUlUxUVVrVlRRU0JUTGtFdU1VVXdRd1lEVlFRTEREeEVUa2tnT1RrNU9UazVPU0JTVlVNZ01qQTBPREEyTnpRME1UUWdMU0JEUlZKVVNVWkpRMEZFVHlCUVFWSkJJRVJGVFU5VFZGSkJRMG5EazA0eFJEQkNCZ05WQkFNTU8wNVBUVUpTUlNCU1JWQlNSVk5GVGxSQlRsUkZJRXhGUjBGTUlDMGdRMFZTVkVsR1NVTkJSRThnVUVGU1FTQkVSVTFQVTFSU1FVTkp3NU5PTVJ3d0dnWUpLb1pJaHZjTkFRa0JGZzFrWlcxdlFHeHNZVzFoTG5CbE1CNFhEVEl6TVRBeU1ESXhNelV3TlZvWERUSTFNVEF4T1RJeE16VXdOVm93Z2dFTk1Sc3dHUVlLQ1pJbWlaUHlMR1FCR1JZTFRFeEJUVUV1VUVVZ1UwRXhDekFKQmdOVkJBWVRBbEJGTVEwd0N3WURWUVFJREFSTVNVMUJNUTB3Q3dZRFZRUUhEQVJNU1UxQk1SZ3dGZ1lEVlFRS0RBOVVWU0JGVFZCU1JWTkJJRk11UVM0eFJUQkRCZ05WQkFzTVBFUk9TU0E1T1RrNU9UazVJRkpWUXlBeU1EUTRNRFkzTkRReE5DQXRJRU5GVWxSSlJrbERRVVJQSUZCQlVrRWdSRVZOVDFOVVVrRkRTY09UVGpGRU1FSUdBMVVFQXd3N1RrOU5RbEpGSUZKRlVGSkZVMFZPVkVGT1ZFVWdURVZIUVV3Z0xTQkRSVkpVU1VaSlEwRkVUeUJRUVZKQklFUkZUVTlUVkZKQlEwbkRrMDR4SERBYUJna3Foa2lHOXcwQkNRRVdEV1JsYlc5QWJHeGhiV0V1Y0dVd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUURkb2RndUlnaWtYZFBrSk5ScUtXWVRBZkRmZmdxU3VKOE42VGNqZFZMaGNzWnBNaHVIdjdOWmVpSE45ZTg4QU1EMTNrVGNlblFOMFc2ckx4Y3VRTHpPUll0TjZOZlY4ZmlCb3VpdXA0cnUzb3AvcnlIQXd5ZEVTU2pXQnhjRWM0M1dkMWVraWYvWVAvU2hNS2RQOUNGcDJ1aEJTRVZsQ25hMTM4dysyUEVsTjJqSlQwNVBmU284QWFranZvUjNHbzhtMmpnOGNZMHRWWDBJWkZxUE9zMkkrVkxqMFZia3hleGpjNE5CdVYxMVhnZGx2bmJnMHFrSi9aOXFqblJPVlg2NmptajNldGkxWDg1TUpQWi9qejl6TUkrby81SFZSTkJRRW5kbGtCblJ4UlY5UXVKSFVHWVpjSzRrWGZXUHZqUDBrUTdpWk56c0REaG5uRXgwcnFYZEFnTUJBQUdqWnpCbE1CMEdBMVVkRGdRV0JCU3U2VXZaKy9zOU1maFhwQzB2UXpwOExRQ3orVEFmQmdOVkhTTUVHREFXZ0JTdTZVdlorL3M5TWZoWHBDMHZRenA4TFFDeitUQVRCZ05WSFNVRUREQUtCZ2dyQmdFRkJRY0RBVEFPQmdOVkhROEJBZjhFQkFNQ0I0QXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBSWhYN3pCbENKS2NVT2R4UHJ5RVJ5VGl3Y3Iyb3E0TWdpVVdmc2gxaDJYWm5uVHJUMHFtM3k5b0FMSThtMnZvc25IZUs5Q3ZuWjlZcW5LSnBlNitSMlFKcHUyOUxnWGNBQnl1YzQ3dkl2aUVHU2wzUi9EWFpNb1M0QWVPSE80aFFMMm9hcm5LVFUweGNQdzg1dDlBblR0bGVPSmwyV1RlYmNIRnlDVmhKQXlGdDZmd3pQN05heDlLYU11Nmk1eHBOOVpRK1NlNG1Ec2E4R2hWWHBzc0gwMXU1Z1o3UTNXY3NXN1pmb0N0dFlGTWVRYXp2Vk8xTkp5bnROcW1tQUZqSXN0bzgrWUwyLzJvVHg0Y3VjT1BvcUNvdXVFMjl6M0szMGVYRUpBOWhaSVpna0RwWlptSTBSNGpVc2h4bTFxeEl3dUJITEdQdnQvSFEyZlFlYVhEQUFRPTwvZHM6WDUwOUNlcnRpZmljYXRlPjwvZHM6WDUwOURhdGE+PC9kczpLZXlJbmZvPjwvZHM6U2lnbmF0dXJlPjwvZXh0OkV4dGVuc2lvbkNvbnRlbnQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvZXh0OlVCTEV4dGVuc2lvbj4KICAgICAgICAgICAgICAgICAgICA8L2V4dDpVQkxFeHRlbnNpb25zPgogICAgICAgICAgICAgICAgICAgIDxjYmM6VUJMVmVyc2lvbklEPjIuMTwvY2JjOlVCTFZlcnNpb25JRD4KICAgICAgICAgICAgICAgICAgICA8Y2JjOkN1c3RvbWl6YXRpb25JRCBzY2hlbWVBZ2VuY3lOYW1lPSJQRTpTVU5BVCI+Mi4wPC9jYmM6Q3VzdG9taXphdGlvbklEPgogICAgICAgICAgICAgICAgICAgIDxjYmM6UHJvZmlsZUlEIHNjaGVtZU5hbWU9IlRpcG8gZGUgT3BlcmFjaW9uIiBzY2hlbWVBZ2VuY3lOYW1lPSJQRTpTVU5BVCIgc2NoZW1lVVJJPSJ1cm46cGU6Z29iOnN1bmF0OmNwZTpzZWU6Z2VtOmNhdGFsb2dvczpjYXRhbG9nbzE3Ij4wMTAxPC9jYmM6UHJvZmlsZUlEPgogICAgICAgICAgICAgICAgICAgIDxjYmM6SUQ+QjAwMS0zNzM8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICA8Y2JjOklzc3VlRGF0ZT4yMDIzLTExLTAxPC9jYmM6SXNzdWVEYXRlPgogICAgICAgICAgICAgICAgICAgIDxjYmM6SXNzdWVUaW1lPjA5OjExOjEzPC9jYmM6SXNzdWVUaW1lPgogICAgICAgICAgICAgICAgICAgIDxjYmM6RHVlRGF0ZT4yMDIzLTExLTAxPC9jYmM6RHVlRGF0ZT4KICAgICAgICAgICAgICAgICAgICA8Y2JjOkludm9pY2VUeXBlQ29kZSBsaXN0QWdlbmN5TmFtZT0iUEU6U1VOQVQiIGxpc3ROYW1lPSJUaXBvIGRlIERvY3VtZW50byIgbGlzdFVSST0idXJuOnBlOmdvYjpzdW5hdDpjcGU6c2VlOmdlbTpjYXRhbG9nb3M6Y2F0YWxvZ28wMSIgbGlzdElEPSIwMTAxIiBuYW1lPSJUaXBvIGRlIE9wZXJhY2lvbiI+MDM8L2NiYzpJbnZvaWNlVHlwZUNvZGU+CiAgICAgICAgICAgICAgICAgICAgPGNiYzpEb2N1bWVudEN1cnJlbmN5Q29kZSBsaXN0SUQ9IklTTyA0MjE3IEFscGhhIiBsaXN0TmFtZT0iQ3VycmVuY3kiIGxpc3RBZ2VuY3lOYW1lPSJVbml0ZWQgTmF0aW9ucyBFY29ub21pYyBDb21taXNzaW9uIGZvciBFdXJvcGUiPlBFTjwvY2JjOkRvY3VtZW50Q3VycmVuY3lDb2RlPgogICAgICAgICAgICAgICAgICAgIDxjYmM6TGluZUNvdW50TnVtZXJpYz4xPC9jYmM6TGluZUNvdW50TnVtZXJpYz4KICAgICAgICAgICAgICAgICAgICA8Y2FjOlNpZ25hdHVyZT4KICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRD5CMDAxLTM3MzwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlNpZ25hdG9yeVBhcnR5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpQYXJ0eUlkZW50aWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQ+MTA0NjcyOTEyNDA8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5SWRlbnRpZmljYXRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOk5hbWU+PCFbQ0RBVEFbM0QgSU5WRVJTSU9ORVMgWSBTRVJWSUNJT1MgR0VORVJBTEVTIEUuSS5SLkwuCV1dPjwvY2JjOk5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpQYXJ0eU5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlNpZ25hdG9yeVBhcnR5PgogICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOkRpZ2l0YWxTaWduYXR1cmVBdHRhY2htZW50PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpFeHRlcm5hbFJlZmVyZW5jZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlVSST4jU2lnbmF0dXJlU1A8L2NiYzpVUkk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpFeHRlcm5hbFJlZmVyZW5jZT4KICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6RGlnaXRhbFNpZ25hdHVyZUF0dGFjaG1lbnQ+CiAgICAgICAgICAgICAgICAgICAgPC9jYWM6U2lnbmF0dXJlPgogICAgICAgICAgICAgICAgICAgIDxjYWM6QWNjb3VudGluZ1N1cHBsaWVyUGFydHk+CiAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UGFydHk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5SWRlbnRpZmljYXRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRCBzY2hlbWVJRD0iNiIgc2NoZW1lTmFtZT0iRG9jdW1lbnRvIGRlIElkZW50aWRhZCIgc2NoZW1lQWdlbmN5TmFtZT0iUEU6U1VOQVQiIHNjaGVtZVVSST0idXJuOnBlOmdvYjpzdW5hdDpjcGU6c2VlOmdlbTpjYXRhbG9nb3M6Y2F0YWxvZ28wNiI+MTA0NjcyOTEyNDA8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5SWRlbnRpZmljYXRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOk5hbWU+PCFbQ0RBVEFbM0QgSU5WRVJTSU9ORVMgWSBTRVJWSUNJT1MgR0VORVJBTEVTIEUuSS5SLkwuCV1dPjwvY2JjOk5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpQYXJ0eU5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5VGF4U2NoZW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6UmVnaXN0cmF0aW9uTmFtZT48IVtDREFUQVszRCBJTlZFUlNJT05FUyBZIFNFUlZJQ0lPUyBHRU5FUkFMRVMgRS5JLlIuTC4JXV0+PC9jYmM6UmVnaXN0cmF0aW9uTmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkNvbXBhbnlJRCBzY2hlbWVJRD0iNiIgc2NoZW1lTmFtZT0iU1VOQVQ6SWRlbnRpZmljYWRvciBkZSBEb2N1bWVudG8gZGUgSWRlbnRpZGFkIiBzY2hlbWVBZ2VuY3lOYW1lPSJQRTpTVU5BVCIgc2NoZW1lVVJJPSJ1cm46cGU6Z29iOnN1bmF0OmNwZTpzZWU6Z2VtOmNhdGFsb2dvczpjYXRhbG9nbzA2Ij4xMDQ2NzI5MTI0MDwvY2JjOkNvbXBhbnlJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlRheFNjaGVtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZUlEPSI2IiBzY2hlbWVOYW1lPSJTVU5BVDpJZGVudGlmaWNhZG9yIGRlIERvY3VtZW50byBkZSBJZGVudGlkYWQiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOlNVTkFUIiBzY2hlbWVVUkk9InVybjpwZTpnb2I6c3VuYXQ6Y3BlOnNlZTpnZW06Y2F0YWxvZ29zOmNhdGFsb2dvMDYiPjEwNDY3MjkxMjQwPC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4U2NoZW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UGFydHlUYXhTY2hlbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5TGVnYWxFbnRpdHk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpSZWdpc3RyYXRpb25OYW1lPjwhW0NEQVRBWzNEIElOVkVSU0lPTkVTIFkgU0VSVklDSU9TIEdFTkVSQUxFUyBFLkkuUi5MLgldXT48L2NiYzpSZWdpc3RyYXRpb25OYW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UmVnaXN0cmF0aW9uQWRkcmVzcz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZU5hbWU9IlViaWdlb3MiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOklORUkiPjE1MDEwNDwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6QWRkcmVzc1R5cGVDb2RlIGxpc3RBZ2VuY3lOYW1lPSJQRTpTVU5BVCIgbGlzdE5hbWU9IkVzdGFibGVjaW1pZW50b3MgYW5leG9zIj4wMDAwPC9jYmM6QWRkcmVzc1R5cGVDb2RlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6Q2l0eU5hbWU+PCFbQ0RBVEFbTElNQV1dPjwvY2JjOkNpdHlOYW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6Q291bnRyeVN1YmVudGl0eT48IVtDREFUQVtMSU1BXV0+PC9jYmM6Q291bnRyeVN1YmVudGl0eT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkRpc3RyaWN0PjwhW0NEQVRBW0JBUlJBTkNPXV0+PC9jYmM6RGlzdHJpY3Q+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpBZGRyZXNzTGluZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpMaW5lPjwhW0NEQVRBW0NBTExFIEJVRU5BVkVOVFVSQSBBR1VJUlJFIDMwMiBdXT48L2NiYzpMaW5lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOkFkZHJlc3NMaW5lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6Q291bnRyeT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJZGVudGlmaWNhdGlvbkNvZGUgbGlzdElEPSJJU08gMzE2Ni0xIiBsaXN0QWdlbmN5TmFtZT0iVW5pdGVkIE5hdGlvbnMgRWNvbm9taWMgQ29tbWlzc2lvbiBmb3IgRXVyb3BlIiBsaXN0TmFtZT0iQ291bnRyeSI+UEU8L2NiYzpJZGVudGlmaWNhdGlvbkNvZGU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6Q291bnRyeT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpSZWdpc3RyYXRpb25BZGRyZXNzPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UGFydHlMZWdhbEVudGl0eT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6Q29udGFjdD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOk5hbWU+PCFbQ0RBVEFbXV0+PC9jYmM6TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOkNvbnRhY3Q+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5PgogICAgICAgICAgICAgICAgICAgIDwvY2FjOkFjY291bnRpbmdTdXBwbGllclBhcnR5PgogICAgICAgICAgICAgICAgICAgIDxjYWM6QWNjb3VudGluZ0N1c3RvbWVyUGFydHk+CiAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UGFydHk+CiAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UGFydHlJZGVudGlmaWNhdGlvbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQgc2NoZW1lSUQ9IjAiIHNjaGVtZU5hbWU9IkRvY3VtZW50byBkZSBJZGVudGlkYWQiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOlNVTkFUIiBzY2hlbWVVUkk9InVybjpwZTpnb2I6c3VuYXQ6Y3BlOnNlZTpnZW06Y2F0YWxvZ29zOmNhdGFsb2dvMDYiPjk5OTk5OTk5PC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5SWRlbnRpZmljYXRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UGFydHlOYW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpOYW1lPjwhW0NEQVRBW0NMSUVOVEVTIFZBUklPU11dPjwvY2JjOk5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpQYXJ0eVRheFNjaGVtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6UmVnaXN0cmF0aW9uTmFtZT48IVtDREFUQVtDTElFTlRFUyBWQVJJT1NdXT48L2NiYzpSZWdpc3RyYXRpb25OYW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpDb21wYW55SUQgc2NoZW1lSUQ9IjAiIHNjaGVtZU5hbWU9IlNVTkFUOklkZW50aWZpY2Fkb3IgZGUgRG9jdW1lbnRvIGRlIElkZW50aWRhZCIgc2NoZW1lQWdlbmN5TmFtZT0iUEU6U1VOQVQiIHNjaGVtZVVSST0idXJuOnBlOmdvYjpzdW5hdDpjcGU6c2VlOmdlbTpjYXRhbG9nb3M6Y2F0YWxvZ28wNiI+OTk5OTk5OTk8L2NiYzpDb21wYW55SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlRheFNjaGVtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZUlEPSIwIiBzY2hlbWVOYW1lPSJTVU5BVDpJZGVudGlmaWNhZG9yIGRlIERvY3VtZW50byBkZSBJZGVudGlkYWQiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOlNVTkFUIiBzY2hlbWVVUkk9InVybjpwZTpnb2I6c3VuYXQ6Y3BlOnNlZTpnZW06Y2F0YWxvZ29zOmNhdGFsb2dvMDYiPjk5OTk5OTk5PC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpUYXhTY2hlbWU+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5VGF4U2NoZW1lPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5TGVnYWxFbnRpdHk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlJlZ2lzdHJhdGlvbk5hbWU+PCFbQ0RBVEFbQ0xJRU5URVMgVkFSSU9TXV0+PC9jYmM6UmVnaXN0cmF0aW9uTmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UmVnaXN0cmF0aW9uQWRkcmVzcz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZU5hbWU9IlViaWdlb3MiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOklORUkiLz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkNpdHlOYW1lPjwhW0NEQVRBW11dPjwvY2JjOkNpdHlOYW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6Q291bnRyeVN1YmVudGl0eT48IVtDREFUQVtdXT48L2NiYzpDb3VudHJ5U3ViZW50aXR5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6RGlzdHJpY3Q+PCFbQ0RBVEFbXV0+PC9jYmM6RGlzdHJpY3Q+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpBZGRyZXNzTGluZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpMaW5lPjwhW0NEQVRBWy1dXT48L2NiYzpMaW5lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOkFkZHJlc3NMaW5lPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOkNvdW50cnk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SWRlbnRpZmljYXRpb25Db2RlIGxpc3RJRD0iSVNPIDMxNjYtMSIgbGlzdEFnZW5jeU5hbWU9IlVuaXRlZCBOYXRpb25zIEVjb25vbWljIENvbW1pc3Npb24gZm9yIEV1cm9wZSIgbGlzdE5hbWU9IkNvdW50cnkiLz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpDb3VudHJ5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UmVnaXN0cmF0aW9uQWRkcmVzcz4KICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UGFydHlMZWdhbEVudGl0eT4KICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UGFydHk+CiAgICAgICAgICAgICAgICAgICAgPC9jYWM6QWNjb3VudGluZ0N1c3RvbWVyUGFydHk+CiAgICAgICAgICAgICAgICAgICAgPGNhYzpQYXltZW50VGVybXM+CiAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRD5Gb3JtYVBhZ288L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlBheW1lbnRNZWFuc0lEPkNvbnRhZG88L2NiYzpQYXltZW50TWVhbnNJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkFtb3VudCBjdXJyZW5jeUlEPSJQRU4iPjI1MS40MjwvY2JjOkFtb3VudD4KICAgICAgICAgICAgICAgICAgICA8L2NhYzpQYXltZW50VGVybXM+CiAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhUb3RhbD4KICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhBbW91bnQgY3VycmVuY3lJRD0iUEVOIj4zOC4zNTwvY2JjOlRheEFtb3VudD4KICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhTdWJ0b3RhbD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4YWJsZUFtb3VudCBjdXJyZW5jeUlEPSJQRU4iPjIxMy4wNzwvY2JjOlRheGFibGVBbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlRheEFtb3VudCBjdXJyZW5jeUlEPSJQRU4iPjM4LjM1PC9jYmM6VGF4QW1vdW50PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhDYXRlZ29yeT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZUlEPSJVTi9FQ0UgNTMwNSIgc2NoZW1lTmFtZT0iVGF4IENhdGVnb3J5IElkZW50aWZpZXIiIHNjaGVtZUFnZW5jeU5hbWU9IlVuaXRlZCBOYXRpb25zIEVjb25vbWljIENvbW1pc3Npb24gZm9yIEV1cm9wZSI+UzwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6VGF4U2NoZW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZUlEPSJVTi9FQ0UgNTE1MyIgc2NoZW1lQWdlbmN5SUQ9IjYiPjEwMDA8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpOYW1lPklHVjwvY2JjOk5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4VHlwZUNvZGU+VkFUPC9jYmM6VGF4VHlwZUNvZGU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4U2NoZW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4Q2F0ZWdvcnk+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlRheFN1YnRvdGFsPjwvY2FjOlRheFRvdGFsPgogICAgICAgICAgICAgICAgICAgIDxjYWM6TGVnYWxNb25ldGFyeVRvdGFsPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkxpbmVFeHRlbnNpb25BbW91bnQgY3VycmVuY3lJRD0iUEVOIj4yMTMuMDc8L2NiYzpMaW5lRXh0ZW5zaW9uQW1vdW50PgogICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlRheEluY2x1c2l2ZUFtb3VudCBjdXJyZW5jeUlEPSJQRU4iPjI1MS40MjwvY2JjOlRheEluY2x1c2l2ZUFtb3VudD4KICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpQYXlhYmxlQW1vdW50IGN1cnJlbmN5SUQ9IlBFTiI+MjUxLjQyPC9jYmM6UGF5YWJsZUFtb3VudD4KICAgICAgICAgICAgICAgICAgICA8L2NhYzpMZWdhbE1vbmV0YXJ5VG90YWw+PGNhYzpJbnZvaWNlTGluZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQ+MTwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJbnZvaWNlZFF1YW50aXR5IHVuaXRDb2RlPSJOSVUiIHVuaXRDb2RlTGlzdElEPSJVTi9FQ0UgcmVjIDIwIiB1bml0Q29kZUxpc3RBZ2VuY3lOYW1lPSJVbml0ZWQgTmF0aW9ucyBFY29ub21pYyBDb21taXNzaW9uIGZvciBFdXJvcGUiPjExPC9jYmM6SW52b2ljZWRRdWFudGl0eT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6TGluZUV4dGVuc2lvbkFtb3VudCBjdXJyZW5jeUlEPSJQRU4iPjIxMy4wNzwvY2JjOkxpbmVFeHRlbnNpb25BbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlByaWNpbmdSZWZlcmVuY2U+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpBbHRlcm5hdGl2ZUNvbmRpdGlvblByaWNlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlByaWNlQW1vdW50IGN1cnJlbmN5SUQ9IlBFTiI+MjIuODY8L2NiYzpQcmljZUFtb3VudD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpQcmljZVR5cGVDb2RlIGxpc3ROYW1lPSJUaXBvIGRlIFByZWNpbyIgbGlzdEFnZW5jeU5hbWU9IlBFOlNVTkFUIiBsaXN0VVJJPSJ1cm46cGU6Z29iOnN1bmF0OmNwZTpzZWU6Z2VtOmNhdGFsb2dvczpjYXRhbG9nbzE2Ij4wMTwvY2JjOlByaWNlVHlwZUNvZGU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6QWx0ZXJuYXRpdmVDb25kaXRpb25QcmljZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlByaWNpbmdSZWZlcmVuY2U+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlRheFRvdGFsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4QW1vdW50IGN1cnJlbmN5SUQ9IlBFTiI+MzguMzU8L2NiYzpUYXhBbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhTdWJ0b3RhbD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhhYmxlQW1vdW50IGN1cnJlbmN5SUQ9IlBFTiI+MjEzLjA3PC9jYmM6VGF4YWJsZUFtb3VudD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhBbW91bnQgY3VycmVuY3lJRD0iUEVOIj4zOC4zNTwvY2JjOlRheEFtb3VudD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhDYXRlZ29yeT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRCBzY2hlbWVJRD0iVU4vRUNFIDUzMDUiIHNjaGVtZU5hbWU9IlRheCBDYXRlZ29yeSBJZGVudGlmaWVyIiBzY2hlbWVBZ2VuY3lOYW1lPSJVbml0ZWQgTmF0aW9ucyBFY29ub21pYyBDb21taXNzaW9uIGZvciBFdXJvcGUiPlM8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpQZXJjZW50PjE4PC9jYmM6UGVyY2VudD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhFeGVtcHRpb25SZWFzb25Db2RlIGxpc3RBZ2VuY3lOYW1lPSJQRTpTVU5BVCIgbGlzdE5hbWU9IkFmZWN0YWNpb24gZGVsIElHViIgbGlzdFVSST0idXJuOnBlOmdvYjpzdW5hdDpjcGU6c2VlOmdlbTpjYXRhbG9nb3M6Y2F0YWxvZ28wNyI+MTA8L2NiYzpUYXhFeGVtcHRpb25SZWFzb25Db2RlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlRheFNjaGVtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQgc2NoZW1lSUQ9IlVOL0VDRSA1MTUzIiBzY2hlbWVOYW1lPSJDb2RpZ28gZGUgdHJpYnV0b3MiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOlNVTkFUIj4xMDAwPC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOk5hbWU+SUdWPC9jYmM6TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4VHlwZUNvZGU+VkFUPC9jYmM6VGF4VHlwZUNvZGU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlRheFNjaGVtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4Q2F0ZWdvcnk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4U3VidG90YWw+PC9jYWM6VGF4VG90YWw+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOkl0ZW0+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpEZXNjcmlwdGlvbj48IVtDREFUQVtQYWlzYW5hIGV4dHJhIDVrXV0+PC9jYmM6RGVzY3JpcHRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpTZWxsZXJzSXRlbUlkZW50aWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEPjwhW0NEQVRBWzE5NV1dPjwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlNlbGxlcnNJdGVtSWRlbnRpZmljYXRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpDb21tb2RpdHlDbGFzc2lmaWNhdGlvbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJdGVtQ2xhc3NpZmljYXRpb25Db2RlIGxpc3RJRD0iVU5TUFNDIiBsaXN0QWdlbmN5TmFtZT0iR1MxIFVTIiBsaXN0TmFtZT0iSXRlbSBDbGFzc2lmaWNhdGlvbiI+MTAxOTE1MDk8L2NiYzpJdGVtQ2xhc3NpZmljYXRpb25Db2RlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOkNvbW1vZGl0eUNsYXNzaWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6SXRlbT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UHJpY2U+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpQcmljZUFtb3VudCBjdXJyZW5jeUlEPSJQRU4iPjE5LjM3PC9jYmM6UHJpY2VBbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpQcmljZT4KICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6SW52b2ljZUxpbmU+PC9JbnZvaWNlPgo=', 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPGFyOkFwcGxpY2F0aW9uUmVzcG9uc2UgeG1sbnM9InVybjpvYXNpczpuYW1lczpzcGVjaWZpY2F0aW9uOnVibDpzY2hlbWE6eHNkOkludm9pY2UtMiIgeG1sbnM6YXI9InVybjpvYXNpczpuYW1lczpzcGVjaWZpY2F0aW9uOnVibDpzY2hlbWE6eHNkOkFwcGxpY2F0aW9uUmVzcG9uc2UtMiIgeG1sbnM6ZXh0PSJ1cm46b2FzaXM6bmFtZXM6c3BlY2lmaWNhdGlvbjp1Ymw6c2NoZW1hOnhzZDpDb21tb25FeHRlbnNpb25Db21wb25lbnRzLTIiIHhtbG5zOmNiYz0idXJuOm9hc2lzOm5hbWVzOnNwZWNpZmljYXRpb246dWJsOnNjaGVtYTp4c2Q6Q29tbW9uQmFzaWNDb21wb25lbnRzLTIiIHhtbG5zOmNhYz0idXJuOm9hc2lzOm5hbWVzOnNwZWNpZmljYXRpb246dWJsOnNjaGVtYTp4c2Q6Q29tbW9uQWdncmVnYXRlQ29tcG9uZW50cy0yIiB4bWxuczpkcz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyIgeG1sbnM6c29hcD0iaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvc29hcC9lbnZlbG9wZS8iIHhtbG5zOmRhdGU9Imh0dHA6Ly9leHNsdC5vcmcvZGF0ZXMtYW5kLXRpbWVzIiB4bWxuczpzYWM9InVybjpzdW5hdDpuYW1lczpzcGVjaWZpY2F0aW9uOnVibDpwZXJ1OnNjaGVtYTp4c2Q6U3VuYXRBZ2dyZWdhdGVDb21wb25lbnRzLTEiIHhtbG5zOnhzPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYSIgeG1sbnM6cmVnZXhwPSJodHRwOi8vZXhzbHQub3JnL3JlZ3VsYXItZXhwcmVzc2lvbnMiPjxleHQ6VUJMRXh0ZW5zaW9ucyB4bWxucz0iIj48ZXh0OlVCTEV4dGVuc2lvbj48ZXh0OkV4dGVuc2lvbkNvbnRlbnQ+PFNpZ25hdHVyZSB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyI+CjxTaWduZWRJbmZvPgogIDxDYW5vbmljYWxpemF0aW9uTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS8xMC94bWwtZXhjLWMxNG4jV2l0aENvbW1lbnRzIi8+CiAgPFNpZ25hdHVyZU1ldGhvZCBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvMDQveG1sZHNpZy1tb3JlI3JzYS1zaGE1MTIiLz4KICA8UmVmZXJlbmNlIFVSST0iIj4KICAgIDxUcmFuc2Zvcm1zPgogICAgICA8VHJhbnNmb3JtIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI2VudmVsb3BlZC1zaWduYXR1cmUiLz4KICAgICAgPFRyYW5zZm9ybSBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvMTAveG1sLWV4Yy1jMTRuI1dpdGhDb21tZW50cyIvPgogICAgPC9UcmFuc2Zvcm1zPgogICAgPERpZ2VzdE1ldGhvZCBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvMDQveG1sZW5jI3NoYTUxMiIvPgogICAgPERpZ2VzdFZhbHVlPi8vaTJHMUlFUVFMOTNUcjdSZ0lSNGlnbnlrQ0paZWVDcGcwOXNiaXNMbUhjK0FMckpkbi8rYmNFUHpPZndZRTJMRjFNcVFkbGJyL0F6TGJWMzA0N1VnPT08L0RpZ2VzdFZhbHVlPgogIDwvUmVmZXJlbmNlPgo8L1NpZ25lZEluZm8+CiAgICA8U2lnbmF0dXJlVmFsdWU+KlByaXZhdGUga2V5ICdCZXRhUHVibGljQ2VydCcgbm90IHVwKjwvU2lnbmF0dXJlVmFsdWU+PEtleUluZm8+PFg1MDlEYXRhPjxYNTA5Q2VydGlmaWNhdGU+Kk5hbWVkIGNlcnRpZmljYXRlICdCZXRhUHJpdmF0ZUtleScgbm90IHVwKjwvWDUwOUNlcnRpZmljYXRlPjxYNTA5SXNzdWVyU2VyaWFsPjxYNTA5SXNzdWVyTmFtZT4qTmFtZWQgY2VydGlmaWNhdGUgJ0JldGFQcml2YXRlS2V5JyBub3QgdXAqPC9YNTA5SXNzdWVyTmFtZT48WDUwOVNlcmlhbE51bWJlcj4qTmFtZWQgY2VydGlmaWNhdGUgJ0JldGFQcml2YXRlS2V5JyBub3QgdXAqPC9YNTA5U2VyaWFsTnVtYmVyPjwvWDUwOUlzc3VlclNlcmlhbD48L1g1MDlEYXRhPjwvS2V5SW5mbz48L1NpZ25hdHVyZT48L2V4dDpFeHRlbnNpb25Db250ZW50PjwvZXh0OlVCTEV4dGVuc2lvbj48L2V4dDpVQkxFeHRlbnNpb25zPjxjYmM6VUJMVmVyc2lvbklEPjIuMDwvY2JjOlVCTFZlcnNpb25JRD48Y2JjOkN1c3RvbWl6YXRpb25JRD4xLjA8L2NiYzpDdXN0b21pemF0aW9uSUQ+PGNiYzpJRD4xNjk4ODg3MDg0NDUzPC9jYmM6SUQ+PGNiYzpJc3N1ZURhdGU+MjAyMy0xMS0wMVQwOToxMToxMzwvY2JjOklzc3VlRGF0ZT48Y2JjOklzc3VlVGltZT4wMDowMDowMDwvY2JjOklzc3VlVGltZT48Y2JjOlJlc3BvbnNlRGF0ZT4yMDIzLTExLTAxPC9jYmM6UmVzcG9uc2VEYXRlPjxjYmM6UmVzcG9uc2VUaW1lPjIxOjA0OjQ0PC9jYmM6UmVzcG9uc2VUaW1lPjxjYWM6U2lnbmF0dXJlPjxjYmM6SUQ+U2lnblNVTkFUPC9jYmM6SUQ+PGNhYzpTaWduYXRvcnlQYXJ0eT48Y2FjOlBhcnR5SWRlbnRpZmljYXRpb24+PGNiYzpJRD4yMDEzMTMxMjk1NTwvY2JjOklEPjwvY2FjOlBhcnR5SWRlbnRpZmljYXRpb24+PGNhYzpQYXJ0eU5hbWU+PGNiYzpOYW1lPlNVTkFUPC9jYmM6TmFtZT48L2NhYzpQYXJ0eU5hbWU+PC9jYWM6U2lnbmF0b3J5UGFydHk+PGNhYzpEaWdpdGFsU2lnbmF0dXJlQXR0YWNobWVudD48Y2FjOkV4dGVybmFsUmVmZXJlbmNlPjxjYmM6VVJJPiNTaWduU1VOQVQ8L2NiYzpVUkk+PC9jYWM6RXh0ZXJuYWxSZWZlcmVuY2U+PC9jYWM6RGlnaXRhbFNpZ25hdHVyZUF0dGFjaG1lbnQ+PC9jYWM6U2lnbmF0dXJlPjxjYWM6U2VuZGVyUGFydHk+PGNhYzpQYXJ0eUlkZW50aWZpY2F0aW9uPjxjYmM6SUQ+MjAxMzEzMTI5NTU8L2NiYzpJRD48L2NhYzpQYXJ0eUlkZW50aWZpY2F0aW9uPjwvY2FjOlNlbmRlclBhcnR5PjxjYWM6UmVjZWl2ZXJQYXJ0eT48Y2FjOlBhcnR5SWRlbnRpZmljYXRpb24+PGNiYzpJRD4xMDQ2NzI5MTI0MDwvY2JjOklEPjwvY2FjOlBhcnR5SWRlbnRpZmljYXRpb24+PC9jYWM6UmVjZWl2ZXJQYXJ0eT48Y2FjOkRvY3VtZW50UmVzcG9uc2U+PGNhYzpSZXNwb25zZT48Y2JjOlJlZmVyZW5jZUlEPkIwMDEtMzczPC9jYmM6UmVmZXJlbmNlSUQ+PGNiYzpSZXNwb25zZUNvZGU+MDwvY2JjOlJlc3BvbnNlQ29kZT48Y2JjOkRlc2NyaXB0aW9uPkxhIEJvbGV0YSBudW1lcm8gQjAwMS0zNzMsIGhhIHNpZG8gYWNlcHRhZGE8L2NiYzpEZXNjcmlwdGlvbj48L2NhYzpSZXNwb25zZT48Y2FjOkRvY3VtZW50UmVmZXJlbmNlPjxjYmM6SUQ+QjAwMS0zNzM8L2NiYzpJRD48L2NhYzpEb2N1bWVudFJlZmVyZW5jZT48Y2FjOlJlY2lwaWVudFBhcnR5PjxjYWM6UGFydHlJZGVudGlmaWNhdGlvbj48Y2JjOklEPjYtOTk5OTk5OTk8L2NiYzpJRD48L2NhYzpQYXJ0eUlkZW50aWZpY2F0aW9uPjwvY2FjOlJlY2lwaWVudFBhcnR5PjwvY2FjOkRvY3VtZW50UmVzcG9uc2U+PC9hcjpBcHBsaWNhdGlvblJlc3BvbnNlPg==', '', 'La Boleta numero B001-373, ha sido aceptada', 'jl5SxJS2POvWT7lzkK4jfy0sqWI=', 1, 1, 2);
-INSERT INTO `venta` (`id`, `id_empresa_emisora`, `id_cliente`, `id_serie`, `serie`, `correlativo`, `fecha_emision`, `hora_emision`, `fecha_vencimiento`, `id_moneda`, `forma_pago`, `tipo_operacion`, `total_operaciones_gravadas`, `total_operaciones_exoneradas`, `total_operaciones_inafectas`, `total_igv`, `importe_total`, `nombre_xml`, `xml_base64`, `xml_cdr_sunat_base64`, `codigo_error_sunat`, `mensaje_respuesta_sunat`, `hash_signature`, `estado_respuesta_sunat`, `estado_comprobante`, `id_usuario`) VALUES
-(2, 2, 2, 2, 'F001', 132, '2023-11-01', '09:11:22', '2023-11-01', 'USD', 'Contado', NULL, 11.61, 0, 0, 2.09, 13.7, '20480674414-01-F001-132.XML', 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPEludm9pY2UgeG1sbnM6eHNpPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYS1pbnN0YW5jZSIgeG1sbnM6eHNkPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYSIgeG1sbnM6Y2FjPSJ1cm46b2FzaXM6bmFtZXM6c3BlY2lmaWNhdGlvbjp1Ymw6c2NoZW1hOnhzZDpDb21tb25BZ2dyZWdhdGVDb21wb25lbnRzLTIiIHhtbG5zOmNiYz0idXJuOm9hc2lzOm5hbWVzOnNwZWNpZmljYXRpb246dWJsOnNjaGVtYTp4c2Q6Q29tbW9uQmFzaWNDb21wb25lbnRzLTIiIHhtbG5zOmNjdHM9InVybjp1bjp1bmVjZTp1bmNlZmFjdDpkb2N1bWVudGF0aW9uOjIiIHhtbG5zOmRzPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjIiB4bWxuczpleHQ9InVybjpvYXNpczpuYW1lczpzcGVjaWZpY2F0aW9uOnVibDpzY2hlbWE6eHNkOkNvbW1vbkV4dGVuc2lvbkNvbXBvbmVudHMtMiIgeG1sbnM6cWR0PSJ1cm46b2FzaXM6bmFtZXM6c3BlY2lmaWNhdGlvbjp1Ymw6c2NoZW1hOnhzZDpRdWFsaWZpZWREYXRhdHlwZXMtMiIgeG1sbnM6dWR0PSJ1cm46dW46dW5lY2U6dW5jZWZhY3Q6ZGF0YTpzcGVjaWZpY2F0aW9uOlVucXVhbGlmaWVkRGF0YVR5cGVzU2NoZW1hTW9kdWxlOjIiIHhtbG5zPSJ1cm46b2FzaXM6bmFtZXM6c3BlY2lmaWNhdGlvbjp1Ymw6c2NoZW1hOnhzZDpJbnZvaWNlLTIiPgogICAgICAgICAgICAgICAgICAgIDxleHQ6VUJMRXh0ZW5zaW9ucz4KICAgICAgICAgICAgICAgICAgICAgICAgPGV4dDpVQkxFeHRlbnNpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZXh0OkV4dGVuc2lvbkNvbnRlbnQ+PGRzOlNpZ25hdHVyZSBJZD0iU2lnbmF0dXJlU1AiPjxkczpTaWduZWRJbmZvPjxkczpDYW5vbmljYWxpemF0aW9uTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvVFIvMjAwMS9SRUMteG1sLWMxNG4tMjAwMTAzMTUiLz48ZHM6U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGExIi8+PGRzOlJlZmVyZW5jZSBVUkk9IiI+PGRzOlRyYW5zZm9ybXM+PGRzOlRyYW5zZm9ybSBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvMDkveG1sZHNpZyNlbnZlbG9wZWQtc2lnbmF0dXJlIi8+PC9kczpUcmFuc2Zvcm1zPjxkczpEaWdlc3RNZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjc2hhMSIvPjxkczpEaWdlc3RWYWx1ZT56R2FZeVdxR01IQmh3RDR4K2kxeDVwQXNla0U9PC9kczpEaWdlc3RWYWx1ZT48L2RzOlJlZmVyZW5jZT48L2RzOlNpZ25lZEluZm8+PGRzOlNpZ25hdHVyZVZhbHVlPkw1bXF0UU1CUngxejdrVjRIN2djWDRlVStsVEdBOTg5WTcwOU9xWTVhYXFyVTJnRjg0YnpGaXhEc3hNc3R4TC9oSmMxTFlVN3pERzdka1VPeVNScnh6cDZtcE9uQmozQUdQZE9CWmVqbE4wd2ptYmNnZWJrTDBaUkF6TTh0SjB1ZzVaaHNuaVEyVW1lQ1pkUy9jWEdMMTduUGV2T3BWZU4wZm5yYnppaXl4clhRMVVIMXdLQ0ZmSDJQUjZmWkNrak5PS2JRMS8xYVhjVExmV29jTGRYWlVmYmhZeVhTZkMwOHdobmZJelhxeTd5SDh3TG5jN1ZFVDM4RDdSVTdWOFZXN1Q2SXBISTV2R2NvSGdpT21TRjBQc2UzUHlTUVpSSEQzcVB5SVQrOHFZRHcyMWU5Q08zbkY1cWp5UWFrKzd5QmltNkJ1ZkdENHlwVWhjVWRjMWZTdz09PC9kczpTaWduYXR1cmVWYWx1ZT48ZHM6S2V5SW5mbz48ZHM6WDUwOURhdGE+PGRzOlg1MDlDZXJ0aWZpY2F0ZT5NSUlGQ0RDQ0EvQ2dBd0lCQWdJSkFNcjhJWThHbldZRE1BMEdDU3FHU0liM0RRRUJDd1VBTUlJQkRURWJNQmtHQ2dtU0pvbVQ4aXhrQVJrV0MweE1RVTFCTGxCRklGTkJNUXN3Q1FZRFZRUUdFd0pRUlRFTk1Bc0dBMVVFQ0F3RVRFbE5RVEVOTUFzR0ExVUVCd3dFVEVsTlFURVlNQllHQTFVRUNnd1BWRlVnUlUxUVVrVlRRU0JUTGtFdU1VVXdRd1lEVlFRTEREeEVUa2tnT1RrNU9UazVPU0JTVlVNZ01qQTBPVFF3T1RreE5UTWdMU0JEUlZKVVNVWkpRMEZFVHlCUVFWSkJJRVJGVFU5VFZGSkJRMG5EazA0eFJEQkNCZ05WQkFNTU8wNVBUVUpTUlNCU1JWQlNSVk5GVGxSQlRsUkZJRXhGUjBGTUlDMGdRMFZTVkVsR1NVTkJSRThnVUVGU1FTQkVSVTFQVTFSU1FVTkp3NU5PTVJ3d0dnWUpLb1pJaHZjTkFRa0JGZzFrWlcxdlFHeHNZVzFoTG5CbE1CNFhEVEl6TVRBeU1ESXhNelV5T1ZvWERUSTFNVEF4T1RJeE16VXlPVm93Z2dFTk1Sc3dHUVlLQ1pJbWlaUHlMR1FCR1JZTFRFeEJUVUV1VUVVZ1UwRXhDekFKQmdOVkJBWVRBbEJGTVEwd0N3WURWUVFJREFSTVNVMUJNUTB3Q3dZRFZRUUhEQVJNU1UxQk1SZ3dGZ1lEVlFRS0RBOVVWU0JGVFZCU1JWTkJJRk11UVM0eFJUQkRCZ05WQkFzTVBFUk9TU0E1T1RrNU9UazVJRkpWUXlBeU1EUTVOREE1T1RFMU15QXRJRU5GVWxSSlJrbERRVVJQSUZCQlVrRWdSRVZOVDFOVVVrRkRTY09UVGpGRU1FSUdBMVVFQXd3N1RrOU5RbEpGSUZKRlVGSkZVMFZPVkVGT1ZFVWdURVZIUVV3Z0xTQkRSVkpVU1VaSlEwRkVUeUJRUVZKQklFUkZUVTlUVkZKQlEwbkRrMDR4SERBYUJna3Foa2lHOXcwQkNRRVdEV1JsYlc5QWJHeGhiV0V1Y0dVd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUURTRUJ1aXE4cWVTOVkzbWhQQ1VDM1RodXIrbnFhb3N2Z0xGK1BhZXRqbnJhTFZlN0NudzVIbCtxT2lIVzIrRW5LWWtkTitCU2VZQjk2MHRjTDVIN2ZKWjN2Y1pUb3k5UTMyNWtmWGdiV0RacEIzVW1mSEFzSU1YSWQ5Mzk4OW00MUx3UlFNZDZsdmpUTUxUWE1BK0FsM3lDQ3lOTjhSQzcrbkhSdHB6TmQwaDE5MndpMGdmQTU1RUpXYWVQYWJnZGQxaFVOdlVWbnkrdWZrWWgrRzhTZDhCMmwvYSs0VWsvdmovd0Z6S3pDdGVmRlRKODdTUmpBOE9pa0FXeElyalcrVTVyc2c5SVBpWUV5d2pWbXFXelBuMXVCdm96UUtqL2taL1dQbTJhdTJlTURBL2dMQ0FiQXQyQ2ROZzF6MHBpVklTV2tWR1czMVhPNTFocFMzbDhvTEFnTUJBQUdqWnpCbE1CMEdBMVVkRGdRV0JCUmtXK2lIRkN6SWhLZUZVcXhIRGtMTWRoUVVPekFmQmdOVkhTTUVHREFXZ0JSa1craUhGQ3pJaEtlRlVxeEhEa0xNZGhRVU96QVRCZ05WSFNVRUREQUtCZ2dyQmdFRkJRY0RBVEFPQmdOVkhROEJBZjhFQkFNQ0I0QXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBSjNrVGFVdFBZTVRjRFVrUytJaHZTT3FMbUh4YkFpK1hDOHhOeXZpSitjUW5qdlcrYnUrdGJnb3dndVR0WEUza1o4SGpvYUZEK1NFS0QxVlQ5UGhsQk9nbDBubGt5ejNQRmZCNWx0RnByK3JoeXdvcVQ3THZtYVQ0Z0I4ZUEra2o1TVgzSjlhZ0RzdEtTYkFnS0tQQmY2MXhTL0U2SGovSUN4cUZQZ1ZYSDNRRUgyTTRjaDFuQWdJV0xzcnFqQkh4SGx6Z0JtdkdSTjM4R3Bad2hPYWx5TVFDbGlnNGVPTXd0d2dpTkk1OVU1UVYxSjlvY2w5bFpGNXNMQ202U2lpN1pwQUZvcnJWYjhVWm1CWUxvZHpuNTE5cFVob1lkZlA2dllWeVcxbXFhbjI0NUgzVHdDR2h5dUNwalN1RzBvNUhFd2ZQT0JoYi9hc3pqMVJudlZWL0JBPTwvZHM6WDUwOUNlcnRpZmljYXRlPjwvZHM6WDUwOURhdGE+PC9kczpLZXlJbmZvPjwvZHM6U2lnbmF0dXJlPjwvZXh0OkV4dGVuc2lvbkNvbnRlbnQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvZXh0OlVCTEV4dGVuc2lvbj4KICAgICAgICAgICAgICAgICAgICA8L2V4dDpVQkxFeHRlbnNpb25zPgogICAgICAgICAgICAgICAgICAgIDxjYmM6VUJMVmVyc2lvbklEPjIuMTwvY2JjOlVCTFZlcnNpb25JRD4KICAgICAgICAgICAgICAgICAgICA8Y2JjOkN1c3RvbWl6YXRpb25JRCBzY2hlbWVBZ2VuY3lOYW1lPSJQRTpTVU5BVCI+Mi4wPC9jYmM6Q3VzdG9taXphdGlvbklEPgogICAgICAgICAgICAgICAgICAgIDxjYmM6UHJvZmlsZUlEIHNjaGVtZU5hbWU9IlRpcG8gZGUgT3BlcmFjaW9uIiBzY2hlbWVBZ2VuY3lOYW1lPSJQRTpTVU5BVCIgc2NoZW1lVVJJPSJ1cm46cGU6Z29iOnN1bmF0OmNwZTpzZWU6Z2VtOmNhdGFsb2dvczpjYXRhbG9nbzE3Ij4wMTAxPC9jYmM6UHJvZmlsZUlEPgogICAgICAgICAgICAgICAgICAgIDxjYmM6SUQ+RjAwMS0xMzI8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICA8Y2JjOklzc3VlRGF0ZT4yMDIzLTExLTAxPC9jYmM6SXNzdWVEYXRlPgogICAgICAgICAgICAgICAgICAgIDxjYmM6SXNzdWVUaW1lPjA5OjExOjIyPC9jYmM6SXNzdWVUaW1lPgogICAgICAgICAgICAgICAgICAgIDxjYmM6RHVlRGF0ZT4yMDIzLTExLTAxPC9jYmM6RHVlRGF0ZT4KICAgICAgICAgICAgICAgICAgICA8Y2JjOkludm9pY2VUeXBlQ29kZSBsaXN0QWdlbmN5TmFtZT0iUEU6U1VOQVQiIGxpc3ROYW1lPSJUaXBvIGRlIERvY3VtZW50byIgbGlzdFVSST0idXJuOnBlOmdvYjpzdW5hdDpjcGU6c2VlOmdlbTpjYXRhbG9nb3M6Y2F0YWxvZ28wMSIgbGlzdElEPSIwMTAxIiBuYW1lPSJUaXBvIGRlIE9wZXJhY2lvbiI+MDE8L2NiYzpJbnZvaWNlVHlwZUNvZGU+CiAgICAgICAgICAgICAgICAgICAgPGNiYzpEb2N1bWVudEN1cnJlbmN5Q29kZSBsaXN0SUQ9IklTTyA0MjE3IEFscGhhIiBsaXN0TmFtZT0iQ3VycmVuY3kiIGxpc3RBZ2VuY3lOYW1lPSJVbml0ZWQgTmF0aW9ucyBFY29ub21pYyBDb21taXNzaW9uIGZvciBFdXJvcGUiPlVTRDwvY2JjOkRvY3VtZW50Q3VycmVuY3lDb2RlPgogICAgICAgICAgICAgICAgICAgIDxjYmM6TGluZUNvdW50TnVtZXJpYz4xPC9jYmM6TGluZUNvdW50TnVtZXJpYz4KICAgICAgICAgICAgICAgICAgICA8Y2FjOlNpZ25hdHVyZT4KICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRD5GMDAxLTEzMjwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlNpZ25hdG9yeVBhcnR5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpQYXJ0eUlkZW50aWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQ+MjA0ODA2NzQ0MTQ8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5SWRlbnRpZmljYXRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOk5hbWU+PCFbQ0RBVEFbTkVHT0NJT1MgV0FJTUFLVSAiIEUuSS5SLkxdXT48L2NiYzpOYW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UGFydHlOYW1lPgogICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpTaWduYXRvcnlQYXJ0eT4KICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpEaWdpdGFsU2lnbmF0dXJlQXR0YWNobWVudD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6RXh0ZXJuYWxSZWZlcmVuY2U+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpVUkk+I1NpZ25hdHVyZVNQPC9jYmM6VVJJPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6RXh0ZXJuYWxSZWZlcmVuY2U+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOkRpZ2l0YWxTaWduYXR1cmVBdHRhY2htZW50PgogICAgICAgICAgICAgICAgICAgIDwvY2FjOlNpZ25hdHVyZT4KICAgICAgICAgICAgICAgICAgICA8Y2FjOkFjY291bnRpbmdTdXBwbGllclBhcnR5PgogICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpQYXJ0eUlkZW50aWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQgc2NoZW1lSUQ9IjYiIHNjaGVtZU5hbWU9IkRvY3VtZW50byBkZSBJZGVudGlkYWQiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOlNVTkFUIiBzY2hlbWVVUkk9InVybjpwZTpnb2I6c3VuYXQ6Y3BlOnNlZTpnZW06Y2F0YWxvZ29zOmNhdGFsb2dvMDYiPjIwNDgwNjc0NDE0PC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpQYXJ0eUlkZW50aWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpQYXJ0eU5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpOYW1lPjwhW0NEQVRBW05FR09DSU9TIFdBSU1BS1UgIiBFLkkuUi5MXV0+PC9jYmM6TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UGFydHlUYXhTY2hlbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpSZWdpc3RyYXRpb25OYW1lPjwhW0NEQVRBW05FR09DSU9TIFdBSU1BS1UgIiBFLkkuUi5MXV0+PC9jYmM6UmVnaXN0cmF0aW9uTmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkNvbXBhbnlJRCBzY2hlbWVJRD0iNiIgc2NoZW1lTmFtZT0iU1VOQVQ6SWRlbnRpZmljYWRvciBkZSBEb2N1bWVudG8gZGUgSWRlbnRpZGFkIiBzY2hlbWVBZ2VuY3lOYW1lPSJQRTpTVU5BVCIgc2NoZW1lVVJJPSJ1cm46cGU6Z29iOnN1bmF0OmNwZTpzZWU6Z2VtOmNhdGFsb2dvczpjYXRhbG9nbzA2Ij4yMDQ4MDY3NDQxNDwvY2JjOkNvbXBhbnlJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlRheFNjaGVtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZUlEPSI2IiBzY2hlbWVOYW1lPSJTVU5BVDpJZGVudGlmaWNhZG9yIGRlIERvY3VtZW50byBkZSBJZGVudGlkYWQiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOlNVTkFUIiBzY2hlbWVVUkk9InVybjpwZTpnb2I6c3VuYXQ6Y3BlOnNlZTpnZW06Y2F0YWxvZ29zOmNhdGFsb2dvMDYiPjIwNDgwNjc0NDE0PC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4U2NoZW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UGFydHlUYXhTY2hlbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5TGVnYWxFbnRpdHk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpSZWdpc3RyYXRpb25OYW1lPjwhW0NEQVRBW05FR09DSU9TIFdBSU1BS1UgIiBFLkkuUi5MXV0+PC9jYmM6UmVnaXN0cmF0aW9uTmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlJlZ2lzdHJhdGlvbkFkZHJlc3M+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRCBzY2hlbWVOYW1lPSJVYmlnZW9zIiBzY2hlbWVBZ2VuY3lOYW1lPSJQRTpJTkVJIj43ODc4Nzg8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkFkZHJlc3NUeXBlQ29kZSBsaXN0QWdlbmN5TmFtZT0iUEU6U1VOQVQiIGxpc3ROYW1lPSJFc3RhYmxlY2ltaWVudG9zIGFuZXhvcyI+MDAwMDwvY2JjOkFkZHJlc3NUeXBlQ29kZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkNpdHlOYW1lPjwhW0NEQVRBW0xJTUFdXT48L2NiYzpDaXR5TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkNvdW50cnlTdWJlbnRpdHk+PCFbQ0RBVEFbTElNQV1dPjwvY2JjOkNvdW50cnlTdWJlbnRpdHk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpEaXN0cmljdD48IVtDREFUQVtCQVJSQU5DT11dPjwvY2JjOkRpc3RyaWN0PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6QWRkcmVzc0xpbmU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6TGluZT48IVtDREFUQVtBViBHUkFVIDEyM11dPjwvY2JjOkxpbmU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6QWRkcmVzc0xpbmU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpDb3VudHJ5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklkZW50aWZpY2F0aW9uQ29kZSBsaXN0SUQ9IklTTyAzMTY2LTEiIGxpc3RBZ2VuY3lOYW1lPSJVbml0ZWQgTmF0aW9ucyBFY29ub21pYyBDb21taXNzaW9uIGZvciBFdXJvcGUiIGxpc3ROYW1lPSJDb3VudHJ5Ij5QRTwvY2JjOklkZW50aWZpY2F0aW9uQ29kZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpDb3VudHJ5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlJlZ2lzdHJhdGlvbkFkZHJlc3M+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpQYXJ0eUxlZ2FsRW50aXR5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpDb250YWN0PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6TmFtZT48IVtDREFUQVtdXT48L2NiYzpOYW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6Q29udGFjdD4KICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UGFydHk+CiAgICAgICAgICAgICAgICAgICAgPC9jYWM6QWNjb3VudGluZ1N1cHBsaWVyUGFydHk+CiAgICAgICAgICAgICAgICAgICAgPGNhYzpBY2NvdW50aW5nQ3VzdG9tZXJQYXJ0eT4KICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpQYXJ0eT4KICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpQYXJ0eUlkZW50aWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRCBzY2hlbWVJRD0iNiIgc2NoZW1lTmFtZT0iRG9jdW1lbnRvIGRlIElkZW50aWRhZCIgc2NoZW1lQWdlbmN5TmFtZT0iUEU6U1VOQVQiIHNjaGVtZVVSST0idXJuOnBlOmdvYjpzdW5hdDpjcGU6c2VlOmdlbTpjYXRhbG9nb3M6Y2F0YWxvZ28wNiI+MTIxMDkzMjMwOTwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpQYXJ0eUlkZW50aWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6TmFtZT48IVtDREFUQVtwcnVlYmFzdl1dPjwvY2JjOk5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpQYXJ0eVRheFNjaGVtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6UmVnaXN0cmF0aW9uTmFtZT48IVtDREFUQVtwcnVlYmFzdl1dPjwvY2JjOlJlZ2lzdHJhdGlvbk5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkNvbXBhbnlJRCBzY2hlbWVJRD0iNiIgc2NoZW1lTmFtZT0iU1VOQVQ6SWRlbnRpZmljYWRvciBkZSBEb2N1bWVudG8gZGUgSWRlbnRpZGFkIiBzY2hlbWVBZ2VuY3lOYW1lPSJQRTpTVU5BVCIgc2NoZW1lVVJJPSJ1cm46cGU6Z29iOnN1bmF0OmNwZTpzZWU6Z2VtOmNhdGFsb2dvczpjYXRhbG9nbzA2Ij4xMjEwOTMyMzA5PC9jYmM6Q29tcGFueUlEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhTY2hlbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRCBzY2hlbWVJRD0iNiIgc2NoZW1lTmFtZT0iU1VOQVQ6SWRlbnRpZmljYWRvciBkZSBEb2N1bWVudG8gZGUgSWRlbnRpZGFkIiBzY2hlbWVBZ2VuY3lOYW1lPSJQRTpTVU5BVCIgc2NoZW1lVVJJPSJ1cm46cGU6Z29iOnN1bmF0OmNwZTpzZWU6Z2VtOmNhdGFsb2dvczpjYXRhbG9nbzA2Ij4xMjEwOTMyMzA5PC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpUYXhTY2hlbWU+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5VGF4U2NoZW1lPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5TGVnYWxFbnRpdHk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlJlZ2lzdHJhdGlvbk5hbWU+PCFbQ0RBVEFbcHJ1ZWJhc3ZdXT48L2NiYzpSZWdpc3RyYXRpb25OYW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpSZWdpc3RyYXRpb25BZGRyZXNzPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQgc2NoZW1lTmFtZT0iVWJpZ2VvcyIgc2NoZW1lQWdlbmN5TmFtZT0iUEU6SU5FSSIvPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6Q2l0eU5hbWU+PCFbQ0RBVEFbXV0+PC9jYmM6Q2l0eU5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpDb3VudHJ5U3ViZW50aXR5PjwhW0NEQVRBW11dPjwvY2JjOkNvdW50cnlTdWJlbnRpdHk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpEaXN0cmljdD48IVtDREFUQVtdXT48L2NiYzpEaXN0cmljdD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOkFkZHJlc3NMaW5lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkxpbmU+PCFbQ0RBVEFbb2Vlb2l3ZV1dPjwvY2JjOkxpbmU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6QWRkcmVzc0xpbmU+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6Q291bnRyeT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJZGVudGlmaWNhdGlvbkNvZGUgbGlzdElEPSJJU08gMzE2Ni0xIiBsaXN0QWdlbmN5TmFtZT0iVW5pdGVkIE5hdGlvbnMgRWNvbm9taWMgQ29tbWlzc2lvbiBmb3IgRXVyb3BlIiBsaXN0TmFtZT0iQ291bnRyeSIvPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOkNvdW50cnk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpSZWdpc3RyYXRpb25BZGRyZXNzPgogICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpQYXJ0eUxlZ2FsRW50aXR5PgogICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpQYXJ0eT4KICAgICAgICAgICAgICAgICAgICA8L2NhYzpBY2NvdW50aW5nQ3VzdG9tZXJQYXJ0eT4KICAgICAgICAgICAgICAgICAgICA8Y2FjOlBheW1lbnRUZXJtcz4KICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEPkZvcm1hUGFnbzwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6UGF5bWVudE1lYW5zSUQ+Q29udGFkbzwvY2JjOlBheW1lbnRNZWFuc0lEPgogICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6QW1vdW50IGN1cnJlbmN5SUQ9IlVTRCI+MTMuNzwvY2JjOkFtb3VudD4KICAgICAgICAgICAgICAgICAgICA8L2NhYzpQYXltZW50VGVybXM+CiAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhUb3RhbD4KICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhBbW91bnQgY3VycmVuY3lJRD0iVVNEIj4yLjA5PC9jYmM6VGF4QW1vdW50PgogICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlRheFN1YnRvdGFsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhhYmxlQW1vdW50IGN1cnJlbmN5SUQ9IlVTRCI+MTEuNjE8L2NiYzpUYXhhYmxlQW1vdW50PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhBbW91bnQgY3VycmVuY3lJRD0iVVNEIj4yLjA5PC9jYmM6VGF4QW1vdW50PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhDYXRlZ29yeT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZUlEPSJVTi9FQ0UgNTMwNSIgc2NoZW1lTmFtZT0iVGF4IENhdGVnb3J5IElkZW50aWZpZXIiIHNjaGVtZUFnZW5jeU5hbWU9IlVuaXRlZCBOYXRpb25zIEVjb25vbWljIENvbW1pc3Npb24gZm9yIEV1cm9wZSI+UzwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6VGF4U2NoZW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZUlEPSJVTi9FQ0UgNTE1MyIgc2NoZW1lQWdlbmN5SUQ9IjYiPjEwMDA8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpOYW1lPklHVjwvY2JjOk5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4VHlwZUNvZGU+VkFUPC9jYmM6VGF4VHlwZUNvZGU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4U2NoZW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4Q2F0ZWdvcnk+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlRheFN1YnRvdGFsPjwvY2FjOlRheFRvdGFsPgogICAgICAgICAgICAgICAgICAgIDxjYWM6TGVnYWxNb25ldGFyeVRvdGFsPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkxpbmVFeHRlbnNpb25BbW91bnQgY3VycmVuY3lJRD0iVVNEIj4xMS42MTwvY2JjOkxpbmVFeHRlbnNpb25BbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4SW5jbHVzaXZlQW1vdW50IGN1cnJlbmN5SUQ9IlVTRCI+MTMuNzA8L2NiYzpUYXhJbmNsdXNpdmVBbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6UGF5YWJsZUFtb3VudCBjdXJyZW5jeUlEPSJVU0QiPjEzLjcwPC9jYmM6UGF5YWJsZUFtb3VudD4KICAgICAgICAgICAgICAgICAgICA8L2NhYzpMZWdhbE1vbmV0YXJ5VG90YWw+PGNhYzpJbnZvaWNlTGluZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQ+MTwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJbnZvaWNlZFF1YW50aXR5IHVuaXRDb2RlPSJOSVUiIHVuaXRDb2RlTGlzdElEPSJVTi9FQ0UgcmVjIDIwIiB1bml0Q29kZUxpc3RBZ2VuY3lOYW1lPSJVbml0ZWQgTmF0aW9ucyBFY29ub21pYyBDb21taXNzaW9uIGZvciBFdXJvcGUiPjM8L2NiYzpJbnZvaWNlZFF1YW50aXR5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpMaW5lRXh0ZW5zaW9uQW1vdW50IGN1cnJlbmN5SUQ9IlVTRCI+Mi43OTwvY2JjOkxpbmVFeHRlbnNpb25BbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlByaWNpbmdSZWZlcmVuY2U+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpBbHRlcm5hdGl2ZUNvbmRpdGlvblByaWNlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlByaWNlQW1vdW50IGN1cnJlbmN5SUQ9IlVTRCI+MS4xMDwvY2JjOlByaWNlQW1vdW50PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlByaWNlVHlwZUNvZGUgbGlzdE5hbWU9IlRpcG8gZGUgUHJlY2lvIiBsaXN0QWdlbmN5TmFtZT0iUEU6U1VOQVQiIGxpc3RVUkk9InVybjpwZTpnb2I6c3VuYXQ6Y3BlOnNlZTpnZW06Y2F0YWxvZ29zOmNhdGFsb2dvMTYiPjAxPC9jYmM6UHJpY2VUeXBlQ29kZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpBbHRlcm5hdGl2ZUNvbmRpdGlvblByaWNlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UHJpY2luZ1JlZmVyZW5jZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6VGF4VG90YWw+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhBbW91bnQgY3VycmVuY3lJRD0iVVNEIj4wLjUwPC9jYmM6VGF4QW1vdW50PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6VGF4U3VidG90YWw+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4YWJsZUFtb3VudCBjdXJyZW5jeUlEPSJVU0QiPjIuNzk8L2NiYzpUYXhhYmxlQW1vdW50PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlRheEFtb3VudCBjdXJyZW5jeUlEPSJVU0QiPjAuNTA8L2NiYzpUYXhBbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6VGF4Q2F0ZWdvcnk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQgc2NoZW1lSUQ9IlVOL0VDRSA1MzA1IiBzY2hlbWVOYW1lPSJUYXggQ2F0ZWdvcnkgSWRlbnRpZmllciIgc2NoZW1lQWdlbmN5TmFtZT0iVW5pdGVkIE5hdGlvbnMgRWNvbm9taWMgQ29tbWlzc2lvbiBmb3IgRXVyb3BlIj5TPC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6UGVyY2VudD4xODwvY2JjOlBlcmNlbnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4RXhlbXB0aW9uUmVhc29uQ29kZSBsaXN0QWdlbmN5TmFtZT0iUEU6U1VOQVQiIGxpc3ROYW1lPSJBZmVjdGFjaW9uIGRlbCBJR1YiIGxpc3RVUkk9InVybjpwZTpnb2I6c3VuYXQ6Y3BlOnNlZTpnZW06Y2F0YWxvZ29zOmNhdGFsb2dvMDciPjEwPC9jYmM6VGF4RXhlbXB0aW9uUmVhc29uQ29kZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhTY2hlbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZUlEPSJVTi9FQ0UgNTE1MyIgc2NoZW1lTmFtZT0iQ29kaWdvIGRlIHRyaWJ1dG9zIiBzY2hlbWVBZ2VuY3lOYW1lPSJQRTpTVU5BVCI+MTAwMDwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpOYW1lPklHVjwvY2JjOk5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlRheFR5cGVDb2RlPlZBVDwvY2JjOlRheFR5cGVDb2RlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpUYXhTY2hlbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlRheENhdGVnb3J5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlRheFN1YnRvdGFsPjwvY2FjOlRheFRvdGFsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpJdGVtPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6RGVzY3JpcHRpb24+PCFbQ0RBVEFbY2hpbiBjaGluIDMyZ11dPjwvY2JjOkRlc2NyaXB0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6U2VsbGVyc0l0ZW1JZGVudGlmaWNhdGlvbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRD48IVtDREFUQVsxOTVdXT48L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpTZWxsZXJzSXRlbUlkZW50aWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6Q29tbW9kaXR5Q2xhc3NpZmljYXRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SXRlbUNsYXNzaWZpY2F0aW9uQ29kZSBsaXN0SUQ9IlVOU1BTQyIgbGlzdEFnZW5jeU5hbWU9IkdTMSBVUyIgbGlzdE5hbWU9Ikl0ZW0gQ2xhc3NpZmljYXRpb24iPjEwMTkxNTA5PC9jYmM6SXRlbUNsYXNzaWZpY2F0aW9uQ29kZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpDb21tb2RpdHlDbGFzc2lmaWNhdGlvbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOkl0ZW0+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlByaWNlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6UHJpY2VBbW91bnQgY3VycmVuY3lJRD0iVVNEIj4wLjkzPC9jYmM6UHJpY2VBbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpQcmljZT4KICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6SW52b2ljZUxpbmU+PGNhYzpJbnZvaWNlTGluZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQ+MjwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJbnZvaWNlZFF1YW50aXR5IHVuaXRDb2RlPSJOSVUiIHVuaXRDb2RlTGlzdElEPSJVTi9FQ0UgcmVjIDIwIiB1bml0Q29kZUxpc3RBZ2VuY3lOYW1lPSJVbml0ZWQgTmF0aW9ucyBFY29ub21pYyBDb21taXNzaW9uIGZvciBFdXJvcGUiPjE8L2NiYzpJbnZvaWNlZFF1YW50aXR5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpMaW5lRXh0ZW5zaW9uQW1vdW50IGN1cnJlbmN5SUQ9IlVTRCI+NS4zODwvY2JjOkxpbmVFeHRlbnNpb25BbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlByaWNpbmdSZWZlcmVuY2U+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpBbHRlcm5hdGl2ZUNvbmRpdGlvblByaWNlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlByaWNlQW1vdW50IGN1cnJlbmN5SUQ9IlVTRCI+Ni4zNTwvY2JjOlByaWNlQW1vdW50PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlByaWNlVHlwZUNvZGUgbGlzdE5hbWU9IlRpcG8gZGUgUHJlY2lvIiBsaXN0QWdlbmN5TmFtZT0iUEU6U1VOQVQiIGxpc3RVUkk9InVybjpwZTpnb2I6c3VuYXQ6Y3BlOnNlZTpnZW06Y2F0YWxvZ29zOmNhdGFsb2dvMTYiPjAxPC9jYmM6UHJpY2VUeXBlQ29kZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpBbHRlcm5hdGl2ZUNvbmRpdGlvblByaWNlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UHJpY2luZ1JlZmVyZW5jZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6VGF4VG90YWw+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhBbW91bnQgY3VycmVuY3lJRD0iVVNEIj4wLjk3PC9jYmM6VGF4QW1vdW50PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6VGF4U3VidG90YWw+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4YWJsZUFtb3VudCBjdXJyZW5jeUlEPSJVU0QiPjUuMzg8L2NiYzpUYXhhYmxlQW1vdW50PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlRheEFtb3VudCBjdXJyZW5jeUlEPSJVU0QiPjAuOTc8L2NiYzpUYXhBbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6VGF4Q2F0ZWdvcnk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQgc2NoZW1lSUQ9IlVOL0VDRSA1MzA1IiBzY2hlbWVOYW1lPSJUYXggQ2F0ZWdvcnkgSWRlbnRpZmllciIgc2NoZW1lQWdlbmN5TmFtZT0iVW5pdGVkIE5hdGlvbnMgRWNvbm9taWMgQ29tbWlzc2lvbiBmb3IgRXVyb3BlIj5TPC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6UGVyY2VudD4xODwvY2JjOlBlcmNlbnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4RXhlbXB0aW9uUmVhc29uQ29kZSBsaXN0QWdlbmN5TmFtZT0iUEU6U1VOQVQiIGxpc3ROYW1lPSJBZmVjdGFjaW9uIGRlbCBJR1YiIGxpc3RVUkk9InVybjpwZTpnb2I6c3VuYXQ6Y3BlOnNlZTpnZW06Y2F0YWxvZ29zOmNhdGFsb2dvMDciPjEwPC9jYmM6VGF4RXhlbXB0aW9uUmVhc29uQ29kZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhTY2hlbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZUlEPSJVTi9FQ0UgNTE1MyIgc2NoZW1lTmFtZT0iQ29kaWdvIGRlIHRyaWJ1dG9zIiBzY2hlbWVBZ2VuY3lOYW1lPSJQRTpTVU5BVCI+MTAwMDwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpOYW1lPklHVjwvY2JjOk5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlRheFR5cGVDb2RlPlZBVDwvY2JjOlRheFR5cGVDb2RlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpUYXhTY2hlbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlRheENhdGVnb3J5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlRheFN1YnRvdGFsPjwvY2FjOlRheFRvdGFsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpJdGVtPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6RGVzY3JpcHRpb24+PCFbQ0RBVEFbRmlsZXRlIGRlIGF0w7puIENhbXBvbWFyXV0+PC9jYmM6RGVzY3JpcHRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpTZWxsZXJzSXRlbUlkZW50aWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEPjwhW0NEQVRBWzE5NV1dPjwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlNlbGxlcnNJdGVtSWRlbnRpZmljYXRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpDb21tb2RpdHlDbGFzc2lmaWNhdGlvbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJdGVtQ2xhc3NpZmljYXRpb25Db2RlIGxpc3RJRD0iVU5TUFNDIiBsaXN0QWdlbmN5TmFtZT0iR1MxIFVTIiBsaXN0TmFtZT0iSXRlbSBDbGFzc2lmaWNhdGlvbiI+MTAxOTE1MDk8L2NiYzpJdGVtQ2xhc3NpZmljYXRpb25Db2RlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOkNvbW1vZGl0eUNsYXNzaWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6SXRlbT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UHJpY2U+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpQcmljZUFtb3VudCBjdXJyZW5jeUlEPSJVU0QiPjUuMzg8L2NiYzpQcmljZUFtb3VudD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlByaWNlPgogICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpJbnZvaWNlTGluZT48Y2FjOkludm9pY2VMaW5lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRD4zPC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkludm9pY2VkUXVhbnRpdHkgdW5pdENvZGU9Ik5JVSIgdW5pdENvZGVMaXN0SUQ9IlVOL0VDRSByZWMgMjAiIHVuaXRDb2RlTGlzdEFnZW5jeU5hbWU9IlVuaXRlZCBOYXRpb25zIEVjb25vbWljIENvbW1pc3Npb24gZm9yIEV1cm9wZSI+MTwvY2JjOkludm9pY2VkUXVhbnRpdHk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkxpbmVFeHRlbnNpb25BbW91bnQgY3VycmVuY3lJRD0iVVNEIj4zLjQ0PC9jYmM6TGluZUV4dGVuc2lvbkFtb3VudD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UHJpY2luZ1JlZmVyZW5jZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOkFsdGVybmF0aXZlQ29uZGl0aW9uUHJpY2U+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6UHJpY2VBbW91bnQgY3VycmVuY3lJRD0iVVNEIj40LjA2PC9jYmM6UHJpY2VBbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6UHJpY2VUeXBlQ29kZSBsaXN0TmFtZT0iVGlwbyBkZSBQcmVjaW8iIGxpc3RBZ2VuY3lOYW1lPSJQRTpTVU5BVCIgbGlzdFVSST0idXJuOnBlOmdvYjpzdW5hdDpjcGU6c2VlOmdlbTpjYXRhbG9nb3M6Y2F0YWxvZ28xNiI+MDE8L2NiYzpQcmljZVR5cGVDb2RlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOkFsdGVybmF0aXZlQ29uZGl0aW9uUHJpY2U+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpQcmljaW5nUmVmZXJlbmNlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhUb3RhbD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlRheEFtb3VudCBjdXJyZW5jeUlEPSJVU0QiPjAuNjI8L2NiYzpUYXhBbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhTdWJ0b3RhbD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhhYmxlQW1vdW50IGN1cnJlbmN5SUQ9IlVTRCI+My40NDwvY2JjOlRheGFibGVBbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4QW1vdW50IGN1cnJlbmN5SUQ9IlVTRCI+MC42MjwvY2JjOlRheEFtb3VudD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhDYXRlZ29yeT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRCBzY2hlbWVJRD0iVU4vRUNFIDUzMDUiIHNjaGVtZU5hbWU9IlRheCBDYXRlZ29yeSBJZGVudGlmaWVyIiBzY2hlbWVBZ2VuY3lOYW1lPSJVbml0ZWQgTmF0aW9ucyBFY29ub21pYyBDb21taXNzaW9uIGZvciBFdXJvcGUiPlM8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpQZXJjZW50PjE4PC9jYmM6UGVyY2VudD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhFeGVtcHRpb25SZWFzb25Db2RlIGxpc3RBZ2VuY3lOYW1lPSJQRTpTVU5BVCIgbGlzdE5hbWU9IkFmZWN0YWNpb24gZGVsIElHViIgbGlzdFVSST0idXJuOnBlOmdvYjpzdW5hdDpjcGU6c2VlOmdlbTpjYXRhbG9nb3M6Y2F0YWxvZ28wNyI+MTA8L2NiYzpUYXhFeGVtcHRpb25SZWFzb25Db2RlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlRheFNjaGVtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQgc2NoZW1lSUQ9IlVOL0VDRSA1MTUzIiBzY2hlbWVOYW1lPSJDb2RpZ28gZGUgdHJpYnV0b3MiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOlNVTkFUIj4xMDAwPC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOk5hbWU+SUdWPC9jYmM6TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4VHlwZUNvZGU+VkFUPC9jYmM6VGF4VHlwZUNvZGU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlRheFNjaGVtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4Q2F0ZWdvcnk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4U3VidG90YWw+PC9jYWM6VGF4VG90YWw+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOkl0ZW0+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpEZXNjcmlwdGlvbj48IVtDREFUQVtDYW5jaGl0YSBuYXR1cmFsXV0+PC9jYmM6RGVzY3JpcHRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpTZWxsZXJzSXRlbUlkZW50aWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEPjwhW0NEQVRBWzE5NV1dPjwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlNlbGxlcnNJdGVtSWRlbnRpZmljYXRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpDb21tb2RpdHlDbGFzc2lmaWNhdGlvbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJdGVtQ2xhc3NpZmljYXRpb25Db2RlIGxpc3RJRD0iVU5TUFNDIiBsaXN0QWdlbmN5TmFtZT0iR1MxIFVTIiBsaXN0TmFtZT0iSXRlbSBDbGFzc2lmaWNhdGlvbiI+MTAxOTE1MDk8L2NiYzpJdGVtQ2xhc3NpZmljYXRpb25Db2RlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOkNvbW1vZGl0eUNsYXNzaWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6SXRlbT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UHJpY2U+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpQcmljZUFtb3VudCBjdXJyZW5jeUlEPSJVU0QiPjMuNDQ8L2NiYzpQcmljZUFtb3VudD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlByaWNlPgogICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpJbnZvaWNlTGluZT48L0ludm9pY2U+Cg==', '', 'soap-env:Client.2017', 'El numero de documento de identidad del receptor debe ser  RUC - Detalle: xxx.xxx.xxx value=\'ticket: 1698888112947 error: INFO: 2017 (nodo: \"cac:PartyIdentification/cbc:ID\" valor: \"1210932309\")\'', 'zGaYyWqGMHBhwD4x+i1x5pAsekE=', 2, 1, 2);
+(1, 1, 1, 1, 'B001', 375, '2023-11-01', '10:11:59', '2023-11-01', 'PEN', 'Contado', NULL, 232.44, 0, 0, 41.84, 274.28, '10467291240-03-B001-375.XML', 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPEludm9pY2UgeG1sbnM6eHNpPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYS1pbnN0YW5jZSIgeG1sbnM6eHNkPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYSIgeG1sbnM6Y2FjPSJ1cm46b2FzaXM6bmFtZXM6c3BlY2lmaWNhdGlvbjp1Ymw6c2NoZW1hOnhzZDpDb21tb25BZ2dyZWdhdGVDb21wb25lbnRzLTIiIHhtbG5zOmNiYz0idXJuOm9hc2lzOm5hbWVzOnNwZWNpZmljYXRpb246dWJsOnNjaGVtYTp4c2Q6Q29tbW9uQmFzaWNDb21wb25lbnRzLTIiIHhtbG5zOmNjdHM9InVybjp1bjp1bmVjZTp1bmNlZmFjdDpkb2N1bWVudGF0aW9uOjIiIHhtbG5zOmRzPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjIiB4bWxuczpleHQ9InVybjpvYXNpczpuYW1lczpzcGVjaWZpY2F0aW9uOnVibDpzY2hlbWE6eHNkOkNvbW1vbkV4dGVuc2lvbkNvbXBvbmVudHMtMiIgeG1sbnM6cWR0PSJ1cm46b2FzaXM6bmFtZXM6c3BlY2lmaWNhdGlvbjp1Ymw6c2NoZW1hOnhzZDpRdWFsaWZpZWREYXRhdHlwZXMtMiIgeG1sbnM6dWR0PSJ1cm46dW46dW5lY2U6dW5jZWZhY3Q6ZGF0YTpzcGVjaWZpY2F0aW9uOlVucXVhbGlmaWVkRGF0YVR5cGVzU2NoZW1hTW9kdWxlOjIiIHhtbG5zPSJ1cm46b2FzaXM6bmFtZXM6c3BlY2lmaWNhdGlvbjp1Ymw6c2NoZW1hOnhzZDpJbnZvaWNlLTIiPgogICAgICAgICAgICAgICAgICAgIDxleHQ6VUJMRXh0ZW5zaW9ucz4KICAgICAgICAgICAgICAgICAgICAgICAgPGV4dDpVQkxFeHRlbnNpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZXh0OkV4dGVuc2lvbkNvbnRlbnQ+PGRzOlNpZ25hdHVyZSBJZD0iU2lnbmF0dXJlU1AiPjxkczpTaWduZWRJbmZvPjxkczpDYW5vbmljYWxpemF0aW9uTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvVFIvMjAwMS9SRUMteG1sLWMxNG4tMjAwMTAzMTUiLz48ZHM6U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGExIi8+PGRzOlJlZmVyZW5jZSBVUkk9IiI+PGRzOlRyYW5zZm9ybXM+PGRzOlRyYW5zZm9ybSBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvMDkveG1sZHNpZyNlbnZlbG9wZWQtc2lnbmF0dXJlIi8+PC9kczpUcmFuc2Zvcm1zPjxkczpEaWdlc3RNZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjc2hhMSIvPjxkczpEaWdlc3RWYWx1ZT43MEhlVkZyTHNHTHNyWTEweHVlaEg2MzJGb3c9PC9kczpEaWdlc3RWYWx1ZT48L2RzOlJlZmVyZW5jZT48L2RzOlNpZ25lZEluZm8+PGRzOlNpZ25hdHVyZVZhbHVlPkU4b05udW1KZkdqWWxYN0lIdzdtSzdEcVNkdkwxSEVMcUladkRNVnBuK2d6eTFSL2VSL3cra0xnUUFTRHhSYjFheDNuVThpbkp5QUE1QU95cW55OUFXRk1aL080UXU0SU5ZZFN2SVZ4R3hzclVjanE5MWJOblhjbU93ZVJQZkgwbTRKWWQ1bGNUeWZ4bG10eEVGL0ZBZ3BwVnNOZVZLLzNVUzlmVHNSMGt5VGxaWnRVVUpwZFI0dlBwVjlab28wNHZHQTNXUXc4MmROcjJYZVdXZElRdXRkZDFzd3B5U2hQeHAraDVQLzc4d0dCdlIzVkxCcXhUV2liQ0NEU1ZacWVMRXdncXFzQUlVWVArOFVqSnE5UGNoNDM4TU5GbFRRbFA1WTFZZGRrSXJOeW1yVVBoTFR5VVoxY2NNNExubkxxVmd2TTVyb3M5Y213N01wUXlxMVlaUT09PC9kczpTaWduYXR1cmVWYWx1ZT48ZHM6S2V5SW5mbz48ZHM6WDUwOURhdGE+PGRzOlg1MDlDZXJ0aWZpY2F0ZT5NSUlGQ0RDQ0EvQ2dBd0lCQWdJSkFJSCtMeDBORnRVU01BMEdDU3FHU0liM0RRRUJDd1VBTUlJQkRURWJNQmtHQ2dtU0pvbVQ4aXhrQVJrV0MweE1RVTFCTGxCRklGTkJNUXN3Q1FZRFZRUUdFd0pRUlRFTk1Bc0dBMVVFQ0F3RVRFbE5RVEVOTUFzR0ExVUVCd3dFVEVsTlFURVlNQllHQTFVRUNnd1BWRlVnUlUxUVVrVlRRU0JUTGtFdU1VVXdRd1lEVlFRTEREeEVUa2tnT1RrNU9UazVPU0JTVlVNZ01qQTBPREEyTnpRME1UUWdMU0JEUlZKVVNVWkpRMEZFVHlCUVFWSkJJRVJGVFU5VFZGSkJRMG5EazA0eFJEQkNCZ05WQkFNTU8wNVBUVUpTUlNCU1JWQlNSVk5GVGxSQlRsUkZJRXhGUjBGTUlDMGdRMFZTVkVsR1NVTkJSRThnVUVGU1FTQkVSVTFQVTFSU1FVTkp3NU5PTVJ3d0dnWUpLb1pJaHZjTkFRa0JGZzFrWlcxdlFHeHNZVzFoTG5CbE1CNFhEVEl6TVRBeU1ESXhNelV3TlZvWERUSTFNVEF4T1RJeE16VXdOVm93Z2dFTk1Sc3dHUVlLQ1pJbWlaUHlMR1FCR1JZTFRFeEJUVUV1VUVVZ1UwRXhDekFKQmdOVkJBWVRBbEJGTVEwd0N3WURWUVFJREFSTVNVMUJNUTB3Q3dZRFZRUUhEQVJNU1UxQk1SZ3dGZ1lEVlFRS0RBOVVWU0JGVFZCU1JWTkJJRk11UVM0eFJUQkRCZ05WQkFzTVBFUk9TU0E1T1RrNU9UazVJRkpWUXlBeU1EUTRNRFkzTkRReE5DQXRJRU5GVWxSSlJrbERRVVJQSUZCQlVrRWdSRVZOVDFOVVVrRkRTY09UVGpGRU1FSUdBMVVFQXd3N1RrOU5RbEpGSUZKRlVGSkZVMFZPVkVGT1ZFVWdURVZIUVV3Z0xTQkRSVkpVU1VaSlEwRkVUeUJRUVZKQklFUkZUVTlUVkZKQlEwbkRrMDR4SERBYUJna3Foa2lHOXcwQkNRRVdEV1JsYlc5QWJHeGhiV0V1Y0dVd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUURkb2RndUlnaWtYZFBrSk5ScUtXWVRBZkRmZmdxU3VKOE42VGNqZFZMaGNzWnBNaHVIdjdOWmVpSE45ZTg4QU1EMTNrVGNlblFOMFc2ckx4Y3VRTHpPUll0TjZOZlY4ZmlCb3VpdXA0cnUzb3AvcnlIQXd5ZEVTU2pXQnhjRWM0M1dkMWVraWYvWVAvU2hNS2RQOUNGcDJ1aEJTRVZsQ25hMTM4dysyUEVsTjJqSlQwNVBmU284QWFranZvUjNHbzhtMmpnOGNZMHRWWDBJWkZxUE9zMkkrVkxqMFZia3hleGpjNE5CdVYxMVhnZGx2bmJnMHFrSi9aOXFqblJPVlg2NmptajNldGkxWDg1TUpQWi9qejl6TUkrby81SFZSTkJRRW5kbGtCblJ4UlY5UXVKSFVHWVpjSzRrWGZXUHZqUDBrUTdpWk56c0REaG5uRXgwcnFYZEFnTUJBQUdqWnpCbE1CMEdBMVVkRGdRV0JCU3U2VXZaKy9zOU1maFhwQzB2UXpwOExRQ3orVEFmQmdOVkhTTUVHREFXZ0JTdTZVdlorL3M5TWZoWHBDMHZRenA4TFFDeitUQVRCZ05WSFNVRUREQUtCZ2dyQmdFRkJRY0RBVEFPQmdOVkhROEJBZjhFQkFNQ0I0QXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBSWhYN3pCbENKS2NVT2R4UHJ5RVJ5VGl3Y3Iyb3E0TWdpVVdmc2gxaDJYWm5uVHJUMHFtM3k5b0FMSThtMnZvc25IZUs5Q3ZuWjlZcW5LSnBlNitSMlFKcHUyOUxnWGNBQnl1YzQ3dkl2aUVHU2wzUi9EWFpNb1M0QWVPSE80aFFMMm9hcm5LVFUweGNQdzg1dDlBblR0bGVPSmwyV1RlYmNIRnlDVmhKQXlGdDZmd3pQN05heDlLYU11Nmk1eHBOOVpRK1NlNG1Ec2E4R2hWWHBzc0gwMXU1Z1o3UTNXY3NXN1pmb0N0dFlGTWVRYXp2Vk8xTkp5bnROcW1tQUZqSXN0bzgrWUwyLzJvVHg0Y3VjT1BvcUNvdXVFMjl6M0szMGVYRUpBOWhaSVpna0RwWlptSTBSNGpVc2h4bTFxeEl3dUJITEdQdnQvSFEyZlFlYVhEQUFRPTwvZHM6WDUwOUNlcnRpZmljYXRlPjwvZHM6WDUwOURhdGE+PC9kczpLZXlJbmZvPjwvZHM6U2lnbmF0dXJlPjwvZXh0OkV4dGVuc2lvbkNvbnRlbnQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvZXh0OlVCTEV4dGVuc2lvbj4KICAgICAgICAgICAgICAgICAgICA8L2V4dDpVQkxFeHRlbnNpb25zPgogICAgICAgICAgICAgICAgICAgIDxjYmM6VUJMVmVyc2lvbklEPjIuMTwvY2JjOlVCTFZlcnNpb25JRD4KICAgICAgICAgICAgICAgICAgICA8Y2JjOkN1c3RvbWl6YXRpb25JRCBzY2hlbWVBZ2VuY3lOYW1lPSJQRTpTVU5BVCI+Mi4wPC9jYmM6Q3VzdG9taXphdGlvbklEPgogICAgICAgICAgICAgICAgICAgIDxjYmM6UHJvZmlsZUlEIHNjaGVtZU5hbWU9IlRpcG8gZGUgT3BlcmFjaW9uIiBzY2hlbWVBZ2VuY3lOYW1lPSJQRTpTVU5BVCIgc2NoZW1lVVJJPSJ1cm46cGU6Z29iOnN1bmF0OmNwZTpzZWU6Z2VtOmNhdGFsb2dvczpjYXRhbG9nbzE3Ij4wMTAxPC9jYmM6UHJvZmlsZUlEPgogICAgICAgICAgICAgICAgICAgIDxjYmM6SUQ+QjAwMS0zNzU8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICA8Y2JjOklzc3VlRGF0ZT4yMDIzLTExLTAxPC9jYmM6SXNzdWVEYXRlPgogICAgICAgICAgICAgICAgICAgIDxjYmM6SXNzdWVUaW1lPjEwOjExOjU5PC9jYmM6SXNzdWVUaW1lPgogICAgICAgICAgICAgICAgICAgIDxjYmM6RHVlRGF0ZT4yMDIzLTExLTAxPC9jYmM6RHVlRGF0ZT4KICAgICAgICAgICAgICAgICAgICA8Y2JjOkludm9pY2VUeXBlQ29kZSBsaXN0QWdlbmN5TmFtZT0iUEU6U1VOQVQiIGxpc3ROYW1lPSJUaXBvIGRlIERvY3VtZW50byIgbGlzdFVSST0idXJuOnBlOmdvYjpzdW5hdDpjcGU6c2VlOmdlbTpjYXRhbG9nb3M6Y2F0YWxvZ28wMSIgbGlzdElEPSIwMTAxIiBuYW1lPSJUaXBvIGRlIE9wZXJhY2lvbiI+MDM8L2NiYzpJbnZvaWNlVHlwZUNvZGU+CiAgICAgICAgICAgICAgICAgICAgPGNiYzpEb2N1bWVudEN1cnJlbmN5Q29kZSBsaXN0SUQ9IklTTyA0MjE3IEFscGhhIiBsaXN0TmFtZT0iQ3VycmVuY3kiIGxpc3RBZ2VuY3lOYW1lPSJVbml0ZWQgTmF0aW9ucyBFY29ub21pYyBDb21taXNzaW9uIGZvciBFdXJvcGUiPlBFTjwvY2JjOkRvY3VtZW50Q3VycmVuY3lDb2RlPgogICAgICAgICAgICAgICAgICAgIDxjYmM6TGluZUNvdW50TnVtZXJpYz4xPC9jYmM6TGluZUNvdW50TnVtZXJpYz4KICAgICAgICAgICAgICAgICAgICA8Y2FjOlNpZ25hdHVyZT4KICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRD5CMDAxLTM3NTwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlNpZ25hdG9yeVBhcnR5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpQYXJ0eUlkZW50aWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQ+MTA0NjcyOTEyNDA8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5SWRlbnRpZmljYXRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOk5hbWU+PCFbQ0RBVEFbM0QgSU5WRVJTSU9ORVMgWSBTRVJWSUNJT1MgR0VORVJBTEVTIEUuSS5SLkwuCV1dPjwvY2JjOk5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpQYXJ0eU5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlNpZ25hdG9yeVBhcnR5PgogICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOkRpZ2l0YWxTaWduYXR1cmVBdHRhY2htZW50PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpFeHRlcm5hbFJlZmVyZW5jZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlVSST4jU2lnbmF0dXJlU1A8L2NiYzpVUkk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpFeHRlcm5hbFJlZmVyZW5jZT4KICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6RGlnaXRhbFNpZ25hdHVyZUF0dGFjaG1lbnQ+CiAgICAgICAgICAgICAgICAgICAgPC9jYWM6U2lnbmF0dXJlPgogICAgICAgICAgICAgICAgICAgIDxjYWM6QWNjb3VudGluZ1N1cHBsaWVyUGFydHk+CiAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UGFydHk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5SWRlbnRpZmljYXRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRCBzY2hlbWVJRD0iNiIgc2NoZW1lTmFtZT0iRG9jdW1lbnRvIGRlIElkZW50aWRhZCIgc2NoZW1lQWdlbmN5TmFtZT0iUEU6U1VOQVQiIHNjaGVtZVVSST0idXJuOnBlOmdvYjpzdW5hdDpjcGU6c2VlOmdlbTpjYXRhbG9nb3M6Y2F0YWxvZ28wNiI+MTA0NjcyOTEyNDA8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5SWRlbnRpZmljYXRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOk5hbWU+PCFbQ0RBVEFbM0QgSU5WRVJTSU9ORVMgWSBTRVJWSUNJT1MgR0VORVJBTEVTIEUuSS5SLkwuCV1dPjwvY2JjOk5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpQYXJ0eU5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5VGF4U2NoZW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6UmVnaXN0cmF0aW9uTmFtZT48IVtDREFUQVszRCBJTlZFUlNJT05FUyBZIFNFUlZJQ0lPUyBHRU5FUkFMRVMgRS5JLlIuTC4JXV0+PC9jYmM6UmVnaXN0cmF0aW9uTmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkNvbXBhbnlJRCBzY2hlbWVJRD0iNiIgc2NoZW1lTmFtZT0iU1VOQVQ6SWRlbnRpZmljYWRvciBkZSBEb2N1bWVudG8gZGUgSWRlbnRpZGFkIiBzY2hlbWVBZ2VuY3lOYW1lPSJQRTpTVU5BVCIgc2NoZW1lVVJJPSJ1cm46cGU6Z29iOnN1bmF0OmNwZTpzZWU6Z2VtOmNhdGFsb2dvczpjYXRhbG9nbzA2Ij4xMDQ2NzI5MTI0MDwvY2JjOkNvbXBhbnlJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlRheFNjaGVtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZUlEPSI2IiBzY2hlbWVOYW1lPSJTVU5BVDpJZGVudGlmaWNhZG9yIGRlIERvY3VtZW50byBkZSBJZGVudGlkYWQiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOlNVTkFUIiBzY2hlbWVVUkk9InVybjpwZTpnb2I6c3VuYXQ6Y3BlOnNlZTpnZW06Y2F0YWxvZ29zOmNhdGFsb2dvMDYiPjEwNDY3MjkxMjQwPC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4U2NoZW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UGFydHlUYXhTY2hlbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5TGVnYWxFbnRpdHk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpSZWdpc3RyYXRpb25OYW1lPjwhW0NEQVRBWzNEIElOVkVSU0lPTkVTIFkgU0VSVklDSU9TIEdFTkVSQUxFUyBFLkkuUi5MLgldXT48L2NiYzpSZWdpc3RyYXRpb25OYW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UmVnaXN0cmF0aW9uQWRkcmVzcz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZU5hbWU9IlViaWdlb3MiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOklORUkiPjE1MDEwNDwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6QWRkcmVzc1R5cGVDb2RlIGxpc3RBZ2VuY3lOYW1lPSJQRTpTVU5BVCIgbGlzdE5hbWU9IkVzdGFibGVjaW1pZW50b3MgYW5leG9zIj4wMDAwPC9jYmM6QWRkcmVzc1R5cGVDb2RlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6Q2l0eU5hbWU+PCFbQ0RBVEFbTElNQV1dPjwvY2JjOkNpdHlOYW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6Q291bnRyeVN1YmVudGl0eT48IVtDREFUQVtMSU1BXV0+PC9jYmM6Q291bnRyeVN1YmVudGl0eT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkRpc3RyaWN0PjwhW0NEQVRBW0JBUlJBTkNPXV0+PC9jYmM6RGlzdHJpY3Q+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpBZGRyZXNzTGluZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpMaW5lPjwhW0NEQVRBW0NBTExFIEJVRU5BVkVOVFVSQSBBR1VJUlJFIDMwMiBdXT48L2NiYzpMaW5lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOkFkZHJlc3NMaW5lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6Q291bnRyeT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJZGVudGlmaWNhdGlvbkNvZGUgbGlzdElEPSJJU08gMzE2Ni0xIiBsaXN0QWdlbmN5TmFtZT0iVW5pdGVkIE5hdGlvbnMgRWNvbm9taWMgQ29tbWlzc2lvbiBmb3IgRXVyb3BlIiBsaXN0TmFtZT0iQ291bnRyeSI+UEU8L2NiYzpJZGVudGlmaWNhdGlvbkNvZGU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6Q291bnRyeT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpSZWdpc3RyYXRpb25BZGRyZXNzPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UGFydHlMZWdhbEVudGl0eT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6Q29udGFjdD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOk5hbWU+PCFbQ0RBVEFbXV0+PC9jYmM6TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOkNvbnRhY3Q+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5PgogICAgICAgICAgICAgICAgICAgIDwvY2FjOkFjY291bnRpbmdTdXBwbGllclBhcnR5PgogICAgICAgICAgICAgICAgICAgIDxjYWM6QWNjb3VudGluZ0N1c3RvbWVyUGFydHk+CiAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UGFydHk+CiAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UGFydHlJZGVudGlmaWNhdGlvbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQgc2NoZW1lSUQ9IjAiIHNjaGVtZU5hbWU9IkRvY3VtZW50byBkZSBJZGVudGlkYWQiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOlNVTkFUIiBzY2hlbWVVUkk9InVybjpwZTpnb2I6c3VuYXQ6Y3BlOnNlZTpnZW06Y2F0YWxvZ29zOmNhdGFsb2dvMDYiPjk5OTk5OTk5PC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5SWRlbnRpZmljYXRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UGFydHlOYW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpOYW1lPjwhW0NEQVRBW0NMSUVOVEVTIFZBUklPU11dPjwvY2JjOk5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpQYXJ0eVRheFNjaGVtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6UmVnaXN0cmF0aW9uTmFtZT48IVtDREFUQVtDTElFTlRFUyBWQVJJT1NdXT48L2NiYzpSZWdpc3RyYXRpb25OYW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpDb21wYW55SUQgc2NoZW1lSUQ9IjAiIHNjaGVtZU5hbWU9IlNVTkFUOklkZW50aWZpY2Fkb3IgZGUgRG9jdW1lbnRvIGRlIElkZW50aWRhZCIgc2NoZW1lQWdlbmN5TmFtZT0iUEU6U1VOQVQiIHNjaGVtZVVSST0idXJuOnBlOmdvYjpzdW5hdDpjcGU6c2VlOmdlbTpjYXRhbG9nb3M6Y2F0YWxvZ28wNiI+OTk5OTk5OTk8L2NiYzpDb21wYW55SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlRheFNjaGVtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZUlEPSIwIiBzY2hlbWVOYW1lPSJTVU5BVDpJZGVudGlmaWNhZG9yIGRlIERvY3VtZW50byBkZSBJZGVudGlkYWQiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOlNVTkFUIiBzY2hlbWVVUkk9InVybjpwZTpnb2I6c3VuYXQ6Y3BlOnNlZTpnZW06Y2F0YWxvZ29zOmNhdGFsb2dvMDYiPjk5OTk5OTk5PC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpUYXhTY2hlbWU+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlBhcnR5VGF4U2NoZW1lPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlBhcnR5TGVnYWxFbnRpdHk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlJlZ2lzdHJhdGlvbk5hbWU+PCFbQ0RBVEFbQ0xJRU5URVMgVkFSSU9TXV0+PC9jYmM6UmVnaXN0cmF0aW9uTmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UmVnaXN0cmF0aW9uQWRkcmVzcz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZU5hbWU9IlViaWdlb3MiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOklORUkiLz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkNpdHlOYW1lPjwhW0NEQVRBW11dPjwvY2JjOkNpdHlOYW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6Q291bnRyeVN1YmVudGl0eT48IVtDREFUQVtdXT48L2NiYzpDb3VudHJ5U3ViZW50aXR5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6RGlzdHJpY3Q+PCFbQ0RBVEFbXV0+PC9jYmM6RGlzdHJpY3Q+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpBZGRyZXNzTGluZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpMaW5lPjwhW0NEQVRBWy1dXT48L2NiYzpMaW5lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOkFkZHJlc3NMaW5lPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOkNvdW50cnk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SWRlbnRpZmljYXRpb25Db2RlIGxpc3RJRD0iSVNPIDMxNjYtMSIgbGlzdEFnZW5jeU5hbWU9IlVuaXRlZCBOYXRpb25zIEVjb25vbWljIENvbW1pc3Npb24gZm9yIEV1cm9wZSIgbGlzdE5hbWU9IkNvdW50cnkiLz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpDb3VudHJ5PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UmVnaXN0cmF0aW9uQWRkcmVzcz4KICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UGFydHlMZWdhbEVudGl0eT4KICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6UGFydHk+CiAgICAgICAgICAgICAgICAgICAgPC9jYWM6QWNjb3VudGluZ0N1c3RvbWVyUGFydHk+CiAgICAgICAgICAgICAgICAgICAgPGNhYzpQYXltZW50VGVybXM+CiAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRD5Gb3JtYVBhZ288L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlBheW1lbnRNZWFuc0lEPkNvbnRhZG88L2NiYzpQYXltZW50TWVhbnNJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkFtb3VudCBjdXJyZW5jeUlEPSJQRU4iPjI3NC4yODwvY2JjOkFtb3VudD4KICAgICAgICAgICAgICAgICAgICA8L2NhYzpQYXltZW50VGVybXM+CiAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhUb3RhbD4KICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhBbW91bnQgY3VycmVuY3lJRD0iUEVOIj40MS44NDwvY2JjOlRheEFtb3VudD4KICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhTdWJ0b3RhbD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4YWJsZUFtb3VudCBjdXJyZW5jeUlEPSJQRU4iPjIzMi40NDwvY2JjOlRheGFibGVBbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlRheEFtb3VudCBjdXJyZW5jeUlEPSJQRU4iPjQxLjg0PC9jYmM6VGF4QW1vdW50PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhDYXRlZ29yeT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZUlEPSJVTi9FQ0UgNTMwNSIgc2NoZW1lTmFtZT0iVGF4IENhdGVnb3J5IElkZW50aWZpZXIiIHNjaGVtZUFnZW5jeU5hbWU9IlVuaXRlZCBOYXRpb25zIEVjb25vbWljIENvbW1pc3Npb24gZm9yIEV1cm9wZSI+UzwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6VGF4U2NoZW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEIHNjaGVtZUlEPSJVTi9FQ0UgNTE1MyIgc2NoZW1lQWdlbmN5SUQ9IjYiPjEwMDA8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpOYW1lPklHVjwvY2JjOk5hbWU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4VHlwZUNvZGU+VkFUPC9jYmM6VGF4VHlwZUNvZGU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4U2NoZW1lPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4Q2F0ZWdvcnk+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlRheFN1YnRvdGFsPjwvY2FjOlRheFRvdGFsPgogICAgICAgICAgICAgICAgICAgIDxjYWM6TGVnYWxNb25ldGFyeVRvdGFsPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOkxpbmVFeHRlbnNpb25BbW91bnQgY3VycmVuY3lJRD0iUEVOIj4yMzIuNDQ8L2NiYzpMaW5lRXh0ZW5zaW9uQW1vdW50PgogICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlRheEluY2x1c2l2ZUFtb3VudCBjdXJyZW5jeUlEPSJQRU4iPjI3NC4yODwvY2JjOlRheEluY2x1c2l2ZUFtb3VudD4KICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpQYXlhYmxlQW1vdW50IGN1cnJlbmN5SUQ9IlBFTiI+Mjc0LjI4PC9jYmM6UGF5YWJsZUFtb3VudD4KICAgICAgICAgICAgICAgICAgICA8L2NhYzpMZWdhbE1vbmV0YXJ5VG90YWw+PGNhYzpJbnZvaWNlTGluZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQ+MTwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJbnZvaWNlZFF1YW50aXR5IHVuaXRDb2RlPSJOSVUiIHVuaXRDb2RlTGlzdElEPSJVTi9FQ0UgcmVjIDIwIiB1bml0Q29kZUxpc3RBZ2VuY3lOYW1lPSJVbml0ZWQgTmF0aW9ucyBFY29ub21pYyBDb21taXNzaW9uIGZvciBFdXJvcGUiPjEyPC9jYmM6SW52b2ljZWRRdWFudGl0eT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6TGluZUV4dGVuc2lvbkFtb3VudCBjdXJyZW5jeUlEPSJQRU4iPjIzMi40NDwvY2JjOkxpbmVFeHRlbnNpb25BbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlByaWNpbmdSZWZlcmVuY2U+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpBbHRlcm5hdGl2ZUNvbmRpdGlvblByaWNlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOlByaWNlQW1vdW50IGN1cnJlbmN5SUQ9IlBFTiI+MjIuODY8L2NiYzpQcmljZUFtb3VudD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpQcmljZVR5cGVDb2RlIGxpc3ROYW1lPSJUaXBvIGRlIFByZWNpbyIgbGlzdEFnZW5jeU5hbWU9IlBFOlNVTkFUIiBsaXN0VVJJPSJ1cm46cGU6Z29iOnN1bmF0OmNwZTpzZWU6Z2VtOmNhdGFsb2dvczpjYXRhbG9nbzE2Ij4wMTwvY2JjOlByaWNlVHlwZUNvZGU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6QWx0ZXJuYXRpdmVDb25kaXRpb25QcmljZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlByaWNpbmdSZWZlcmVuY2U+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlRheFRvdGFsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4QW1vdW50IGN1cnJlbmN5SUQ9IlBFTiI+NDEuODQ8L2NiYzpUYXhBbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhTdWJ0b3RhbD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhhYmxlQW1vdW50IGN1cnJlbmN5SUQ9IlBFTiI+MjMyLjQ0PC9jYmM6VGF4YWJsZUFtb3VudD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhBbW91bnQgY3VycmVuY3lJRD0iUEVOIj40MS44NDwvY2JjOlRheEFtb3VudD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpUYXhDYXRlZ29yeT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJRCBzY2hlbWVJRD0iVU4vRUNFIDUzMDUiIHNjaGVtZU5hbWU9IlRheCBDYXRlZ29yeSBJZGVudGlmaWVyIiBzY2hlbWVBZ2VuY3lOYW1lPSJVbml0ZWQgTmF0aW9ucyBFY29ub21pYyBDb21taXNzaW9uIGZvciBFdXJvcGUiPlM8L2NiYzpJRD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpQZXJjZW50PjE4PC9jYmM6UGVyY2VudD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpUYXhFeGVtcHRpb25SZWFzb25Db2RlIGxpc3RBZ2VuY3lOYW1lPSJQRTpTVU5BVCIgbGlzdE5hbWU9IkFmZWN0YWNpb24gZGVsIElHViIgbGlzdFVSST0idXJuOnBlOmdvYjpzdW5hdDpjcGU6c2VlOmdlbTpjYXRhbG9nb3M6Y2F0YWxvZ28wNyI+MTA8L2NiYzpUYXhFeGVtcHRpb25SZWFzb25Db2RlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOlRheFNjaGVtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6SUQgc2NoZW1lSUQ9IlVOL0VDRSA1MTUzIiBzY2hlbWVOYW1lPSJDb2RpZ28gZGUgdHJpYnV0b3MiIHNjaGVtZUFnZW5jeU5hbWU9IlBFOlNVTkFUIj4xMDAwPC9jYmM6SUQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOk5hbWU+SUdWPC9jYmM6TmFtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYmM6VGF4VHlwZUNvZGU+VkFUPC9jYmM6VGF4VHlwZUNvZGU+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlRheFNjaGVtZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4Q2F0ZWdvcnk+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6VGF4U3VidG90YWw+PC9jYWM6VGF4VG90YWw+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2FjOkl0ZW0+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpEZXNjcmlwdGlvbj48IVtDREFUQVtQYWlzYW5hIGV4dHJhIDVrXV0+PC9jYmM6RGVzY3JpcHRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpTZWxsZXJzSXRlbUlkZW50aWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2JjOklEPjwhW0NEQVRBWzE5NV1dPjwvY2JjOklEPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOlNlbGxlcnNJdGVtSWRlbnRpZmljYXRpb24+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNhYzpDb21tb2RpdHlDbGFzc2lmaWNhdGlvbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpJdGVtQ2xhc3NpZmljYXRpb25Db2RlIGxpc3RJRD0iVU5TUFNDIiBsaXN0QWdlbmN5TmFtZT0iR1MxIFVTIiBsaXN0TmFtZT0iSXRlbSBDbGFzc2lmaWNhdGlvbiI+MTAxOTE1MDk8L2NiYzpJdGVtQ2xhc3NpZmljYXRpb25Db2RlPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvY2FjOkNvbW1vZGl0eUNsYXNzaWZpY2F0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6SXRlbT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjYWM6UHJpY2U+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNiYzpQcmljZUFtb3VudCBjdXJyZW5jeUlEPSJQRU4iPjE5LjM3PC9jYmM6UHJpY2VBbW91bnQ+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2NhYzpQcmljZT4KICAgICAgICAgICAgICAgICAgICAgICAgPC9jYWM6SW52b2ljZUxpbmU+PC9JbnZvaWNlPgo=', 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPGFyOkFwcGxpY2F0aW9uUmVzcG9uc2UgeG1sbnM9InVybjpvYXNpczpuYW1lczpzcGVjaWZpY2F0aW9uOnVibDpzY2hlbWE6eHNkOkludm9pY2UtMiIgeG1sbnM6YXI9InVybjpvYXNpczpuYW1lczpzcGVjaWZpY2F0aW9uOnVibDpzY2hlbWE6eHNkOkFwcGxpY2F0aW9uUmVzcG9uc2UtMiIgeG1sbnM6ZXh0PSJ1cm46b2FzaXM6bmFtZXM6c3BlY2lmaWNhdGlvbjp1Ymw6c2NoZW1hOnhzZDpDb21tb25FeHRlbnNpb25Db21wb25lbnRzLTIiIHhtbG5zOmNiYz0idXJuOm9hc2lzOm5hbWVzOnNwZWNpZmljYXRpb246dWJsOnNjaGVtYTp4c2Q6Q29tbW9uQmFzaWNDb21wb25lbnRzLTIiIHhtbG5zOmNhYz0idXJuOm9hc2lzOm5hbWVzOnNwZWNpZmljYXRpb246dWJsOnNjaGVtYTp4c2Q6Q29tbW9uQWdncmVnYXRlQ29tcG9uZW50cy0yIiB4bWxuczpkcz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyIgeG1sbnM6c29hcD0iaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvc29hcC9lbnZlbG9wZS8iIHhtbG5zOmRhdGU9Imh0dHA6Ly9leHNsdC5vcmcvZGF0ZXMtYW5kLXRpbWVzIiB4bWxuczpzYWM9InVybjpzdW5hdDpuYW1lczpzcGVjaWZpY2F0aW9uOnVibDpwZXJ1OnNjaGVtYTp4c2Q6U3VuYXRBZ2dyZWdhdGVDb21wb25lbnRzLTEiIHhtbG5zOnhzPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYSIgeG1sbnM6cmVnZXhwPSJodHRwOi8vZXhzbHQub3JnL3JlZ3VsYXItZXhwcmVzc2lvbnMiPjxleHQ6VUJMRXh0ZW5zaW9ucyB4bWxucz0iIj48ZXh0OlVCTEV4dGVuc2lvbj48ZXh0OkV4dGVuc2lvbkNvbnRlbnQ+PFNpZ25hdHVyZSB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyI+CjxTaWduZWRJbmZvPgogIDxDYW5vbmljYWxpemF0aW9uTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS8xMC94bWwtZXhjLWMxNG4jV2l0aENvbW1lbnRzIi8+CiAgPFNpZ25hdHVyZU1ldGhvZCBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvMDQveG1sZHNpZy1tb3JlI3JzYS1zaGE1MTIiLz4KICA8UmVmZXJlbmNlIFVSST0iIj4KICAgIDxUcmFuc2Zvcm1zPgogICAgICA8VHJhbnNmb3JtIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI2VudmVsb3BlZC1zaWduYXR1cmUiLz4KICAgICAgPFRyYW5zZm9ybSBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvMTAveG1sLWV4Yy1jMTRuI1dpdGhDb21tZW50cyIvPgogICAgPC9UcmFuc2Zvcm1zPgogICAgPERpZ2VzdE1ldGhvZCBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvMDQveG1sZW5jI3NoYTUxMiIvPgogICAgPERpZ2VzdFZhbHVlPnR4VTc0d1BnV3FsNFdkaUpKLzBVYkNZZVErdVVodWp1dk5pSXBYV0FuLzNKcDUwRXNxRUNmN3hybTllWjhvZ3hvM2tGSFYvTVBYOTNKd3g4SnhIMGd3PT08L0RpZ2VzdFZhbHVlPgogIDwvUmVmZXJlbmNlPgo8L1NpZ25lZEluZm8+CiAgICA8U2lnbmF0dXJlVmFsdWU+KlByaXZhdGUga2V5ICdCZXRhUHVibGljQ2VydCcgbm90IHVwKjwvU2lnbmF0dXJlVmFsdWU+PEtleUluZm8+PFg1MDlEYXRhPjxYNTA5Q2VydGlmaWNhdGU+Kk5hbWVkIGNlcnRpZmljYXRlICdCZXRhUHJpdmF0ZUtleScgbm90IHVwKjwvWDUwOUNlcnRpZmljYXRlPjxYNTA5SXNzdWVyU2VyaWFsPjxYNTA5SXNzdWVyTmFtZT4qTmFtZWQgY2VydGlmaWNhdGUgJ0JldGFQcml2YXRlS2V5JyBub3QgdXAqPC9YNTA5SXNzdWVyTmFtZT48WDUwOVNlcmlhbE51bWJlcj4qTmFtZWQgY2VydGlmaWNhdGUgJ0JldGFQcml2YXRlS2V5JyBub3QgdXAqPC9YNTA5U2VyaWFsTnVtYmVyPjwvWDUwOUlzc3VlclNlcmlhbD48L1g1MDlEYXRhPjwvS2V5SW5mbz48L1NpZ25hdHVyZT48L2V4dDpFeHRlbnNpb25Db250ZW50PjwvZXh0OlVCTEV4dGVuc2lvbj48L2V4dDpVQkxFeHRlbnNpb25zPjxjYmM6VUJMVmVyc2lvbklEPjIuMDwvY2JjOlVCTFZlcnNpb25JRD48Y2JjOkN1c3RvbWl6YXRpb25JRD4xLjA8L2NiYzpDdXN0b21pemF0aW9uSUQ+PGNiYzpJRD4xNjk4ODkxNDQ5ODUyPC9jYmM6SUQ+PGNiYzpJc3N1ZURhdGU+MjAyMy0xMS0wMVQxMDoxMTo1OTwvY2JjOklzc3VlRGF0ZT48Y2JjOklzc3VlVGltZT4wMDowMDowMDwvY2JjOklzc3VlVGltZT48Y2JjOlJlc3BvbnNlRGF0ZT4yMDIzLTExLTAxPC9jYmM6UmVzcG9uc2VEYXRlPjxjYmM6UmVzcG9uc2VUaW1lPjIyOjE3OjI5PC9jYmM6UmVzcG9uc2VUaW1lPjxjYWM6U2lnbmF0dXJlPjxjYmM6SUQ+U2lnblNVTkFUPC9jYmM6SUQ+PGNhYzpTaWduYXRvcnlQYXJ0eT48Y2FjOlBhcnR5SWRlbnRpZmljYXRpb24+PGNiYzpJRD4yMDEzMTMxMjk1NTwvY2JjOklEPjwvY2FjOlBhcnR5SWRlbnRpZmljYXRpb24+PGNhYzpQYXJ0eU5hbWU+PGNiYzpOYW1lPlNVTkFUPC9jYmM6TmFtZT48L2NhYzpQYXJ0eU5hbWU+PC9jYWM6U2lnbmF0b3J5UGFydHk+PGNhYzpEaWdpdGFsU2lnbmF0dXJlQXR0YWNobWVudD48Y2FjOkV4dGVybmFsUmVmZXJlbmNlPjxjYmM6VVJJPiNTaWduU1VOQVQ8L2NiYzpVUkk+PC9jYWM6RXh0ZXJuYWxSZWZlcmVuY2U+PC9jYWM6RGlnaXRhbFNpZ25hdHVyZUF0dGFjaG1lbnQ+PC9jYWM6U2lnbmF0dXJlPjxjYWM6U2VuZGVyUGFydHk+PGNhYzpQYXJ0eUlkZW50aWZpY2F0aW9uPjxjYmM6SUQ+MjAxMzEzMTI5NTU8L2NiYzpJRD48L2NhYzpQYXJ0eUlkZW50aWZpY2F0aW9uPjwvY2FjOlNlbmRlclBhcnR5PjxjYWM6UmVjZWl2ZXJQYXJ0eT48Y2FjOlBhcnR5SWRlbnRpZmljYXRpb24+PGNiYzpJRD4xMDQ2NzI5MTI0MDwvY2JjOklEPjwvY2FjOlBhcnR5SWRlbnRpZmljYXRpb24+PC9jYWM6UmVjZWl2ZXJQYXJ0eT48Y2FjOkRvY3VtZW50UmVzcG9uc2U+PGNhYzpSZXNwb25zZT48Y2JjOlJlZmVyZW5jZUlEPkIwMDEtMzc1PC9jYmM6UmVmZXJlbmNlSUQ+PGNiYzpSZXNwb25zZUNvZGU+MDwvY2JjOlJlc3BvbnNlQ29kZT48Y2JjOkRlc2NyaXB0aW9uPkxhIEJvbGV0YSBudW1lcm8gQjAwMS0zNzUsIGhhIHNpZG8gYWNlcHRhZGE8L2NiYzpEZXNjcmlwdGlvbj48L2NhYzpSZXNwb25zZT48Y2FjOkRvY3VtZW50UmVmZXJlbmNlPjxjYmM6SUQ+QjAwMS0zNzU8L2NiYzpJRD48L2NhYzpEb2N1bWVudFJlZmVyZW5jZT48Y2FjOlJlY2lwaWVudFBhcnR5PjxjYWM6UGFydHlJZGVudGlmaWNhdGlvbj48Y2JjOklEPjYtOTk5OTk5OTk8L2NiYzpJRD48L2NhYzpQYXJ0eUlkZW50aWZpY2F0aW9uPjwvY2FjOlJlY2lwaWVudFBhcnR5PjwvY2FjOkRvY3VtZW50UmVzcG9uc2U+PC9hcjpBcHBsaWNhdGlvblJlc3BvbnNlPg==', '', 'La Boleta numero B001-375, ha sido aceptada', '70HeVFrLsGLsrY10xuehH632Fow=', 1, 1, 2);
 
 --
 -- Índices para tablas volcadas
@@ -1471,13 +1978,13 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `cuotas`
@@ -1489,13 +1996,13 @@ ALTER TABLE `cuotas`
 -- AUTO_INCREMENT de la tabla `detalle_compra`
 --
 ALTER TABLE `detalle_compra`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `empresas`
@@ -1513,7 +2020,7 @@ ALTER TABLE `forma_pago`
 -- AUTO_INCREMENT de la tabla `kardex`
 --
 ALTER TABLE `kardex`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT de la tabla `modulos`
@@ -1525,7 +2032,7 @@ ALTER TABLE `modulos`
 -- AUTO_INCREMENT de la tabla `movimientos_arqueo_caja`
 --
 ALTER TABLE `movimientos_arqueo_caja`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `perfiles`
@@ -1543,7 +2050,7 @@ ALTER TABLE `perfil_modulo`
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `resumenes`
@@ -1591,7 +2098,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
