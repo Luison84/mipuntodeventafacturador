@@ -1313,12 +1313,12 @@ class VentasModelo
     static public function mdlObtenerCuotasPorIdVenta($id_venta)
     {
 
-        $stmt = Conexion::conectar()->prepare("select id, 
+        $stmt = Conexion::conectar()->prepare("SELECT id, 
                                                 id_venta, 
                                                 cuota, 
-                                                importe, 
-                                                saldo_pendiente, 
-                                                cuota_pagada, 
+                                                round(importe,2) as  importe,
+                                                round(saldo_pendiente,2) as saldo_pendiente,
+                                                case when cuota_pagada = 0 then 'NO' else 'SI' end as cuota_pagada, 
                                                 fecha_vencimiento, 
                                                 estado
                                         from cuotas c
