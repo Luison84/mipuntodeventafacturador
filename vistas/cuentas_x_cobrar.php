@@ -69,7 +69,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                         <input type="text" class="form-control form-control-sm" id="importe_a_pagar" name="importe_a_pagar" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                     </div>
 
-                    <div class="col-lg-8 text-left d-flex align-items-center">
+                    <div class="col-lg-8 text-left d-flex align-items-end">
                         <a class="btn btn-sm btn-success  fw-bold w-25" id="" style="position: relative;">
                             <span class="text-button">PAGAR</span>
                             <span class="btn fw-bold icon-btn-success d-flex align-items-center">
