@@ -526,10 +526,8 @@
 
 
     <!-- FILA PARA IMAGEN DEL GIF -->
-    <div class="row mx-0" style="display: absolute;">
-        <div class="col-lg-12 mx-0 text-center d-block" id="img_carga">
-            <img src="vistas/assets/imagenes/loading.gif">
-        </div>
+    <div class="col-lg-12 mx-0 text-center d-block" style="display: absolute;" id="img_carga">
+        <img src="vistas/assets/imagenes/loading.gif">
     </div>
 
 </div>
