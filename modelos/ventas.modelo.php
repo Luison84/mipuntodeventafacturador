@@ -1336,6 +1336,7 @@ class VentasModelo
     {
 
         $id_usuario = $_SESSION["usuario"]->id_usuario;
+        var_dump($id_usuario);
         $dbh = Conexion::conectar();
 
         try {
