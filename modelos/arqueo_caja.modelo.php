@@ -77,7 +77,7 @@ class ArqueoCajaModelo
                                                             from movimientos_arqueo_caja x
                                                             where x.id_arqueo_caja = ac.id
                                                             and x.id_tipo_movimiento = 3
-                                                            and UPPER(x.descripcion) like '%CONTADO%'),2) as ingresos_efectivo,
+                                                            and (UPPER(x.descripcion) like '%CONTADO%' or UPPER(x.descripcion) like '%PAGO%'),2) as ingresos_efectivo,
                                                     round((select sum(ifnull(x.monto,0)) 
                                                             from movimientos_arqueo_caja x
                                                             where x.id_arqueo_caja = ac.id
