@@ -883,8 +883,7 @@ M O D A L   C I E R R E   D E   C A J A
                     //     $("#"+data.id).remove();
                     //     $("#tbl_movimientos_devoluciones").DataTable().ajax.reload;
                     // }
-                    if (data.action == "edit") {
-                        alert("entro")
+                    if (data.action == "edit") {                        
                         mensajeToast("success", "Se actualizó la Devolución")
                         fnc_ObtenerEstadoCajaPorDia();
                         $("#tbl_movimientos_devoluciones").DataTable().ajax.reload();
