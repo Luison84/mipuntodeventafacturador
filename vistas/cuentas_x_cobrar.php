@@ -225,9 +225,10 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                 url: 'ajax/ventas.ajax.php',
                 dataSrc: function(json) {
                     for (let index = 0; index < json.length; index++) {
-                        const element = array[index];
+                        const element = arjsonray[index];
                         console.log("🚀 ~ file: cuentas_x_cobrar.php:227 ~ fnc_CargarDataTableCuotas ~ json:", element)
                     }
+
                     
                     return json;
                 },
