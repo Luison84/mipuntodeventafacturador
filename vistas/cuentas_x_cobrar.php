@@ -70,7 +70,13 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                         <input type="text" class="form-control form-control-sm" id="importe_a_pagar" name="importe_a_pagar" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                     </div>
 
-                    <div class="col-lg-9 text-right col-lg-8 text-right d-flex align-items-end justify-content-end">
+                    <div class="col-lg-3">
+                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-money-bill-alt mr-1 my-text-color"></i>Saldo Pendiente</label>
+                        <input type="text" class="form-control form-control-sm" id="saldo_pendiente" aria-label="Small" aria-describedby="inputGroup-sizing-sm" readonly>
+                    </div>
+
+
+                    <div class="col-lg-6 text-right d-flex align-items-end justify-content-end">
                         <a class="btn btn-sm btn-success  fw-bold w-25" id="btnPagar" style="position: relative;">
                             <span class="text-button">PAGAR</span>
                             <span class="btn fw-bold icon-btn-success d-flex align-items-center">
@@ -130,7 +136,11 @@ MODAL MOSTRAR DETALLE DE CUOTAS
         $('#mdlCuotas').on('hidden.bs.modal', function(e) {
             fnc_CargarDataTableFacturasPorCobrar();
             $("#id_venta").val(0);
+
+            fnc_CalcularSaldoPendiente();
+
             $("#importe_a_pagar").val('')
+            $("#saldo_pendiente").val('')
         })
     })
 
@@ -235,7 +245,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
             v_saldo_pendiente = v_saldo_pendiente + data["4"]
         })
 
-        if(parseFloat($("#importe_a_pagar").val()) > parseFloat(v_saldo_pendiente)){
+        if (parseFloat($("#importe_a_pagar").val()) > parseFloat(v_saldo_pendiente)) {
             mensajeToast("error", "El importe a pagar supera el saldo pendiente");
             return;
         }
@@ -262,7 +272,8 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                 response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
 
                 fnc_CargarDataTableCuotas($("#id_venta").val());
-                $("#importe_a_pagar").val('')
+                $("#importe_a_pagar").val('');
+                fnc_CalcularSaldoPendiente();
 
                 Swal.fire({
                     position: 'top-center',
@@ -273,5 +284,18 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
             }
         })
+    }
+
+    function fnc_CalcularSaldoPendiente() {
+
+        $('#tbl_cuotas_factura').DataTable().rows().eq(0).each(function(index) {
+
+            var row = $('#tbl_cuotas_factura').DataTable().row(index);
+            var data = row.data();
+
+            v_saldo_pendiente = v_saldo_pendiente + data["4"]
+        })
+
+        $("#saldo_pendiente").val(v_saldo_pendiente);
     }
 </script>
