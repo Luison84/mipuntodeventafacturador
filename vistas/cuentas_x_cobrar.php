@@ -127,7 +127,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
         $('#tbl_facturas_x_cobrar tbody').on('click', '.btnPagarCuotas', function() {
             fnc_MostrarListadoCuotas($("#tbl_facturas_x_cobrar").DataTable().row($(this).parents('tr')).data());
-            
+
         });
 
         $("#btnPagar").on('click', function() {
@@ -148,7 +148,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
             $("#saldo_pendiente").val('')
         })
 
-        $("#btnCalcular").on('click', function() {        
+        $("#btnCalcular").on('click', function() {
             fnc_CalcularSaldoPendiente();
         });
 
@@ -204,7 +204,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
     function fnc_MostrarListadoCuotas(data) {
         $("#mdlCuotas").modal("show")
         $("#id_venta").val(data["1"]);
-        fnc_CargarDataTableCuotas(data["1"])        
+        fnc_CargarDataTableCuotas(data["1"])
     }
 
     function fnc_CargarDataTableCuotas($id_venta) {
@@ -223,7 +223,12 @@ MODAL MOSTRAR DETALLE DE CUOTAS
             pageLength: 10,
             ajax: {
                 url: 'ajax/ventas.ajax.php',
-                dataSrc: '',
+                dataSrc: function(json) {
+                    for (var i = 0, ien = json.data.length; i < ien; i++) {
+                        console.log(json.data[i][0]);
+                    }
+                    
+                },
                 data: {
                     'accion': 'obtener_cuotas_x_id_venta',
                     'id_venta': $id_venta
@@ -301,7 +306,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
         let v_saldo_pendiente = 0;
 
-        
+
         $('#tbl_cuotas_factura').DataTable().rows().eq(0).each(function(index) {
 
             var row = $('#tbl_cuotas_factura').DataTable().row(index);
