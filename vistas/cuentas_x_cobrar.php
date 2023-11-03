@@ -226,7 +226,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                 dataSrc: function(json) {
                     console.log("🚀 ~ file: cuentas_x_cobrar.php:227 ~ fnc_CargarDataTableCuotas ~ json:", json)
                     
-                    return json.data;
+                    return json;
                 },
                 data: {
                     'accion': 'obtener_cuotas_x_id_venta',
