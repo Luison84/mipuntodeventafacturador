@@ -264,6 +264,13 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                 fnc_CargarDataTableCuotas($("#id_venta").val());
                 $("#importe_a_pagar").val('')
 
+                Swal.fire({
+                    position: 'top-center',
+                    icon: response.tipo_msj,
+                    title: response.msj,
+                    showConfirmButton: true
+                })
+
             }
         })
     }
