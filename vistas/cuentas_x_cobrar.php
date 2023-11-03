@@ -66,7 +66,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
                     <input type="hidden" name="id_venta" id="id_venta" value="0">
                     <div class="col-lg-3">
-                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Importe a pagar</label>
+                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-money-bill-alt mr-1 my-text-color"></i>Importe a pagar</label>
                         <input type="text" class="form-control form-control-sm" id="importe_a_pagar" name="importe_a_pagar" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                     </div>
 
@@ -262,7 +262,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                 response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
 
                 fnc_CargarDataTableCuotas($("#id_venta").val());
-                fnc_CargarDataTableFacturasPorCobrar();
+                $("#importe_a_pagar").val('')
 
             }
         })
