@@ -502,35 +502,35 @@
     =======================================================*/
     function cargarGraficoDoughnut() {
 
-        // $.ajax({
-        //     url: "ajax/dashboard.ajax.php",
-        //     method: 'POST',
-        //     data: {
-        //         'accion': 'grafico_doughnut' //parametro para obtener las ventas del mes
-        //     },
-        //     dataType: 'json',
-        //     success: function(respuesta) {
+        $.ajax({
+            url: "ajax/dashboard.ajax.php",
+            method: 'POST',
+            data: {
+                'accion': 'grafico_doughnut' //parametro para obtener las ventas del mes
+            },
+            dataType: 'json',
+            success: function(respuesta) {
 
-        //         var chart = new CanvasJS.Chart("chartContainer", {
-        //             animationEnabled: true,
-        //             // title:{
-        //             //     text: "Email Categories",
-        //             //     horizontalAlign: "left"
-        //             // },
-        //             data: [{
-        //                 type: "doughnut",
-        //                 startAngle: 60,
-        //                 //innerRadius: 60,
-        //                 indexLabelFontSize: 17,
-        //                 indexLabel: "{label} - #percent%",
-        //                 toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-        //                 dataPoints: respuesta
-        //             }]
-        //         });
-        //         chart.render();
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    animationEnabled: true,
+                    // title:{
+                    //     text: "Email Categories",
+                    //     horizontalAlign: "left"
+                    // },
+                    data: [{
+                        type: "doughnut",
+                        startAngle: 60,
+                        //innerRadius: 60,
+                        indexLabelFontSize: 17,
+                        indexLabel: "{label} - #percent%",
+                        toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+                        dataPoints: respuesta
+                    }]
+                });
+                chart.render();
 
-        //     }
-        // });
+            }
+        });
 
         $.ajax({
             url: "ajax/dashboard.ajax.php",
