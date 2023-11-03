@@ -287,6 +287,8 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
     function fnc_CalcularSaldoPendiente() {
 
+        let v_saldo_pendiente = 0.00;
+        
         $('#tbl_cuotas_factura').DataTable().rows().eq(0).each(function(index) {
 
             var row = $('#tbl_cuotas_factura').DataTable().row(index);
