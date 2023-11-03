@@ -1335,16 +1335,18 @@ class VentasModelo
     static public function mdlPagarCuotas($id_venta, $importe_a_pagar)
     {
 
+        $id_usuario = $_SESSION["usuario"]->id_usuario;
         $dbh = Conexion::conectar();
 
         try {
 
-            $stmt = $dbh->prepare("call prc_pagar_cuotas_factura(:id_venta, :importe_a_pagar)");
+            $stmt = $dbh->prepare("call prc_pagar_cuotas_factura(:id_venta, :importe_a_pagar, :id_usuario)");
 
             $dbh->beginTransaction();
             $stmt->execute(array(
                 ':id_venta'            => $id_venta,
-                ':importe_a_pagar'     => $importe_a_pagar
+                ':importe_a_pagar'     => $importe_a_pagar,
+                ':id_usuario'          => $id_usuario
             ));
 
             $dbh->commit();
