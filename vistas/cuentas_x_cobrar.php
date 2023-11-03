@@ -72,7 +72,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
                     <div class="col-lg-3">
                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-money-bill-alt mr-1 my-text-color"></i>Saldo Pendiente</label>
-                        <input type="text" class="form-control form-control-sm" id="saldo_pendiente" aria-label="Small" aria-describedby="inputGroup-sizing-sm" readonly>
+                        <input type="text" class="form-control form-control-sm" id="saldo_pendiente" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                     </div>
 
 
