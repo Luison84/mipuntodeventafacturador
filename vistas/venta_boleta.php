@@ -31,7 +31,7 @@
 <!-- /.content-header -->
 
 <!-- Main content -->
-<div class="content">
+<div class="content" style="display: relative;">
 
     <input type="hidden" name="id_caja" id="id_caja" value="0">
 
@@ -524,15 +524,18 @@
 
     </div>
 
-</div>
 
-
-<!-- FILA PARA IMAGEN DEL GIF -->
-<div class="row mx-0">
-    <div class="col-lg-12 mx-0 text-center d-block" id="img_carga">
-        <img src="vistas/assets/imagenes/loading.gif">
+    <!-- FILA PARA IMAGEN DEL GIF -->
+    <div class="row mx-0" style="display: absolute;">
+        <div class="col-lg-12 mx-0 text-center d-block" id="img_carga">
+            <img src="vistas/assets/imagenes/loading.gif">
+        </div>
     </div>
+
 </div>
+
+
+
 
 
 <script>
