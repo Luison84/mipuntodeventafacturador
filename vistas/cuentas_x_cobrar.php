@@ -135,9 +135,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
         $('#mdlCuotas').on('hidden.bs.modal', function(e) {
             fnc_CargarDataTableFacturasPorCobrar();
-            $("#id_venta").val(0);
-
-            fnc_CalcularSaldoPendiente();
+            $("#id_venta").val(0);            
 
             $("#importe_a_pagar").val('')
             $("#saldo_pendiente").val('')
@@ -195,6 +193,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
         $("#mdlCuotas").modal("show")
         $("#id_venta").val(data["1"]);
         fnc_CargarDataTableCuotas(data["1"])
+        fnc_CalcularSaldoPendiente();
     }
 
     function fnc_CargarDataTableCuotas($id_venta) {
