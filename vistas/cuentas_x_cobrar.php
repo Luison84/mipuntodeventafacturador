@@ -234,14 +234,14 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
     function fnc_Pagar() {
 
-        let v_saldo_pendiente = 0.00;
+        let v_saldo_pendiente = 0;
 
         $('#tbl_cuotas_factura').DataTable().rows().eq(0).each(function(index) {
 
             var row = $('#tbl_cuotas_factura').DataTable().row(index);
             var data = row.data();
 
-            v_saldo_pendiente = v_saldo_pendiente + data["4"]
+            v_saldo_pendiente = v_saldo_pendiente + parseFloat(data["4"])
             console.log("🚀 ~ file: cuentas_x_cobrar.php:245 ~ $ ~ v_saldo_pendiente:", v_saldo_pendiente)
         })
 
