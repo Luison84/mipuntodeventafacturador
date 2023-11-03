@@ -289,6 +289,8 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
         let v_saldo_pendiente = 0;
 
+        alert("entro")
+
         $('#tbl_cuotas_factura').DataTable().rows().eq(0).each(function(index) {
 
             var row = $('#tbl_cuotas_factura').DataTable().row(index);
