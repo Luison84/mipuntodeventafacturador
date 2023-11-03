@@ -572,11 +572,11 @@
             fnc_ConsultarNroDocumento($("#nro_documento").val());
         })
 
-        $("#producto").on('keypress', function(e) {
-            if (e.which == 13) {
-                CargarProductos($("#producto").val());
-            }
-        });
+        // $("#producto").on('keypress', function(e) {
+        //     if (e.which == 13) {
+        //         CargarProductos($("#producto").val());
+        //     }
+        // });
 
         /* ======================================================================================
         EVENTO PARA MODIFICAR EL PRECIO DE VENTA DEL PRODUCTO

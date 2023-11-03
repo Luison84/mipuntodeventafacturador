@@ -653,11 +653,11 @@ MODAL CUOTAS DEL CREDITO
         /*===================================================================*/
 
 
-        $("#producto").on('keypress', function(e) {
-            if (e.which == 13) {
-                CargarProductos($("#producto").val());
-            }
-        });
+        // $("#producto").on('keypress', function(e) {
+        //     if (e.which == 13) {
+        //         CargarProductos($("#producto").val());
+        //     }
+        // });
 
         $("#nro_documento").on('keypress', function(e) {
             if (e.which == 13) {
