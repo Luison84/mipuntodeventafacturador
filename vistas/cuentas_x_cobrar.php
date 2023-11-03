@@ -72,19 +72,13 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
                     <div class="col-lg-3">
                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-money-bill-alt mr-1 my-text-color"></i>Saldo Pendiente</label>
-                        <input type="text" class="form-control form-control-sm" id="saldo_pendiente" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                        <input type="text" class="form-control form-control-sm" id="saldo_pendiente" aria-label="Small" aria-describedby="inputGroup-sizing-sm" readonly>
                     </div>
 
 
                     <div class="col-lg-6 text-right d-flex align-items-end justify-content-end">
                         <a class="btn btn-sm btn-success  fw-bold w-25" id="btnPagar" style="position: relative;">
                             <span class="text-button">PAGAR</span>
-                            <span class="btn fw-bold icon-btn-success d-flex align-items-center">
-                                <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
-                            </span>
-                        </a>
-                        <a class="btn btn-sm btn-success  fw-bold w-25" id="btnCalcular" style="position: relative;">
-                            <span class="text-button">CALCULAR</span>
                             <span class="btn fw-bold icon-btn-success d-flex align-items-center">
                                 <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
                             </span>
@@ -228,7 +222,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                     let saldo_pendiente = 0;
 
                     for (let index = 0; index < json.length; index++) {
-                        saldo_pendiente = saldo_pendiente + json[index]["saldo_pendiente"]
+                        saldo_pendiente = saldo_pendiente + parseFloat(json[index]["saldo_pendiente"])
                     }
 
                     $("#saldo_pendiente").val(saldo_pendiente);
