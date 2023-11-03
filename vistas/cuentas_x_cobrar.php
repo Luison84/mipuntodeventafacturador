@@ -225,7 +225,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                         saldo_pendiente = saldo_pendiente + parseFloat(json[index]["saldo_pendiente"])
                     }
 
-                    $("#saldo_pendiente").val(saldo_pendiente);
+                    $("#saldo_pendiente").val(parseFloat(saldo_pendiente).toFixed(2));
                     return json;
                 },
                 data: {
