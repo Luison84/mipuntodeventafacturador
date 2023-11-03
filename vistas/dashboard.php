@@ -230,7 +230,7 @@
 
                         <div class="chart">
 
-                            <div id="chartContainer" style="min-height: 250px; height: 300px; max-height: 350px; width: 100%;"></div>
+                            <div id="chartContainerFacturasBoletas" style="min-height: 250px; height: 300px; max-height: 350px; width: 100%;"></div>
 
                         </div>
 
@@ -541,7 +541,7 @@
             dataType: 'json',
             success: function(respuesta) {
 
-                var chart = new CanvasJS.Chart("chartContainer", {
+                var chart = new CanvasJS.Chart("chartContainerFacturasBoletas", {
                     animationEnabled: true,
                     // title:{
                     //     text: "Email Categories",
