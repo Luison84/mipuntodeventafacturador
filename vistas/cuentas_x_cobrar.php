@@ -83,6 +83,12 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                                 <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
                             </span>
                         </a>
+                        <a class="btn btn-sm btn-success  fw-bold w-25" id="btnCalcular" style="position: relative;">
+                            <span class="text-button">CALCULAR</span>
+                            <span class="btn fw-bold icon-btn-success d-flex align-items-center">
+                                <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
+                            </span>
+                        </a>
                     </div>
 
 
@@ -121,7 +127,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
         $('#tbl_facturas_x_cobrar tbody').on('click', '.btnPagarCuotas', function() {
             fnc_MostrarListadoCuotas($("#tbl_facturas_x_cobrar").DataTable().row($(this).parents('tr')).data());
-            fnc_CalcularSaldoPendiente();
+            
         });
 
         $("#btnPagar").on('click', function() {
@@ -141,6 +147,11 @@ MODAL MOSTRAR DETALLE DE CUOTAS
             $("#importe_a_pagar").val('')
             $("#saldo_pendiente").val('')
         })
+
+        $("#btnCalcular").on('click', function() {        
+            fnc_CalcularSaldoPendiente();
+        });
+
     })
 
     function fnc_CargarDataTableFacturasPorCobrar() {
