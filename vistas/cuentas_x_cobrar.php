@@ -292,6 +292,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
             var row = $('#tbl_cuotas_factura').DataTable().row(index);
             var data = row.data();
+            console.log("🚀 ~ file: cuentas_x_cobrar.php:295 ~ $ ~ data:", data)
 
             v_saldo_pendiente = v_saldo_pendiente + data["4"]
         })
