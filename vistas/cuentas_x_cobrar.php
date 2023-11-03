@@ -242,6 +242,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
             var data = row.data();
 
             v_saldo_pendiente = v_saldo_pendiente + data["4"]
+            console.log("🚀 ~ file: cuentas_x_cobrar.php:245 ~ $ ~ v_saldo_pendiente:", v_saldo_pendiente)
         })
 
         if (parseFloat($("#importe_a_pagar").val()) > parseFloat(v_saldo_pendiente)) {
