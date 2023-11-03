@@ -204,43 +204,45 @@
 
             </div>
 
-        </div><!-- ./row Grafico de barras y doughnut -->
+            <div class="col-6">
 
-        <div class="col-6">
+                <div class="card card-gray shadow">
 
-            <div class="card card-gray shadow">
+                    <div class="card-header">
 
-                <div class="card-header">
+                        <h3 class="card-title"> FACTURAS / BOLETAS</h3>
 
-                    <h3 class="card-title"> FACTURAS / BOLETAS</h3>
+                        <div class="card-tools">
 
-                    <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
 
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                            <i class="fas fa-times"></i>
-                        </button>
+                        </div> <!-- ./ end card-tools -->
 
-                    </div> <!-- ./ end card-tools -->
-
-                </div> <!-- ./ end card-header -->
+                    </div> <!-- ./ end card-header -->
 
 
-                <div class="card-body">
+                    <div class="card-body">
 
-                    <div class="chart">
+                        <div class="chart">
 
-                        <div id="chartContainer" style="min-height: 250px; height: 300px; max-height: 350px; width: 100%;"></div>
+                            <div id="chartContainer" style="min-height: 250px; height: 300px; max-height: 350px; width: 100%;"></div>
 
-                    </div>
+                        </div>
 
-                </div> <!-- ./ end card-body -->
+                    </div> <!-- ./ end card-body -->
+
+                </div>
 
             </div>
 
-        </div>
+        </div><!-- ./row Grafico de barras y doughnut -->
+
+
 
     </div><!-- ./row Grafico de barras y doughnut -->
 
