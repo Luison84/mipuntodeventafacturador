@@ -224,12 +224,14 @@ MODAL MOSTRAR DETALLE DE CUOTAS
             ajax: {
                 url: 'ajax/ventas.ajax.php',
                 dataSrc: function(json) {
+
+                    let saldo_pendiente = 0;
+
                     for (let index = 0; index < json.length; index++) {
-                        const element = json[index];
-                        console.log("🚀 ~ file: cuentas_x_cobrar.php:227 ~ fnc_CargarDataTableCuotas ~ json:", element)
+                        saldo_pendiente = saldo_pendiente + json[index]["saldo_pendiente"]
                     }
 
-                    
+                    $("#saldo_pendiente").val(saldo_pendiente);
                     return json;
                 },
                 data: {
