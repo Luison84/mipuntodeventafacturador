@@ -135,7 +135,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
         $('#mdlCuotas').on('hidden.bs.modal', function(e) {
             fnc_CargarDataTableFacturasPorCobrar();
-            $("#id_venta").val(0);            
+            $("#id_venta").val(0);
 
             $("#importe_a_pagar").val('')
             $("#saldo_pendiente").val('')
@@ -242,7 +242,6 @@ MODAL MOSTRAR DETALLE DE CUOTAS
             var data = row.data();
 
             v_saldo_pendiente = v_saldo_pendiente + parseFloat(data["4"])
-            console.log("🚀 ~ file: cuentas_x_cobrar.php:245 ~ $ ~ v_saldo_pendiente:", v_saldo_pendiente)
         })
 
         if (parseFloat($("#importe_a_pagar").val()) > parseFloat(v_saldo_pendiente)) {
@@ -288,16 +287,15 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
     function fnc_CalcularSaldoPendiente() {
 
-        let v_saldo_pendiente = 0.00;
+        let v_saldo_pendiente = 0;
 
         $('#tbl_cuotas_factura').DataTable().rows().eq(0).each(function(index) {
 
             var row = $('#tbl_cuotas_factura').DataTable().row(index);
             var data = row.data();
-            console.log("🚀 ~ file: cuentas_x_cobrar.php:295 ~ $ ~ data:", data)
 
-            v_saldo_pendiente = v_saldo_pendiente + data["4"]
-            console.log("🚀 ~ file: cuentas_x_cobrar.php:299 ~ $ ~ v_saldo_pendiente:", v_saldo_pendiente)
+            v_saldo_pendiente = v_saldo_pendiente + parseFloat(data["4"])
+            console.log("🚀 ~ file: cuentas_x_cobrar.php:245 ~ $ ~ v_saldo_pendiente:", v_saldo_pendiente)
         })
 
         $("#saldo_pendiente").val(v_saldo_pendiente);
