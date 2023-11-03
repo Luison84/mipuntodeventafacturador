@@ -167,7 +167,8 @@
 
             </div>
 
-            <div class="col-12">
+
+            <div class="col-6">
 
                 <div class="card card-gray shadow">
 
@@ -205,75 +206,113 @@
 
         </div><!-- ./row Grafico de barras y doughnut -->
 
-        <!-- --------------------------------------------------------- -->
-        <!-- PRODUCTOS MAS VENDIDOS Y POCO STOCK -->
-        <!-- --------------------------------------------------------- -->
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card card-gray shadow">
-                    <div class="card-header">
-                        <h3 class="card-title">LOS 10 PRODUCTOS MAS VENDIDOS</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div> <!-- ./ end card-tools -->
-                    </div> <!-- ./ end card-header -->
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table" id="tbl_productos_mas_vendidos">
-                                <thead>
-                                    <tr class="text-danger">
-                                        <!-- <th>Cod. producto</th> -->
-                                        <th>Producto</th>
-                                        <th class="text-center">Cantidad</th>
-                                        <th class="text-center">Ventas</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+        <div class="col-6">
 
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> <!-- ./ end card-body -->
-                </div>
+            <div class="card card-gray shadow">
+
+                <div class="card-header">
+
+                    <h3 class="card-title"> FACTURAS / BOLETAS</h3>
+
+                    <div class="card-tools">
+
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+
+                    </div> <!-- ./ end card-tools -->
+
+                </div> <!-- ./ end card-header -->
+
+
+                <div class="card-body">
+
+                    <div class="chart">
+
+                        <div id="chartContainer" style="min-height: 250px; height: 300px; max-height: 350px; width: 100%;"></div>
+
+                    </div>
+
+                </div> <!-- ./ end card-body -->
+
             </div>
-            <div class="col-lg-6">
-                <div class="card card-gray shadow">
-                    <div class="card-header">
-                        <h3 class="card-title">PRODUCTOS CON POCO STOCK</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div> <!-- ./ end card-tools -->
-                    </div> <!-- ./ end card-header -->
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table" id="tbl_productos_poco_stock">
-                                <thead>
-                                    <tr class="text-danger">
-                                        <!-- <th>Cod. producto</th> -->
-                                        <th>Producto</th>
-                                        <th class="text-center">Stock Actual</th>
-                                        <th class="text-center">Mín. Stock</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div> <!-- ./ end card-body -->
-                </div>
-            </div>
+
         </div>
 
-    </div><!-- /.container-fluid -->
+    </div><!-- ./row Grafico de barras y doughnut -->
+
+    <!-- --------------------------------------------------------- -->
+    <!-- PRODUCTOS MAS VENDIDOS Y POCO STOCK -->
+    <!-- --------------------------------------------------------- -->
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card card-gray shadow">
+                <div class="card-header">
+                    <h3 class="card-title">LOS 10 PRODUCTOS MAS VENDIDOS</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div> <!-- ./ end card-tools -->
+                </div> <!-- ./ end card-header -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table" id="tbl_productos_mas_vendidos">
+                            <thead>
+                                <tr class="text-danger">
+                                    <!-- <th>Cod. producto</th> -->
+                                    <th>Producto</th>
+                                    <th class="text-center">Cantidad</th>
+                                    <th class="text-center">Ventas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div> <!-- ./ end card-body -->
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card card-gray shadow">
+                <div class="card-header">
+                    <h3 class="card-title">PRODUCTOS CON POCO STOCK</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div> <!-- ./ end card-tools -->
+                </div> <!-- ./ end card-header -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table" id="tbl_productos_poco_stock">
+                            <thead>
+                                <tr class="text-danger">
+                                    <!-- <th>Cod. producto</th> -->
+                                    <th>Producto</th>
+                                    <th class="text-center">Stock Actual</th>
+                                    <th class="text-center">Mín. Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div> <!-- ./ end card-body -->
+            </div>
+        </div>
+    </div>
+
+</div><!-- /.container-fluid -->
 
 </div>
 <!-- /.content -->
