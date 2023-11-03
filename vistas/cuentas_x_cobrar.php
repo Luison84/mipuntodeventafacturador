@@ -217,7 +217,8 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                     'accion': 'obtener_cuotas_x_id_venta',
                     'id_venta': $id_venta
                 },
-                type: 'POST'
+                type: 'POST',
+                async: false
             },
             scrollX: true,
             columnDefs: [{
@@ -290,7 +291,6 @@ MODAL MOSTRAR DETALLE DE CUOTAS
         let v_saldo_pendiente = 0;
 
         
-
         $('#tbl_cuotas_factura').DataTable().rows().eq(0).each(function(index) {
 
             var row = $('#tbl_cuotas_factura').DataTable().row(index);
