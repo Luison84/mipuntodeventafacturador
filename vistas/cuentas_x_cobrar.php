@@ -118,13 +118,17 @@ MODAL MOSTRAR DETALLE DE CUOTAS
         });
 
         $("#btnPagar").on('click', function() {
-            // if (!$("#importe_a_pagar").val()) {
-            //     mensajeToast("error", "Ingrese el monto a pagar");
-            //     return;
-            // }
+            if (!$("#importe_a_pagar").val()) {
+                mensajeToast("error", "Ingrese el monto a pagar");
+                return;
+            }
 
             fnc_Pagar();
 
+        });
+
+        $('#mdlCuotas').on('hidden.bs.modal', function(e) {
+            fnc_CargarDataTableFacturasPorCobrar();
         })
     })
 
