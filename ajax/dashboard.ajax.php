@@ -30,6 +30,13 @@ if (isset($_POST['accion'])) {
 
             break;
 
+        case 'grafico_doughnut_facturas_boletas':
+
+            $response = DashboardModelo::mdlVentasPorTipoComprobante();
+            echo json_encode($response, JSON_NUMERIC_CHECK);
+
+            break;
+
         case 'productos_mas_vendidos':
 
             $response = DashboardModelo::mdlProductosMasVendidos();
