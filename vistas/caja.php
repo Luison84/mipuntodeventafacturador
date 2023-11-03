@@ -973,6 +973,7 @@ M O D A L   C I E R R E   D E   C A J A
                 onSuccess: function(data, textStatus, jqXHR) {
 
                     if (data.action == "edit") {
+                        alert("entro")
                         mensajeToast("success", "Se actualizó el Gasto")
                         fnc_ObtenerEstadoCajaPorDia();
                         $("#tbl_movimientos_gastos").DataTable().ajax.reload();
