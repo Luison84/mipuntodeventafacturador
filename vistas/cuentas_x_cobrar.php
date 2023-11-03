@@ -121,6 +121,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
         $('#tbl_facturas_x_cobrar tbody').on('click', '.btnPagarCuotas', function() {
             fnc_MostrarListadoCuotas($("#tbl_facturas_x_cobrar").DataTable().row($(this).parents('tr')).data());
+            fnc_CalcularSaldoPendiente();
         });
 
         $("#btnPagar").on('click', function() {
@@ -192,8 +193,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
     function fnc_MostrarListadoCuotas(data) {
         $("#mdlCuotas").modal("show")
         $("#id_venta").val(data["1"]);
-        fnc_CargarDataTableCuotas(data["1"])
-        fnc_CalcularSaldoPendiente();
+        fnc_CargarDataTableCuotas(data["1"])        
     }
 
     function fnc_CargarDataTableCuotas($id_venta) {
