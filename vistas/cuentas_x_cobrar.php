@@ -129,6 +129,8 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
         $('#mdlCuotas').on('hidden.bs.modal', function(e) {
             fnc_CargarDataTableFacturasPorCobrar();
+            $("#id_venta").val(0);
+            $("#importe_a_pagar").val('')
         })
     })
 
@@ -223,6 +225,22 @@ MODAL MOSTRAR DETALLE DE CUOTAS
 
     function fnc_Pagar() {
 
+        let v_saldo_pendiente = 0.00;
+
+        $('#tbl_cuotas_factura').DataTable().rows().eq(0).each(function(index) {
+
+            var row = $('#tbl_cuotas_factura').DataTable().row(index);
+            var data = row.data();
+
+            v_saldo_pendiente = v_saldo_pendiente + data["4"]
+        })
+
+        if(parseFloat($("#importe_a_pagar").val()) > parseFloat(v_saldo_pendiente)){
+            mensajeToast("error", "El importe a pagar supera el saldo pendiente");
+            return;
+        }
+
+
         Swal.fire({
             title: 'Está seguro(a) de realizar el Pago?',
             icon: 'warning',
@@ -244,6 +262,7 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                 response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
 
                 fnc_CargarDataTableCuotas($("#id_venta").val());
+                fnc_CargarDataTableFacturasPorCobrar();
 
             }
         })
