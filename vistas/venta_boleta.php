@@ -836,12 +836,6 @@
 
     function fnc_MostrarLoader() {
 
-        // $(window).disablescroll();
-        $('html').css({
-            'overflow-y': 'hidden',
-            'height': '100%'
-        });
-
         $(".loading").removeClass('d-none');
         $(".loading").addClass('d-block');
     }
