@@ -31,7 +31,7 @@
 <!-- /.content-header -->
 
 <!-- Main content -->
-<div class="content" style="display: relative;">
+<div class="content" style="position: relative;">
 
     <input type="hidden" name="id_caja" id="id_caja" value="0">
 
@@ -526,7 +526,7 @@
 
 
     <!-- FILA PARA IMAGEN DEL GIF -->
-    <div style="display: absolute;" id="img_carga">
+    <div style="position: absolute;" id="img_carga">
         <img src="vistas/assets/imagenes/loading.gif">
     </div>
 
