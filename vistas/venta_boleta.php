@@ -838,7 +838,7 @@
 
         // $(window).disablescroll();
         $('html').css({
-            'overflow': 'hidden',
+            'overflow-y': 'hidden',
             'height': '100%'
         });
 
