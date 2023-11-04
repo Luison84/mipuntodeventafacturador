@@ -836,12 +836,7 @@
 
     function fnc_MostrarLoader() {
 
-        // $("body").css("overflow", "hidden");
-
-        var current = $(window).scrollTop();
-        $(window).scroll(function() {
-            $(window).scrollTop(current);
-        });
+        $(window).disablescroll();
 
         $(".loading").removeClass('d-none');
         $(".loading").addClass('d-block');
