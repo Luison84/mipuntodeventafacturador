@@ -532,7 +532,7 @@
 
 </div>
 
-<div class="loading d-none" >Loading</div>
+<div class="loading" >Loading</div>
 
 
 <script>
