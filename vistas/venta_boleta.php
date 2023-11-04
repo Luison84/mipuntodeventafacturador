@@ -836,7 +836,7 @@
 
     function fnc_MostrarLoader() {
 
-        $("body").css('overflow-x','hidden');
+        $("body").css("overflow", "hidden");
         $(".loading").removeClass('d-none');
         $(".loading").addClass('d-block');
     }
