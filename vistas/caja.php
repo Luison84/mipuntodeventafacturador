@@ -394,8 +394,14 @@ M O D A L   C I E R R E   D E   C A J A
 </div>
 <!-- /. End -->
 
+<div class="loading">Loading</div>
+
+
+
 <script>
     $(document).ready(function() {
+
+        fnc_MostrarLoader()
 
         fnc_ObtenerEstadoCajaPorDia();
         fnc_CargarDataTableArqueosCaja();
@@ -405,7 +411,7 @@ M O D A L   C I E R R E   D E   C A J A
         $("#btnAbrirCerrarCaja").on('click', function() {
 
             if ($("#btnAbrirCerrarCaja").attr('estado-caja') == 1) {
-                fnc_CerrarCaja($("#btnAbrirCerrarCaja").attr('id-caja'),0)
+                fnc_CerrarCaja($("#btnAbrirCerrarCaja").attr('id-caja'), 0)
             } else {
                 fnc_AbrirCaja()
             }
@@ -517,7 +523,7 @@ M O D A L   C I E R R E   D E   C A J A
             })
         })
 
-        $("#btnCancelarCierreCaja").on('click', function(){
+        $("#btnCancelarCierreCaja").on('click', function() {
             $("#mdlCerrarCaja").modal('hide')
         })
 
@@ -530,8 +536,19 @@ M O D A L   C I E R R E   D E   C A J A
             $(".needs-validation-apertura").removeClass("was-validated");
         })
 
+        fnc_OcultarLoader();
+
     })
 
+    function fnc_MostrarLoader() {
+        $(".loading").removeClass('d-none');
+        $(".loading").addClass('d-block');
+    }
+
+    function fnc_OcultarLoader() {
+        $(".loading").removeClass('d-block');
+        $(".loading").addClass('d-none')
+    }
 
     function fnc_ObtenerEstadoCajaPorDia() {
 
@@ -749,12 +766,12 @@ M O D A L   C I E R R E   D E   C A J A
 
         $("#mdlCerrarCaja").modal('show')
         $("#id_caja").val(id_caja);
-        if(monto_real && monto_real > 0){
+        if (monto_real && monto_real > 0) {
             $("#monto_efectivo_caja").val(monto_real);
-        }else{
+        } else {
             $("#monto_efectivo_caja").val(parseFloat($("#importe_monto_apertura_saldo_total").html().replace('S/', '')).toFixed(2));
         }
-        
+
 
     }
 
@@ -1092,7 +1109,7 @@ M O D A L   C I E R R E   D E   C A J A
     }
 
     function fnc_ImprimirArqueo($id_arqueo_caja) {
-        
+
 
         window.open('https://tutorialesphperu.com/pos/vistas/imprimir_arqueo.php?id_arqueo_caja=' + $id_arqueo_caja,
             "ModalPopUp",
