@@ -835,11 +835,14 @@
     })
 
     function fnc_MostrarLoader() {
+
+        $(".loading").css('overflow-x','hidden');
         $(".loading").removeClass('d-none');
         $(".loading").addClass('d-block');
     }
 
     function fnc_OcultarLoader() {
+        $(".loading").css('overflow-x','scroll');
         $(".loading").addClass('d-none')
         $(".loading").prop('disabled',false);
     }
