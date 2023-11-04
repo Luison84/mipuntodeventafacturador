@@ -843,8 +843,8 @@
 
     function fnc_OcultarLoader() {
         $(".loading").css('overflow-x','scroll');
+        $(".loading").removeClass('d-block');
         $(".loading").addClass('d-none')
-        $(".loading").prop('disabled',false);
     }
 
     function fnc_InicializarFormulario() {
