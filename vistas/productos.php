@@ -356,11 +356,15 @@ VENTA MODAL PARA AUMENTAR O DISMINUIR EL STOCK DEL PRODUCTO
 </div>
 <!-- /. End -->
 
+<div class="loading">Loading</div>
+
 <script>
     var accion;
     var operacion_stock = ''; // permitar definir si vamos a sumar o restar al stock (1: sumar, 2:restar)
 
     $(document).ready(function() {
+
+        fnc_MostrarLoader()      
 
         fnc_InicializarFormulario();
 
@@ -552,8 +556,19 @@ VENTA MODAL PARA AUMENTAR O DISMINUIR EL STOCK DEL PRODUCTO
             fnc_ActivarProducto($('#tbl_productos').DataTable().row($(this).parents('tr')).data());
         })
 
+        fnc_OcultarLoader();
 
     });
+
+    function fnc_MostrarLoader() {
+        $(".loading").removeClass('d-none');
+        $(".loading").addClass('d-block');
+    }
+
+    function fnc_OcultarLoader() {
+        $(".loading").removeClass('d-block');
+        $(".loading").addClass('d-none')
+    }
 
 
     function fnc_InicializarFormulario() {
