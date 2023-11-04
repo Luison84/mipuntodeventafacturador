@@ -836,7 +836,8 @@
 
     function fnc_MostrarLoader() {
 
-        $(window).disablescroll();
+        // $(window).disablescroll();
+        $(document).scroll(function () { $(document).scrollTop(0); });
 
         $(".loading").removeClass('d-none');
         $(".loading").addClass('d-block');
