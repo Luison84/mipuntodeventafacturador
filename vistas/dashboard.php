@@ -320,9 +320,6 @@
 <!-- /.content -->
 
 <div class="loading">Loading</div>
- 
-
-
 
 <script>
 
