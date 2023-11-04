@@ -838,6 +838,7 @@
     })
 
     function fnc_MostrarLoader() {
+        $(".loading").prop('disabled',true);
         $(".loading").removeClass('d-none');
         $(".loading").addClass('d-block');
     }
@@ -845,6 +846,7 @@
     function fnc_OcultarLoader() {
         $(".loading").removeClass('d-block');
         $(".loading").addClass('d-none')
+        $(".loading").prop('disabled',false);
     }
 
     function fnc_InicializarFormulario() {
