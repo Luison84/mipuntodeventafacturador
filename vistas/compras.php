@@ -699,18 +699,24 @@ MODAL MOSTRAR DETALLE DE COMPRA
 
 </div>
 
+<div class="loading">Loading</div>
+
+
+
 <script>
     //Variables Globales
     var itemProducto = 1;
 
     $(document).ready(function() {
 
+        fnc_MostrarLoader()
+
         if ($(window).width() < 768) {
             $("#btnCancelarCompra").addClass('w-50')
             $("#btnGuardarCompra").addClass('w-50')
-            $(".col-botonera").css('display','flex')
-            $(".col-botonera").css('column-gap','15px')
-        }else{
+            $(".col-botonera").css('display', 'flex')
+            $(".col-botonera").css('column-gap', '15px')
+        } else {
             $("#btnCancelarCompra").addClass('w-25')
             $("#btnGuardarCompra").addClass('w-25')
         }
@@ -1011,9 +1017,20 @@ MODAL MOSTRAR DETALLE DE COMPRA
             fnc_LimpiarFomulario();
         })
 
+        fnc_OcultarLoader();
+
     });
     // FIN DE DOCUMENT READY
 
+    function fnc_MostrarLoader() {
+        $(".loading").removeClass('d-none');
+        $(".loading").addClass('d-block');
+    }
+
+    function fnc_OcultarLoader() {
+        $(".loading").removeClass('d-block');
+        $(".loading").addClass('d-none')
+    }
 
     /*==========================================================================================================================================
     C A R G A R   D A T A T A B L E   P R O V E E D O R E S
@@ -1044,8 +1061,7 @@ MODAL MOSTRAR DETALLE DE COMPRA
                     type: 'column'
                 }
             },
-            columnDefs: [
-                {
+            columnDefs: [{
                     targets: 7,
                     createdCell: function(td, cellData, rowData, row, col) {
                         if (rowData[7] != 'ACTIVO') {
