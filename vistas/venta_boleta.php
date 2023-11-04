@@ -532,8 +532,7 @@
 
 </div>
 
-<div class="loading">Loading</div>
-
+<div class="loading" style="display: none;">Loading</div>
 
 
 <script>
@@ -541,6 +540,7 @@
     var itemProducto = 1;
     $(document).ready(function() {
 
+        $(".loading").show()
         /*===================================================================*/
         // V E R I F I C A R   E L   E S T A D O   D E   L A   C A J A
         /*===================================================================*/
@@ -835,6 +835,8 @@
             var data = $('#tbl_boletas').DataTable().row($(this).parents('tr')).data();
             Swal.fire(data[13])
         })
+
+        $(".loading").hide()
 
     })
 
