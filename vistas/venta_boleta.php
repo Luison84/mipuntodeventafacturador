@@ -830,7 +830,7 @@
             Swal.fire(data[13])
         })
 
-        fnc_OcultarLoader();
+        // fnc_OcultarLoader();
 
     })
 
