@@ -530,9 +530,11 @@
         <img src="vistas/assets/imagenes/loading.gif">
     </div> -->
 
+    <div style="position: absolute;top: 0;background: lightgrey;width: 99%;height: 100%;align-items: center;z-index: 500;" class="loading" >Loading</div>
+
 </div>
 
-<div class="loading">Loading</div>
+
 
 
 <script>

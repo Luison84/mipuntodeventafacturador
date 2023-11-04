@@ -394,7 +394,7 @@ M O D A L   C I E R R E   D E   C A J A
 </div>
 <!-- /. End -->
 
-<div class="loading">Loading</div>
+<div class="loading" >Loading</div>
 
 
 
