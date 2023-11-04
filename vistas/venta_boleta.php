@@ -836,13 +836,19 @@
 
     function fnc_MostrarLoader() {
 
-        $("body").css("overflow", "hidden");
+        // $("body").css("overflow", "hidden");
+
+        var current = $(window).scrollTop();
+        $(window).scroll(function() {
+            $(window).scrollTop(current);
+        });
+
         $(".loading").removeClass('d-none');
         $(".loading").addClass('d-block');
     }
 
     function fnc_OcultarLoader() {
-        $("body").css('overflow-x','scroll');
+        $("body").css('overflow-x', 'scroll');
         $(".loading").removeClass('d-block');
         $(".loading").addClass('d-none')
     }
