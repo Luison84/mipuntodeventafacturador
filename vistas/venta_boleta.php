@@ -836,13 +836,13 @@
 
     function fnc_MostrarLoader() {
 
-        $(".loading").css('overflow-x','hidden');
+        $("body").css('overflow-x','hidden');
         $(".loading").removeClass('d-none');
         $(".loading").addClass('d-block');
     }
 
     function fnc_OcultarLoader() {
-        $(".loading").css('overflow-x','scroll');
+        $("body").css('overflow-x','scroll');
         $(".loading").removeClass('d-block');
         $(".loading").addClass('d-none')
     }
