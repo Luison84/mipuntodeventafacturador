@@ -133,4 +133,5 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
 
         // $(".sidebar-mini").addClass('sidebar-collapse')
     })
+
 </script>
