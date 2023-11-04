@@ -532,7 +532,7 @@
 
 </div>
 
-<div class="loading" style="display: none;">Loading</div>
+<div class="loading d-none" >Loading</div>
 
 
 <script>
@@ -540,7 +540,9 @@
     var itemProducto = 1;
     $(document).ready(function() {
 
-        $(".loading").addClass('d-none');
+        $(".loading").removeClass('d-none');
+        $(".loading").addClass('d-block');
+        
         /*===================================================================*/
         // V E R I F I C A R   E L   E S T A D O   D E   L A   C A J A
         /*===================================================================*/
@@ -836,6 +838,7 @@
             Swal.fire(data[13])
         })
 
+        $(".loading").removeClass('d-block');
         $(".loading").addClass('d-none')
 
     })
