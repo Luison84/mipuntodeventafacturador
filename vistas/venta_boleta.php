@@ -526,7 +526,7 @@
 
 
     <!-- FILA PARA IMAGEN DEL GIF -->
-    <div style="position: absolute;" id="img_carga">
+    <div style="position: absolute;top: 0;background: lightgrey;width: 99%;height: 100%;align-items: center;z-index: 500;" id="img_carga">
         <img src="vistas/assets/imagenes/loading.gif">
     </div>
 
