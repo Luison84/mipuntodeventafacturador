@@ -319,8 +319,16 @@
 </div>
 <!-- /.content -->
 
+<div class="loading">Loading</div>
+ 
+
+
+
 <script>
+
     $(document).ready(function() {
+
+        fnc_MostrarLoader()   
 
         cargarTarjetasInformativas();
         cargarGraficoBarras();
@@ -356,8 +364,19 @@
             });
         }, 30000);
 
+        fnc_OcultarLoader();
 
     })
+
+    function fnc_MostrarLoader() {
+        $(".loading").removeClass('d-none');
+        $(".loading").addClass('d-block');
+    }
+
+    function fnc_OcultarLoader() {
+        $(".loading").removeClass('d-block');
+        $(".loading").addClass('d-none')
+    }
 
     /* =======================================================
     SOLICITUD AJAX TARJETAS INFORMATIVAS
