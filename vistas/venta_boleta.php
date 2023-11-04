@@ -532,7 +532,7 @@
 
 </div>
 
-<div class="loading" >Loading</div>
+<div class="loading">Loading</div>
 
 
 <script>
@@ -540,9 +540,8 @@
     var itemProducto = 1;
     $(document).ready(function() {
 
-        $(".loading").removeClass('d-none');
-        $(".loading").addClass('d-block');
-        
+        fnc_MostrarLoader()
+
         /*===================================================================*/
         // V E R I F I C A R   E L   E S T A D O   D E   L A   C A J A
         /*===================================================================*/
@@ -838,10 +837,19 @@
             Swal.fire(data[13])
         })
 
-        $(".loading").removeClass('d-block');
-        $(".loading").addClass('d-none')
+        fnc_OcultarLoader();
 
     })
+
+    function fnc_MostrarLoader() {
+        $(".loading").removeClass('d-none');
+        $(".loading").addClass('d-block');
+    }
+
+    function fnc_OcultarLoader() {
+        $(".loading").removeClass('d-block');
+        $(".loading").addClass('d-none')
+    }
 
     function fnc_InicializarFormulario() {
 

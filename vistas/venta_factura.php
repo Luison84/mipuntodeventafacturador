@@ -623,11 +623,15 @@ MODAL CUOTAS DEL CREDITO
 
 </div>
 
+<div class="loading">Loading</div>
+
 <script>
     //Variables Globales
     var itemProducto = 1;
 
     $(document).ready(function() {
+
+        fnc_MostrarLoader()        
 
         fnc_InicializarFormulario();
 
@@ -915,7 +919,19 @@ MODAL CUOTAS DEL CREDITO
                 nro_cuota = nro_cuota + 1;
             });
         });
+
+        fnc_OcultarLoader();
     })
+
+    function fnc_MostrarLoader() {
+        $(".loading").removeClass('d-none');
+        $(".loading").addClass('d-block');
+    }
+
+    function fnc_OcultarLoader() {
+        $(".loading").removeClass('d-block');
+        $(".loading").addClass('d-none')
+    }
 
     function fnc_InicializarFormulario() {
 
