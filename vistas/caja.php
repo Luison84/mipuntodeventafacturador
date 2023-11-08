@@ -1111,7 +1111,7 @@ M O D A L   C I E R R E   D E   C A J A
     function fnc_ImprimirArqueo($id_arqueo_caja) {
 
 
-        window.open('https://tutorialesphperu.com/pos/vistas/imprimir_arqueo.php?id_arqueo_caja=' + $id_arqueo_caja,
+        window.open('https://tutorialesphperu.com/vistas/imprimir_arqueo.php?id_arqueo_caja=' + $id_arqueo_caja,
             "ModalPopUp",
             "toolbar=no," +
             "scrollbars=no," +
