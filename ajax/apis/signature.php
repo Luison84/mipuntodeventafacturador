@@ -23,7 +23,7 @@ class Signature {
         $objKey = new XMLSecurityKey(XMLSecurityKey::RSA_SHA1, array('type' => 'private'));
 
         var_dump($_SERVER["DOCUMENT_ROOT"].$ruta_firma);
-        $pfx = file_get_contents($ruta_firma);
+        $pfx = file_get_contents($_SERVER["DOCUMENT_ROOT"].$ruta_firma);
         
         $key = array();
 
