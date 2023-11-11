@@ -4,7 +4,9 @@ require_once('api_signature/XMLSecurityDSig.php');
 require_once('api_signature/XMLSecEnc.php');
 
 class Signature {
-    public function signature_xml($flg_firma, $ruta, $ruta_firma, $pass_firma) {        
+    public function signature_xml($flg_firma, $ruta, $ruta_firma, $pass_firma) {      
+        
+        var_dump($ruta);
         $doc = new DOMDocument();
 
         $doc->formatOutput = FALSE;
@@ -23,8 +25,8 @@ class Signature {
         $pfx = file_get_contents($ruta_firma);
         $key = array();
 
-        openssl_sign($pfx, $key, $pass_firma);
-        // openssl_pkcs12_read($pfx, $key, $pass_firma);
+        // openssl_sign($pfx, $key, $pass_firma);
+        openssl_pkcs12_read($pfx, $key, $pass_firma);
         $objKey->loadKey($key["pkey"]);
         $objDSig->add509Cert($key["cert"], TRUE, FALSE);
         $objDSig->sign($objKey, $doc->documentElement->getElementsByTagName("ExtensionContent")->item($flg_firma));
