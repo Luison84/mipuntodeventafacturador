@@ -6,7 +6,7 @@ require_once('api_signature/XMLSecEnc.php');
 class Signature {
     public function signature_xml($flg_firma, $ruta, $ruta_firma, $pass_firma) {      
         
-        var_dump($ruta_firma);
+        
         $doc = new DOMDocument();
 
         $doc->formatOutput = FALSE;
@@ -23,6 +23,7 @@ class Signature {
         $objKey = new XMLSecurityKey(XMLSecurityKey::RSA_SHA1, array('type' => 'private'));
 
         $pfx = file_get_contents($ruta_firma);
+        var_dump($pfx);
         $key = array();
 
         // openssl_sign($pfx, $key, $pass_firma);
