@@ -22,13 +22,14 @@ class Signature {
         $objDSig->addReference($doc, XMLSecurityDSig::SHA1, array('http://www.w3.org/2000/09/xmldsig#enveloped-signature'), $options);
         $objKey = new XMLSecurityKey(XMLSecurityKey::RSA_SHA1, array('type' => 'private'));
 
+        var_dump($_SERVER["DOCUMENT_ROOT"].$ruta_firma);
         $pfx = file_get_contents($ruta_firma);
         
         $key = array();
 
         // openssl_sign($pfx, $key, $pass_firma);
         openssl_pkcs12_read($pfx, $key, $pass_firma);
-        var_dump($key);
+        
         $objKey->loadKey($key["pkey"]);
         $objDSig->add509Cert($key["cert"], TRUE, FALSE);
         $objDSig->sign($objKey, $doc->documentElement->getElementsByTagName("ExtensionContent")->item($flg_firma));
