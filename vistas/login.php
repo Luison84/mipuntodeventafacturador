@@ -164,7 +164,7 @@
 
                         setInterval(() => {
                             $("#btnIniciarSesion").removeClass('disabled');
-                            window.location = "https://tutorialesphperu.com/";
+                            window.location = "https://tutorialesphperu.com/pos/";
                         }, 1200);
 
 

@@ -235,10 +235,14 @@ MODAL MOSTRAR DETALLE DE CUOTAS
                 type: 'POST',
                 async: false
             },
-            scrollX: true,
+            // scrollX: true,
             columnDefs: [{
                     "className": "dt-center",
                     "targets": "_all"
+                },
+                {
+                    targets: 0,
+                    visible: false
                 }
 
             ],

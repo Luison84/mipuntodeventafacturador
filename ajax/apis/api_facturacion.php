@@ -383,6 +383,8 @@ class ApiFacturacion
         $ruta_certificado = "../fe/certificado/" . $datos_emisor["certificado_digital"];
         $password_certificado = $datos_emisor["clave_certificado"];
 
+        
+
         set_error_handler(function ($err_severity, $err_msg, $err_file, $err_line, array $err_context) {
             throw new ErrorException($err_msg, 0, $err_severity, $err_file, $err_line);
         }, E_WARNING);
@@ -391,6 +393,7 @@ class ApiFacturacion
             $response_signature = $signature->signature_xml($nodo_a_firmar, $ruta_xml, $ruta_certificado, $password_certificado);
             $response_signature["estado_firma"] = 1;
         } catch (\Throwable $th) {
+            
             $response_signature["estado_firma"] = -1;
             $response_signature["mensaje_error_firma"] = "ERROR EN EL FIRMADO----->" . $th->getMessage();
         } finally {

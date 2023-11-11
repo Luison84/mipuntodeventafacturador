@@ -86,7 +86,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
                 <?php endforeach; ?>
 
                 <li class="nav-item">
-                    <a style="cursor: pointer;" class="nav-link" href="https://tutorialesphperu.com/?cerrar_sesion=1">
+                    <a style="cursor: pointer;" class="nav-link" href="https://tutorialesphperu.com/pos//?cerrar_sesion=1">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
                         <p>
                             Cerrar Sesion

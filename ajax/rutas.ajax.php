@@ -3,7 +3,7 @@
 class Rutas{
 
     static public function RutaProyecyo(){
-        return "https://tutorialesphperu.com/";
+        return "https://tutorialesphperu.com/pos//";
     }
 
 }

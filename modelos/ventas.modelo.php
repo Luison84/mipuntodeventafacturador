@@ -31,6 +31,13 @@ class VentasModelo
 
         $dbh = Conexion::conectar();
 
+        if($venta['forma_pago'] == 'Credito'){
+            $pagado = 0;
+        }else{
+            $pagado = 1;
+        }
+        
+
         //ELIMINAR TABLAS DEL SISTEMA
         try {
 
@@ -49,8 +56,9 @@ class VentasModelo
                                                     total_operaciones_inafectas, 
                                                     total_igv, 
                                                     importe_total,
-                                                    id_usuario)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                                                    id_usuario,
+                                                    pagado)
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             $dbh->beginTransaction();
             $stmt->execute(array(
                 $venta['id_empresa_emisora'],
@@ -68,7 +76,8 @@ class VentasModelo
                 $venta['total_operaciones_inafectas'],
                 $venta['total_igv'],
                 $venta['total_a_pagar'],
-                $id_usuario
+                $id_usuario,
+                $pagado
             ));
             $id_venta = $dbh->lastInsertId();
             $dbh->commit();
@@ -1284,7 +1293,7 @@ class VentasModelo
         }
 
         $stmt = Conexion::conectar()->prepare(
-            $query = `SELECT '' as opciones,
+            $query = "SELECT '' as opciones,
                             v.id,
                         concat(v.serie,'-',v.correlativo) as factura,
                         date(v.fecha_emision) as fecha_emision,
@@ -1294,7 +1303,7 @@ class VentasModelo
                         (select round(sum(ifnull(c.saldo_pendiente,0)),2) from cuotas c where c.id_venta = v.id and c.cuota_pagada = 0) as saldo_pendiente
                     FROM venta v inner join serie s on v.id_serie = s.id
                     WHERE s.id_tipo_comprobante = '01'
-                    and upper(v.forma_pago) = 'CREDITO'`
+                    and upper(v.forma_pago) = 'CREDITO'"
         );
 
         $stmt->execute();

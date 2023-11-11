@@ -9,7 +9,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
 
     echo '
             <script>
-                window.location = "/pos";
+                window.location = "http://https://tutorialesphperu.com/pos//";
             </script>        
         ';
 }

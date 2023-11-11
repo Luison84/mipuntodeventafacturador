@@ -198,6 +198,7 @@ if (isset($_POST["accion"])) {
                 /******************************************************************************************/
                 // F I R M A R   X M L 
                 /******************************************************************************************/
+                var_dump($datos_emisor);
                 $response_signature = ApiFacturacion::FirmarXml($path_xml, $name_xml, $datos_emisor);
 
                 if ($response_signature["estado_firma"] == 1) {
@@ -450,6 +451,7 @@ if (isset($_POST["accion"])) {
 
             $resultado = ApiFacturacion::Genera_XML_Factura_Boleta($path_xml, $name_xml, $datos_emisor, $datos_cliente, $venta, $detalle_venta);
 
+            
             /******************************************************************************************/
             // F I R M A R   X M L 
             /******************************************************************************************/
