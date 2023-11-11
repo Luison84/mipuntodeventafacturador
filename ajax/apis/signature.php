@@ -23,11 +23,12 @@ class Signature {
         $objKey = new XMLSecurityKey(XMLSecurityKey::RSA_SHA1, array('type' => 'private'));
 
         $pfx = file_get_contents($ruta_firma);
-        var_dump($pfx);
+        
         $key = array();
 
         // openssl_sign($pfx, $key, $pass_firma);
         openssl_pkcs12_read($pfx, $key, $pass_firma);
+        var_dump($key);
         $objKey->loadKey($key["pkey"]);
         $objDSig->add509Cert($key["cert"], TRUE, FALSE);
         $objDSig->sign($objKey, $doc->documentElement->getElementsByTagName("ExtensionContent")->item($flg_firma));
