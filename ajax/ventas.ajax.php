@@ -33,7 +33,6 @@ if (isset($_POST["accion"])) {
                 $cronograma = json_decode($_POST["arr_cronograma"]);
             }
 
-
             // DATOS DEL EMISOR:
             $datos_emisor = VentasModelo::mdlObtenerDatosEmisor($formulario_venta["empresa_emisora"]);
 
@@ -197,8 +196,7 @@ if (isset($_POST["accion"])) {
 
                 /******************************************************************************************/
                 // F I R M A R   X M L 
-                /******************************************************************************************/
-                var_dump($datos_emisor);
+                /******************************************************************************************/                
                 $response_signature = ApiFacturacion::FirmarXml($path_xml, $name_xml, $datos_emisor);
 
                 if ($response_signature["estado_firma"] == 1) {
