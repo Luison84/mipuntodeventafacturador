@@ -22,7 +22,7 @@ class Signature {
         $objDSig->addReference($doc, XMLSecurityDSig::SHA1, array('http://www.w3.org/2000/09/xmldsig#enveloped-signature'), $options);
         $objKey = new XMLSecurityKey(XMLSecurityKey::RSA_SHA1, array('type' => 'private'));
 
-        var_dump($_SERVER["DOCUMENT_ROOT"].$ruta_firma);
+        // var_dump($_SERVER["DOCUMENT_ROOT"].$ruta_firma);
         $pfx = file_get_contents($_SERVER["DOCUMENT_ROOT"].$ruta_firma);
         
         $key = array();
