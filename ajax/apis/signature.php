@@ -6,7 +6,7 @@ require_once('api_signature/XMLSecEnc.php');
 class Signature {
     public function signature_xml($flg_firma, $ruta, $ruta_firma, $pass_firma) {      
         
-        var_dump($ruta);
+        var_dump($ruta_firma);
         $doc = new DOMDocument();
 
         $doc->formatOutput = FALSE;
