@@ -24,10 +24,9 @@ class Signature {
 
         
         // $ruta_firma = "\home\tutoria3\public_html\fe\certificado\certificado_phperu.pfx";
-        $pfx = file_get_contents('/home/tutoria3/public_html/pos/fe/certificado/llama-pe-certificado-demo-20480674414.pfx');
-        
+        $pfx = file_get_contents($ruta_firma);
         $key = array();
-        var_dump($pfx);
+        // var_dump($pfx);
         //openssl_sign($pfx, $key, $pass_firma);
         openssl_pkcs12_read($pfx, $key, "123456");
         
