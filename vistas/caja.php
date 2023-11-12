@@ -442,7 +442,7 @@ M O D A L   C I E R R E   D E   C A J A
         })
 
         $('#tbl_movimientos_devoluciones tbody').on('click', '.btnEliminarDevolucion', function() {
-            fnc_EliminarDevolucion($("#tbl_compras").DataTable().row($(this).parents('tr')).data());
+            fnc_EliminarDevolucion($("#tbl_movimientos_devoluciones").DataTable().row($(this).parents('tr')).data());
         });
 
         // $("#monto_apertura").keypress(function(e) {
