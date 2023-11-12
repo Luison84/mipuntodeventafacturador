@@ -864,67 +864,67 @@ M O D A L   C I E R R E   D E   C A J A
 
     }
 
-    function fnc_CargarTableditDevoluciones() {
-        $("#tbl_movimientos_devoluciones").on('draw.dt', function() {
-            $("#tbl_movimientos_devoluciones").Tabledit({
-                url: 'action.php?id_caja=' + $("#btnAbrirCerrarCaja").attr('id-caja'),
-                dataType: 'json',
-                columns: {
-                    identifier: [0, 'id'],
-                    editable: [
-                        [1, 'descripcion'],
-                        [2, "monto"]
-                    ]
-                },
-                restoreButton: false,
-                buttons: {
-                    edit: {
-                        class: 'btn btn-sm m-0 p-0',
-                        html: '<i class="fas fa-edit text-primary"></i>',
-                        action: 'edit'
-                    },
-                    delete: {
-                        class: 'btn btn-sm mx-1 p-0',
-                        html: '<i class="fas fa-trash text-danger"></i>',
-                        action: 'delete'
-                    },
-                    save: {
-                        class: 'btn btn-sm btn-success p-0 px-1 rounded-pill',
-                        html: '<i class="fas fa-check "></i>'
-                    },
-                    restore: {
-                        class: 'btn btn-sm btn-warning',
-                        html: 'Restore',
-                        action: 'restore'
-                    },
-                    confirm: {
-                        class: 'btn btn-sm btn-danger p-0 px-1 rounded-pill',
-                        html: '<i class="fas fa-check "></i>'
-                    }
-                },
-                onSuccess: function(data, textStatus, jqXHR) {
-                    // if(data.action == "delete"){
-                    //     $("#"+data.id).remove();
-                    //     $("#tbl_movimientos_devoluciones").DataTable().ajax.reload;
-                    // }
-                    if (data.action == "edit") {
-                        alert("entro")
-                        mensajeToast("success", "Se actualizó la Devolución")
-                        fnc_ObtenerEstadoCajaPorDia();
-                        $("#tbl_movimientos_devoluciones").DataTable().ajax.reload();
-                        $("#tbl_arqueo_caja").DataTable().ajax.reload();
-                    }
+    // function fnc_CargarTableditDevoluciones() {
+    //     $("#tbl_movimientos_devoluciones").on('draw.dt', function() {
+    //         $("#tbl_movimientos_devoluciones").Tabledit({
+    //             url: 'action.php?id_caja=' + $("#btnAbrirCerrarCaja").attr('id-caja'),
+    //             dataType: 'json',
+    //             columns: {
+    //                 identifier: [0, 'id'],
+    //                 editable: [
+    //                     [1, 'descripcion'],
+    //                     [2, "monto"]
+    //                 ]
+    //             },
+    //             restoreButton: false,
+    //             buttons: {
+    //                 edit: {
+    //                     class: 'btn btn-sm m-0 p-0',
+    //                     html: '<i class="fas fa-edit text-primary"></i>',
+    //                     action: 'edit'
+    //                 },
+    //                 delete: {
+    //                     class: 'btn btn-sm mx-1 p-0',
+    //                     html: '<i class="fas fa-trash text-danger"></i>',
+    //                     action: 'delete'
+    //                 },
+    //                 save: {
+    //                     class: 'btn btn-sm btn-success p-0 px-1 rounded-pill',
+    //                     html: '<i class="fas fa-check "></i>'
+    //                 },
+    //                 restore: {
+    //                     class: 'btn btn-sm btn-warning',
+    //                     html: 'Restore',
+    //                     action: 'restore'
+    //                 },
+    //                 confirm: {
+    //                     class: 'btn btn-sm btn-danger p-0 px-1 rounded-pill',
+    //                     html: '<i class="fas fa-check "></i>'
+    //                 }
+    //             },
+    //             onSuccess: function(data, textStatus, jqXHR) {
+    //                 // if(data.action == "delete"){
+    //                 //     $("#"+data.id).remove();
+    //                 //     $("#tbl_movimientos_devoluciones").DataTable().ajax.reload;
+    //                 // }
+    //                 if (data.action == "edit") {
+    //                     alert("entro")
+    //                     mensajeToast("success", "Se actualizó la Devolución")
+    //                     fnc_ObtenerEstadoCajaPorDia();
+    //                     $("#tbl_movimientos_devoluciones").DataTable().ajax.reload();
+    //                     $("#tbl_arqueo_caja").DataTable().ajax.reload();
+    //                 }
 
-                    if (data.action == "delete") {
-                        mensajeToast("success", "Se eliminó la Devolución")
-                        fnc_ObtenerEstadoCajaPorDia();
-                        $("#tbl_movimientos_devoluciones").DataTable().ajax.reload();
-                        $("#tbl_arqueo_caja").DataTable().ajax.reload();
-                    }
-                }
-            })
-        })
-    }
+    //                 if (data.action == "delete") {
+    //                     mensajeToast("success", "Se eliminó la Devolución")
+    //                     fnc_ObtenerEstadoCajaPorDia();
+    //                     $("#tbl_movimientos_devoluciones").DataTable().ajax.reload();
+    //                     $("#tbl_arqueo_caja").DataTable().ajax.reload();
+    //                 }
+    //             }
+    //         })
+    //     })
+    // }
 
     function fnc_CargarDataTableGastos() {
 
@@ -956,68 +956,66 @@ M O D A L   C I E R R E   D E   C A J A
 
         ajustarHeadersDataTables($("#tbl_movimientos_gastos"));
 
-
-
     }
 
-    function fnc_CargarTableditGastos() {
-        $("#tbl_movimientos_gastos").on('draw.dt', function() {
-            $("#tbl_movimientos_gastos").Tabledit({
-                url: 'ajax/actions_editable/actions_gastos.php?id_caja=' + $("#btnAbrirCerrarCaja").attr('id-caja'),
-                dataType: 'json',
-                columns: {
-                    identifier: [0, 'id'],
-                    editable: [
-                        [1, 'descripcion'],
-                        [2, "monto"]
-                    ]
-                },
-                restoreButton: false,
-                buttons: {
-                    edit: {
-                        class: 'btn btn-sm m-0 p-0',
-                        html: '<i class="fas fa-edit text-primary"></i>',
-                        action: 'edit'
-                    },
-                    delete: {
-                        class: 'btn btn-sm mx-1 p-0',
-                        html: '<i class="fas fa-trash text-danger"></i>',
-                        action: 'delete'
-                    },
-                    save: {
-                        class: 'btn btn-sm btn-success p-0 px-1 rounded-pill',
-                        html: '<i class="fas fa-check "></i>'
-                    },
-                    restore: {
-                        class: 'btn btn-sm btn-warning',
-                        html: 'Restore',
-                        action: 'restore'
-                    },
-                    confirm: {
-                        class: 'btn btn-sm btn-danger p-0 px-1 rounded-pill',
-                        html: '<i class="fas fa-check "></i>'
-                    }
-                },
-                onSuccess: function(data, textStatus, jqXHR) {
+    // function fnc_CargarTableditGastos() {
+    //     $("#tbl_movimientos_gastos").on('draw.dt', function() {
+    //         $("#tbl_movimientos_gastos").Tabledit({
+    //             url: 'ajax/actions_editable/actions_gastos.php?id_caja=' + $("#btnAbrirCerrarCaja").attr('id-caja'),
+    //             dataType: 'json',
+    //             columns: {
+    //                 identifier: [0, 'id'],
+    //                 editable: [
+    //                     [1, 'descripcion'],
+    //                     [2, "monto"]
+    //                 ]
+    //             },
+    //             restoreButton: false,
+    //             buttons: {
+    //                 edit: {
+    //                     class: 'btn btn-sm m-0 p-0',
+    //                     html: '<i class="fas fa-edit text-primary"></i>',
+    //                     action: 'edit'
+    //                 },
+    //                 delete: {
+    //                     class: 'btn btn-sm mx-1 p-0',
+    //                     html: '<i class="fas fa-trash text-danger"></i>',
+    //                     action: 'delete'
+    //                 },
+    //                 save: {
+    //                     class: 'btn btn-sm btn-success p-0 px-1 rounded-pill',
+    //                     html: '<i class="fas fa-check "></i>'
+    //                 },
+    //                 restore: {
+    //                     class: 'btn btn-sm btn-warning',
+    //                     html: 'Restore',
+    //                     action: 'restore'
+    //                 },
+    //                 confirm: {
+    //                     class: 'btn btn-sm btn-danger p-0 px-1 rounded-pill',
+    //                     html: '<i class="fas fa-check "></i>'
+    //                 }
+    //             },
+    //             onSuccess: function(data, textStatus, jqXHR) {
 
-                    if (data.action == "edit") {
-                        alert("entro")
-                        mensajeToast("success", "Se actualizó el Gasto")
-                        fnc_ObtenerEstadoCajaPorDia();
-                        $("#tbl_movimientos_gastos").DataTable().ajax.reload();
-                        $("#tbl_arqueo_caja").DataTable().ajax.reload();
-                    }
+    //                 if (data.action == "edit") {
+    //                     alert("entro")
+    //                     mensajeToast("success", "Se actualizó el Gasto")
+    //                     fnc_ObtenerEstadoCajaPorDia();
+    //                     $("#tbl_movimientos_gastos").DataTable().ajax.reload();
+    //                     $("#tbl_arqueo_caja").DataTable().ajax.reload();
+    //                 }
 
-                    if (data.action == "delete") {
-                        mensajeToast("success", "Se eliminó el Gasto")
-                        fnc_ObtenerEstadoCajaPorDia();
-                        $("#tbl_movimientos_gastos").DataTable().ajax.reload();
-                        $("#tbl_arqueo_caja").DataTable().ajax.reload();
-                    }
-                }
-            })
-        })
-    }
+    //                 if (data.action == "delete") {
+    //                     mensajeToast("success", "Se eliminó el Gasto")
+    //                     fnc_ObtenerEstadoCajaPorDia();
+    //                     $("#tbl_movimientos_gastos").DataTable().ajax.reload();
+    //                     $("#tbl_arqueo_caja").DataTable().ajax.reload();
+    //                 }
+    //             }
+    //         })
+    //     })
+    // }
 
     function fnc_RegistrarDevolucion() {
 
