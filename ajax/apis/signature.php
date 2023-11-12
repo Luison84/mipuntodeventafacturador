@@ -30,7 +30,7 @@ class Signature {
 
         //openssl_sign($pfx, $key, $pass_firma);
         openssl_pkcs12_read($pfx, $key, $pass_firma);
-        var_dump($pfx);
+        // var_dump($pfx);
         $objKey->loadKey($key["pkey"]);
         $objDSig->add509Cert($key["cert"], TRUE, FALSE);
         $objDSig->sign($objKey, $doc->documentElement->getElementsByTagName("ExtensionContent")->item($flg_firma));
