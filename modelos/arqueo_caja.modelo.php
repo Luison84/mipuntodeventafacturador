@@ -360,6 +360,7 @@ class ArqueoCajaModelo
 
         foreach ($results as $row) {
             $sub_array = array();
+            $sub_array[] = $row['opciones'];
             $sub_array[] = $row['id'];
             $sub_array[] = $row['descripcion'];
             $sub_array[] = $row['monto'];

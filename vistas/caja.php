@@ -861,7 +861,7 @@ M O D A L   C I E R R E   D E   C A J A
 
                     $(td).html(`<center> 
                                     <span class='btnEliminarDevolucion px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar Devolución'> 
-                                        <i class='fas fa-search fs-5 text-info'></i>
+                                        <i class='fas fa-trash fs-5 text-danger'></i>
                                     </span>
                                 </center>`);
 
