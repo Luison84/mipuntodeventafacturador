@@ -471,11 +471,11 @@ class ArqueoCajaModelo
 
             $dbh->beginTransaction();
             $stmt->execute(array(
-               ':id' => $id_caja
+               ':id' => $id_devolucion
             ));
             $dbh->commit();
 
-            $stmt = $dbh->prepare(" update arqueo_caja
+            $stmt = $dbh->prepare(" UPDATE arqueo_caja
                                     set devoluciones = (select sum(monto)  from movimientos_arqueo_caja where id_arqueo_caja = :id_arqueo_caja and id_tipo_movimiento = 1),
                                         monto_final = ifnull(monto_apertura,0) + ifnull(ingresos,0) - (ifnull(devoluciones,0) + ifnull(gastos,0))
                                 where id = :id_arqueo_caja");
