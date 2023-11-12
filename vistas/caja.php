@@ -394,7 +394,7 @@ M O D A L   C I E R R E   D E   C A J A
 </div>
 <!-- /. End -->
 
-<div class="loading" >Loading</div>
+<div class="loading">Loading</div>
 
 
 
@@ -406,7 +406,9 @@ M O D A L   C I E R R E   D E   C A J A
         fnc_ObtenerEstadoCajaPorDia();
         fnc_CargarDataTableArqueosCaja();
         fnc_CargarDataTableDevoluciones();
+        fnc_CargarTableditDevoluciones();
         fnc_CargarDataTableGastos();
+        fnc_CargarTableditGastos();
 
         $("#btnAbrirCerrarCaja").on('click', function() {
 
@@ -858,6 +860,11 @@ M O D A L   C I E R R E   D E   C A J A
 
         ajustarHeadersDataTables($("#tbl_movimientos_devoluciones"));
 
+
+
+    }
+
+    function fnc_CargarTableditDevoluciones() {
         $("#tbl_movimientos_devoluciones").on('draw.dt', function() {
             $("#tbl_movimientos_devoluciones").Tabledit({
                 url: 'action.php?id_caja=' + $("#btnAbrirCerrarCaja").attr('id-caja'),
@@ -917,7 +924,6 @@ M O D A L   C I E R R E   D E   C A J A
                 }
             })
         })
-
     }
 
     function fnc_CargarDataTableGastos() {
@@ -950,6 +956,11 @@ M O D A L   C I E R R E   D E   C A J A
 
         ajustarHeadersDataTables($("#tbl_movimientos_gastos"));
 
+
+
+    }
+
+    function fnc_CargarTableditGastos() {
         $("#tbl_movimientos_gastos").on('draw.dt', function() {
             $("#tbl_movimientos_gastos").Tabledit({
                 url: 'ajax/actions_editable/actions_gastos.php?id_caja=' + $("#btnAbrirCerrarCaja").attr('id-caja'),
@@ -1006,7 +1017,6 @@ M O D A L   C I E R R E   D E   C A J A
                 }
             })
         })
-
     }
 
     function fnc_RegistrarDevolucion() {
