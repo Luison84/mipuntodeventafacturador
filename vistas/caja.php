@@ -438,14 +438,14 @@ M O D A L   C I E R R E   D E   C A J A
             fnc_CerrarCaja(data["id"], data['monto_final'])
         })
 
-        $("#monto_apertura").keypress(function(e) {
-            var key = e.keyCode;
-            if (key == 13) {
-                fnc_AperturarCaja();
-                e.preventDefault();
-            }
+        // $("#monto_apertura").keypress(function(e) {
+        //     var key = e.keyCode;
+        //     if (key == 13) {
+        //         fnc_AperturarCaja();
+        //         e.preventDefault();
+        //     }
 
-        });
+        // });
 
         $("#monto_efectivo_real").keyup(function(e) {
             let $sobrante = 0;
