@@ -46,14 +46,16 @@ if (isset($_POST["accion"])) {
 
         case 'cerrar_caja':
 
-            $response = ArqueoCajaModelo::mdlCerrarCaja($_POST['id_caja'], 
-                                                        $_POST['ingresos'], 
-                                                        $_POST['devoluciones'], 
-                                                        $_POST['gastos'], 
-                                                        $_POST['monto_final'],
-                                                        $_POST['monto_real'],
-                                                        $_POST['sobrante'],
-                                                        $_POST['faltante']);
+            $response = ArqueoCajaModelo::mdlCerrarCaja(
+                $_POST['id_caja'],
+                $_POST['ingresos'],
+                $_POST['devoluciones'],
+                $_POST['gastos'],
+                $_POST['monto_final'],
+                $_POST['monto_real'],
+                $_POST['sobrante'],
+                $_POST['faltante']
+            );
 
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
 
@@ -79,6 +81,13 @@ if (isset($_POST["accion"])) {
         case 'registrar_gasto_caja':
 
             $response = ArqueoCajaModelo::mdlRegistrarGasto($_POST['id_arqueo_caja'], $_POST['descripcion_gasto'], $_POST['monto_gasto']);
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+
+            break;
+
+        case 'eliminar_devolucion':
+
+            $response = ArqueoCajaModelo::mdlEliminarDevolucion($_POST['id_devolucion'], $_POST['id_caja']);
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
 
             break;
@@ -111,7 +120,7 @@ if (isset($_GET["accion"])) {
 
 
             $dompdf->loadHtml($html);
-            $dompdf->set_paper(array(0,0,260,1000), 'portrait');
+            $dompdf->set_paper(array(0, 0, 260, 1000), 'portrait');
             $dompdf->render();
             $frame = $dompdf->getTree()->get_frame(0);
             $height = $frame->get_style()->height;
