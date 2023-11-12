@@ -391,7 +391,7 @@ class ArqueoCajaModelo
     static public function mdlObtenerGastos($id_arqueo_caja, $draw)
     {
 
-        $stmt = Conexion::conectar()->prepare('SELECT ac.id,ac.descripcion,ac.monto
+        $stmt = Conexion::conectar()->prepare('SELECT " " as opciones,ac.id,ac.descripcion,ac.monto
                                                 FROM movimientos_arqueo_caja ac
                                                 where id_arqueo_caja = :id_arqueo_caja
                                                 and id_tipo_movimiento = 2');
@@ -408,6 +408,7 @@ class ArqueoCajaModelo
 
         foreach ($results as $row) {
             $sub_array = array();
+            $sub_array[] = $row['opciones'];
             $sub_array[] = $row['id'];
             $sub_array[] = $row['descripcion'];
             $sub_array[] = $row['monto'];
@@ -471,7 +472,7 @@ class ArqueoCajaModelo
 
             $dbh->beginTransaction();
             $stmt->execute(array(
-               ':id' => $id_devolucion
+                ':id' => $id_devolucion
             ));
             $dbh->commit();
 
@@ -492,6 +493,44 @@ class ArqueoCajaModelo
             $dbh->rollBack();
             $respuesta["tipo_msj"] = "error";
             $respuesta["msj"] = "Error al eliminar la devolucion " . $e->getMessage();
+        }
+
+        return $respuesta;
+    }
+
+    static public function mdlEliminarGasto($id_gasto, $id_caja)
+    {
+
+        try {
+
+            $dbh = Conexion::conectar();
+
+            $stmt = $dbh->prepare(" DELETE FROM movimientos_arqueo_caja
+                                    where id = :id");
+
+            $dbh->beginTransaction();
+            $stmt->execute(array(
+                ':id' => $id_gasto
+            ));
+            $dbh->commit();
+
+            $stmt = $dbh->prepare(" UPDATE arqueo_caja
+                                    SET gastos = (select sum(monto)  from movimientos_arqueo_caja where id_arqueo_caja = :id_arqueo_caja and id_tipo_movimiento = 2),
+                                        monto_final = ifnull(monto_apertura,0) + ifnull(ingresos,0) - (ifnull(devoluciones,0) + ifnull(gastos,0))
+                                WHERE id = :id_arqueo_caja");
+
+            $dbh->beginTransaction();
+            $stmt->execute(array(
+                ':id_arqueo_caja' => $id_caja
+            ));
+            $dbh->commit();
+
+            $respuesta["tipo_msj"] = "success";
+            $respuesta["msj"] = "Se eliminó el gasto correctamente";
+        } catch (Exception $e) {
+            $dbh->rollBack();
+            $respuesta["tipo_msj"] = "error";
+            $respuesta["msj"] = "Error al eliminar el gasto " . $e->getMessage();
         }
 
         return $respuesta;

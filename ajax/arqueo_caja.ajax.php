@@ -91,6 +91,13 @@ if (isset($_POST["accion"])) {
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
 
             break;
+
+        case 'eliminar_gasto':
+
+            $response = ArqueoCajaModelo::mdlEliminarGasto($_POST['id_gasto'], $_POST['id_caja']);
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+
+            break;
     }
 }
 

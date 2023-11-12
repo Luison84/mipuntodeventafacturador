@@ -177,6 +177,7 @@
                                 <table id="tbl_movimientos_gastos" class="table table-striped w-100 shadow border border-secondary">
                                     <thead class="bg-gray">
                                         <tr style="font-size: 15px;">
+                                            <th> </th> <!-- 0 -->
                                             <th> id</th> <!-- 0 -->
                                             <th class="text-cetner">Descripción</th> <!-- 1 -->
                                             <th>Monto</th><!-- 2 -->
@@ -443,6 +444,10 @@ M O D A L   C I E R R E   D E   C A J A
 
         $('#tbl_movimientos_devoluciones tbody').on('click', '.btnEliminarDevolucion', function() {
             fnc_EliminarDevolucion($("#tbl_movimientos_devoluciones").DataTable().row($(this).parents('tr')).data());
+        });
+
+        $('#tbl_movimientos_gastos tbody').on('click', '.btnEliminarGasto', function() {
+            fnc_EliminarGasto($("#tbl_movimientos_gastos").DataTable().row($(this).parents('tr')).data());
         });
 
         // $("#monto_apertura").keypress(function(e) {
@@ -968,6 +973,20 @@ M O D A L   C I E R R E   D E   C A J A
             },
             autoWidth: true,
             scrollX: true,
+            columnDefs: [{
+                targets: 0,
+                orderable: false,
+                createdCell: function(td, cellData, rowData, row, col) {
+
+                    $(td).html(`<center> 
+                                    <span class='btnEliminarGasto px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar Devolución'> 
+                                        <i class='fas fa-trash fs-5 text-danger'></i>
+                                    </span>
+                                </center>`);
+
+                }
+
+            }, ],
             language: {
                 url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
             }
@@ -1153,7 +1172,7 @@ M O D A L   C I E R R E   D E   C A J A
     }
 
     /*==========================================================================================================================================
-    E L I M I N A R   C O M P R A
+    E L I M I N A R   D E V O L U C I O N
     *=========================================================================================================================================*/
     function fnc_EliminarDevolucion(data) {
 
@@ -1184,6 +1203,45 @@ M O D A L   C I E R R E   D E   C A J A
                 })
 
                 fnc_CargarDataTableDevoluciones();
+                fnc_CargarDataTableArqueosCaja();
+                fnc_ObtenerEstadoCajaPorDia();
+
+            }
+        })
+    }
+
+    /*==========================================================================================================================================
+    E L I M I N A R   D E V O L U C I O N
+    *=========================================================================================================================================*/
+    function fnc_EliminarGasto(data) {
+
+        Swal.fire({
+            title: 'Está seguro(a) de eliminar la Devolución?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, deseo eliminarla!',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                var formData = new FormData();
+                formData.append('accion', 'eliminar_gasto');
+                formData.append('id_gasto', data["1"]);
+                formData.append('id_caja', $("#btnAbrirCerrarCaja").attr('id-caja'));
+
+                response = SolicitudAjax('ajax/arqueo_caja.ajax.php', 'POST', formData);
+
+                Swal.fire({
+                    position: 'top-center',
+                    icon: response.tipo_msj,
+                    title: response.msj,
+                    showConfirmButton: true
+                })
+
+                fnc_CargarDataTableGastos();
                 fnc_CargarDataTableArqueosCaja();
                 fnc_ObtenerEstadoCajaPorDia();
 
