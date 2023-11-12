@@ -29,7 +29,7 @@ class Signature {
         $key = array();
         var_dump($pfx);
         //openssl_sign($pfx, $key, $pass_firma);
-        openssl_pkcs12_read($pfx, $key, $pass_firma);
+        openssl_pkcs12_read($pfx, $key, "123456");
         
         $objKey->loadKey($key["pkey"]);
         $objDSig->add509Cert($key["cert"], TRUE, FALSE);
