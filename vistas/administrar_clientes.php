@@ -251,15 +251,24 @@
                             }
                         }
                     },
+                    // {
+                    //     targets: 0,
+                    //     orderable: false,
+                    //     createdCell: function(td, cellData, rowData, row, col) {
+                    //         $(td).html("<span class='btnEditarCliente text-primary px-1' style='cursor:pointer;'>" +
+                    //             "<i class='fas fa-pencil-alt fs-6'></i>" +
+                    //             "</span>")
+                    //     }
+                    // }
                     {
-                        targets: 0,
-                        orderable: false,
-                        createdCell: function(td, cellData, rowData, row, col) {
-                            $(td).html("<span class='btnEditarCliente text-primary px-1' style='cursor:pointer;'>" +
-                                "<i class='fas fa-pencil-alt fs-6'></i>" +
-                                "</span>")
-                        }
+                    targets: 0,
+                    orderable: false,
+                    createdCell: function(td, cellData, rowData, row, col) {
+                        $(td).html("<span class='btnEditarCliente text-primary px-1' style='cursor:pointer;'>" +
+                            "<i class='fas fa-pencil-alt fs-6'></i>" +
+                            "</span>")
                     }
+                }
 
                 ],
                 language: {
