@@ -380,7 +380,7 @@ class ApiFacturacion
 
         // $ruta_certificado = "../fe/certificado/certificado_phperu.pfx";
         // $password_certificado = "Emilia1109$";
-        $ruta_certificado = "../pos/fe/certificado/" . $datos_emisor["certificado_digital"];
+        $ruta_certificado = "../fe/certificado/" . $datos_emisor["certificado_digital"];
         $password_certificado = $datos_emisor["clave_certificado"];
 
         set_error_handler(function ($err_severity, $err_msg, $err_file, $err_line, array $err_context) {
