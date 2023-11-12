@@ -185,7 +185,7 @@
         });
 
         $('#tbl_clientes tbody').on('click', '.btnEditarCliente', function() {
-            alert("entro")
+            // alert("entro")
             fnc_IrFormularioActualizarCliente($(this));
         });
 
