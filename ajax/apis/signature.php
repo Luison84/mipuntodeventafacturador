@@ -27,10 +27,10 @@ class Signature {
         $pfx = file_get_contents('/home/tutoria3/public_html/pos/fe/certificado/llama-pe-certificado-demo-20480674414.pfx');
         
         $key = array();
-
+        var_dump($pfx);
         //openssl_sign($pfx, $key, $pass_firma);
         openssl_pkcs12_read($pfx, $key, $pass_firma);
-        var_dump($key);
+        
         $objKey->loadKey($key["pkey"]);
         $objDSig->add509Cert($key["cert"], TRUE, FALSE);
         $objDSig->sign($objKey, $doc->documentElement->getElementsByTagName("ExtensionContent")->item($flg_firma));
