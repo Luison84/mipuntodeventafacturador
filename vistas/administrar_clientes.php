@@ -328,7 +328,6 @@
 
     function fnc_IrFormularioActualizarCliente(fila_actualizar) {
 
-        alert("entro")
         if (fila_actualizar.parents('tr').hasClass('selected')) {
             fnc_LimpiarFomulario();
         } else {
