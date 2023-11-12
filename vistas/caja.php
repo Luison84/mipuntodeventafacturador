@@ -406,9 +406,9 @@ M O D A L   C I E R R E   D E   C A J A
         fnc_ObtenerEstadoCajaPorDia();
         fnc_CargarDataTableArqueosCaja();
         fnc_CargarDataTableDevoluciones();
-        fnc_CargarTableditDevoluciones();
+        // fnc_CargarTableditDevoluciones();
         fnc_CargarDataTableGastos();
-        fnc_CargarTableditGastos();
+        // fnc_CargarTableditGastos();
 
         $("#btnAbrirCerrarCaja").on('click', function() {
 
