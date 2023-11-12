@@ -441,7 +441,7 @@ if (isset($_POST["accion"])) {
             $generar_comprobante = new ApiFacturacion();
 
             //RUTA Y NOMBRE DEL ARCHIVO XML:
-            $path_xml = "../fe/facturas/xml/";
+            $path_xml = "../pos/fe/facturas/xml/";
             $name_xml = $datos_emisor['ruc'] . '-' .
                 $venta['tipo_comprobante'] . '-' .
                 $venta['serie'] . '-' .
