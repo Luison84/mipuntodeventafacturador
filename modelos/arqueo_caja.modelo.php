@@ -340,7 +340,10 @@ class ArqueoCajaModelo
     static public function mdlObtenerDevoluciones($id_arqueo_caja, $draw)
     {
 
-        $stmt = Conexion::conectar()->prepare('SELECT ac.id,ac.descripcion,ac.monto
+        $stmt = Conexion::conectar()->prepare('SELECT "" as opciones,
+                                                        ac.id,
+                                                        ac.descripcion,
+                                                        ac.monto
                                                 FROM movimientos_arqueo_caja ac
                                                 where id_arqueo_caja = :id_arqueo_caja
                                                 and id_tipo_movimiento = 1');

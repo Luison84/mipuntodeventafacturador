@@ -118,6 +118,7 @@
                                 <table id="tbl_movimientos_devoluciones" class="table table-striped w-100 shadow border border-secondary">
                                     <thead class="bg-gray">
                                         <tr style="font-size: 15px;">
+                                            <th> </th> <!-- 0 -->
                                             <th> id</th> <!-- 0 -->
                                             <th class="text-cetner">Descripción</th> <!-- 1 -->
                                             <th>Monto</th><!-- 2 -->
@@ -853,6 +854,20 @@ M O D A L   C I E R R E   D E   C A J A
             },
             autoWidth: true,
             scrollX: true,
+            columnDefs: [{
+                targets: 0,
+                orderable: false,
+                createdCell: function(td, cellData, rowData, row, col) {
+
+                    $(td).html(`<center> 
+                                    <span class='btnEliminarDevolucion px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar Devolución'> 
+                                        <i class='fas fa-search fs-5 text-info'></i>
+                                    </span>
+                                </center>`);
+
+                }
+
+            }, ],
             language: {
                 url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
             }
