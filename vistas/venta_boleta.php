@@ -533,12 +533,14 @@
     var itemProducto = 1;
     $(document).ready(function() {
 
-        fnc_MostrarLoader()
-
         /*===================================================================*/
         // V E R I F I C A R   E L   E S T A D O   D E   L A   C A J A
         /*===================================================================*/
         fnc_ObtenerEstadoCajaPorDia()
+
+        fnc_MostrarLoader()
+
+
 
         /*===================================================================*/
         // I N I C I A L I Z A R   F O R M U L A R I O 
@@ -701,10 +703,10 @@
                                     .data(`<input type="number"  min="0"
                                             style="width:80px;" 
                                             codigoProducto = "` +
-                                            cod_producto_actual + `" 
+                                        cod_producto_actual + `" 
                                             class="form-control form-control-sm text-center iptCantidad m-0 p-0 rounded-pill" 
                                             value="` +
-                                            cantidad_actual + `">`).draw();
+                                        cantidad_actual + `">`).draw();
 
 
                                 $('#tbl_ListadoProductos').DataTable().cell(index, 8)
