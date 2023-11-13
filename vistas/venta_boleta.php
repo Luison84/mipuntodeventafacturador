@@ -1897,7 +1897,7 @@
                 position: 'top-center',
                 icon: 'warning',
                 title: 'Debe aperturar la caja',
-                showConfirmButton: false
+                showConfirmButton: true
             })
             $(".nav-link").removeClass('active');
             // $(this).addClass('active');
