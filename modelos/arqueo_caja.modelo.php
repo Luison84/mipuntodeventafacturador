@@ -16,11 +16,11 @@ class ArqueoCajaModelo
                                                 usu.usuario,
                                                 ac.fecha_apertura,
                                                 ac.fecha_cierre,
-                                                FORMAT(ifnull(FORMAT(ac.monto_apertura,2),0),2) as monto_apertura,
-                                                FORMAT(ifnull(FORMAT(ac.ingresos,2),0),2) as ingresos,
-                                                FORMAT(ifnull(FORMAT(ac.devoluciones,2),0),2) as devoluciones,
-                                                FORMAT(ifnull(FORMAT(ac.gastos,2),0),2) as gastos,
-                                                FORMAT(ifnull(FORMAT(ac.monto_final,2),0),2) as monto_final,
+                                                ifnull(ac.monto_apertura,0) as monto_apertura,
+                                                ifnull(ac.ingresos,0) as ingresos,
+                                                ifnull(ac.devoluciones,0) as devoluciones,
+                                                ifnull(ac.gastos,0) as gastos,
+                                                ifnull(ac.monto_final,0) as monto_final,
                                                 case when ac.estado = 1 then 'CAJA ABIERTA' else 'CAJA CERRADA' end estado
                                         from arqueo_caja ac inner join usuarios usu on ac.id_usuario = usu.id_usuario
                                         where ac.id_usuario = :id_usuario
