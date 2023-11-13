@@ -1903,8 +1903,8 @@
                 timer: 2000
             })
             $(".nav-link").removeClass('active');
-            // $(this).addClass('active');
-            // CargarContenido('vistas/caja.php', 'content-wrapper');
+            $(this).addClass('active');
+            CargarContenido('vistas/caja.php', 'content-wrapper');
 
         } else {
             $("#id_caja").val(response["id"]);
