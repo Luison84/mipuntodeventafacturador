@@ -568,6 +568,7 @@ M O D A L   C I E R R E   D E   C A J A
         datos.append('accion', 'obtener_estado_caja_por_dia');
 
         response = SolicitudAjax('ajax/arqueo_caja.ajax.php', 'POST', datos)
+        console.log("🚀 ~ file: caja.php:571 ~ fnc_ObtenerEstadoCajaPorDia ~ response:", response)
 
         //CUANDO LA CAJA ESTA ABIERTA
         if (response['estado'] == '1') {
