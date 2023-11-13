@@ -1884,12 +1884,11 @@ MODAL CUOTAS DEL CREDITO
                 position: 'top-center',
                 icon: 'warning',
                 title: 'Debe aperturar la caja',
-                showConfirmButton: false,
-                timer: 1500
+                showConfirmButton: true
             })
             $(".nav-link").removeClass('active');
-            // $(this).addClass('active');
-            // CargarContenido('vistas/caja.php', 'content-wrapper');
+            $(this).addClass('active');
+            CargarContenido('vistas/caja.php', 'content-wrapper');
 
         } else {
             $("#id_caja").val(response["id"]);
