@@ -699,12 +699,12 @@
                                 // ACTUALIZAR CANTIDAD
                                 $('#tbl_ListadoProductos').DataTable().cell(index, 7)
                                     .data(`<input type="number"  min="0"
-                                                                                                style="width:80px;" 
-                                                                                                codigoProducto = "` +
-                                        cod_producto_actual + `" 
-                                                                                                class="form-control form-control-sm text-center iptCantidad m-0 p-0 rounded-pill" 
-                                                                                                value="` +
-                                        cantidad_actual + `">`).draw();
+                                            style="width:80px;" 
+                                            codigoProducto = "` +
+                                            cod_producto_actual + `" 
+                                            class="form-control form-control-sm text-center iptCantidad m-0 p-0 rounded-pill" 
+                                            value="` +
+                                            cantidad_actual + `">`).draw();
 
 
                                 $('#tbl_ListadoProductos').DataTable().cell(index, 8)
@@ -1897,8 +1897,7 @@
                 position: 'top-center',
                 icon: 'warning',
                 title: 'Debe aperturar la caja',
-                showConfirmButton: false,
-                timer: 1500
+                showConfirmButton: false
             })
             $(".nav-link").removeClass('active');
             // $(this).addClass('active');
