@@ -569,6 +569,7 @@ if (isset($_POST["accion"])) {
              *****************************************************************************************/
             $resultado = ApiFacturacion::ConsultarTicket($datos_emisor, $comprobante, $ticket, "../fe/facturas/cdr/");
 
+            var_dump($resultado);
 
             // ($id_resumen, $name_xml, $mensaje_sunat, $codigo_sunat, $ticket, $estado);
             $actualizacion_resumen = VentasModelo::mdlActualizarRespuestaResumen(
