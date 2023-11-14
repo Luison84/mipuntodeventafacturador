@@ -499,8 +499,6 @@ if (isset($_POST["accion"])) {
             
             //CAPTURAMOS DATOS:
             $datos_emisor = VentasModelo::mdlObtenerDatosEmisor($_POST["empresa_emisora"]);
-            var_dump($datos_emisor);
-            return;
 
             $fecha_emision = $_POST['fecha_emision'];
 
@@ -544,7 +542,7 @@ if (isset($_POST["accion"])) {
 
             /*****************************************************************************************
             R E G I S T R A R   R E S U M E N  -- C A B E C E R A   Y   D E T A L L E --
-             *****************************************************************************************/
+            *****************************************************************************************/
             $id_resumen = VentasModelo::mdlInsertarResumen($comprobante, $resumen_comprobante);
 
 
@@ -557,7 +555,7 @@ if (isset($_POST["accion"])) {
                         $comprobante['serie'] . '-' . 
                         $comprobante['correlativo'];
 
-            var_dump( $datos_emisor['ruc']);
+            var_dump($name_xml);
 
             $resultado = ApiFacturacion::CrearXMLResumenDocumentos($path_xml, $name_xml, $datos_emisor, $comprobante, $resumen_comprobante);
 
