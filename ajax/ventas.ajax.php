@@ -496,11 +496,11 @@ if (isset($_POST["accion"])) {
 
             $comprobantes = [];
             parse_str($_POST['ventas'], $comprobantes);
-            var_dump("llego");
-            return;
+            
             //CAPTURAMOS DATOS:
             $datos_emisor = VentasModelo::mdlObtenerDatosEmisor($_POST["empresa_emisora"]);
-            
+            var_dump($datos_emisor);
+            return;
 
             $fecha_emision = $_POST['fecha_emision'];
 
