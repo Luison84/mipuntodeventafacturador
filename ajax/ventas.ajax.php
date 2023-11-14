@@ -550,8 +550,13 @@ if (isset($_POST["accion"])) {
             C R E A R   X M L   D E L   R E S U M E N   D E   C O M P R O B A N T E S
              *****************************************************************************************/
             $path_xml = "../fe/facturas/xml/";
-            $name_xml = $datos_emisor['ruc'] . '-' . $comprobante['tipo_comprobante'] . '-' . $comprobante['serie'] . '-' . $comprobante['correlativo'];
+            $name_xml = $datos_emisor['ruc'] . '-' . 
+                        $comprobante['tipo_comprobante'] . '-' . 
+                        $comprobante['serie'] . '-' . 
+                        $comprobante['correlativo'];
 
+            var_dump( $datos_emisor['ruc']);
+            
             $resultado = ApiFacturacion::CrearXMLResumenDocumentos($path_xml, $name_xml, $datos_emisor, $comprobante, $resumen_comprobante);
 
 
