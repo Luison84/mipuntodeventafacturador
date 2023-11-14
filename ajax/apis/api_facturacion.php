@@ -674,7 +674,6 @@ class ApiFacturacion
         }
 
         curl_close($ch);
-        var_dump($ticket);
         return $ticket;
     }
 
