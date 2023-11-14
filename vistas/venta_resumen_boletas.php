@@ -329,6 +329,7 @@
                 formData.append('ventas', $("#tbl_boletas").DataTable().$('input[type="checkbox"]').serialize())
 
                 response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
+                console.log("🚀 ~ file: venta_resumen_boletas.php:332 ~ fnc_EnviarResumenComprobantes ~ response:", response)
 
                 if (response) {
                     Swal.fire({
