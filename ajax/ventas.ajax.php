@@ -555,11 +555,11 @@ if (isset($_POST["accion"])) {
                         $comprobante['serie'] . '-' . 
                         $comprobante['correlativo'];
 
-            var_dump($name_xml);
+
 
             $resultado = ApiFacturacion::CrearXMLResumenDocumentos($path_xml, $name_xml, $datos_emisor, $comprobante, $resumen_comprobante);
 
-
+            var_dump($resultado);
             /*****************************************************************************************
             E N V I A R   R E S U M E N   D E   C O M P R O B A N T E S   A   S U N A T
              *****************************************************************************************/
