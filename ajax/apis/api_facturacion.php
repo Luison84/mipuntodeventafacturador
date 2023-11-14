@@ -666,11 +666,11 @@ class ApiFacturacion
 
 
 
-        var_dump($response);
+        
         // return;
 
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
+        var_dump($httpcode);
         // var_dump($httpcode);
         // return;
 
