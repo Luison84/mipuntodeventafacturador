@@ -629,31 +629,31 @@ class ApiFacturacion
         }, E_WARNING);
 
         $ch = curl_init();
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
-        // curl_setopt($ch, CURLOPT_URL, $ws);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-        // curl_setopt($ch, CURLOPT_TIMEOUT, 100);
-        // curl_setopt($ch, CURLOPT_POST, true);
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_envio);
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+        curl_setopt($ch, CURLOPT_URL, $ws);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 100);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_envio);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         // curl_setopt($ch, CURLOPT_CAINFO, dirname(__FILE__)."/cacert.pem");
 
-        curl_setopt_array($ch, array(
-            CURLOPT_URL => "", // Server Path
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 3000, // increase this
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => $xml_envio,
-            CURLOPT_HTTPHEADER => array(
-                "Content-Type: application/json",
-                "Postman-Token: 4867c7a3-2b3d-4e9a-9791-ed6dedb046b1",
-                "cache-control: no-cache"
-            ),
-        ));
+        // curl_setopt_array($ch, array(
+        //     CURLOPT_URL => "", // Server Path
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_ENCODING => "",
+        //     CURLOPT_MAXREDIRS => 10,
+        //     CURLOPT_TIMEOUT => 3000, // increase this
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => "POST",
+        //     CURLOPT_POSTFIELDS => $xml_envio,
+        //     CURLOPT_HTTPHEADER => array(
+        //         "Content-Type: application/json",
+        //         "Postman-Token: 4867c7a3-2b3d-4e9a-9791-ed6dedb046b1",
+        //         "cache-control: no-cache"
+        //     ),
+        // ));
 
         try {
             $response = curl_exec($ch);
@@ -666,7 +666,7 @@ class ApiFacturacion
 
 
 
-        // var_dump($response);
+        var_dump($response);
         // return;
 
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
