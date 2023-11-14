@@ -499,6 +499,7 @@ if (isset($_POST["accion"])) {
 
             //CAPTURAMOS DATOS:
             $datos_emisor = VentasModelo::mdlObtenerDatosEmisor($_POST["empresa_emisora"]);
+            var_dump($datos_emisor);
 
             $fecha_emision = $_POST['fecha_emision'];
 
@@ -556,7 +557,7 @@ if (isset($_POST["accion"])) {
                         $comprobante['correlativo'];
 
             var_dump( $datos_emisor['ruc']);
-            
+
             $resultado = ApiFacturacion::CrearXMLResumenDocumentos($path_xml, $name_xml, $datos_emisor, $comprobante, $resumen_comprobante);
 
 
