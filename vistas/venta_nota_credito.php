@@ -184,14 +184,14 @@
                             <div class="card-body py-2">
 
                                 <div class="row">
-                                 
+
 
                                     <!-- TIPO COMPROBANTE -->
                                     <div class="col-12 col-md-6 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color">
                                             <i class="fas fa-file-contract mr-1 my-text-color"></i>Tipo de Comprobante
                                         </label>
-                                        <select class="form-select" id="tipo_comprobante" name="tipo_comprobante" aria-label="Floating label select example" required>
+                                        <select class="form-select" id="tipo_comprobante_modificado" name="tipo_comprobante_modificado" aria-label="Floating label select example" required>
                                         </select>
                                         <div class="invalid-feedback">Seleccione Tipo de Comprobante</div>
                                     </div>
@@ -200,7 +200,7 @@
                                     <!-- SERIE -->
                                     <div class="col-12 col-md-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Serie</label>
-                                        <select class="form-select" id="serie" name="serie" aria-label="Floating label select example" required>
+                                        <select class="form-select" id="serie_modificado" name="serie_modificado" aria-label="Floating label select example" required>
                                         </select>
                                         <div class="invalid-feedback">Seleccione Serie del Comprobante</div>
                                     </div>
@@ -208,21 +208,21 @@
                                     <!-- CORRELATIVO -->
                                     <div class="col-12 col-md-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Correlativo</label>
-                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="correlativo" name="correlativo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="correlativo_modificado" name="correlativo_modificado" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                     </div>
 
                                     <!-- TIPO NOTA DE CREDITO -->
                                     <div class="col-12 col-md-12 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-money-bill-wave mr-1 my-text-color"></i>Motivo Nota de Crédito</label>
-                                        <select class="form-select" id="moneda" name="moneda" aria-label="Floating label select example" required>
+                                        <select class="form-select" id="motivo_nota_credito" name="motivo_nota_credito" aria-label="Floating label select example" required>
                                         </select>
                                         <div class="invalid-feedback">Seleccione el motivo</div>
                                     </div>
 
-                                     <!-- DESCRIPCION -->
-                                     <div class="col-12 col-md-8 mb-2">
+                                    <!-- DESCRIPCION -->
+                                    <div class="col-12 col-md-8 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Descripción</label>
-                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="descripcion" name="descripcion" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="descripcion_nota_credito" name="descripcion_nota_credito" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese la descripción</div>
                                     </div>
 
@@ -230,7 +230,7 @@
                                         <a class="btn btn-sm btn-success  fw-bold  w-100" id="btnRecuperarVenta" style="position: relative;">
                                             <span class="text-button">OBTENER VENTA</span>
                                             <span class="btn fw-bold icon-btn-success d-flex align-items-center">
-                                                <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
+                                                <i class="fas fa-search fs-5 text-white m-0 p-0"></i>
                                             </span>
                                         </a>
                                     </div>
@@ -269,7 +269,7 @@
                                     <div class="col-12 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-cart-plus mr-1 my-text-color"></i>Digite el Producto a vender</label>
                                         <input type="text" placeholder="Ingrese el código de barras o el nombre del producto" style="border-radius: 20px;" class="form-control form-control-sm" id="producto" name="producto" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                    </div>                                  
+                                    </div>
 
                                     <!-- LISTADO QUE CONTIENE LOS PRODUCTOS QUE SE VAN AGREGANDO PARA LA COMPRA -->
                                     <div class="col-md-12 mt-2">
@@ -386,7 +386,7 @@
                                 </div>
 
                             </div>
-                            
+
                         </div>
 
                     </div>
@@ -402,3 +402,73 @@
 </div>
 
 <!-- <div class="loading">Loading</div> -->
+
+<script>
+    //Variables Globales
+    var itemProducto = 1;
+    $(document).ready(function() {
+
+        /*===================================================================*/
+        // I N I C I A L I Z A R   F O R M U L A R I O 
+        /*===================================================================*/
+        fnc_InicializarFormulario();
+    })
+
+    function fnc_InicializarFormulario() {
+
+        CargarSelects();
+        // fnc_ObtenerCorrelativo($("#serie").val());
+        // fnc_CargarPluginDateTime();
+        // fnc_CargarAutocompleteProductos()
+
+        // fnc_CargarDataTableListadoProductos();
+
+
+        // //Datos del Comprobante
+        // $("#tipo_comprobante").attr("readonly", true);        
+        // $("#nro_documento").val('')
+        // $("#nombre_cliente_razon_social").val('')
+        // $("#direccion").val('')
+        // $("#telefono").val('')
+
+        // //Datos de la Venta
+        // $("#forma_pago").attr("readonly", true);
+        // $("#producto").val('')
+
+        // $("#totalVenta").html('')
+        // $("#totalVenta").html('S/ 0.00')
+        // // $("#forma_pago").val('')
+        // $("#total_recibido").val('')
+        // $("#vuelto").val('')
+
+        // //Datos del Resumen
+        // $("#resumen_opes_gravadas").html('S/ 0.00')
+        // $("#resumen_opes_inafectas").html('S/ 0.00')
+        // $("#resumen_opes_exoneradas").html('S/ 0.00')
+        // $("#resumen_subtotal").html('S/ 0.00')
+        // $("#resumen_total_igv").html('S/ 0.00')
+        // $("#resumen_total_venta").html('S/ 0.00')
+
+        // $(".needs-validation-venta").removeClass("was-validated");
+    }
+
+    /*===================================================================*/
+    // C A R G A R   D R O P D O W N'S
+    /*===================================================================*/
+    function CargarSelects() {
+
+        // EMPRESA EMISORA
+        CargarSelect(1, $("#empresa_emisora"), "--Seleccionar--", "ajax/empresas.ajax.php", 'obtener_empresas_select');
+
+        // TIPO DE COMPROBANTE
+        CargarSelect('03', $("#tipo_comprobante"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante');
+        CargarSelect(null, $("#tipo_comprobante_modificado"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante');
+
+        // SERIE DEL COMPROBANTE
+        CargarSelect(null, $("#serie"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_serie_comprobante', $('#tipo_comprobante option:selected').val());
+        // $("#serie").prop('selectedIndex', 1).change();
+
+        //MONEDA
+        CargarSelect('PEN', $("#moneda"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_moneda');
+    }
+</script>
