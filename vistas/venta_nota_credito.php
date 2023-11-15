@@ -187,7 +187,7 @@
                                  
 
                                     <!-- TIPO COMPROBANTE -->
-                                    <div class="col-12 col-md-8 mb-2">
+                                    <div class="col-12 col-md-6 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color">
                                             <i class="fas fa-file-contract mr-1 my-text-color"></i>Tipo de Comprobante
                                         </label>
@@ -212,7 +212,7 @@
                                     </div>
 
                                     <!-- TIPO NOTA DE CREDITO -->
-                                    <div class="col-12 col-md-4 mb-2">
+                                    <div class="col-12 col-md-12 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-money-bill-wave mr-1 my-text-color"></i>Motivo Nota de Crédito</label>
                                         <select class="form-select" id="moneda" name="moneda" aria-label="Floating label select example" required>
                                         </select>
