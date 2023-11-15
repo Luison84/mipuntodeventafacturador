@@ -1740,15 +1740,15 @@
 
                         if (rowData[9] == 2) {
                             $(td).html("<center>" +
-                                "<i style='cursor:pointer;' class='fas fa-window-close fs-5 text-danger btnMensajeRespuestaSunat' data-bs-toggle='tooltip' data-bs-placement='top' title='" + rowData[12] + "'></i>" +
+                                "<i style='cursor:pointer;' class='fas fa-window-close fs-5 text-danger btnMensajeRespuestaSunat' data-bs-toggle='tooltip' data-bs-placement='top' title='" + rowData[13] + "'></i>" +
                                 "</center>");
                         } else if (rowData[9] == 1) {
                             $(td).html("<center>" +
-                                "<i style='cursor:pointer;' class='fas fa-check-circle fs-5 text-success btnMensajeRespuestaSunat' data-bs-toggle='tooltip' data-bs-placement='top' title='" + rowData[12] + "'></i>" +
+                                "<i style='cursor:pointer;' class='fas fa-check-circle fs-5 text-success btnMensajeRespuestaSunat' data-bs-toggle='tooltip' data-bs-placement='top' title='" + rowData[13] + "'></i>" +
                                 "</center>");
                         } else if (rowData[9] == 3) {
                             $(td).html("<center>" +
-                                "<i style='cursor:pointer;' class='fas fa-window-close fs-5 text-danger btnMensajeRespuestaSunat' data-bs-toggle='tooltip' data-bs-placement='top' title='" + rowData[12] + "'></i>" +
+                                "<i style='cursor:pointer;' class='fas fa-window-close fs-5 text-danger btnMensajeRespuestaSunat' data-bs-toggle='tooltip' data-bs-placement='top' title='" + rowData[13] + "'></i>" +
                                 "</center>");
                         } else {
                             $(td).html("<center>" +
