@@ -198,7 +198,7 @@
 
 
                                     <!-- SERIE -->
-                                    <div class="col-12 col-md-4 mb-2">
+                                    <div class="col-12 col-md-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Serie</label>
                                         <select class="form-select" id="serie" name="serie" aria-label="Floating label select example" required>
                                         </select>
@@ -206,7 +206,7 @@
                                     </div>
 
                                     <!-- CORRELATIVO -->
-                                    <div class="col-12 col-md-4 mb-2">
+                                    <div class="col-12 col-md-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Correlativo</label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="correlativo" name="correlativo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required readonly>
                                     </div>
