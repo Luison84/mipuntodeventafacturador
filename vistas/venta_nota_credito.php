@@ -526,23 +526,23 @@
             $('#tbl_ListadoProductos').DataTable().row.add({
                 'id': element.item,
                 'codigo_producto': element.codigo_producto,
-                'descripcion': element.descripcion,
-                'id_tipo_igv': element.id_tipo_afectacion_igv,
-                'tipo_igv': '',
-                'unidad_medida': element.unidad,
-                'precio': element.precio_unitario,
-                'cantidad': '<input type="number" style="width:80px;" codigoProducto = "' +
-                    element.cantidad +
-                    '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="1">',
-                'cantidad_final': element.cantidad,
-                'subtotal': parseFloat(element.precio_unitario * element.cantidad).toFixed(2),
-                'igv': parseFloat((element.precio_unitario * element.cantidad * 0.18)).toFixed(2),
-                'importe': parseFloat((element.precio_unitario * element.cantidad) * 1.18).toFixed(2),
-                'acciones': "<center>" +
-                    "<span class='btnEliminarproducto text-danger px-1'style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar producto'> " +
-                    "<i class='fas fa-trash fs-5'> </i> " +
-                    "</span>" +
-                    "</center>"
+                // 'descripcion': element.descripcion,
+                // 'id_tipo_igv': element.id_tipo_afectacion_igv,
+                // 'tipo_igv': '',
+                // 'unidad_medida': element.unidad,
+                // 'precio': element.precio_unitario,
+                // 'cantidad': '<input type="number" style="width:80px;" codigoProducto = "' +
+                //     element.cantidad +
+                //     '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="1">',
+                // 'cantidad_final': element.cantidad,
+                // 'subtotal': parseFloat(element.precio_unitario * element.cantidad).toFixed(2),
+                // 'igv': parseFloat((element.precio_unitario * element.cantidad * 0.18)).toFixed(2),
+                // 'importe': parseFloat((element.precio_unitario * element.cantidad) * 1.18).toFixed(2),
+                // 'acciones': "<center>" +
+                //     "<span class='btnEliminarproducto text-danger px-1'style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar producto'> " +
+                //     "<i class='fas fa-trash fs-5'> </i> " +
+                //     "</span>" +
+                //     "</center>"
             }).draw();
 
         }
