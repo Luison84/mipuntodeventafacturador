@@ -671,7 +671,7 @@ class VentasModelo
         return $clientes;
     }
 
-    static public function mdlObtenerListadoBoletasPorFecha($post, $fecha_emision)
+    static public function mdlObtenerListadoBoletasPorFecha($post, $fecha_emision, $id_empresa)
     {
 
         $columns = [
@@ -709,6 +709,7 @@ class VentasModelo
         if (isset($post["search"]["value"])) {
             $query .= '  WHERE s.id_tipo_comprobante = "03"  
                         AND date(v.fecha_emision) = "' . $fecha_emision . '"
+                        AND v.id_empresa_emisora = "' . $id_empresa . '"
                         AND ifnull(estado_respuesta_sunat,0) =! 1
                         AND ( v.serie like "%' . $post["search"]["value"] . '%" 
                                 or ( case when v.estado_respuesta_sunat = 2 then "Enviado, con errores"

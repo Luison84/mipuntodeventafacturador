@@ -364,7 +364,7 @@ if (isset($_POST["accion"])) {
 
             // var_dump($_POST["fecha_emision"]);
             // return;
-            $response = VentasModelo::mdlObtenerListadoBoletasPorFecha($_POST, $_POST["fecha_emision"]);
+            $response = VentasModelo::mdlObtenerListadoBoletasPorFecha($_POST, $_POST["fecha_emision"], $_POST["id_empresa"]);
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
             break;
 

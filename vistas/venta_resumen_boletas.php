@@ -216,7 +216,8 @@
                 url: 'ajax/ventas.ajax.php',
                 data: {
                     'accion': 'obtener_listado_boletas_x_fecha',
-                    'fecha_emision': $("#fecha_emision").val()
+                    'fecha_emision': $("#fecha_emision").val(),
+                    'id_empresa' : $("#empresa_emisora").val()
                 },
                 type: 'POST'
             },
