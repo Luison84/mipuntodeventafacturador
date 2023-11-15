@@ -1392,7 +1392,7 @@ class VentasModelo
                                             FROM venta v inner join  detalle_venta dv on v.id = dv.id_venta
                                                         inner join productos p on dv.codigo_producto = p.codigo_producto
                                             WHERE v.serie = :serie
-                                            and correlativo = :correlativo");
+                                            and v.correlativo = :correlativo");
 
         $stmt->bindParam(":serie", $serie, PDO::PARAM_STR);
         $stmt->bindParam(":correlativo", $correlativo, PDO::PARAM_STR);
