@@ -160,71 +160,6 @@
 
                     </div>
 
-                    <!-- --------------------------------------------------------- -->
-                    <!-- DATOS DEL CLIENTE -->
-                    <!-- --------------------------------------------------------- -->
-                    <div class="col-12 col-lg-6">
-
-                        <div class="card card-gray shadow">
-
-                            <div class="card-header">
-                                <h3 class="card-title fs-6">DATOS DEL CLIENTE</h3>
-                                <div class="card-tools m-0">
-
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-
-                                </div> <!-- ./ end card-tools -->
-                            </div> <!-- ./ end card-header -->
-
-                            <div class="card-body py-2">
-
-                                <div class="row">
-
-                                    <div class="col-12 col-md-6 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-signature mr-1 my-text-color"></i>Tipo Documento</label>
-                                        <select class="form-select" id="tipo_documento" name="tipo_documento" aria-label="Floating label select example" required>
-                                        </select>
-                                        <div class="invalid-feedback">Seleccione el Tipo de Documento</div>
-                                    </div>
-
-                                    <div class="col-12 col-md-6 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card mr-1 my-text-color"></i> Nro Documento</label>
-                                        <div class="input-group input-group-sm mb-3 ">
-                                            <span class="input-group-text btnConsultarDni" id="inputGroup-sizing-sm" style="cursor: pointer;"><i class="fas fa-search ml-1 text-white"></i></span>
-                                            <input type="text" class="form-control form-control-sm" style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;" aria-label="Sizing example input" id="nro_documento" name="nro_documento" placeholder="Ingrese Nro de documento" aria-describedby="inputGroup-sizing-sm" required>
-                                            <div class="invalid-feedback">Ingrese el Nro de Documento</div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-12 col-md-12 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-user-tie mr-1 my-text-color"></i>Nombre del Cliente/ Razón Social</label>
-                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="nombre_cliente_razon_social" name="nombre_cliente_razon_social" placeholder="Ingrese Nombre del Cliente o Razón Social" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                    </div>
-
-                                    <div class="col-12 col-md-9 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-map-marker-alt mr-1 my-text-color"></i>Dirección</label>
-                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="direccion" name="direccion" placeholder="Ingrese la dirección" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-
-                                    </div>
-
-                                    <div class="col-12 col-md-3 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-phone-alt mr-1 my-text-color"></i>Teléfono</label>
-                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="telefono" name="telefono" placeholder="Teléfono" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
 
                     <!-- --------------------------------------------------------- -->
                     <!-- LISTADO DE PRODUCTOS -->
@@ -249,10 +184,6 @@
 
                                     <!-- INPUT PARA INGRESO DEL CODIGO DE BARRAS O DESCRIPCION DEL PRODUCTO -->
                                     <div class="col-12 mb-2">
-                                        <!-- <div class="form-floating mb-2">
-                            <input type="text" id="producto" class="form-control" name="producto">
-                            <label for="producto">Digite el Producto a vender</label>                                                            
-                        </div> -->
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-cart-plus mr-1 my-text-color"></i>Digite el Producto a vender</label>
                                         <input type="text" placeholder="Ingrese el código de barras o el nombre del producto" style="border-radius: 20px;" class="form-control form-control-sm" id="producto" name="producto" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                                     </div>
@@ -326,12 +257,6 @@
                     <div class="col-12 col-lg-4">
 
                         <div class="row">
-
-                            <!-- <div class="d-none d-lg-block col-lg-12 mb-3">
-                <div class="col-12 text-center px-2 rounded-3">
-                    <div class="btn fw-bold fs-3  text-warning my-bg w-100" id="totalVenta">S/0.00</div>
-                </div>
-            </div> -->
 
                             <div class="col-12">
                                 <!-- --------------------------------------------------------- -->
@@ -422,4 +347,4 @@
 
 </div>
 
-<div class="loading">Loading</div>
+<!-- <div class="loading">Loading</div> -->
