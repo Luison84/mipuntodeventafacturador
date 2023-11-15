@@ -88,6 +88,15 @@ class SeriesModelo
         return $stmt->fetchAll();
     }
 
+    static public function mdlObtenerTipoComprobanteNotaCredito()
+    {
+        $stmt = Conexion::conectar()->prepare("select codigo,descripcion
+                                            from tipo_comprobante 
+                                            where estado = 1 and codigo in ('01','03')");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     static public function mdlRegistrarSerie($serie){
 
         $dbh = Conexion::conectar();

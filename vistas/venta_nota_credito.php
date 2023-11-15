@@ -118,7 +118,6 @@
                                         </div>
                                     </div>
 
-
                                     <!-- TIPO COMPROBANTE -->
                                     <div class="col-12 col-md-8 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color">
@@ -128,7 +127,6 @@
                                         </select>
                                         <div class="invalid-feedback">Seleccione Tipo de Comprobante</div>
                                     </div>
-
 
                                     <!-- SERIE -->
                                     <div class="col-12 col-md-4 mb-2">

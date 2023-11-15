@@ -21,11 +21,18 @@ if (isset($_POST["accion"])) {
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
             break;
 
+        case 'obtener_tipo_comprobante_nota_credito':
+
+            $response = SeriesModelo::mdlObtenerTipoComprobanteNotaCredito();
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+            break;
+
+
         case 'registrar_serie':
 
-             //Datos del formulario
-             $formulario_serie = [];
-             parse_str($_POST['datos_serie'], $formulario_serie);
+            //Datos del formulario
+            $formulario_serie = [];
+            parse_str($_POST['datos_serie'], $formulario_serie);
 
             $response = SeriesModelo::mdlRegistrarSerie($formulario_serie);
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
