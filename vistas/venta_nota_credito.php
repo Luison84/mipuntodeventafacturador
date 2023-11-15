@@ -441,6 +441,7 @@
     function fnc_InicializarFormulario() {
 
         CargarSelects();
+        fnc_CargarDataTableListadoProductos();
         // fnc_ObtenerCorrelativo($("#serie").val());
         // fnc_CargarPluginDateTime();
         // fnc_CargarAutocompleteProductos()
