@@ -489,6 +489,8 @@
 
         //MONEDA
         CargarSelect('PEN', $("#moneda"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_moneda');
+
+        CargarSelect(null, $("#motivo_nota_credito"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_motivo_nota_credito');
     }
 
     /*===================================================================*/

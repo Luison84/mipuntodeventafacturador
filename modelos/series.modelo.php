@@ -97,6 +97,14 @@ class SeriesModelo
         return $stmt->fetchAll();
     }
 
+    static public function mdlObtenerMotivosNotaCredito()
+    {
+        $stmt = Conexion::conectar()->prepare("select codigo,descripcion
+                                                from motivos_notas where tipo = 'C'");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     static public function mdlRegistrarSerie($serie){
 
         $dbh = Conexion::conectar();
