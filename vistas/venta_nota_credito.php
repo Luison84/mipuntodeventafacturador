@@ -525,7 +525,7 @@
             console.log("🚀 ~ file: venta_nota_credito.php:524 ~ fnc_RecuperarVenta ~ element:", element)
 
             $('#tbl_ListadoProductos').DataTable().row.add({
-                'id': '1',
+                'id': element.item,
                 'codigo_producto': '1',
                 'descripcion': '1',
                 'id_tipo_igv': '1',
