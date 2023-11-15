@@ -99,7 +99,7 @@ class SeriesModelo
 
     static public function mdlObtenerMotivosNotaCredito()
     {
-        $stmt = Conexion::conectar()->prepare("select codigo,descripcion
+        $stmt = Conexion::conectar()->prepare("select id,descripcion
                                                 from motivos_notas where tipo = 'C'");
         $stmt->execute();
         return $stmt->fetchAll();
