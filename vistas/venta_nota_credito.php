@@ -410,6 +410,10 @@
         // I N I C I A L I Z A R   F O R M U L A R I O 
         /*===================================================================*/
         fnc_InicializarFormulario();
+
+        $('#serie').on('change', function(e) {
+            fnc_ObtenerCorrelativo($("#serie").val())
+        })
     })
 
     function fnc_InicializarFormulario() {
@@ -468,5 +472,17 @@
 
         //MONEDA
         CargarSelect('PEN', $("#moneda"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_moneda');
+    }
+
+    /*===================================================================*/
+    // O B T E N E R   C O R R E L A T I V O
+    /*===================================================================*/
+    function fnc_ObtenerCorrelativo(id_serie) {
+        var formData = new FormData();
+        formData.append('accion', 'obtener_correlativo_serie');
+        formData.append('id_serie', id_serie);
+
+        response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
+        $("#correlativo").val(response["correlativo"])
     }
 </script>
