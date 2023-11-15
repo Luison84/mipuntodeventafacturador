@@ -406,6 +406,8 @@
     var itemProducto = 1;
     $(document).ready(function() {
 
+        fnc_MostrarLoader()
+
         /*===================================================================*/
         // I N I C I A L I Z A R   F O R M U L A R I O 
         /*===================================================================*/
@@ -418,7 +420,19 @@
         $('#tipo_comprobante_modificado').on('change', function(e) {
             CargarSelect(null, $("#serie_modificado"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_serie_comprobante', $('#tipo_comprobante_modificado').val());
         })
+
+        fnc_OcultarLoader();
     })
+
+    function fnc_MostrarLoader() {
+        $(".loading").removeClass('d-none');
+        $(".loading").addClass('d-block');
+    }
+
+    function fnc_OcultarLoader() {
+        $(".loading").removeClass('d-block');
+        $(".loading").addClass('d-none')
+    }
 
     function fnc_InicializarFormulario() {
 
