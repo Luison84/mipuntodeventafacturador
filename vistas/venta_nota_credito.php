@@ -226,6 +226,15 @@
                                         <div class="invalid-feedback">Ingrese la descripción</div>
                                     </div>
 
+                                    <div class="col-6">
+                                        <a class="btn btn-sm btn-success  fw-bold  w-100" id="btnRecuperarVenta" style="position: relative;">
+                                            <span class="text-button">OBTENER VENTA</span>
+                                            <span class="btn fw-bold icon-btn-success d-flex align-items-center">
+                                                <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
+                                            </span>
+                                        </a>
+                                    </div>
+
                                 </div>
 
                             </div>
