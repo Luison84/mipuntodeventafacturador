@@ -31,6 +31,8 @@ if (isset($_POST["accion"])) {
         case 'obtener_motivo_nota_credito':
 
             $response = SeriesModelo::mdlObtenerMotivosNotaCredito();
+            var_dump($response);
+            
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
             break;
 
