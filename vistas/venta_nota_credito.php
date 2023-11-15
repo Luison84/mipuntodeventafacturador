@@ -514,7 +514,7 @@
         var formData = new FormData();
         formData.append('accion', 'obtener_detalle_venta')
         formData.append('serie', $("#serie_modificado").val())
-        formData.append('correlativo', $("#correlativo_modificado"));
+        formData.append('correlativo', $("#correlativo_modificado")).val();
 
         response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
         console.log("🚀 ~ file: venta_nota_credito.php:520 ~ fnc_RecuperarVenta ~ response:", response)
