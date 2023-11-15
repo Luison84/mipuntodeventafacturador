@@ -481,7 +481,6 @@ class ApiFacturacion
             $resultado['xml_cdr_sunat_base64'] = "";
             $resultado["estado_respuesta_sunat"] = $estado_respuesta_sunat;
 
-            // var_dump($http_code);
             if ($http_code == 200) { //200->La comunicación fue satisfactoria
 
                 $document = new DOMDocument();
@@ -535,7 +534,6 @@ class ApiFacturacion
 
                 $codigo_error_sunat = $document->getElementsByTagName("faultcode")->item(0)->nodeValue;
                 $mensaje_respuesta_sunat = $document->getElementsByTagName("faultstring")->item(0)->nodeValue;
-                // var_dump( $codigo_error_sunat);
 
                 $resultado['codigo_error_sunat'] = $codigo_error_sunat;
                 $resultado['mensaje_respuesta_sunat'] = $mensaje_respuesta_sunat;
@@ -548,7 +546,6 @@ class ApiFacturacion
             $resultado["error"] = "-1";
         }
 
-        // var_dump($resultado);
         return $resultado;
     }
 
@@ -642,10 +639,8 @@ class ApiFacturacion
         try {
             $response = curl_exec($ch);
         } catch (\Throwable $th) {
-            // var_dump($th->getMessage());
         } finally {
             restore_error_handler();
-            // return $response;
         }
 
 
@@ -726,8 +721,6 @@ class ApiFacturacion
         $response = curl_exec($ch);
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        // echo "codigo:" . $httpcode;
-
         $estado = 0;
         $mensaje_sunat = "";
         $codigo_sunat = "";
@@ -763,7 +756,6 @@ class ApiFacturacion
                 $mensaje_sunat = $mensaje;
             }
         } else {
-            echo curl_error($ch);
             $mensaje_sunat = "Problema de conexión";
         }
 
