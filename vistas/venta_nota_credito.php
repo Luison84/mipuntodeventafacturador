@@ -208,7 +208,7 @@
                                     <!-- CORRELATIVO -->
                                     <div class="col-12 col-md-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Correlativo</label>
-                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="correlativo" name="correlativo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required readonly>
+                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="correlativo" name="correlativo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                     </div>
 
                                     <!-- TIPO NOTA DE CREDITO -->
@@ -217,6 +217,13 @@
                                         <select class="form-select" id="moneda" name="moneda" aria-label="Floating label select example" required>
                                         </select>
                                         <div class="invalid-feedback">Seleccione el motivo</div>
+                                    </div>
+
+                                     <!-- DESCRIPCION -->
+                                     <div class="col-12 mb-2">
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Descripción</label>
+                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="descripcion" name="descripcion" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                        <div class="invalid-feedback">Ingrese la descripción</div>
                                     </div>
 
                                 </div>
@@ -253,36 +260,7 @@
                                     <div class="col-12 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-cart-plus mr-1 my-text-color"></i>Digite el Producto a vender</label>
                                         <input type="text" placeholder="Ingrese el código de barras o el nombre del producto" style="border-radius: 20px;" class="form-control form-control-sm" id="producto" name="producto" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                    </div>
-
-                                    <div class="col-12 col-lg-4 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-alt mr-1 my-text-color"></i>Tipo Operación</label>
-                                        <select class="form-select" id="tipo_operacion" name="tipo_operacion" aria-label="Floating label select example" required>
-                                        </select>
-                                        <div class="invalid-feedback">Ingrese el Tipo de Operación</div>
-                                    </div>
-
-                                    <!-- FORMA DE PAGO -->
-                                    <div class="col-12 col-lg-3 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="far fa-credit-card mr-1 my-text-color"></i>Forma de Pago</label>
-                                        <select class="form-select" id="forma_pago" name="forma_pago" aria-label="Floating label select example" required readonly>
-                                        </select>
-                                        <div class="invalid-feedback">Ingrese Forma de Pago</div>
-                                    </div>
-
-                                    <!-- TOTAL RECIBIDO -->
-                                    <div class="col-6 col-lg-3 mb-2">
-
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-hand-holding-usd mr-1 my-text-color"></i>Total Recibido</label>
-                                        <input type="number" min="0" step="0.01" placeholder="Dinero recibido" style="border-radius: 20px;" class="form-control form-control-sm" id="total_recibido" name="total_recibido" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                    </div>
-
-                                    <!-- VUELTO -->
-                                    <div class="col-6 col-lg-2 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-hand-holding-usd mr-1 my-text-color"></i>Vuelto</label>
-                                        <input type="number" min="0" step="0.01" placeholder="Vuelto" style="border-radius: 20px;" class="form-control form-control-sm" id="vuelto" name="vuelto" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                    </div>
-
+                                    </div>                                  
 
                                     <!-- LISTADO QUE CONTIENE LOS PRODUCTOS QUE SE VAN AGREGANDO PARA LA COMPRA -->
                                     <div class="col-md-12 mt-2">
