@@ -656,16 +656,16 @@ class ApiFacturacion
 
             if (isset($doc->getElementsByTagName('ticket')->item(0)->nodeValue)) {
                 $ticket = $doc->getElementsByTagName('ticket')->item(0)->nodeValue;
-                echo "TODO OK : " . $ticket;
+                // echo "TODO OK : " . $ticket;
             } else {
 
                 $codigo = $doc->getElementsByTagName("faultcode")->item(0)->nodeValue;
                 $mensaje = $doc->getElementsByTagName("faultstring")->item(0)->nodeValue;
-                echo "error " . $codigo . ": " . $mensaje;
+                // echo "error " . $codigo . ": " . $mensaje;
             }
         } else {
-            echo curl_error($ch);
-            echo "Problema de conexión";
+            // echo curl_error($ch);
+            // echo "Problema de conexión";
         }
 
         curl_close($ch);
