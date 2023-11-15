@@ -513,7 +513,7 @@
 
         var formData = new FormData();
         formData.append('accion', 'obtener_detalle_venta')
-        formData.append('serie', $("#serie_modificado").val())
+        formData.append('id_serie', $("#serie_modificado").val())
         formData.append('correlativo', $("#correlativo_modificado").val());
 
         response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);

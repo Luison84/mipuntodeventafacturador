@@ -711,7 +711,7 @@ if (isset($_POST["accion"])) {
         case 'obtener_detalle_venta':
 
             var_dump($_POST["serie"]);
-            $response = VentasModelo::mdlObtenerDetalleVentaPorComprobante($_POST["serie"], $_POST["correlativo"]);
+            $response = VentasModelo::mdlObtenerDetalleVentaPorComprobante($_POST["id_serie"], $_POST["correlativo"]);
 
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
 

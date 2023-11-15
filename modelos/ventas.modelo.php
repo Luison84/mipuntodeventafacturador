@@ -1373,7 +1373,7 @@ class VentasModelo
         return $respuesta;
     }
 
-    static public function mdlObtenerDetalleVentaPorComprobante($serie, $correlativo)
+    static public function mdlObtenerDetalleVentaPorComprobante($id_serie, $correlativo)
     {
 
         $stmt = Conexion::conectar()->prepare("SELECT dv.item,
@@ -1391,10 +1391,10 @@ class VentasModelo
                                                     format(dv.importe_total,2) as importe_total
                                             FROM venta v inner join  detalle_venta dv on v.id = dv.id_venta
                                                         inner join productos p on dv.codigo_producto = p.codigo_producto
-                                            WHERE v.serie = :serie
+                                            WHERE v.id_serie = :id_serie
                                             and v.correlativo = :correlativo");
 
-        $stmt->bindParam(":serie", $serie, PDO::PARAM_STR);
+        $stmt->bindParam(":id_serie", $id_serie, PDO::PARAM_STR);
         $stmt->bindParam(":correlativo", $correlativo, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_NAMED);
