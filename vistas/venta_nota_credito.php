@@ -124,7 +124,7 @@
                                         <label class="mb-0 ml-1 text-sm my-text-color">
                                             <i class="fas fa-file-contract mr-1 my-text-color"></i>Tipo de Comprobante
                                         </label>
-                                        <select class="form-select" id="tipo_comprobante" name="tipo_comprobante" aria-label="Floating label select example" required>
+                                        <select class="form-select" id="tipo_comprobante" name="tipo_comprobante" aria-label="Floating label select example" required readonly>
                                         </select>
                                         <div class="invalid-feedback">Seleccione Tipo de Comprobante</div>
                                     </div>
@@ -461,7 +461,7 @@
         CargarSelect(1, $("#empresa_emisora"), "--Seleccionar--", "ajax/empresas.ajax.php", 'obtener_empresas_select');
 
         // TIPO DE COMPROBANTE
-        CargarSelect('03', $("#tipo_comprobante"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante');
+        CargarSelect('07', $("#tipo_comprobante"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante');
         CargarSelect(null, $("#tipo_comprobante_modificado"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante');
 
         // SERIE DEL COMPROBANTE
