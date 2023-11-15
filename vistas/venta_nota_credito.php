@@ -521,13 +521,13 @@
         console.log("🚀 ~ file: venta_nota_credito.php:520 ~ fnc_RecuperarVenta ~ response:", response)
 
         for (let index = 0; index < response.length; index++) {
-            const element = response[index];
+            const producto = response[index];
             console.log("🚀 ~ file: venta_nota_credito.php:524 ~ fnc_RecuperarVenta ~ element:", element)
 
             $('#tbl_ListadoProductos').DataTable().row.add({
-                'id': element.item,
-                'codigo_producto': '1',
-                'descripcion': '1',
+                'id': producto.item,
+                'codigo_producto': producto.codigo_producto,
+                'descripcion': producto.descripcion,
                 'id_tipo_igv': '1',
                 'tipo_igv': '',
                 'unidad_medida': '1',
