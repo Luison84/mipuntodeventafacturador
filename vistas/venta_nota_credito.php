@@ -399,7 +399,7 @@
 
 </div>
 
-<!-- <div class="loading">Loading</div> -->
+<div class="loading">Loading</div>
 
 <script>
     //Variables Globales
