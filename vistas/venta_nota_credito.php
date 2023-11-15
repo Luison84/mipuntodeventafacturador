@@ -522,32 +522,32 @@
         for (let index = 0; index < response.length; index++) {
             const element = response[index];
             console.log("🚀 ~ file: venta_nota_credito.php:524 ~ fnc_RecuperarVenta ~ element:", element)
-            
+
+            $('#tbl_ListadoProductos').DataTable().row.add({
+                'id': element.item,
+                'codigo_producto': element.codigo_producto,
+                'descripcion': element.descripcion,
+                'id_tipo_igv': element.id_tipo_afectacion_igv,
+                'tipo_igv': '',
+                'unidad_medida': element.unidad,
+                'precio': element.precio_unitario,
+                'cantidad': '<input type="number" style="width:80px;" codigoProducto = "' +
+                    element.cantidad +
+                    '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="1">',
+                'cantidad_final': element.cantidad,
+                'subtotal': parseFloat(element.precio_unitario * element.cantidad).toFixed(2),
+                'igv': parseFloat((element.precio_unitario * element.cantidad * 0.18)).toFixed(2),
+                'importe': parseFloat((element.precio_unitario * element.cantidad) * 1.18).toFixed(2),
+                'acciones': "<center>" +
+                    "<span class='btnEliminarproducto text-danger px-1'style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar producto'> " +
+                    "<i class='fas fa-trash fs-5'> </i> " +
+                    "</span>" +
+                    "</center>"
+            }).draw();
+
         }
 
-        // $('#tbl_ListadoProductos').DataTable().row.add({
-        //     'id': itemProducto,
-        //     'codigo_producto': respuesta['codigo_producto'],
-        //     'descripcion': respuesta['descripcion'],
-        //     'id_tipo_igv': respuesta['id_tipo_afectacion_igv'],
-        //     'tipo_igv': respuesta['tipo_afectacion_igv'],
-        //     'unidad_medida': respuesta['unidad_medida'],
-        //     'precio': parseFloat(respuesta['precio_unitario_sin_igv']).toFixed(2),
-        //     'cantidad': '<input type="number" style="width:80px;" codigoProducto = "' +
-        //         respuesta['codigo_producto'] +
-        //         '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="1">',
-        //     'cantidad_final': 1,
-        //     'subtotal': parseFloat(respuesta['precio_unitario_sin_igv'] * 1).toFixed(2),
-        //     'igv': parseFloat((respuesta['precio_unitario_sin_igv'] * 1 * respuesta[
-        //         'porcentaje_igv'])).toFixed(2),
-        //     'importe': parseFloat((respuesta['precio_unitario_sin_igv'] * 1) * respuesta[
-        //         'factor_igv']).toFixed(2),
-        //     'acciones': "<center>" +
-        //                 "<span class='btnEliminarproducto text-danger px-1'style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar producto'> " +
-        //                 "<i class='fas fa-trash fs-5'> </i> " +
-        //                 "</span>" +                
-        //         "</center>"
-        // }).draw();
+
     }
 
     /*===================================================================*/
