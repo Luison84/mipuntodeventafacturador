@@ -421,7 +421,7 @@
             CargarSelect(null, $("#serie_modificado"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_serie_comprobante', $('#tipo_comprobante_modificado').val());
         })
 
-        $("#btnRecuperarVenta").on('click', function(){
+        $("#btnRecuperarVenta").on('click', function() {
             fnc_RecuperarVenta();
         })
 
@@ -509,7 +509,7 @@
         $("#correlativo").val(response["correlativo"])
     }
 
-    function fnc_RecuperarVenta(){
+    function fnc_RecuperarVenta() {
 
         var formData = new FormData();
         formData.append('accion', 'obtener_detalle_venta')
@@ -518,5 +518,106 @@
 
         response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
         console.log("🚀 ~ file: venta_nota_credito.php:520 ~ fnc_RecuperarVenta ~ response:", response)
+
+        for (let index = 0; index < response.length; index++) {
+            const element = response[index];
+            console.log("🚀 ~ file: venta_nota_credito.php:524 ~ fnc_RecuperarVenta ~ element:", element)
+            
+        }
+
+        // $('#tbl_ListadoProductos').DataTable().row.add({
+        //     'id': itemProducto,
+        //     'codigo_producto': respuesta['codigo_producto'],
+        //     'descripcion': respuesta['descripcion'],
+        //     'id_tipo_igv': respuesta['id_tipo_afectacion_igv'],
+        //     'tipo_igv': respuesta['tipo_afectacion_igv'],
+        //     'unidad_medida': respuesta['unidad_medida'],
+        //     'precio': parseFloat(respuesta['precio_unitario_sin_igv']).toFixed(2),
+        //     'cantidad': '<input type="number" style="width:80px;" codigoProducto = "' +
+        //         respuesta['codigo_producto'] +
+        //         '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="1">',
+        //     'cantidad_final': 1,
+        //     'subtotal': parseFloat(respuesta['precio_unitario_sin_igv'] * 1).toFixed(2),
+        //     'igv': parseFloat((respuesta['precio_unitario_sin_igv'] * 1 * respuesta[
+        //         'porcentaje_igv'])).toFixed(2),
+        //     'importe': parseFloat((respuesta['precio_unitario_sin_igv'] * 1) * respuesta[
+        //         'factor_igv']).toFixed(2),
+        //     'acciones': "<center>" +
+        //                 "<span class='btnEliminarproducto text-danger px-1'style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar producto'> " +
+        //                 "<i class='fas fa-trash fs-5'> </i> " +
+        //                 "</span>" +                
+        //         "</center>"
+        // }).draw();
+    }
+
+    /*===================================================================*/
+    // C A R G A R   D A T A T A B L E   D E   P R O D U C T O S   A   V E N D ER
+    /*===================================================================*/
+    function fnc_CargarDataTableListadoProductos() {
+
+        if ($.fn.DataTable.isDataTable('#tbl_ListadoProductos')) {
+            $('#tbl_ListadoProductos').DataTable().destroy();
+            $('#tbl_ListadoProductos tbody').empty();
+        }
+
+        $('#tbl_ListadoProductos').DataTable({
+            searching: false,
+            paging: false,
+            info: false,
+            "columns": [{
+                    "data": "id"
+                },
+                {
+                    "data": "codigo_producto"
+                },
+                {
+                    "data": "descripcion"
+                },
+                {
+                    "data": "id_tipo_igv"
+                },
+                {
+                    "data": "tipo_igv"
+                },
+                {
+                    "data": "unidad_medida"
+                },
+                {
+                    "data": "precio"
+                },
+                {
+                    "data": "cantidad"
+                },
+                {
+                    "data": "cantidad_final"
+                },
+                {
+                    "data": "subtotal"
+                },
+                {
+                    "data": "igv"
+                },
+                {
+                    "data": "importe"
+                },
+                {
+                    "data": "acciones"
+                }
+            ],
+            columnDefs: [{
+                targets: [0, 1, 3, 4, 5, 8],
+                visible: false
+            }],
+            scrollX: true,
+            // autoWidth: true,
+            scrollY: "50vh",
+            "order": [
+                [0, 'desc']
+            ],
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+            }
+        });
+
     }
 </script>
