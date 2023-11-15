@@ -1157,7 +1157,7 @@ class VentasModelo
                         ':codigo_sunat' => $codigo_sunat,
                         ':mensaje_sunat' => $mensaje_sunat,
                         ':estado_respuesta_sunat' => $estado,
-                        ':estado' => $comprobante["condicion"],
+                        ':estado' => 2,
                         ':id_venta' => $comprobante["id_comprobante"]
                     ));
                     $dbh->commit();
