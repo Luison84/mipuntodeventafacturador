@@ -414,6 +414,10 @@
         $('#serie').on('change', function(e) {
             fnc_ObtenerCorrelativo($("#serie").val())
         })
+
+        $('#tipo_comprobante_modificado').on('change', function(e) {
+            CargarSelect(null, $("#serie_modificado"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_serie_comprobante', $('#tipo_comprobante_modificado').val());
+        })
     })
 
     function fnc_InicializarFormulario() {
@@ -468,7 +472,6 @@
 
         // SERIE DEL COMPROBANTE
         CargarSelect(null, $("#serie"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_serie_comprobante', $('#tipo_comprobante option:selected').val());
-        // $("#serie").prop('selectedIndex', 1).change();
 
         //MONEDA
         CargarSelect('PEN', $("#moneda"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_moneda');
