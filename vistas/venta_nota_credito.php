@@ -220,13 +220,13 @@
                                     </div>
 
                                      <!-- DESCRIPCION -->
-                                     <div class="col-12 mb-2">
+                                     <div class="col-12 col-md-8 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Descripción</label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="descripcion" name="descripcion" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese la descripción</div>
                                     </div>
 
-                                    <div class="col-6">
+                                    <div class="col-12 col-md-4 mb-2">
                                         <a class="btn btn-sm btn-success  fw-bold  w-100" id="btnRecuperarVenta" style="position: relative;">
                                             <span class="text-button">OBTENER VENTA</span>
                                             <span class="btn fw-bold icon-btn-success d-flex align-items-center">
