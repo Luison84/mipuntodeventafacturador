@@ -421,6 +421,10 @@
             CargarSelect(null, $("#serie_modificado"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_serie_comprobante', $('#tipo_comprobante_modificado').val());
         })
 
+        $("#btnRecuperarVenta").on('click', function(){
+            fnc_RecuperarVenta();
+        })
+
         fnc_OcultarLoader();
     })
 
@@ -503,5 +507,16 @@
 
         response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
         $("#correlativo").val(response["correlativo"])
+    }
+
+    function fnc_RecuperarVenta(){
+
+        var formData = new FormData();
+        formData.append('accion', 'obtener_detalle_venta')
+        formData.append('serie', $("#serie_modificado").val())
+        formData.append('correlativo', $("#correlativo_modificado"));
+
+        response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
+        console.log("🚀 ~ file: venta_nota_credito.php:520 ~ fnc_RecuperarVenta ~ response:", response)
     }
 </script>

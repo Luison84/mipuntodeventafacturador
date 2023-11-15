@@ -196,7 +196,7 @@ if (isset($_POST["accion"])) {
 
                 /******************************************************************************************/
                 // F I R M A R   X M L 
-                /******************************************************************************************/                
+                /******************************************************************************************/
                 $response_signature = ApiFacturacion::FirmarXml($path_xml, $name_xml, $datos_emisor);
 
                 if ($response_signature["estado_firma"] == 1) {
@@ -449,7 +449,7 @@ if (isset($_POST["accion"])) {
 
             $resultado = ApiFacturacion::Genera_XML_Factura_Boleta($path_xml, $name_xml, $datos_emisor, $datos_cliente, $venta, $detalle_venta);
 
-            
+
             /******************************************************************************************/
             // F I R M A R   X M L 
             /******************************************************************************************/
@@ -496,7 +496,7 @@ if (isset($_POST["accion"])) {
 
             $comprobantes = [];
             parse_str($_POST['ventas'], $comprobantes);
-            
+
             //CAPTURAMOS DATOS:
             $datos_emisor = VentasModelo::mdlObtenerDatosEmisor($_POST["empresa_emisora"]);
 
@@ -542,7 +542,7 @@ if (isset($_POST["accion"])) {
 
             /*****************************************************************************************
             R E G I S T R A R   R E S U M E N  -- C A B E C E R A   Y   D E T A L L E --
-            *****************************************************************************************/
+             *****************************************************************************************/
             $id_resumen = VentasModelo::mdlInsertarResumen($comprobante, $resumen_comprobante);
 
 
@@ -550,14 +550,14 @@ if (isset($_POST["accion"])) {
             C R E A R   X M L   D E L   R E S U M E N   D E   C O M P R O B A N T E S
              *****************************************************************************************/
             $path_xml = "../fe/facturas/xml/";
-            $name_xml = $datos_emisor['ruc'] . '-' . 
-                        $comprobante['tipo_comprobante'] . '-' . 
-                        $comprobante['serie'] . '-' . 
-                        $comprobante['correlativo'];
+            $name_xml = $datos_emisor['ruc'] . '-' .
+                $comprobante['tipo_comprobante'] . '-' .
+                $comprobante['serie'] . '-' .
+                $comprobante['correlativo'];
 
             $resultado = ApiFacturacion::CrearXMLResumenDocumentos($path_xml, $name_xml, $datos_emisor, $comprobante, $resumen_comprobante);
 
-            
+
             /*****************************************************************************************
             E N V I A R   R E S U M E N   D E   C O M P R O B A N T E S   A   S U N A T
              *****************************************************************************************/
@@ -703,6 +703,14 @@ if (isset($_POST["accion"])) {
         case "pagar_cuota":
 
             $response = VentasModelo::mdlPagarCuotas($_POST["id_venta"], $_POST["monto_a_pagar"]);
+
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+
+            break;
+
+        case 'obtener_detalle_venta':
+
+            $response = VentasModelo::mdlObtenerDetalleVentaPorComprobante($_POST["serie"], $_POST["correlativo"]);
 
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
 
