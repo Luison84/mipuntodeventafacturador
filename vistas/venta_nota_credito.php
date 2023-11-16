@@ -247,7 +247,7 @@
                     <!-- --------------------------------------------------------- -->
                     <div class="col-12 col-lg-8">
 
-                        <div class="card card-gray shadow disabled-card">
+                        <div class="card card-gray shadow" id="card-detalle-venta">
 
                             <div class="card-header">
                                 <h4 class="card-title fs-6">LISTADO DE PRODUCTOS</h4>
@@ -417,7 +417,11 @@
         })
 
         $('#motivo_nota_credito').on('change', function(e) {
-            alert("motivo_nota_credito")
+            if($('#motivo_nota_credito').val() == "1"){
+                $("#card-detalle-venta").addClass('disabled-card');
+            }else{
+                $("#card-detalle-venta").removeClass('disabled-card');
+            }
         })
 
         $('#tipo_comprobante_modificado').on('change', function(e) {
@@ -642,7 +646,7 @@
         //MONEDA
         CargarSelect('PEN', $("#moneda"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_moneda');
 
-        CargarSelect(1, $("#motivo_nota_credito"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_motivo_nota_credito');
+        CargarSelect(null, $("#motivo_nota_credito"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_motivo_nota_credito');
     }
 
     /*===================================================================*/
