@@ -296,34 +296,10 @@ if (isset($_POST["accion"])) {
             $formulario_venta = [];
             parse_str($_POST['datos_venta'], $formulario_venta);
 
-            var_dump(json_decode($_POST['productos']));
-
-            return;
-
-            // $detalle_productos = json_decode($_POST["arr_detalle_productos"]);
-
-            // if (isset($_POST["arr_cronograma"])) {
-            //     $cronograma = json_decode($_POST["arr_cronograma"]);
-            // }
+            $detalle_productos = json_decode($_POST["productos"]);
 
             // DATOS DEL EMISOR:
             $datos_emisor = VentasModelo::mdlObtenerDatosEmisor($formulario_venta["empresa_emisora"]);
-
-            //DATOS DEL CLIENTE:
-            // if ($formulario_venta['tipo_documento'] == "0") {
-            //     $formulario_venta['nro_documento'] = "99999999";
-            //     $formulario_venta['nombre_cliente_razon_social'] = "CLIENTES VARIOS";
-            //     $formulario_venta['direccion'] = "-";
-            //     $formulario_venta['telefono'] = "-";
-            // }
-
-            // $datos_cliente = VentasModelo::mdlObtenerDatosCliente(
-            //     $formulario_venta['tipo_documento'],
-            //     $formulario_venta['nro_documento'],
-            //     $formulario_venta['nombre_cliente_razon_social'],
-            //     $formulario_venta['direccion'],
-            //     $formulario_venta['telefono']
-            // );
 
             $count_items = 0;
 
@@ -334,35 +310,35 @@ if (isset($_POST["accion"])) {
             $total_icbper = 0;
             $detalle_venta = array();
 
-
             //RECORREMOS EL DETALLE DE LOS PRODUCTOS DE LA VENTA
             for ($i = 0; $i < count($detalle_productos); $i++) {
 
                 $count_items = $count_items + 1;
 
+                $datos_producto = ProductosModelo::mdlGetDatosProducto($detalle_productos[$i]->codigo_producto);
+
                 $igv_producto = 0; //EN CASO EL PRODUCTO NO TENGA IGV, SE MANTIENE CON EL VALOR = 0
                 $factor_igv = 1; //EN CASO EL PRODUCTO NO TENGA IGV, SE MANTIENE CON EL FACTOR = 1
 
-                if ($detalle_productos[$i]->id_tipo_igv == 10) { //SI ES OPERACION GRAVADA = 10
-                    $igv = ProductosModelo::mdlObtenerImpuesto($detalle_productos[$i]->id_tipo_igv);
+                if ($datos_producto["id_tipo_afectacion_igv"] == 10) { //SI ES OPERACION GRAVADA = 10
+                    $igv = ProductosModelo::mdlObtenerImpuesto($datos_producto["id_tipo_afectacion_igv"]);
                     $porcentaje_igv = $igv['impuesto'] / 100; //0.18;
                     $factor_igv = 1 + ($igv['impuesto'] / 100);
-                    $igv_producto = $detalle_productos[$i]->precio * $detalle_productos[$i]->cantidad_final * $porcentaje_igv;
+                    $igv_producto = $datos_producto["precio_unitario_sin_igv"] * $detalle_productos[$i]->cantidad * $porcentaje_igv;
                 } else $porcentaje_igv = 0.0; // SI ES INAFECTA O EXONERADA
 
                 $total_impuestos_producto = $igv_producto;
 
-                $afectacion = VentasModelo::ObtenerTipoAfectacionIGV($detalle_productos[$i]->id_tipo_igv);
+                $afectacion = VentasModelo::ObtenerTipoAfectacionIGV($datos_producto["id_tipo_afectacion_igv"]);
                 $costo_unitario = VentasModelo::ObtenerCostoUnitarioUnidadMedida($detalle_productos[$i]->codigo_producto);
 
                 $producto = array(
                     'item'                  => $count_items,
-                    'codigo'                => $detalle_productos[$i]->codigo_producto,
-                    'descripcion'           => $detalle_productos[$i]->descripcion,
+                    'codigo'                => $datos_producto["codigo_producto"],
+                    'descripcion'           => $datos_producto["descripcion"],
                     'porcentaje_igv'        => $porcentaje_igv * 100, //Para registrar el IGV que se consideró para la venta
-                    'unidad'                => $costo_unitario['id_unidad_medida'], //$detalle_productos[$i]->unidad_medida,
-                    'cantidad'              => $detalle_productos[$i]->cantidad_final,
-                    'costo_unitario'        => round($costo_unitario['costo_unitario'], 2),
+                    'unidad'                => $datos_producto['id_unidad_medida'], //$detalle_productos[$i]->unidad_medida,
+                    'cantidad'              => $detalle_productos[$i]->cantidad,
                     'valor_unitario'        => round($detalle_productos[$i]->precio, 2),
                     'precio_unitario'       => round($detalle_productos[$i]->precio * $factor_igv, 2),
                     'valor_total'           => round($detalle_productos[$i]->precio * $detalle_productos[$i]->cantidad_final, 2),
@@ -392,28 +368,7 @@ if (isset($_POST["accion"])) {
 
             //OBTENER LA SERIE DEL COMPROBANTE
             $serie = VentasModelo::mdlObtenerSerie($formulario_venta['serie']);
-
-            if ($formulario_venta["forma_pago"] == "1") {
-                $forma_pago = "Contado";
-            } else {
-                $forma_pago = "Credito";
-            }
-
-            $monto_credito = 0;
-            $cuotas = array();
-
-
-            if ($forma_pago == "Credito") {
-
-                for ($i = 0; $i < count($cronograma); $i++) {
-
-                    $cuotas[] = array(
-                        "cuota" => $cronograma[$i]->cuota,
-                        "importe" => round($cronograma[$i]->importe, 2),
-                        "vencimiento" => $cronograma[$i]->fecha_vencimiento
-                    );
-                }
-            }
+          
 
             //DATOS DE LA VENTA:
             $venta['id_empresa_emisora'] = $datos_emisor["id_empresa"];
@@ -447,9 +402,6 @@ if (isset($_POST["accion"])) {
                  *****************************************************************************************/
                 $id_venta = VentasModelo::mdlRegistrarVenta($venta, $detalle_venta, $_POST["id_caja"]);
 
-                if ($venta['forma_pago'] == 'Credito') {
-                    $insert_cuotas = VentasModelo::mdlInsertarCuotas($id_venta, $cuotas);
-                }
 
                 /*****************************************************************************************
                     G E N E R A R    C O M P R O B A N T E    E L E C T R Ó N I C O ( X M L )
