@@ -343,11 +343,14 @@ if (isset($_POST["accion"])) {
                     'cantidad'              => $detalle_productos[$i]->cantidad,
                     'valor_unitario'        => round($detalle_productos[$i]->precio, 2), // SIN IGV
                     'precio_unitario'       => round($detalle_productos[$i]->precio * $factor_igv, 2), // CON IGV
-                    'valor_total'           => round($detalle_productos[$i]->precio * $detalle_productos[$i]->cantidad_final, 2),
+                    'valor_total'           => round($detalle_productos[$i]->precio * $detalle_productos[$i]->cantidad, 2),
                     'igv'                   => round($igv_producto, 2),
-                    'importe_total'         => round($detalle_productos[$i]->precio * $detalle_productos[$i]->cantidad_final * $factor_igv, 2),
+                    'importe_total'         => round($detalle_productos[$i]->precio * $detalle_productos[$i]->cantidad * $factor_igv, 2),
                     'codigos'               => array($afectacion['letra_tributo'], $afectacion['codigo'], $afectacion['codigo_tributo'], $afectacion['nombre_tributo'], $afectacion['tipo_tributo'])
                 );
+
+                var_dump($detalle_venta);
+                return;
 
 
                 array_push($detalle_venta, $producto);
