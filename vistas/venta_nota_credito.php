@@ -814,10 +814,12 @@
             var data = row.data();
             console.log("🚀 ~ file: venta_nota_credito.php:642 ~ $ ~ data:", data)
 
-            precio = parseFloat($.parseHTML(data['precio'])[0]['value'])
+            precio = parseFloat($.parseHTML(data['precio'])[0]['value'])/1.18;
             cantidad = parseFloat($.parseHTML(data['cantidad'])[0]['value'])
 
             arr['codigo_producto'] = data["codigo_producto"];
+            arr['id_tipo_igv'] = data["id_tipo_igv"];
+            arr['precio'] = data["precio"];
             arr['cantidad'] = cantidad;
             arr['igv'] = data["igv"];
             arr['subtotal'] = data["subtotal"];
@@ -826,7 +828,7 @@
 
         });
 
-        console.log($productos);
+        console.log($productos);        
 
         var formData = new FormData();
         formData.append('accion','registrar_nota_credito');

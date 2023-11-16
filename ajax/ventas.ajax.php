@@ -317,13 +317,13 @@ if (isset($_POST["accion"])) {
 
                 $count_items = $count_items + 1;
 
-                $datos_producto = ProductosModelo::mdlGetDatosProducto($detalle_productos[$i]->codigo_producto);
+                // $datos_producto = ProductosModelo::mdlGetDatosProducto($detalle_productos[$i]->codigo_producto);
 
                 $igv_producto = 0; //EN CASO EL PRODUCTO NO TENGA IGV, SE MANTIENE CON EL VALOR = 0
                 $factor_igv = 1; //EN CASO EL PRODUCTO NO TENGA IGV, SE MANTIENE CON EL FACTOR = 1
 
-                if ($datos_producto["id_tipo_afectacion_igv"] == 10) { //SI ES OPERACION GRAVADA = 10
-                    $igv = ProductosModelo::mdlObtenerImpuesto($datos_producto["id_tipo_afectacion_igv"]);
+                if ($detalle_productos[$i]->id_tipo_igv == 10) { //SI ES OPERACION GRAVADA = 10
+                    $igv = ProductosModelo::mdlObtenerImpuesto($detalle_productos[$i]->id_tipo_igv);
                     $porcentaje_igv = $igv['impuesto'] / 100; //0.18;
                     $factor_igv = 1 + ($igv['impuesto'] / 100);
                     $igv_producto = $datos_producto["precio_unitario_sin_igv"] * $detalle_productos[$i]->cantidad * $porcentaje_igv;
@@ -331,7 +331,7 @@ if (isset($_POST["accion"])) {
 
                 $total_impuestos_producto = $igv_producto;
 
-                $afectacion = VentasModelo::ObtenerTipoAfectacionIGV($datos_producto["id_tipo_afectacion_igv"]);
+                $afectacion = VentasModelo::ObtenerTipoAfectacionIGV($detalle_productos[$i]->id_tipo_igv);
                 $costo_unitario = VentasModelo::ObtenerCostoUnitarioUnidadMedida($detalle_productos[$i]->codigo_producto);
 
                 $producto = array(
@@ -341,8 +341,8 @@ if (isset($_POST["accion"])) {
                     'porcentaje_igv'        => $porcentaje_igv * 100, //Para registrar el IGV que se consideró para la venta
                     'unidad'                => $datos_producto['id_unidad_medida'], //$detalle_productos[$i]->unidad_medida,
                     'cantidad'              => $detalle_productos[$i]->cantidad,
-                    'valor_unitario'        => round($detalle_productos[$i]->precio, 2),
-                    'precio_unitario'       => round($detalle_productos[$i]->precio * $factor_igv, 2),
+                    'valor_unitario'        => round($detalle_productos[$i]->precio, 2), // SIN IGV
+                    'precio_unitario'       => round($detalle_productos[$i]->precio * $factor_igv, 2), // CON IGV
                     'valor_total'           => round($detalle_productos[$i]->precio * $detalle_productos[$i]->cantidad_final, 2),
                     'igv'                   => round($igv_producto, 2),
                     'importe_total'         => round($detalle_productos[$i]->precio * $detalle_productos[$i]->cantidad_final * $factor_igv, 2),
