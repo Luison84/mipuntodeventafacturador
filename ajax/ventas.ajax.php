@@ -936,7 +936,7 @@ if (isset($_POST["accion"])) {
 
             $response = VentasModelo::mdlObtenerDetalleVentaPorComprobante($_POST["id_serie"], $_POST["correlativo"]);
 
-            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+            echo json_encode($response, JSON_NUMERIC_CHECK);
 
             break;
     }
