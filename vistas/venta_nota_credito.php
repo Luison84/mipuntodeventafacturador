@@ -832,7 +832,7 @@
         formData.append('accion','registrar_nota_credito');
         formData.append('productos', JSON.stringify($productos));
 
-        // response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
+        response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
         
     }
 </script>
