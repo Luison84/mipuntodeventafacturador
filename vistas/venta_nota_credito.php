@@ -819,7 +819,7 @@
 
             arr['codigo_producto'] = data["codigo_producto"];
             arr['id_tipo_igv'] = data["id_tipo_igv"];
-            arr['precio'] = data["precio"];
+            arr['precio'] = precio;
             arr['cantidad'] = cantidad;
             arr['igv'] = data["igv"];
             arr['subtotal'] = data["subtotal"];
