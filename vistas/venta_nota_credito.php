@@ -699,26 +699,26 @@
                     "</center>"
             }).draw();
 
-            total_opes_gravadas = total_opes_gravadas + parseFloat(producto.total_operaciones_gravadas).toFixed(2);
-            total_opes_inafectas = total_opes_inafectas + parseFloat(producto.total_operaciones_inafectas).toFixed(2);
-            total_opes_exoneradas = total_opes_exoneradas + parseFloat(producto.total_operaciones_exoneradas).toFixed(2);
-            total_igv = total_igv + parseFloat(producto.total_igv).toFixed(2);
+            total_opes_gravadas = parseFloat(total_opes_gravadas) + parseFloat(producto.total_operaciones_gravadas);
+            total_opes_inafectas = parseFloat(total_opes_inafectas) + parseFloat(producto.total_operaciones_inafectas);
+            total_opes_exoneradas = parseFloat(total_opes_exoneradas) + parseFloat(producto.total_operaciones_exoneradas);
+            total_igv = parseFloat(total_igv) + parseFloat(producto.total_igv);
 
         }
 
-        subtotal = parseFloat(total_opes_gravadas).toFixed(2) + parseFloat(total_opes_inafectas).toFixed(2) + parseFloat(total_opes_exoneradas).toFixed(2);
+        subtotal = parseFloat(total_opes_gravadas) + parseFloat(total_opes_inafectas) + parseFloat(total_opes_exoneradas);
         
-        TotalVenta = parseFloat(subtotal).toFixed(2) + parseFloat(total_igv).toFixed(2);
+        TotalVenta = parseFloat(subtotal) + parseFloat(total_igv);
 
         console.log("🚀 ~ file: venta_nota_credito.php:710 ~ fnc_RecuperarVenta ~ subtotal:", subtotal)
         console.log("🚀 ~ file: venta_nota_credito.php:710 ~ fnc_RecuperarVenta ~ total_igv:", total_igv)
         
-        $("#resumen_opes_gravadas").html('S/ ' + total_opes_gravadas);
-        $("#resumen_opes_inafectas").html('S/ ' + total_opes_inafectas);
-        $("#resumen_opes_exoneradas").html('S/ ' + total_opes_exoneradas);
-        $("#resumen_subtotal").html('S/ ' + subtotal);
-        $("#resumen_total_igv").html('S/ ' + total_igv);
-        $("#resumen_total_venta").html('S/ ' + TotalVenta);
+        $("#resumen_opes_gravadas").html('S/ ' + total_opes_gravadas.toFixed(2));
+        $("#resumen_opes_inafectas").html('S/ ' + total_opes_inafectas.toFixed(2));
+        $("#resumen_opes_exoneradas").html('S/ ' + total_opes_exoneradas.toFixed(2));
+        $("#resumen_subtotal").html('S/ ' + subtotal.toFixed(2));
+        $("#resumen_total_igv").html('S/ ' + total_igv.toFixed(2));
+        $("#resumen_total_venta").html('S/ ' + TotalVenta.toFixed(2));
 
 
     }
