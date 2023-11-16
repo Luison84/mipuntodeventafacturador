@@ -645,10 +645,11 @@
             console.log("🚀 ~ file: venta_nota_credito.php:642 ~ $ ~ data:", data)
 
             precio = parseFloat($.parseHTML(data['precio'])[0]['value'])
+            cantidad = parseFloat($.parseHTML(data['cantidad'])[0]['value'])
             
             arr['codigo_producto'] = data["codigo_producto"];
             arr['id_tipo_igv'] = data["id_tipo_igv"];
-            arr['cantidad'] = data["cantidad"];
+            arr['cantidad'] = cantidad;
             arr['precio'] = precio;
             productos.push(arr);
 
