@@ -669,9 +669,9 @@
         console.log("🚀 ~ file: venta_nota_credito.php:520 ~ fnc_RecuperarVenta ~ response:", response)
 
 
-        let total_opes_gravadas = 0;
-        let total_opes_inafectas = 0;
-        let total_opes_exoneradas = 0;
+        let total_opes_gravadas = 0.00;
+        let total_opes_inafectas = 0.00;
+        let total_opes_exoneradas = 0.00;
         let subtotal = 0;
         let total_igv = 0;
         let TotalVenta = 0;
