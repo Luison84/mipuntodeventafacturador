@@ -669,12 +669,12 @@
         console.log("🚀 ~ file: venta_nota_credito.php:520 ~ fnc_RecuperarVenta ~ response:", response)
 
 
-        let total_opes_gravadas = 0.00;
-        let total_opes_inafectas = 0.00;
-        let total_opes_exoneradas = 0.00;
-        let subtotal = 0;
-        let total_igv = 0;
-        let TotalVenta = 0;
+        var total_opes_gravadas = 0.00;
+        var total_opes_inafectas = 0.00;
+        var total_opes_exoneradas = 0.00;
+        var subtotal = 0;
+        var total_igv = 0;
+        var TotalVenta = 0;
 
         for (let index = 0; index < response.length; index++) {
             const producto = response[index];
