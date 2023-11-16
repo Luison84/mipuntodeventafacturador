@@ -653,6 +653,9 @@
         $("#correlativo").val(response["correlativo"])
     }
 
+    /*===================================================================*/
+    // R E C U P E R A R   V E N T A
+    /*===================================================================*/
     function fnc_RecuperarVenta() {
 
         fnc_CargarDataTableListadoProductos();

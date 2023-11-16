@@ -1376,7 +1376,8 @@ class VentasModelo
     static public function mdlObtenerDetalleVentaPorComprobante($id_serie, $correlativo)
     {
 
-        $stmt = Conexion::conectar()->prepare("SELECT p.codigo_producto, 
+        $stmt = Conexion::conectar()->prepare("SELECT v.*,
+                                                    p.codigo_producto, 
                                                     p.id_categoria, 
                                                     p.descripcion, 
                                                     p.id_tipo_afectacion_igv, 
