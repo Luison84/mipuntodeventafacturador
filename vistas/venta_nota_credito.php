@@ -529,7 +529,7 @@
                 let $cantidad_actual = 0;
 
                 $cantidad_actual = parseFloat($.parseHTML(data['cantidad'])[0]['value'])
-                $id_tipo_afectacion = 0 ;$('#tbl_ListadoProductos').DataTable().cell(index, 3).data();
+                $id_tipo_afectacion = $('#tbl_ListadoProductos').DataTable().cell(index, 3).data();
 
                 // ACTUALIZAR PRECIO
                 $('#tbl_ListadoProductos').DataTable().cell(index, 6)
