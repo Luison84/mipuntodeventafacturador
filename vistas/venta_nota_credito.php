@@ -789,11 +789,10 @@
         });
 
         console.log($productos);
-        var data_to_send = $.serialize($productos);
 
         var formData = new FormData();
         formData.append('accion','registrar_nota_credito');
-        formData.append('productos', data_to_send);
+        formData.append('productos', JSON.stringify($productos));
 
         response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
         
