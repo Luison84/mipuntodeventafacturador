@@ -435,7 +435,10 @@
 
             cantidad_actual = $(this)[0]['attributes']['codigoproducto']['value'];
             cod_producto_actual = $(this)[0]['attributes']['codigoproducto']['value'];
-            $precio_sin_igv = parseFloat($(this)[0]['attributes']['precio']['value'])/1.18;
+            $precio_sin_igv = $(this)[0]['attributes']['precio']['value'];
+
+            console.log("🚀 ~ file: venta_nota_credito.php:450 ~ $ ~ precio_sin_igv:", $precio_sin_igv)
+            return;
 
             if (cantidad_actual.length == 0 || cantidad_actual == 0) {
                 cantidad_actual = 1;
@@ -448,7 +451,7 @@
 
                 //OBTENER PRECIO DEL PRODUCTO
                 // $precio_sin_igv = parseFloat($('#tbl_ListadoProductos').DataTable().cell(index, 6).data())/1.18;
-                console.log("🚀 ~ file: venta_nota_credito.php:450 ~ $ ~ precio_sin_igv:", $precio_sin_igv)
+                
                 $id_tipo_afectacion = $('#tbl_ListadoProductos').DataTable().cell(index, 3).data();
                 console.log("🚀 ~ file: venta_nota_credito.php:452 ~ $ ~ id_tipo_afectacion:", $id_tipo_afectacion)
 
