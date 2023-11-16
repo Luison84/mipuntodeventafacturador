@@ -631,9 +631,8 @@
 
         // var detalle_productos = $("#tbl_ListadoProductos").DataTable().rows().data().toArray();
         // console.log("🚀 ~ file: venta_nota_credito.php:633 ~ fnc_GuardarVenta ~ detalle_productos:", detalle_productos)
-
+        
         var productos = [];
-        var arrList = [];
         var arr = {};   
         
         
@@ -648,13 +647,15 @@
             precio = parseFloat($.parseHTML(data['precio'])[0]['value'])
             
             arr['codigo_producto'] = data["codigo_producto"];
+            arr['id_tipo_igv'] = data["id_tipo_igv"];
+            arr['cantidad'] = data["cantidad"];
             arr['precio'] = precio;
-            arrList.push(arr);
+            productos.push(arr);
 
         
 
         });
 
-        console.log(arrList);
+        console.log(productos);
     }
 </script>
