@@ -525,16 +525,14 @@
             // console.log("🚀 ~ file: venta_nota_credito.php:524 ~ fnc_RecuperarVenta ~ element:", element)
 
             $('#tbl_ListadoProductos').DataTable().row.add({
-                'id': producto.item,
+                'id': index,
                 'codigo_producto': producto.codigo_producto,
                 'descripcion': producto.descripcion,
                 'id_tipo_igv': producto.id_tipo_afectacion_igv,
                 'tipo_igv': producto.tipo_afectacion_igv,
                 'unidad_medida': producto.unidad_medida,
                 'precio': producto.precio_unitario_sin_igv,
-                'cantidad': '<input type="number" style="width:80px;" codigoProducto = "' +
-                    producto.codigo_producto +
-                    '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="'+producto.cantidad+'">',
+                'cantidad': '<input type="number" style="width:80px;" codigoProducto = "' + producto.codigo_producto + '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="'+producto.cantidad+'">',
                 'cantidad_final': producto.cantidad,
                 'subtotal': parseFloat(producto.precio_unitario_sin_igv * producto.cantidad).toFixed(2),
                 'igv': parseFloat((producto.precio_unitario_sin_igv * producto.cantidad * producto.porcentaje_igv)).toFixed(2),
