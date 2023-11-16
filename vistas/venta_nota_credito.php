@@ -540,14 +540,14 @@
 
 
                 //CALCULAR SUBTOTAL
-                $subtotal = $precio_sin_igv * cantidad_actual
+                $subtotal = $precio_sin_igv * $cantidad_actual
                 $('#tbl_ListadoProductos').DataTable().cell(index, 8).data(parseFloat($subtotal).toFixed(2)).draw();
 
                 //CALCULAR IGV
                 if ($id_tipo_afectacion == 10) {
                     $factor_igv = 1.18;
                     $porcentaje_igv = 0.18;
-                    $igv = ($precio_sin_igv * cantidad_actual * $porcentaje_igv); // * EL % DE IGV = 0.18
+                    $igv = ($precio_sin_igv * $cantidad_actual * $porcentaje_igv); // * EL % DE IGV = 0.18
 
                 } else {
                     $igv = 0
@@ -556,7 +556,7 @@
                 $('#tbl_ListadoProductos').DataTable().cell(index, 9).data(parseFloat($igv).toFixed(2)).draw();
 
                 //CALCULAR IMPORTE
-                $importe = ($precio_sin_igv * cantidad_actual) * $factor_igv; // * EL FACTOR DE IGV = 1.18
+                $importe = ($precio_sin_igv * $cantidad_actual) * $factor_igv; // * EL FACTOR DE IGV = 1.18
                 $('#tbl_ListadoProductos').DataTable().cell(index, 10).data(parseFloat($importe).toFixed(2)).draw();
 
                 $("#producto").val("");
