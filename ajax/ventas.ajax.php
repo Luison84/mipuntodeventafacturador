@@ -297,8 +297,6 @@ if (isset($_POST["accion"])) {
             parse_str($_POST['datos_venta'], $formulario_venta);
 
             $detalle_productos = json_decode($_POST["productos"]);
-            var_dump( $detalle_productos);
-            return;
 
             // DATOS DEL EMISOR:
             $datos_emisor = VentasModelo::mdlObtenerDatosEmisor($formulario_venta["empresa_emisora"]);
