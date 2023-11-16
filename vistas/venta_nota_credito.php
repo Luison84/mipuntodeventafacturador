@@ -588,6 +588,8 @@
 
     function fnc_RecuperarVenta() {
 
+        fnc_CargarDataTableListadoProductos();
+        
         var formData = new FormData();
         formData.append('accion', 'obtener_detalle_venta')
         formData.append('id_serie', $("#serie_modificado").val())
