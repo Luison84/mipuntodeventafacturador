@@ -639,6 +639,9 @@
             var data = row.data();
             console.log("🚀 ~ file: venta_nota_credito.php:642 ~ $ ~ data:", data)
 
+            precio = parseFloat($.parseHTML(data['precio'])[0]['value'])
+            console.log("🚀 ~ file: venta_nota_credito.php:643 ~ $ ~ precio:", precio)
+
         });
     }
 </script>
