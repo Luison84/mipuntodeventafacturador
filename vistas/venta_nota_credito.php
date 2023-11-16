@@ -707,7 +707,11 @@
         }
 
         subtotal = total_opes_gravadas + total_opes_inafectas + total_opes_exoneradas;
+        
         TotalVenta = subtotal + total_igv;
+
+        console.log("🚀 ~ file: venta_nota_credito.php:710 ~ fnc_RecuperarVenta ~ subtotal:", subtotal)
+        console.log("🚀 ~ file: venta_nota_credito.php:710 ~ fnc_RecuperarVenta ~ total_igv:", total_igv)
         
         $("#resumen_opes_gravadas").html('S/ ' + parseFloat(total_opes_gravadas).toFixed(2));
         $("#resumen_opes_inafectas").html('S/ ' + parseFloat(total_opes_inafectas).toFixed(2));
