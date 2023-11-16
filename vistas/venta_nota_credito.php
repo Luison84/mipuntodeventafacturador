@@ -440,6 +440,11 @@
                 cantidad_actual = 1;
             }
 
+            if ( cantidad_actual < 0) {
+                mensajeToast("error", "Ingrese valores mayores a 0")
+                return;
+            }
+
             $('#tbl_ListadoProductos').DataTable().rows().eq(0).each(function(index) {
 
                 var row = $('#tbl_ListadoProductos').DataTable().row(index);
