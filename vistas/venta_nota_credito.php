@@ -633,6 +633,10 @@
         // console.log("🚀 ~ file: venta_nota_credito.php:633 ~ fnc_GuardarVenta ~ detalle_productos:", detalle_productos)
 
         var productos = [];
+        var arrList = [];
+        var arr = {};   
+        
+        
 
         $('#tbl_ListadoProductos').DataTable().rows().eq(0).each(function(index) {
 
@@ -642,12 +646,15 @@
             console.log("🚀 ~ file: venta_nota_credito.php:642 ~ $ ~ data:", data)
 
             precio = parseFloat($.parseHTML(data['precio'])[0]['value'])
-            console.log("🚀 ~ file: venta_nota_credito.php:643 ~ $ ~ precio:", precio)
+            
+            arr['codigo_producto'] = data["codigo_producto"];
+            arr['precio'] = precio;
+            arrList.push(arr);
 
-            productos[index]['precio'] = precio;
+        
 
         });
 
-        console.log(productos);
+        console.log(arrList);
     }
 </script>
