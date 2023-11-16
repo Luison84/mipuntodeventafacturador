@@ -334,10 +334,10 @@ if (isset($_POST["accion"])) {
 
                 $producto = array(
                     'item'                  => $count_items,
-                    'codigo'                => $datos_producto["codigo_producto"],
-                    'descripcion'           => $datos_producto["descripcion"],
+                    'codigo'                => $detalle_productos[$i]->codigo_producto,
+                    'descripcion'           => $detalle_productos[$i]->descripcion,
                     'porcentaje_igv'        => $porcentaje_igv * 100, //Para registrar el IGV que se consideró para la venta
-                    'unidad'                => $datos_producto['id_unidad_medida'], //$detalle_productos[$i]->unidad_medida,
+                    'unidad'                => $costo_unitario['id_unidad_medida'], //$detalle_productos[$i]->unidad_medida,
                     'cantidad'              => $detalle_productos[$i]->cantidad,
                     'valor_unitario'        => round($detalle_productos[$i]->precio, 2), // SIN IGV
                     'precio_unitario'       => round($detalle_productos[$i]->precio * $factor_igv, 2), // CON IGV
