@@ -247,7 +247,7 @@
                     <!-- --------------------------------------------------------- -->
                     <div class="col-12 col-lg-8">
 
-                        <div class="card card-gray shadow">
+                        <div class="card card-gray shadow disabled-card">
 
                             <div class="card-header">
                                 <h4 class="card-title fs-6">LISTADO DE PRODUCTOS</h4>
