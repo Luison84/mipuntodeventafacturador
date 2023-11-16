@@ -296,7 +296,7 @@ if (isset($_POST["accion"])) {
             $formulario_venta = [];
             parse_str($_POST['datos_venta'], $formulario_venta);
 
-            var_dump(json_decode($_POST["productos"]));
+            var_dump($_POST['productos']);
 
             return;
 

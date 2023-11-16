@@ -792,7 +792,7 @@
 
         var formData = new FormData();
         formData.append('accion','registrar_nota_credito');
-        formData.append('productos', $productos);
+        formData.append('productos[]', $productos);
 
         response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
         
