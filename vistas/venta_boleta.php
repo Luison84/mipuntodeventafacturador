@@ -701,39 +701,33 @@
                                     .data(`<input type="number"  min="0"
                                             style="width:80px;" 
                                             codigoProducto = "` +
-                                        cod_producto_actual + `" 
+                                            cod_producto_actual + `" 
                                             class="form-control form-control-sm text-center iptCantidad m-0 p-0 rounded-pill" 
-                                            value="` +
-                                        cantidad_actual + `">`).draw();
+                                            value="` + cantidad_actual + `">`).draw();
 
 
-                                $('#tbl_ListadoProductos').DataTable().cell(index, 8)
-                                    .data(cantidad_actual)
+                                $('#tbl_ListadoProductos').DataTable().cell(index, 8).data(cantidad_actual)
 
                                 //CALCULAR SUBTOTAL
                                 $subtotal = $precio * cantidad_actual
-                                $('#tbl_ListadoProductos').DataTable().cell(index, 9)
-                                    .data(parseFloat($subtotal).toFixed(2)).draw();
+                                $('#tbl_ListadoProductos').DataTable().cell(index, 9).data(parseFloat($subtotal).toFixed(2)).draw();
 
                                 //CALCULAR IGV
                                 if ($id_tipo_afectacion == 10) {
                                     $factor_igv = 1.18;
                                     $porcentaje_igv = 0.18;
-                                    $igv = ($precio * cantidad_actual *
-                                        $porcentaje_igv); // * EL % DE IGV = 0.18
+                                    $igv = ($precio * cantidad_actual * $porcentaje_igv); // * EL % DE IGV = 0.18
 
                                 } else {
                                     $igv = 0
                                     $factor_igv = 1;
                                 }
-                                $('#tbl_ListadoProductos').DataTable().cell(index, 10)
-                                    .data(parseFloat($igv).toFixed(2)).draw();
+                                $('#tbl_ListadoProductos').DataTable().cell(index, 10).data(parseFloat($igv).toFixed(2)).draw();
 
                                 //CALCULAR IMPORTE
                                 $importe = ($precio * cantidad_actual) *
                                     $factor_igv; // * EL FACTOR DE IGV = 1.18
-                                $('#tbl_ListadoProductos').DataTable().cell(index, 11)
-                                    .data(parseFloat($importe).toFixed(2)).draw();
+                                $('#tbl_ListadoProductos').DataTable().cell(index, 11).data(parseFloat($importe).toFixed(2)).draw();
 
                                 $("#producto").val("");
                                 $("#producto").focus();

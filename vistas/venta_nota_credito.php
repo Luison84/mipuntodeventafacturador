@@ -429,6 +429,73 @@
             fnc_GuardarVenta();
         })
 
+        /* ======================================================================================
+        EVENTO PARA MODIFICAR LA CANTIDAD DE PRODUCTOS A COMPRAR
+        ====================================================================================== */
+        $('#tbl_ListadoProductos tbody').on('change', '.iptCantidad', function() {
+
+            cantidad_actual = $(this)[0]['value'];
+            cod_producto_actual = $(this)[0]['attributes']['codigoproducto']['value'];
+
+            if (cantidad_actual.length == 0 || cantidad_actual == 0) {
+                cantidad_actual = 1;
+            }
+
+            $('#tbl_ListadoProductos').DataTable().rows().eq(0).each(function(index) {
+
+                var row = $('#tbl_ListadoProductos').DataTable().row(index);
+                var data = row.data();
+
+                //OBTENER PRECIO DEL PRODUCTO
+                // $precio = $('#tbl_ListadoProductos').DataTable().cell(index, 6).data();
+                // $id_tipo_afectacion = $('#tbl_ListadoProductos').DataTable().cell(index, 3).data();
+
+                // let $subtotal = 0;
+                // let $factor_igv = 0;
+                // let $porcentaje_igv = 0;
+                // let $igv = 0;
+                // let $importe = 0;
+
+                // ACTUALIZAR CANTIDAD
+                $('#tbl_ListadoProductos').DataTable().cell(index, 7)
+                    .data(`<input type="number"  min="0"
+                                style="width:80px;" 
+                                codigoProducto = "` +
+                        cod_producto_actual + `" 
+                                class="form-control form-control-sm text-center iptCantidad m-0 p-0 rounded-pill" 
+                                value="` + cantidad_actual + `">`).draw();
+
+
+                // //CALCULAR SUBTOTAL
+                // $subtotal = $precio * cantidad_actual
+                // $('#tbl_ListadoProductos').DataTable().cell(index, 9).data(parseFloat($subtotal).toFixed(2)).draw();
+
+                // //CALCULAR IGV
+                // if ($id_tipo_afectacion == 10) {
+                //     $factor_igv = 1.18;
+                //     $porcentaje_igv = 0.18;
+                //     $igv = ($precio * cantidad_actual * $porcentaje_igv); // * EL % DE IGV = 0.18
+
+                // } else {
+                //     $igv = 0
+                //     $factor_igv = 1;
+                // }
+                // $('#tbl_ListadoProductos').DataTable().cell(index, 10).data(parseFloat($igv).toFixed(2)).draw();
+
+                // //CALCULAR IMPORTE
+                // $importe = ($precio * cantidad_actual) *
+                //     $factor_igv; // * EL FACTOR DE IGV = 1.18
+                // $('#tbl_ListadoProductos').DataTable().cell(index, 11).data(parseFloat($importe).toFixed(2)).draw();
+
+                // $("#producto").val("");
+                // $("#producto").focus();
+
+                // // RECALCULAMOS TOTALES
+                // recalcularTotales();
+
+            })
+        });
+
         fnc_OcultarLoader();
     })
 
@@ -631,11 +698,11 @@
 
         // var detalle_productos = $("#tbl_ListadoProductos").DataTable().rows().data().toArray();
         // console.log("🚀 ~ file: venta_nota_credito.php:633 ~ fnc_GuardarVenta ~ detalle_productos:", detalle_productos)
-        
+
         var productos = [];
-        var arr = {};   
-        
-        
+        var arr = {};
+
+
 
         $('#tbl_ListadoProductos').DataTable().rows().eq(0).each(function(index) {
 
@@ -646,14 +713,14 @@
 
             precio = parseFloat($.parseHTML(data['precio'])[0]['value'])
             cantidad = parseFloat($.parseHTML(data['cantidad'])[0]['value'])
-            
+
             arr['codigo_producto'] = data["codigo_producto"];
             arr['id_tipo_igv'] = data["id_tipo_igv"];
             arr['cantidad'] = cantidad;
             arr['precio'] = precio;
             productos.push(arr);
 
-        
+
 
         });
 
