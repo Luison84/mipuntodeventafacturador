@@ -668,6 +668,14 @@
         response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
         console.log("🚀 ~ file: venta_nota_credito.php:520 ~ fnc_RecuperarVenta ~ response:", response)
 
+
+        let total_opes_gravadas = 0;
+        let total_opes_inafectas = 0;
+        let total_opes_exoneradas = 0;
+        let subtotal = 0;
+        let total_igv = 0;
+        let TotalVenta = 0;
+
         for (let index = 0; index < response.length; index++) {
             const producto = response[index];
             // console.log("🚀 ~ file: venta_nota_credito.php:524 ~ fnc_RecuperarVenta ~ element:", element)
@@ -691,7 +699,22 @@
                     "</center>"
             }).draw();
 
+            total_opes_gravadas = total_opes_gravadas + producto.total_operaciones_gravadas;
+            total_opes_inafectas = total_opes_inafectas + producto.total_operaciones_inafectas;
+            total_opes_exoneradas = total_opes_exoneradas + producto.total_operaciones_exoneradas;
+            total_igv = total_igv + producto.total_igv
+
         }
+
+        subtotal = total_opes_gravadas + total_opes_inafectas + total_opes_exoneradas;
+        TotalVenta = subtotal + total_igv;
+        
+        $("#resumen_opes_gravadas").html('S/ ' + parseFloat(total_opes_gravadas).toFixed(2));
+        $("#resumen_opes_inafectas").html('S/ ' + parseFloat(total_opes_inafectas).toFixed(2));
+        $("#resumen_opes_exoneradas").html('S/ ' + parseFloat(total_opes_exoneradas).toFixed(2));
+        $("#resumen_subtotal").html('S/ ' + parseFloat(subtotal).toFixed(2));
+        $("#resumen_total_igv").html('S/ ' + parseFloat(total_igv).toFixed(2));
+        $("#resumen_total_venta").html('S/ ' + parseFloat(TotalVenta).toFixed(2));
 
 
     }
