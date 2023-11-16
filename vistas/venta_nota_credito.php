@@ -699,10 +699,10 @@
                     "</center>"
             }).draw();
 
-            total_opes_gravadas = parseFloat(total_opes_gravadas).toFixed(2) + parseFloat(producto.total_operaciones_gravadas).toFixed(2);
-            total_opes_inafectas = parseFloat(total_opes_inafectas).toFixed(2) + parseFloat(producto.total_operaciones_inafectas).toFixed(2);
-            total_opes_exoneradas = parseFloat(total_opes_exoneradas).toFixed(2) + parseFloat(producto.total_operaciones_exoneradas).toFixed(2);
-            total_igv = parseFloat(total_igv).toFixed(2) + parseFloat(producto.total_igv).toFixed(2);
+            total_opes_gravadas = total_opes_gravadas + parseFloat(producto.total_operaciones_gravadas).toFixed(2);
+            total_opes_inafectas = total_opes_inafectas + parseFloat(producto.total_operaciones_inafectas).toFixed(2);
+            total_opes_exoneradas = total_opes_exoneradas + parseFloat(producto.total_operaciones_exoneradas).toFixed(2);
+            total_igv = total_igv + parseFloat(producto.total_igv).toFixed(2);
 
         }
 
