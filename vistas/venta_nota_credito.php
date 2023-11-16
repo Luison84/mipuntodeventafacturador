@@ -632,7 +632,7 @@
         // var detalle_productos = $("#tbl_ListadoProductos").DataTable().rows().data().toArray();
         // console.log("🚀 ~ file: venta_nota_credito.php:633 ~ fnc_GuardarVenta ~ detalle_productos:", detalle_productos)
 
-        var productos = array();
+        var productos = [];
 
         $('#tbl_ListadoProductos').DataTable().rows().eq(0).each(function(index) {
 
