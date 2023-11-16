@@ -1200,10 +1200,8 @@
                             '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="1">',
                         'cantidad_final': 1,
                         'subtotal': parseFloat(respuesta['precio_unitario_sin_igv'] * 1).toFixed(2),
-                        'igv': parseFloat((respuesta['precio_unitario_sin_igv'] * 1 * respuesta[
-                            'porcentaje_igv'])).toFixed(2),
-                        'importe': parseFloat((respuesta['precio_unitario_sin_igv'] * 1) * respuesta[
-                            'factor_igv']).toFixed(2),
+                        'igv': parseFloat((respuesta['precio_unitario_sin_igv'] * 1 * respuesta['porcentaje_igv'])).toFixed(2),
+                        'importe': parseFloat((respuesta['precio_unitario_sin_igv'] * 1) * respuesta['factor_igv']).toFixed(2),
                         'acciones': "<center>" +
                             "<span class='btnEliminarproducto text-danger px-1'style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar producto'> " +
                             "<i class='fas fa-trash fs-5'> </i> " +

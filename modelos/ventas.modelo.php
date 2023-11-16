@@ -1376,21 +1376,27 @@ class VentasModelo
     static public function mdlObtenerDetalleVentaPorComprobante($id_serie, $correlativo)
     {
 
-        $stmt = Conexion::conectar()->prepare("SELECT dv.item,
-                                                    dv.codigo_producto, 
-                                                    dv.descripcion,
-                                                    dv.porcentaje_igv,
-                                                    p.id_tipo_afectacion_igv,
-                                                    p.id_unidad_medida as unidad,
+        $stmt = Conexion::conectar()->prepare("SELECT p.codigo_producto, 
+                                                    p.id_categoria, 
+                                                    p.descripcion, 
+                                                    p.id_tipo_afectacion_igv, 
+                                                    case when p.id_tipo_afectacion_igv = 10 
+                                                            then 'GRAVADO' 
+                                                        when p.id_tipo_afectacion_igv = 20 
+                                                            then 'EXONERADO' 
+                                                        when p.id_tipo_afectacion_igv = 30
+                                                            then 'INAFECTO' 
+                                                    end as tipo_afectacion_igv,
+                                                    p.id_unidad_medida, 
+                                                    cum.descripcion as unidad_medida, 
+                                                    p.costo_unitario, 
+                                                    p.precio_unitario_sin_igv, 
                                                     dv.cantidad,
-                                                    p.costo_unitario,
-                                                    dv.valor_unitario,
-                                                    dv.precio_unitario,
-                                                    dv.valor_total,
-                                                    dv.igv,
-                                                    format(dv.importe_total,2) as importe_total
+                                                    case when p.id_tipo_afectacion_igv = 10 then 1.18 else 1 end as factor_igv,
+                                                    case when p.id_tipo_afectacion_igv = 10 then 0.18 else 0 end as porcentaje_igv
                                             FROM venta v inner join  detalle_venta dv on v.id = dv.id_venta
                                                         inner join productos p on dv.codigo_producto = p.codigo_producto
+                                                        inner join codigo_unidad_medida cum on cum.id = p.id_unidad_medida
                                             WHERE v.id_serie = :id_serie
                                             and v.correlativo = :correlativo");
 

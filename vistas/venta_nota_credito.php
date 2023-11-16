@@ -528,17 +528,17 @@
                 'id': producto.item,
                 'codigo_producto': producto.codigo_producto,
                 'descripcion': producto.descripcion,
-                'id_tipo_igv': '1',
-                'tipo_igv': '',
-                'unidad_medida': '1',
-                'precio': '1',
+                'id_tipo_igv': producto.id_tipo_afectacion_igv,
+                'tipo_igv': producto.tipo_afectacion_igv,
+                'unidad_medida': producto.unidad_medida,
+                'precio': producto.precio_unitario_sin_igv,
                 'cantidad': '<input type="number" style="width:80px;" codigoProducto = "' +
-                    '1' +
-                    '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="1">',
-                'cantidad_final': '1',
-                'subtotal': parseFloat('1' * '1').toFixed(2),
-                'igv': parseFloat(('1' * '1' * 0.18)).toFixed(2),
-                'importe': parseFloat(('1' * '1') * 1.18).toFixed(2),
+                    producto.codigo_producto +
+                    '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="'+producto.cantidad+'">',
+                'cantidad_final': producto.cantidad,
+                'subtotal': parseFloat(producto.precio_unitario_sin_igv * producto.cantidad).toFixed(2),
+                'igv': parseFloat((producto.precio_unitario_sin_igv * producto.cantidad * producto.porcentaje_igv)).toFixed(2),
+                'importe': parseFloat((producto.precio_unitario_sin_igv * producto.cantidad) * producto.factor_igv).toFixed(2),
                 'acciones': "<center>" +
                     "<span class='btnEliminarproducto text-danger px-1'style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar producto'> " +
                     "<i class='fas fa-trash fs-5'> </i> " +
