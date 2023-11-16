@@ -416,6 +416,10 @@
             fnc_ObtenerCorrelativo($("#serie").val())
         })
 
+        $('#motivo_nota_credito').on('change', function(e) {
+            alert("motivo_nota_credito")
+        })
+
         $('#tipo_comprobante_modificado').on('change', function(e) {
             CargarSelect(null, $("#serie_modificado"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_serie_comprobante', $('#tipo_comprobante_modificado').val());
         })
@@ -709,9 +713,6 @@
         subtotal = parseFloat(total_opes_gravadas) + parseFloat(total_opes_inafectas) + parseFloat(total_opes_exoneradas);
         
         TotalVenta = parseFloat(subtotal) + parseFloat(total_igv);
-
-        console.log("🚀 ~ file: venta_nota_credito.php:710 ~ fnc_RecuperarVenta ~ subtotal:", subtotal)
-        console.log("🚀 ~ file: venta_nota_credito.php:710 ~ fnc_RecuperarVenta ~ total_igv:", total_igv)
         
         $("#resumen_opes_gravadas").html('S/ ' + total_opes_gravadas.toFixed(2));
         $("#resumen_opes_inafectas").html('S/ ' + total_opes_inafectas.toFixed(2));
