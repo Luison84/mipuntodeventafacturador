@@ -434,13 +434,12 @@
         $('#tbl_ListadoProductos tbody').on('change', '.iptCantidad', function() {
 
             cantidad_actual = $(this)[0]['value'];
-            cod_producto_actual = $(this)[0]['attributes']['codigoproducto']['value'];        
 
             if (cantidad_actual.length == 0 || cantidad_actual == 0) {
                 cantidad_actual = 1;
             }
 
-            if ( cantidad_actual < 0) {
+            if (cantidad_actual < 0) {
                 mensajeToast("error", "Ingrese valores mayores a 0")
                 return;
             }
@@ -451,8 +450,7 @@
                 var data = row.data();
 
                 //OBTENER PRECIO DEL PRODUCTO
-                // $precio_sin_igv = parseFloat($('#tbl_ListadoProductos').DataTable().cell(index, 6).data())/1.18;
-                $precio_sin_igv = (parseFloat($.parseHTML(data['precio'])[0]['value'])/1.18).toFixed(2);
+                $precio_sin_igv = (parseFloat($.parseHTML(data['precio'])[0]['value']) / 1.18).toFixed(2);
                 console.log("🚀 ~ file: venta_nota_credito.php:450 ~ $ ~ precio_sin_igv:", $precio_sin_igv)
                 $id_tipo_afectacion = $('#tbl_ListadoProductos').DataTable().cell(index, 3).data();
                 console.log("🚀 ~ file: venta_nota_credito.php:452 ~ $ ~ id_tipo_afectacion:", $id_tipo_afectacion)
@@ -466,10 +464,79 @@
                 // ACTUALIZAR CANTIDAD
                 $('#tbl_ListadoProductos').DataTable().cell(index, 7)
                     .data(`<input type="number"  min="0"
-                                style="width:80px;" 
-                                codigoProducto = "` + cod_producto_actual + `" 
+                                style="width:80px;"
                                 class="form-control form-control-sm text-center iptCantidad m-0 p-0 rounded-pill" 
                                 value="` + cantidad_actual + `">`).draw();
+
+
+                //CALCULAR SUBTOTAL
+                $subtotal = $precio_sin_igv * cantidad_actual
+                $('#tbl_ListadoProductos').DataTable().cell(index, 8).data(parseFloat($subtotal).toFixed(2)).draw();
+
+                //CALCULAR IGV
+                if ($id_tipo_afectacion == 10) {
+                    $factor_igv = 1.18;
+                    $porcentaje_igv = 0.18;
+                    $igv = ($precio_sin_igv * cantidad_actual * $porcentaje_igv); // * EL % DE IGV = 0.18
+
+                } else {
+                    $igv = 0
+                    $factor_igv = 1;
+                }
+                $('#tbl_ListadoProductos').DataTable().cell(index, 9).data(parseFloat($igv).toFixed(2)).draw();
+
+                //CALCULAR IMPORTE
+                $importe = ($precio_sin_igv * cantidad_actual) * $factor_igv; // * EL FACTOR DE IGV = 1.18
+                $('#tbl_ListadoProductos').DataTable().cell(index, 10).data(parseFloat($importe).toFixed(2)).draw();
+
+                $("#producto").val("");
+                $("#producto").focus();
+
+                // RECALCULAMOS TOTALES
+                // recalcularTotales();
+
+            })
+        });
+
+        /* ======================================================================================
+        EVENTO PARA MODIFICAR LA CANTIDAD DE PRODUCTOS A COMPRAR
+        ====================================================================================== */
+        $('#tbl_ListadoProductos tbody').on('change', '.iptPrecio', function() {
+
+            $precio = parseFloat($(this)[0]['value']);
+            $precio_sin_igv = parseFloat($precio)/1.18;
+
+            if (precio_sin_igv.length == 0 || precio_sin_igv == 0) {
+                precio_sin_igv = 1;
+            }
+
+            if (precio_sin_igv < 0) {
+                mensajeToast("error", "El precio debe ser mayor a 0")
+                return;
+            }
+
+            $('#tbl_ListadoProductos').DataTable().rows().eq(0).each(function(index) {
+
+                var row = $('#tbl_ListadoProductos').DataTable().row(index);
+                var data = row.data();
+
+                let $id_tipo_afectacion = 0;                
+                let $subtotal = 0;
+                let $factor_igv = 0;
+                let $porcentaje_igv = 0;
+                let $igv = 0;
+                let $importe = 0;
+                let $cantidad_actual = 0;
+
+                $cantidad_actual = parseFloat($.parseHTML(data['cantidad'])[0]['value'])
+                $id_tipo_afectacion = 0 ;$('#tbl_ListadoProductos').DataTable().cell(index, 3).data();
+
+                // ACTUALIZAR PRECIO
+                $('#tbl_ListadoProductos').DataTable().cell(index, 6)
+                    .data(`<input type="number"  min="0"
+                    style="width:80px;" 
+                    class="form-control form-control-sm text-center iptPrecio m-0 p-0 rounded-pill" 
+                    value="` + $precio + `">`).draw();
 
 
                 //CALCULAR SUBTOTAL
@@ -589,7 +656,7 @@
     function fnc_RecuperarVenta() {
 
         fnc_CargarDataTableListadoProductos();
-        
+
         var formData = new FormData();
         formData.append('accion', 'obtener_detalle_venta')
         formData.append('id_serie', $("#serie_modificado").val())
@@ -609,8 +676,8 @@
                 'id_tipo_igv': producto.id_tipo_afectacion_igv,
                 'tipo_igv': producto.tipo_afectacion_igv,
                 'unidad_medida': producto.unidad_medida,
-                'precio': '<input type="number" style="width:80px;" codigoProducto = "' + producto.codigo_producto + '" class="form-control form-control-sm text-center iptPrecio rounded-pill p-0 m-0" value="' + producto.precio_unitario_con_igv + '">',
-                'cantidad': '<input type="number" style="width:80px;" codigoProducto = "' + producto.codigo_producto + '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="' + producto.cantidad + '">',
+                'precio': '<input type="number" style="width:80px;" class="form-control form-control-sm text-center iptPrecio rounded-pill p-0 m-0" value="' + producto.precio_unitario_con_igv + '">',
+                'cantidad': '<input type="number" style="width:80px;" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="' + producto.cantidad + '">',
                 'subtotal': parseFloat(producto.precio_unitario_sin_igv * producto.cantidad).toFixed(2),
                 'igv': parseFloat((producto.precio_unitario_sin_igv * producto.cantidad * producto.porcentaje_igv)).toFixed(2),
                 'importe': parseFloat((producto.precio_unitario_sin_igv * producto.cantidad) * producto.factor_igv).toFixed(2),
