@@ -425,6 +425,10 @@
             fnc_RecuperarVenta();
         })
 
+        $("#btnGuardarComprobante").on('click', function() {
+            fnc_GuardarVenta();
+        })
+
         fnc_OcultarLoader();
     })
 
@@ -531,8 +535,8 @@
                 'id_tipo_igv': producto.id_tipo_afectacion_igv,
                 'tipo_igv': producto.tipo_afectacion_igv,
                 'unidad_medida': producto.unidad_medida,
-                'precio': '<input type="number" style="width:80px;" codigoProducto = "' + producto.codigo_producto + '" class="form-control form-control-sm text-center iptPrecio rounded-pill p-0 m-0" value="'+producto.precio_unitario_con_igv+'">',
-                'cantidad': '<input type="number" style="width:80px;" codigoProducto = "' + producto.codigo_producto + '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="'+producto.cantidad+'">',
+                'precio': '<input type="number" style="width:80px;" codigoProducto = "' + producto.codigo_producto + '" class="form-control form-control-sm text-center iptPrecio rounded-pill p-0 m-0" value="' + producto.precio_unitario_con_igv + '">',
+                'cantidad': '<input type="number" style="width:80px;" codigoProducto = "' + producto.codigo_producto + '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="' + producto.cantidad + '">',
                 'cantidad_final': producto.cantidad,
                 'subtotal': parseFloat(producto.precio_unitario_sin_igv * producto.cantidad).toFixed(2),
                 'igv': parseFloat((producto.precio_unitario_sin_igv * producto.cantidad * producto.porcentaje_igv)).toFixed(2),
@@ -618,5 +622,16 @@
             }
         });
 
+    }
+
+    /*===================================================================*/
+    //G U A R D A R   V E N T A
+    /*===================================================================*/
+    function fnc_GuardarVenta() {
+        
+        var detalle_productos = $("#tbl_ListadoProductos").DataTable().rows().data().toArray();
+        console.log("🚀 ~ file: venta_nota_credito.php:633 ~ fnc_GuardarVenta ~ detalle_productos:", detalle_productos)
+
+           
     }
 </script>
