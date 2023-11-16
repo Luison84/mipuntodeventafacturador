@@ -283,7 +283,6 @@
                                                     <th>UND/MEDIDA</th>
                                                     <th>VALOR</th>
                                                     <th>CANTIDAD</th>
-                                                    <th>CANTIDAD FINAL</th>
                                                     <th>SUBTOTAL</th>
                                                     <th>IGV</th>
                                                     <th>IMPORTE</th>
@@ -447,50 +446,48 @@
                 var data = row.data();
 
                 //OBTENER PRECIO DEL PRODUCTO
-                // $precio = $('#tbl_ListadoProductos').DataTable().cell(index, 6).data();
-                // $id_tipo_afectacion = $('#tbl_ListadoProductos').DataTable().cell(index, 3).data();
+                $precio_sin_igv = $('#tbl_ListadoProductos').DataTable().cell(index, 6).data()/1.18;
+                $id_tipo_afectacion = $('#tbl_ListadoProductos').DataTable().cell(index, 3).data();
 
-                // let $subtotal = 0;
-                // let $factor_igv = 0;
-                // let $porcentaje_igv = 0;
-                // let $igv = 0;
-                // let $importe = 0;
+                let $subtotal = 0;
+                let $factor_igv = 0;
+                let $porcentaje_igv = 0;
+                let $igv = 0;
+                let $importe = 0;
 
                 // ACTUALIZAR CANTIDAD
                 $('#tbl_ListadoProductos').DataTable().cell(index, 7)
                     .data(`<input type="number"  min="0"
                                 style="width:80px;" 
-                                codigoProducto = "` +
-                        cod_producto_actual + `" 
+                                codigoProducto = "` + cod_producto_actual + `" 
                                 class="form-control form-control-sm text-center iptCantidad m-0 p-0 rounded-pill" 
                                 value="` + cantidad_actual + `">`).draw();
 
 
-                // //CALCULAR SUBTOTAL
-                // $subtotal = $precio * cantidad_actual
-                // $('#tbl_ListadoProductos').DataTable().cell(index, 9).data(parseFloat($subtotal).toFixed(2)).draw();
+                //CALCULAR SUBTOTAL
+                $subtotal = $precio_sin_igv * cantidad_actual
+                $('#tbl_ListadoProductos').DataTable().cell(index, 8).data(parseFloat($subtotal).toFixed(2)).draw();
 
-                // //CALCULAR IGV
-                // if ($id_tipo_afectacion == 10) {
-                //     $factor_igv = 1.18;
-                //     $porcentaje_igv = 0.18;
-                //     $igv = ($precio * cantidad_actual * $porcentaje_igv); // * EL % DE IGV = 0.18
+                //CALCULAR IGV
+                if ($id_tipo_afectacion == 10) {
+                    $factor_igv = 1.18;
+                    $porcentaje_igv = 0.18;
+                    $igv = ($precio_sin_igv * cantidad_actual * $porcentaje_igv); // * EL % DE IGV = 0.18
 
-                // } else {
-                //     $igv = 0
-                //     $factor_igv = 1;
-                // }
-                // $('#tbl_ListadoProductos').DataTable().cell(index, 10).data(parseFloat($igv).toFixed(2)).draw();
+                } else {
+                    $igv = 0
+                    $factor_igv = 1;
+                }
+                $('#tbl_ListadoProductos').DataTable().cell(index, 9).data(parseFloat($igv).toFixed(2)).draw();
 
-                // //CALCULAR IMPORTE
-                // $importe = ($precio * cantidad_actual) *
-                //     $factor_igv; // * EL FACTOR DE IGV = 1.18
-                // $('#tbl_ListadoProductos').DataTable().cell(index, 11).data(parseFloat($importe).toFixed(2)).draw();
+                //CALCULAR IMPORTE
+                $importe = ($precio_sin_igv * cantidad_actual) * $factor_igv; // * EL FACTOR DE IGV = 1.18
+                $('#tbl_ListadoProductos').DataTable().cell(index, 10).data(parseFloat($importe).toFixed(2)).draw();
 
-                // $("#producto").val("");
-                // $("#producto").focus();
+                $("#producto").val("");
+                $("#producto").focus();
 
-                // // RECALCULAMOS TOTALES
+                // RECALCULAMOS TOTALES
                 // recalcularTotales();
 
             })
@@ -604,7 +601,6 @@
                 'unidad_medida': producto.unidad_medida,
                 'precio': '<input type="number" style="width:80px;" codigoProducto = "' + producto.codigo_producto + '" class="form-control form-control-sm text-center iptPrecio rounded-pill p-0 m-0" value="' + producto.precio_unitario_con_igv + '">',
                 'cantidad': '<input type="number" style="width:80px;" codigoProducto = "' + producto.codigo_producto + '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="' + producto.cantidad + '">',
-                'cantidad_final': producto.cantidad,
                 'subtotal': parseFloat(producto.precio_unitario_sin_igv * producto.cantidad).toFixed(2),
                 'igv': parseFloat((producto.precio_unitario_sin_igv * producto.cantidad * producto.porcentaje_igv)).toFixed(2),
                 'importe': parseFloat((producto.precio_unitario_sin_igv * producto.cantidad) * producto.factor_igv).toFixed(2),
@@ -657,9 +653,6 @@
                 },
                 {
                     "data": "cantidad"
-                },
-                {
-                    "data": "cantidad_final"
                 },
                 {
                     "data": "subtotal"
@@ -719,8 +712,6 @@
             arr['cantidad'] = cantidad;
             arr['precio'] = precio;
             productos.push(arr);
-
-
 
         });
 
