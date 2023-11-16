@@ -347,8 +347,7 @@ if (isset($_POST["accion"])) {
                     'codigos'               => array($afectacion['letra_tributo'], $afectacion['codigo'], $afectacion['codigo_tributo'], $afectacion['nombre_tributo'], $afectacion['tipo_tributo'])
                 );
 
-                var_dump($detalle_venta);
-                return;
+               
 
 
                 array_push($detalle_venta, $producto);
@@ -368,6 +367,9 @@ if (isset($_POST["accion"])) {
 
                 $total_igv = $total_igv + $igv_producto;
             }
+
+            var_dump($detalle_venta);
+            return;
 
             //OBTENER LA SERIE DEL COMPROBANTE
             $serie = VentasModelo::mdlObtenerSerie($formulario_venta['serie']);
