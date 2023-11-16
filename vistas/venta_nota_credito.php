@@ -531,7 +531,7 @@
                 'id_tipo_igv': producto.id_tipo_afectacion_igv,
                 'tipo_igv': producto.tipo_afectacion_igv,
                 'unidad_medida': producto.unidad_medida,
-                'precio': producto.precio_unitario_sin_igv,
+                'precio': producto.precio_unitario_con_igv,
                 'cantidad': '<input type="number" style="width:80px;" codigoProducto = "' + producto.codigo_producto + '" class="form-control form-control-sm text-center iptCantidad rounded-pill p-0 m-0" value="'+producto.cantidad+'">',
                 'cantidad_final': producto.cantidad,
                 'subtotal': parseFloat(producto.precio_unitario_sin_igv * producto.cantidad).toFixed(2),

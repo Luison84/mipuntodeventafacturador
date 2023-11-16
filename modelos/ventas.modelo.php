@@ -1390,6 +1390,7 @@ class VentasModelo
                                                     p.id_unidad_medida, 
                                                     cum.descripcion as unidad_medida, 
                                                     p.costo_unitario, 
+                                                    p.precio_unitario_con_igv,
                                                     p.precio_unitario_sin_igv, 
                                                     dv.cantidad,
                                                     case when p.id_tipo_afectacion_igv = 10 then 1.18 else 1 end as factor_igv,
