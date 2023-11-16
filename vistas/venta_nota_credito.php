@@ -706,7 +706,7 @@
 
         }
 
-        subtotal = parseFloat(total_opes_gravadas).toFixed(2) + parseFloat(otal_opes_inafectas).toFixed(2) + parseFloat(total_opes_exoneradas).toFixed(2);
+        subtotal = parseFloat(total_opes_gravadas).toFixed(2) + parseFloat(total_opes_inafectas).toFixed(2) + parseFloat(total_opes_exoneradas).toFixed(2);
         
         TotalVenta = parseFloat(subtotal).toFixed(2) + parseFloat(total_igv).toFixed(2);
 
