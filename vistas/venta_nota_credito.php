@@ -272,7 +272,7 @@
                                     <!-- LISTADO QUE CONTIENE LOS PRODUCTOS QUE SE VAN AGREGANDO PARA LA COMPRA -->
                                     <div class="col-md-12 mt-2">
 
-                                        <table id="tbl_ListadoProductos" class="display nowrap table-striped w-100 shadow ">
+                                        <table id="tbl_ListadoProductos" class="display nowrap table-striped w-100 shadow " readonly>
                                             <thead class="bg-main text-left fs-6">
                                                 <tr>
                                                     <th>ITEM</th>
