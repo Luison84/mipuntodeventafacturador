@@ -290,6 +290,278 @@ if (isset($_POST["accion"])) {
 
             break;
 
+        case 'registrar_nota_credito':
+
+            //Datos del comprobante
+            $formulario_venta = [];
+            parse_str($_POST['datos_venta'], $formulario_venta);
+
+            var_dump($_POST['productos']);
+
+            return;
+
+            // $detalle_productos = json_decode($_POST["arr_detalle_productos"]);
+
+            // if (isset($_POST["arr_cronograma"])) {
+            //     $cronograma = json_decode($_POST["arr_cronograma"]);
+            // }
+
+            // DATOS DEL EMISOR:
+            $datos_emisor = VentasModelo::mdlObtenerDatosEmisor($formulario_venta["empresa_emisora"]);
+
+            //DATOS DEL CLIENTE:
+            // if ($formulario_venta['tipo_documento'] == "0") {
+            //     $formulario_venta['nro_documento'] = "99999999";
+            //     $formulario_venta['nombre_cliente_razon_social'] = "CLIENTES VARIOS";
+            //     $formulario_venta['direccion'] = "-";
+            //     $formulario_venta['telefono'] = "-";
+            // }
+
+            // $datos_cliente = VentasModelo::mdlObtenerDatosCliente(
+            //     $formulario_venta['tipo_documento'],
+            //     $formulario_venta['nro_documento'],
+            //     $formulario_venta['nombre_cliente_razon_social'],
+            //     $formulario_venta['direccion'],
+            //     $formulario_venta['telefono']
+            // );
+
+            $count_items = 0;
+
+            $total_operaciones_gravadas = 0.00;
+            $total_operaciones_exoneradas = 0.00;
+            $total_operaciones_inafectas = 0.00;
+            $total_igv = 0;
+            $total_icbper = 0;
+            $detalle_venta = array();
+
+
+            //RECORREMOS EL DETALLE DE LOS PRODUCTOS DE LA VENTA
+            for ($i = 0; $i < count($detalle_productos); $i++) {
+
+                $count_items = $count_items + 1;
+
+                $igv_producto = 0; //EN CASO EL PRODUCTO NO TENGA IGV, SE MANTIENE CON EL VALOR = 0
+                $factor_igv = 1; //EN CASO EL PRODUCTO NO TENGA IGV, SE MANTIENE CON EL FACTOR = 1
+
+                if ($detalle_productos[$i]->id_tipo_igv == 10) { //SI ES OPERACION GRAVADA = 10
+                    $igv = ProductosModelo::mdlObtenerImpuesto($detalle_productos[$i]->id_tipo_igv);
+                    $porcentaje_igv = $igv['impuesto'] / 100; //0.18;
+                    $factor_igv = 1 + ($igv['impuesto'] / 100);
+                    $igv_producto = $detalle_productos[$i]->precio * $detalle_productos[$i]->cantidad_final * $porcentaje_igv;
+                } else $porcentaje_igv = 0.0; // SI ES INAFECTA O EXONERADA
+
+                $total_impuestos_producto = $igv_producto;
+
+                $afectacion = VentasModelo::ObtenerTipoAfectacionIGV($detalle_productos[$i]->id_tipo_igv);
+                $costo_unitario = VentasModelo::ObtenerCostoUnitarioUnidadMedida($detalle_productos[$i]->codigo_producto);
+
+                $producto = array(
+                    'item'                  => $count_items,
+                    'codigo'                => $detalle_productos[$i]->codigo_producto,
+                    'descripcion'           => $detalle_productos[$i]->descripcion,
+                    'porcentaje_igv'        => $porcentaje_igv * 100, //Para registrar el IGV que se consideró para la venta
+                    'unidad'                => $costo_unitario['id_unidad_medida'], //$detalle_productos[$i]->unidad_medida,
+                    'cantidad'              => $detalle_productos[$i]->cantidad_final,
+                    'costo_unitario'        => round($costo_unitario['costo_unitario'], 2),
+                    'valor_unitario'        => round($detalle_productos[$i]->precio, 2),
+                    'precio_unitario'       => round($detalle_productos[$i]->precio * $factor_igv, 2),
+                    'valor_total'           => round($detalle_productos[$i]->precio * $detalle_productos[$i]->cantidad_final, 2),
+                    'igv'                   => round($igv_producto, 2),
+                    'importe_total'         => round($detalle_productos[$i]->precio * $detalle_productos[$i]->cantidad_final * $factor_igv, 2),
+                    'codigos'               => array($afectacion['letra_tributo'], $afectacion['codigo'], $afectacion['codigo_tributo'], $afectacion['nombre_tributo'], $afectacion['tipo_tributo'])
+                );
+
+
+                array_push($detalle_venta, $producto);
+
+                //CALCULAMOS LOS TOTALES POR TIPO DE OPERACIÓN
+                if ($detalle_productos[$i]->id_tipo_igv == 10) {
+                    $total_operaciones_gravadas = $total_operaciones_gravadas + $producto['valor_total'];
+                }
+
+                if ($detalle_productos[$i]->id_tipo_igv == 20) {
+                    $total_operaciones_exoneradas = $total_operaciones_exoneradas + $producto['valor_total'];
+                }
+
+                if ($detalle_productos[$i]->id_tipo_igv == 30) {
+                    $total_operaciones_inafectas = $total_operaciones_inafectas + $producto['valor_total'];
+                }
+
+                $total_igv = $total_igv + $igv_producto;
+            }
+
+            //OBTENER LA SERIE DEL COMPROBANTE
+            $serie = VentasModelo::mdlObtenerSerie($formulario_venta['serie']);
+
+            if ($formulario_venta["forma_pago"] == "1") {
+                $forma_pago = "Contado";
+            } else {
+                $forma_pago = "Credito";
+            }
+
+            $monto_credito = 0;
+            $cuotas = array();
+
+
+            if ($forma_pago == "Credito") {
+
+                for ($i = 0; $i < count($cronograma); $i++) {
+
+                    $cuotas[] = array(
+                        "cuota" => $cronograma[$i]->cuota,
+                        "importe" => round($cronograma[$i]->importe, 2),
+                        "vencimiento" => $cronograma[$i]->fecha_vencimiento
+                    );
+                }
+            }
+
+            //DATOS DE LA VENTA:
+            $venta['id_empresa_emisora'] = $datos_emisor["id_empresa"];
+            $venta['id_cliente'] = $datos_cliente["id"];
+            $venta['tipo_operacion'] = $formulario_venta['tipo_operacion'];
+            $venta['tipo_comprobante'] = $formulario_venta["tipo_comprobante"];
+            $venta['id_serie'] = $serie['id'];
+            $venta['serie'] = $serie['serie'];
+            $venta['correlativo'] = intval($serie['correlativo']) + 1;
+            $venta['fecha_emision'] = $formulario_venta['fecha_emision'];
+            $venta['hora_emision'] = Date('h:m:s');
+            $venta['fecha_vencimiento'] = Date('Y-m-d');
+            $venta['moneda'] = $formulario_venta["moneda"];
+            $venta['forma_pago'] = $forma_pago;
+            $venta['monto_credito'] = round($total_operaciones_gravadas + $total_operaciones_exoneradas + $total_operaciones_inafectas + $total_igv, 2);
+            $venta['total_impuestos'] = $total_igv;
+            $venta['total_operaciones_gravadas'] = round($total_operaciones_gravadas, 2);
+            $venta['total_operaciones_exoneradas'] = round($total_operaciones_exoneradas, 2);
+            $venta['total_operaciones_inafectas'] = round($total_operaciones_inafectas, 2);
+            $venta['total_igv'] = round($total_igv, 2);
+            $venta['total_sin_impuestos'] = round($total_operaciones_gravadas + $total_operaciones_exoneradas + $total_operaciones_inafectas, 2);
+            $venta['total_con_impuestos'] = round($total_operaciones_gravadas + $total_operaciones_exoneradas + $total_operaciones_inafectas + $total_igv, 2);
+            $venta['total_a_pagar'] = round($total_operaciones_gravadas + $total_operaciones_exoneradas + $total_operaciones_inafectas + $total_igv, 2);
+            $venta['cuotas'] = $cuotas;
+
+
+            if ($formulario_venta['rb_generar_venta'] == 1) {
+
+                /*****************************************************************************************
+                    R E G I S T R A R   V E N T A   Y   D E T A L L E   E N   L A   B D
+                 *****************************************************************************************/
+                $id_venta = VentasModelo::mdlRegistrarVenta($venta, $detalle_venta, $_POST["id_caja"]);
+
+                if ($venta['forma_pago'] == 'Credito') {
+                    $insert_cuotas = VentasModelo::mdlInsertarCuotas($id_venta, $cuotas);
+                }
+
+                /*****************************************************************************************
+                    G E N E R A R    C O M P R O B A N T E    E L E C T R Ó N I C O ( X M L )
+                 *****************************************************************************************/
+
+                //INSTANCIA DE APIFACTURACION
+                $generar_comprobante = new ApiFacturacion();
+
+                //RUTA Y NOMBRE DEL ARCHIVO XML:
+                $path_xml = "../fe/facturas/xml/";
+                $name_xml = $datos_emisor['ruc'] . '-' .
+                    $venta['tipo_comprobante'] . '-' .
+                    $venta['serie'] . '-' .
+                    $venta['correlativo'];
+
+                $resultado = ApiFacturacion::Genera_XML_Factura_Boleta($path_xml, $name_xml, $datos_emisor, $datos_cliente, $venta, $detalle_venta);
+
+                /******************************************************************************************/
+                // F I R M A R   X M L 
+                /******************************************************************************************/
+                $response_signature = ApiFacturacion::FirmarXml($path_xml, $name_xml, $datos_emisor);
+
+                if ($response_signature["estado_firma"] == 1) {
+
+                    /******************************************************************************************/
+                    // E N V I A R   C O M P R O B A N T E   A   S U N A T
+                    /*****************************************************************************************/
+                    $resultado = ApiFacturacion::EnviarComprobanteElectronico($path_xml, $name_xml, $datos_emisor, '../fe/facturas/cdr/');
+
+                    if ($resultado["error"] == 0) {
+
+                        /*****************************************************************************************
+                            A C T U A L I Z A R   V E N T A   C O N   R E S P U E S T A   D E   S U N A T
+                         *****************************************************************************************/
+                        $respuesta = VentasModelo::mdlActualizarRespuestaComprobante(
+                            $id_venta,
+                            $resultado['nombre_xml'],
+                            $response_signature['hash_cpe'],
+                            $resultado['codigo_error_sunat'],
+                            $resultado['mensaje_respuesta_sunat'],
+                            $resultado['estado_respuesta_sunat'],
+                            $resultado['xml_base64'],
+                            $resultado['xml_cdr_sunat_base64']
+                        );
+
+                        $resultado["id_venta"] = $id_venta;
+                        $resultado['tipo_msj'] = "success";
+                        $resultado['msj'] = 'Se envio a Sunat, ' . $resultado['mensaje_respuesta_sunat'];
+                        echo json_encode($resultado);
+                    }
+                } else {
+                    $respuesta["id_venta"] = $id_venta;
+                    $respuesta['tipo_msj'] = "error";
+                    $respuesta['msj'] = $response_signature["mensaje_error_firma"];
+                    echo json_encode($respuesta);
+                }
+            } else {
+
+                /*****************************************************************************************
+                    R E G I S T R A R   V E N T A   Y   D E T A L L E   E N   L A   B D
+                 *****************************************************************************************/
+                $id_venta = VentasModelo::mdlRegistrarVenta($venta, $detalle_venta, $_POST["id_caja"]);
+
+                /*****************************************************************************************
+                    G E N E R A R    C O M P R O B A N T E    E L E C T R Ó N I C O
+                 *****************************************************************************************/
+
+                //INSTANCIA DE APIFACTURACION
+                // $generar_comprobante = new ApiFacturacion();
+
+                //RUTA Y NOMBRE DEL ARCHIVO XML:
+                // $path_xml = "../fe/facturas/xml/";
+                // $name_xml = $datos_emisor['ruc'] . '-' .
+                //     $venta['tipo_comprobante'] . '-' .
+                //     $venta['serie'] . '-' .
+                //     $venta['correlativo'];
+
+                // $resultado = ApiFacturacion::Genera_XML_Factura_Boleta($path_xml, $name_xml, $datos_emisor, $datos_cliente, $venta, $detalle_venta);
+
+
+                /*****************************************************************************************
+                    F I R M A R   X M L 
+                 *****************************************************************************************/
+                // $response_signature = ApiFacturacion::FirmarXml($path_xml, $name_xml, $datos_emisor);
+
+
+                if ($id_venta > 0) {
+                    $respuesta["id_venta"] = $id_venta;
+                    $respuesta['tipo_msj'] = "success";
+                    $respuesta['msj'] = "La venta se guardó correctamente";
+                    echo json_encode($respuesta);
+                } else {
+                    $respuesta["id_venta"] = $id_venta;
+                    $respuesta['tipo_msj'] = "error";
+                    $respuesta['msj'] = "Error al generar la venta";
+                    echo json_encode($respuesta);
+                }
+
+                // if ($response_signature["estado_firma"] == 1) {
+                //     $respuesta["id_venta"] = $id_venta;
+                //     $respuesta['tipo_msj'] = "success";
+                //     $respuesta['msj'] = "La venta se guardó correctamente";
+                //     echo json_encode($respuesta);
+                // } else {
+                //     $respuesta["id_venta"] = $id_venta;
+                //     $respuesta['tipo_msj'] = "error";
+                //     $respuesta['msj'] = $response_signature["mensaje_error_firma"];
+                //     echo json_encode($respuesta);
+                // }
+            }
+
+            break;
         case 'obtener_ventas':
 
             $response = VentasModelo::mdlListarVentas($_POST["fechaDesde"], $_POST["fechaHasta"]);

@@ -785,13 +785,18 @@
             cantidad = parseFloat($.parseHTML(data['cantidad'])[0]['value'])
 
             arr['codigo_producto'] = data["codigo_producto"];
-            arr['id_tipo_igv'] = data["id_tipo_igv"];
             arr['cantidad'] = cantidad;
-            arr['precio'] = precio;
             productos.push(arr);
 
         });
 
         console.log(productos);
+
+        var formData = new FormData();
+        formData.append('accion','registrar_nota_credito');
+        formData.append('productos', $productos);
+
+        response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
+        
     }
 </script>
