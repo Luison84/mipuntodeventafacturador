@@ -628,10 +628,17 @@
     //G U A R D A R   V E N T A
     /*===================================================================*/
     function fnc_GuardarVenta() {
-        
-        var detalle_productos = $("#tbl_ListadoProductos").DataTable().rows().data().toArray();
-        console.log("🚀 ~ file: venta_nota_credito.php:633 ~ fnc_GuardarVenta ~ detalle_productos:", detalle_productos)
 
-           
+        // var detalle_productos = $("#tbl_ListadoProductos").DataTable().rows().data().toArray();
+        // console.log("🚀 ~ file: venta_nota_credito.php:633 ~ fnc_GuardarVenta ~ detalle_productos:", detalle_productos)
+
+        $('#tbl_ListadoProductos').DataTable().rows().eq(0).each(function(index) {
+
+            var row = $('#tbl_ListadoProductos').DataTable().row(index);
+
+            var data = row.data();
+            console.log("🚀 ~ file: venta_nota_credito.php:642 ~ $ ~ data:", data)
+
+        });
     }
 </script>
