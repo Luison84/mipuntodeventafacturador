@@ -769,10 +769,8 @@
         // var detalle_productos = $("#tbl_ListadoProductos").DataTable().rows().data().toArray();
         // console.log("🚀 ~ file: venta_nota_credito.php:633 ~ fnc_GuardarVenta ~ detalle_productos:", detalle_productos)
 
-        var productos = [];
+        var $productos = [];
         var arr = {};
-
-
 
         $('#tbl_ListadoProductos').DataTable().rows().eq(0).each(function(index) {
 
@@ -786,11 +784,11 @@
 
             arr['codigo_producto'] = data["codigo_producto"];
             arr['cantidad'] = cantidad;
-            productos.push(arr);
+            $productos.push(arr);
 
         });
 
-        console.log(productos);
+        console.log($productos);
 
         var formData = new FormData();
         formData.append('accion','registrar_nota_credito');
