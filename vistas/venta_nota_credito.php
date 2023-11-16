@@ -506,11 +506,11 @@
             $precio = parseFloat($(this)[0]['value']);
             $precio_sin_igv = parseFloat($precio)/1.18;
 
-            if (precio_sin_igv.length == 0 || precio_sin_igv == 0) {
-                precio_sin_igv = 1;
+            if ($precio_sin_igv.length == 0 || $precio_sin_igv == 0) {
+                $precio_sin_igv = 1;
             }
 
-            if (precio_sin_igv < 0) {
+            if ($precio_sin_igv < 0) {
                 mensajeToast("error", "El precio debe ser mayor a 0")
                 return;
             }
