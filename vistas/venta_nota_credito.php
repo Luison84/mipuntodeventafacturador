@@ -819,6 +819,9 @@
 
             arr['codigo_producto'] = data["codigo_producto"];
             arr['cantidad'] = cantidad;
+            arr['igv'] = data["igv"];
+            arr['subtotal'] = data["subtotal"];
+            arr['importe_total'] = data["importe"];
             $productos.push(arr);
 
         });
@@ -829,7 +832,7 @@
         formData.append('accion','registrar_nota_credito');
         formData.append('productos', JSON.stringify($productos));
 
-        response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
+        // response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);
         
     }
 </script>
