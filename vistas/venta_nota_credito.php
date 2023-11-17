@@ -897,13 +897,13 @@
             arr['subtotal'] = data["subtotal"];
             arr['importe_total'] = data["importe"];
             $productos.push(arr);
-            console.log(arr['codigo_producto']);
+            // console.log(arr['codigo_producto']);
 
         });
 
-        return;
+        
         console.log($productos);
-
+        return;
         var formData = new FormData();
         formData.append('accion', 'registrar_nota_credito');
         formData.append('productos', JSON.stringify($productos));
