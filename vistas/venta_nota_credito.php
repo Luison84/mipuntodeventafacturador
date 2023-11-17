@@ -69,7 +69,7 @@
                 <!-- --------------------------------------------------------- -->
                 <!-- DATOS DEL COMPROBANTE -->
                 <!-- --------------------------------------------------------- -->
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-lg-6" id="comprobante">
 
                     <div class="card card-gray shadow">
 
@@ -87,7 +87,7 @@
                             </div> <!-- ./ end card-tools -->
                         </div> <!-- ./ end card-header -->
 
-                        <div class="card-body py-2">
+                        <div class="card-body py-2" id="card-body-comprobante">
 
                             <div class="row">
 
@@ -602,7 +602,9 @@
             $("#resumen-venta").addClass('d-none');
 
             $("#comprobante-modificado").removeClass('my-disabled')
+            $("#comprobante").removeClass('my-disabled')
             $("#card-body-comprobante-modificado").removeClass('bg-secondary')
+            $("#card-body-comprobante").removeClass('bg-secondary')
         })
 
         fnc_OcultarLoader();
@@ -709,7 +711,9 @@
         $("#resumen-venta").addClass('d-block');
 
         $("#comprobante-modificado").addClass('my-disabled')
+        $("#comprobante").addClass('my-disabled')
         $("#card-body-comprobante-modificado").addClass('bg-secondary')
+        $("#card-body-comprobante").addClass('bg-secondary')
 
         fnc_CargarDataTableListadoProductos();
 
