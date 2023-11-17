@@ -895,13 +895,13 @@
             arr['igv'] = data["igv"];
             arr['subtotal'] = data["subtotal"];
             arr['importe_total'] = data["importe"];
-            // $productos.push(arr);
+            $productos.push(arr);
             console.log(arr['codigo_producto']);
 
         });
 
         return;
-        // console.log($productos);
+        console.log($productos);
 
         var formData = new FormData();
         formData.append('accion', 'registrar_nota_credito');
