@@ -754,7 +754,7 @@
 
         for (let index = 0; index < response.length; index++) {
             const producto = response[index];
-            console.log("🚀 ~ file: venta_nota_credito.php:524 ~ fnc_RecuperarVenta ~ element:", element)
+            // console.log("🚀 ~ file: venta_nota_credito.php:524 ~ fnc_RecuperarVenta ~ element:", element)
 
             $('#tbl_ListadoProductos').DataTable().row.add({
                 'id': index,
@@ -775,12 +775,12 @@
                     "</center>"
             }).draw();
 
-            total_opes_gravadas = parseFloat(total_opes_gravadas) + parseFloat(producto.total_operaciones_gravadas);
-            
-            total_opes_inafectas = parseFloat(total_opes_inafectas) + parseFloat(producto.total_operaciones_inafectas);
-            total_opes_exoneradas = parseFloat(total_opes_exoneradas) + parseFloat(producto.total_operaciones_exoneradas);
-            total_igv = parseFloat(total_igv) + parseFloat(producto.total_igv);
-
+            if (index == 0) {
+                total_opes_gravadas = parseFloat(total_opes_gravadas) + parseFloat(producto.total_operaciones_gravadas);
+                total_opes_inafectas = parseFloat(total_opes_inafectas) + parseFloat(producto.total_operaciones_inafectas);
+                total_opes_exoneradas = parseFloat(total_opes_exoneradas) + parseFloat(producto.total_operaciones_exoneradas);
+                total_igv = parseFloat(total_igv) + parseFloat(producto.total_igv);
+            }
         }
 
         console.log("🚀 ~ file: venta_nota_credito.php:779 ~ fnc_RecuperarVenta ~ total_opes_gravadas:", total_opes_gravadas)
