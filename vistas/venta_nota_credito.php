@@ -434,9 +434,12 @@
 
             if($("#serie option:selected" ).text().substring(0,1) == 'F'){
                 CargarSelect('01', $("#tipo_comprobante_modificado"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante_nota_credito');
+                
             }else{
                 CargarSelect('03', $("#tipo_comprobante_modificado"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante_nota_credito');
             }
+
+            CargarSelect(null, $("#serie_modificado"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_serie_comprobante', $('#tipo_comprobante_modificado').val());
             
             
         })
