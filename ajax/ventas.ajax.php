@@ -362,7 +362,7 @@ if (isset($_POST["accion"])) {
                     $total_operaciones_inafectas = $total_operaciones_inafectas + $producto['valor_total'];
                 }
 
-                $total_igv = $total_igv + $igv_producto;
+                $total_igv = $total_igv + $producto['igv'];
             }
 
             var_dump($total_igv);
