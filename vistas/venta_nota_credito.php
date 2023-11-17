@@ -301,12 +301,13 @@
                             </div>
                         </div> <!-- ./ end card-body -->
                     </div>
+
                 </div>
 
                 <!-- --------------------------------------------------------- -->
                 <!-- RESUMEN DE LA VENTA -->
                 <!-- --------------------------------------------------------- -->
-                <div class="col-12 col-lg-4 d-none" id="resumen_venta">
+                <div class="col-12 col-lg-4 d-none" id="resumen-venta">
 
                     <div class="row">
 
@@ -691,7 +692,11 @@
             return;
         }
 
+        $("#listado-productos").removeClass('d-none');
+        $("#resumen-venta").removeClass('d-none');
 
+        $("#listado-productos").addClass('d-block');
+        $("#resumen-venta").addClass('d-block');
 
         fnc_CargarDataTableListadoProductos();
 
