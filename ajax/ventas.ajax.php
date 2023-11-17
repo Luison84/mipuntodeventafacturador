@@ -324,7 +324,7 @@ if (isset($_POST["accion"])) {
                     $igv = ProductosModelo::mdlObtenerImpuesto($detalle_productos[$i]->id_tipo_igv);
                     $porcentaje_igv = $igv['impuesto'] / 100; //0.18;
                     $factor_igv = 1 + ($igv['impuesto'] / 100);
-                    $igv_producto = $datos_producto["precio_unitario_sin_igv"] * $detalle_productos[$i]->cantidad * $porcentaje_igv;
+                    $igv_producto = $detalle_productos[$i]->precio * $detalle_productos[$i]->cantidad * $porcentaje_igv;
                 } else $porcentaje_igv = 0.0; // SI ES INAFECTA O EXONERADA
 
                 $total_impuestos_producto = $igv_producto;
