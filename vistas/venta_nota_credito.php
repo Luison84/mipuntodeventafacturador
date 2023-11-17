@@ -600,6 +600,8 @@
 
             $("#listado-productos").addClass('d-none');
             $("#resumen-venta").addClass('d-none');
+
+            $("#comprobante-modificado").removeClass('my-disabled')
         })
 
         fnc_OcultarLoader();
