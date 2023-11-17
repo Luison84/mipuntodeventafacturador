@@ -899,7 +899,10 @@
             $productos.push(arr);
 
         });
+
         
+        console.log($productos);
+
         var formData = new FormData();
         formData.append('accion', 'registrar_nota_credito');
         formData.append('productos', JSON.stringify($productos));
