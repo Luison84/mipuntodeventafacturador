@@ -246,9 +246,9 @@
                 <!-- --------------------------------------------------------- -->
                 <!-- LISTADO DE PRODUCTOS -->
                 <!-- --------------------------------------------------------- -->
-                <div class="col-12 col-lg-8">
+                <div class="col-12 col-lg-8 d-none" id="listado-productos">
 
-                    <div class="card card-gray shadow" id="card-detalle-venta">
+                    <div class="card card-gray shadow " id="card-detalle-venta">
 
                         <div class="card-header">
                             <h4 class="card-title fs-6">LISTADO DE PRODUCTOS</h4>
@@ -306,7 +306,7 @@
                 <!-- --------------------------------------------------------- -->
                 <!-- RESUMEN DE LA VENTA -->
                 <!-- --------------------------------------------------------- -->
-                <div class="col-12 col-lg-4">
+                <div class="col-12 col-lg-4 d-none" id="resumen_venta">
 
                     <div class="row">
 
