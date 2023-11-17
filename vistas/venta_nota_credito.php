@@ -189,7 +189,7 @@
                                         <label class="mb-0 ml-1 text-sm my-text-color">
                                             <i class="fas fa-file-contract mr-1 my-text-color"></i>Tipo de Comprobante
                                         </label>
-                                        <select class="form-select" id="tipo_comprobante_modificado" name="tipo_comprobante_modificado" aria-label="Floating label select example" required>
+                                        <select class="form-select" id="tipo_comprobante_modificado" name="tipo_comprobante_modificado" aria-label="Floating label select example" required readonly>
                                         </select>
                                         <div class="invalid-feedback">Seleccione Tipo de Comprobante</div>
                                     </div>
@@ -428,6 +428,17 @@
             CargarSelect(null, $("#serie_modificado"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_serie_comprobante', $('#tipo_comprobante_modificado').val());
         })
 
+        $('#serie').on('change', function(e) {
+
+            if($('#serie').val().substring(1,1) == 'F'){
+                CargarSelect('01', $("#tipo_comprobante_modificado"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante_nota_credito');
+            }else{
+                CargarSelect('03', $("#tipo_comprobante_modificado"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante_nota_credito');
+            }
+            
+            
+        })
+
         $("#btnRecuperarVenta").on('click', function() {
             fnc_RecuperarVenta();
         })
@@ -437,7 +448,7 @@
         })
 
         /* ======================================================================================
-        EVENTO PARA MODIFICAR LA CANTIDAD DE PRODUCTOS A COMPRAR
+        EVENTO PARA MODIFICAR LA CANTIDAD DE PRODUCTOS DEL DATATABLE
         ====================================================================================== */
         $('#tbl_ListadoProductos tbody').on('change', '.iptCantidad', function() {
 
@@ -507,7 +518,7 @@
         });
 
         /* ======================================================================================
-        EVENTO PARA MODIFICAR LA CANTIDAD DE PRODUCTOS A COMPRAR
+        EVENTO PARA MODIFICAR EL PRECIO DEL PRODUCTO DEL DATATABLE
         ====================================================================================== */
         $('#tbl_ListadoProductos tbody').on('change', '.iptPrecio', function() {
 
@@ -637,8 +648,7 @@
         CargarSelect(1, $("#empresa_emisora"), "--Seleccionar--", "ajax/empresas.ajax.php", 'obtener_empresas_select');
 
         // TIPO DE COMPROBANTE
-        CargarSelect('07', $("#tipo_comprobante"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante');
-        CargarSelect(null, $("#tipo_comprobante_modificado"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante_nota_credito');
+        CargarSelect('07', $("#tipo_comprobante"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante');        
 
         // SERIE DEL COMPROBANTE
         CargarSelect(null, $("#serie"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_serie_comprobante', $('#tipo_comprobante option:selected').val());

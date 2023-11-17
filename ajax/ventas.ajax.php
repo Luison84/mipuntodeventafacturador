@@ -347,9 +347,6 @@ if (isset($_POST["accion"])) {
                     'codigos'               => array($afectacion['letra_tributo'], $afectacion['codigo'], $afectacion['codigo_tributo'], $afectacion['nombre_tributo'], $afectacion['tipo_tributo'])
                 );
 
-               
-
-
                 array_push($detalle_venta, $producto);
 
                 //CALCULAMOS LOS TOTALES POR TIPO DE OPERACIÓN
@@ -373,7 +370,7 @@ if (isset($_POST["accion"])) {
 
             //OBTENER LA SERIE DEL COMPROBANTE
             $serie = VentasModelo::mdlObtenerSerie($formulario_venta['serie']);
-          
+
 
             //DATOS DE LA VENTA:
             $venta['id_empresa_emisora'] = $datos_emisor["id_empresa"];
@@ -403,7 +400,7 @@ if (isset($_POST["accion"])) {
             if ($formulario_venta['rb_generar_venta'] == 1) {
 
                 /*****************************************************************************************
-                    R E G I S T R A R   V E N T A   Y   D E T A L L E   E N   L A   B D
+                R E G I S T R A R   V E N T A   Y   D E T A L L E   E N   L A   B D
                  *****************************************************************************************/
                 $id_venta = VentasModelo::mdlRegistrarVenta($venta, $detalle_venta, $_POST["id_caja"]);
 
