@@ -754,7 +754,7 @@
 
         for (let index = 0; index < response.length; index++) {
             const producto = response[index];
-            // console.log("🚀 ~ file: venta_nota_credito.php:524 ~ fnc_RecuperarVenta ~ element:", element)
+            console.log("🚀 ~ file: venta_nota_credito.php:524 ~ fnc_RecuperarVenta ~ element:", element)
 
             $('#tbl_ListadoProductos').DataTable().row.add({
                 'id': index,
