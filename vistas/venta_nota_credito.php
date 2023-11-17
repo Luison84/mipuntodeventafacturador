@@ -159,7 +159,7 @@
                 <!-- --------------------------------------------------------- -->
                 <!-- DATOS DEL COMPROBANTE MODIFICADO-->
                 <!-- --------------------------------------------------------- -->
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-lg-6" id="comprobante-modificado">
 
                     <form id="frm-datos-comprobante-modificado" class="needs-validation-comprobante-modificado" novalidate>
 
@@ -367,7 +367,7 @@
 
                             <div class="row">
                                 <div class="col-6">
-                                    <a class="btn btn-sm btn-danger  fw-bold w-100 " id="btnCancelarVenta" style="position: relative;">
+                                    <a class="btn btn-sm btn-danger  fw-bold w-100 " id="btnCancelarNotaCredito" style="position: relative;">
                                         <span class="text-button">CANCELAR</span>
                                         <span class="btn fw-bold icon-btn-danger d-flex align-items-center">
                                             <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
@@ -375,7 +375,7 @@
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a class="btn btn-sm btn-success  fw-bold  w-100" id="btnGuardarComprobante" style="position: relative;">
+                                    <a class="btn btn-sm btn-success  fw-bold  w-100" id="btnGuardarNotaCredito" style="position: relative;">
                                         <span class="text-button">VENDER</span>
                                         <span class="btn fw-bold icon-btn-success d-flex align-items-center">
                                             <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
@@ -420,9 +420,9 @@
 
         $('#motivo_nota_credito').on('change', function(e) {
             if ($('#motivo_nota_credito').val() == "1") {
-                $("#card-detalle-venta").addClass('disabled-card');
+                $("#card-detalle-venta").addClass('my-disabled');
             } else {
-                $("#card-detalle-venta").removeClass('disabled-card');
+                $("#card-detalle-venta").removeClass('my-disabled');
             }
         })
 
@@ -450,7 +450,7 @@
             fnc_RecuperarVenta();
         })
 
-        $("#btnGuardarComprobante").on('click', function() {
+        $("#btnGuardarNotaCredito").on('click', function() {
             fnc_GuardarVenta();
         })
 
@@ -593,6 +593,14 @@
 
             })
         });
+
+        $("#btnCancelarNotaCredito").on('click', function() {
+            $("#listado-productos").removeClass('d-block');
+            $("#resumen-venta").removeClass('d-block');
+
+            $("#listado-productos").addClass('d-none');
+            $("#resumen-venta").addClass('d-none');
+        })
 
         fnc_OcultarLoader();
     })
