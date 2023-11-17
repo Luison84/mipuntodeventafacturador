@@ -430,7 +430,7 @@
 
         $('#serie').on('change', function(e) {
 
-            console.log($('#serie').val().text().substring(1,1));
+            console.log($('#serie').val());
 
             if($('#serie').val().substring(1,1) == 'F'){
                 CargarSelect('01', $("#tipo_comprobante_modificado"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante_nota_credito');
