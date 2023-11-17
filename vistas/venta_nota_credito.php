@@ -776,12 +776,14 @@
             }).draw();
 
             total_opes_gravadas = parseFloat(total_opes_gravadas) + parseFloat(producto.total_operaciones_gravadas);
+            
             total_opes_inafectas = parseFloat(total_opes_inafectas) + parseFloat(producto.total_operaciones_inafectas);
             total_opes_exoneradas = parseFloat(total_opes_exoneradas) + parseFloat(producto.total_operaciones_exoneradas);
             total_igv = parseFloat(total_igv) + parseFloat(producto.total_igv);
 
         }
 
+        console.log("🚀 ~ file: venta_nota_credito.php:779 ~ fnc_RecuperarVenta ~ total_opes_gravadas:", total_opes_gravadas)
         subtotal = parseFloat(total_opes_gravadas) + parseFloat(total_opes_inafectas) + parseFloat(total_opes_exoneradas);
 
         TotalVenta = parseFloat(subtotal) + parseFloat(total_igv);
