@@ -179,7 +179,7 @@
                                 </div> <!-- ./ end card-tools -->
                             </div> <!-- ./ end card-header -->
 
-                            <div class="card-body py-2">
+                            <div class="card-body py-2" id="card-body-comprobante-modificado">
 
                                 <div class="row">
 
@@ -376,7 +376,7 @@
                                 </div>
                                 <div class="col-6">
                                     <a class="btn btn-sm btn-success  fw-bold  w-100" id="btnGuardarNotaCredito" style="position: relative;">
-                                        <span class="text-button">VENDER</span>
+                                        <span class="text-button">GENERAR NC</span>
                                         <span class="btn fw-bold icon-btn-success d-flex align-items-center">
                                             <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
                                         </span>
@@ -602,6 +602,7 @@
             $("#resumen-venta").addClass('d-none');
 
             $("#comprobante-modificado").removeClass('my-disabled')
+            $("#card-body-comprobante-modificado").removeClass('bg-secondary')
         })
 
         fnc_OcultarLoader();
@@ -708,6 +709,7 @@
         $("#resumen-venta").addClass('d-block');
 
         $("#comprobante-modificado").addClass('my-disabled')
+        $("#card-body-comprobante-modificado").addClass('bg-secondary')
 
         fnc_CargarDataTableListadoProductos();
 
