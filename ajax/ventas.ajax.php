@@ -352,6 +352,7 @@ if (isset($_POST["accion"])) {
                 //CALCULAMOS LOS TOTALES POR TIPO DE OPERACIÓN
                 if ($detalle_productos[$i]->id_tipo_igv == 10) {
                     $total_operaciones_gravadas = $total_operaciones_gravadas + $producto['valor_total'];
+                    var_dump( $producto['valor_total']);
                 }
 
                 if ($detalle_productos[$i]->id_tipo_igv == 20) {
