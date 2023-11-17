@@ -606,14 +606,14 @@
             $("#card-body-comprobante-modificado").removeClass('bg-secondary')
             $("#card-body-comprobante").removeClass('bg-secondary')
 
-            $("#empresa_emisora").attr('readonly')
-            $("#fecha_emision").attr('readonly')
-            $("#serie").attr('readonly')
-            $("#moneda").attr('readonly')
-            $("#serie_modificado").attr('readonly')
-            $("#correlativo_modificado").attr('readonly')
-            $("#motivo_nota_credito").attr('readonly')
-            $("#descripcion_nota_credito").attr('readonly')
+            $("#empresa_emisora").attr('readonly', false)
+            $("#fecha_emision").attr('readonly', false)
+            $("#serie").attr('readonly', false)
+            $("#moneda").attr('readonly', false)
+            $("#serie_modificado").attr('readonly', false)
+            $("#correlativo_modificado").attr('readonly', false)
+            $("#motivo_nota_credito").attr('readonly', false)
+            $("#descripcion_nota_credito").attr('readonly', false)
         })
 
         fnc_OcultarLoader();
@@ -724,14 +724,14 @@
         $("#card-body-comprobante-modificado").addClass('bg-secondary')
         $("#card-body-comprobante").addClass('bg-secondary')
 
-        $("#empresa_emisora").removeAttr('readonly')
-        $("#fecha_emision").removeAttr('readonly')
-        $("#serie").removeAttr('readonly')
-        $("#moneda").removeAttr('readonly')
-        $("#serie_modificado").removeAttr('readonly')
-        $("#correlativo_modificado").removeAttr('readonly')
-        $("#motivo_nota_credito").removeAttr('readonly')
-        $("#descripcion_nota_credito").removeAttr('readonly')
+        $("#empresa_emisora").attr('readonly', true)
+        $("#fecha_emision").attr('readonly', true)
+        $("#serie").attr('readonly', true)
+        $("#moneda").attr('readonly', true)
+        $("#serie_modificado").attr('readonly', true)
+        $("#correlativo_modificado").attr('readonly', true)
+        $("#motivo_nota_credito").attr('readonly', true)
+        $("#descripcion_nota_credito").attr('readonly', true)
 
 
         fnc_CargarDataTableListadoProductos();
