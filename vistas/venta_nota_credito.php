@@ -896,7 +896,7 @@
             arr['igv'] = data["igv"];
             arr['subtotal'] = data["subtotal"];
             arr['importe_total'] = data["importe"];
-            $productos[index].push(arr);
+            $productos.push(arr);
             console.log(arr['codigo_producto']);
 
         });
