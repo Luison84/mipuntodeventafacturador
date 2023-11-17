@@ -875,10 +875,11 @@
         // console.log("🚀 ~ file: venta_nota_credito.php:633 ~ fnc_GuardarVenta ~ detalle_productos:", detalle_productos)
 
         var $productos = [];
-        var arr = {};
+        
 
         $('#tbl_ListadoProductos').DataTable().rows().eq(0).each(function(index) {
 
+            var arr = {};
             var row = $('#tbl_ListadoProductos').DataTable().row(index);
 
             var data = row.data();
