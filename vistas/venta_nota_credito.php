@@ -691,7 +691,6 @@
     /*===================================================================*/
     function fnc_RecuperarVenta() {
 
-
         form_comprobante_modificado_validate = validarFormulario('needs-validation-comprobante-modificado');
 
         //INICIO DE LAS VALIDACIONES
@@ -705,6 +704,8 @@
 
         $("#listado-productos").addClass('d-block');
         $("#resumen-venta").addClass('d-block');
+
+        $("#comprobante-modificado").addClass('my-disabled')
 
         fnc_CargarDataTableListadoProductos();
 
