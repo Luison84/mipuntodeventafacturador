@@ -605,6 +605,15 @@
             $("#comprobante").removeClass('my-disabled')
             $("#card-body-comprobante-modificado").removeClass('bg-secondary')
             $("#card-body-comprobante").removeClass('bg-secondary')
+
+            $("#empresa_emisora").attr('readonly')
+            $("#fecha_emision").attr('readonly')
+            $("#serie").attr('readonly')
+            $("#moneda").attr('readonly')
+            $("#serie_modificado").attr('readonly')
+            $("#correlativo_modificado").attr('readonly')
+            $("#motivo_nota_credito").attr('readonly')
+            $("#descripcion_nota_credito").attr('readonly')
         })
 
         fnc_OcultarLoader();
@@ -714,6 +723,16 @@
         $("#comprobante").addClass('my-disabled')
         $("#card-body-comprobante-modificado").addClass('bg-secondary')
         $("#card-body-comprobante").addClass('bg-secondary')
+
+        $("#empresa_emisora").removeAttr('readonly')
+        $("#fecha_emision").removeAttr('readonly')
+        $("#serie").removeAttr('readonly')
+        $("#moneda").removeAttr('readonly')
+        $("#serie_modificado").removeAttr('readonly')
+        $("#correlativo_modificado").removeAttr('readonly')
+        $("#motivo_nota_credito").removeAttr('readonly')
+        $("#descripcion_nota_credito").removeAttr('readonly')
+
 
         fnc_CargarDataTableListadoProductos();
 
