@@ -408,7 +408,7 @@ if (isset($_POST["accion"])) {
                 R E G I S T R A R   V E N T A   Y   D E T A L L E   E N   L A   B D
                  *****************************************************************************************/
                 var_dump('iniciar registro de NC');
-                 $id_venta = VentasModelo::mdlRegistrarNotaCredito($venta, $detalle_venta);
+                $id_venta = VentasModelo::mdlRegistrarNotaCredito($venta, $detalle_venta);
                 var_dump('id_venta : ' . $id_venta);
                 return;
 
@@ -473,7 +473,10 @@ if (isset($_POST["accion"])) {
                 /*****************************************************************************************
                     R E G I S T R A R   V E N T A   Y   D E T A L L E   E N   L A   B D
                  *****************************************************************************************/
-                $id_venta = VentasModelo::mdlRegistrarVenta($venta, $detalle_venta, $_POST["id_caja"]);
+                var_dump('iniciar registro de NC');
+                $id_venta = VentasModelo::mdlRegistrarNotaCredito($venta, $detalle_venta);
+                var_dump('id_venta : ' . $id_venta);
+                return;
 
                 /*****************************************************************************************
                     G E N E R A R    C O M P R O B A N T E    E L E C T R Ó N I C O
