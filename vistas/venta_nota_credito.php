@@ -727,6 +727,14 @@
     /*===================================================================*/
     function fnc_RecuperarVenta() {
 
+        form_comprobante_validate = validarFormulario('needs-validation-comprobante');
+
+        //INICIO DE LAS VALIDACIONES
+        if (!form_comprobante_validate) {
+            mensajeToast("error", "complete los datos obligatorios");
+            return;
+        }
+
         form_comprobante_modificado_validate = validarFormulario('needs-validation-comprobante-modificado');
 
         //INICIO DE LAS VALIDACIONES
