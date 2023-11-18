@@ -139,7 +139,7 @@
                                     <!-- CORRELATIVO -->
                                     <div class="col-12 col-md-4 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Correlativo</label>
-                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="correlativo" name="correlativo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required readonly>
+                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm readonly" id="correlativo" name="correlativo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required readonly>
                                     </div>
 
                                     <!-- MONEDA -->
@@ -192,7 +192,7 @@
                                         <label class="mb-0 ml-1 text-sm my-text-color">
                                             <i class="fas fa-file-contract mr-1 my-text-color"></i>Tipo de Comprobante
                                         </label>
-                                        <select class="form-select" id="tipo_comprobante_modificado" name="tipo_comprobante_modificado" aria-label="Floating label select example" required readonly>
+                                        <select class="form-select readonly" id="tipo_comprobante_modificado" name="tipo_comprobante_modificado" aria-label="Floating label select example" required readonly>
                                         </select>
                                         <div class="invalid-feedback">Seleccione Tipo de Comprobante</div>
                                     </div>
@@ -422,6 +422,9 @@
         })
 
         $('#motivo_nota_credito').on('change', function(e) {
+
+            $("#descripcion_nota_credito").val($("#motivo_nota_credito option:selected").text());
+
             if ($('#motivo_nota_credito').val() == "1") {
                 $("#card-detalle-venta").addClass('my-disabled');
             } else {
