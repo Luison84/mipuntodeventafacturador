@@ -365,10 +365,6 @@ if (isset($_POST["accion"])) {
                 $total_igv = $total_igv + $producto['igv'];
             }
 
-            var_dump($total_igv);
-
-            return;
-
             //OBTENER LA SERIE DEL COMPROBANTE
             $serie = VentasModelo::mdlObtenerSerie($formulario_venta['serie']);
 
@@ -385,15 +381,15 @@ if (isset($_POST["accion"])) {
             $venta['hora_emision'] = Date('h:m:s');
             $venta['fecha_vencimiento'] = Date('Y-m-d');
             $venta['moneda'] = $formulario_venta["moneda"];
-            $venta['forma_pago'] = $forma_pago;
+            $venta['forma_pago'] = '';
             $venta['monto_credito'] = round($total_operaciones_gravadas + $total_operaciones_exoneradas + $total_operaciones_inafectas + $total_igv, 2);
             $venta['total_impuestos'] = $total_igv;
             $venta['total_operaciones_gravadas'] = round($total_operaciones_gravadas, 2);
             $venta['total_operaciones_exoneradas'] = round($total_operaciones_exoneradas, 2);
             $venta['total_operaciones_inafectas'] = round($total_operaciones_inafectas, 2);
             $venta['total_igv'] = round($total_igv, 2);
-            $venta['total_sin_impuestos'] = round($total_operaciones_gravadas + $total_operaciones_exoneradas + $total_operaciones_inafectas, 2);
-            $venta['total_con_impuestos'] = round($total_operaciones_gravadas + $total_operaciones_exoneradas + $total_operaciones_inafectas + $total_igv, 2);
+            $venta['total_sin_impuestos'] = 0.00;
+            $venta['total_con_impuestos'] = 0.00;
             $venta['total_a_pagar'] = round($total_operaciones_gravadas + $total_operaciones_exoneradas + $total_operaciones_inafectas + $total_igv, 2);
             $venta['cuotas'] = $cuotas;
 
@@ -403,8 +399,8 @@ if (isset($_POST["accion"])) {
                 /*****************************************************************************************
                 R E G I S T R A R   V E N T A   Y   D E T A L L E   E N   L A   B D
                  *****************************************************************************************/
-                $id_venta = VentasModelo::mdlRegistrarVenta($venta, $detalle_venta, $_POST["id_caja"]);
-
+                $id_venta = VentasModelo::mdlRegistrarNotaCredito($venta, $detalle_venta, $_POST["id_caja"]);
+                
 
                 /*****************************************************************************************
                     G E N E R A R    C O M P R O B A N T E    E L E C T R Ó N I C O ( X M L )
