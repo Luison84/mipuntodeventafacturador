@@ -634,7 +634,7 @@
         CargarSelects();
         fnc_CargarDataTableListadoProductos();
         // fnc_ObtenerCorrelativo($("#serie").val());
-        // fnc_CargarPluginDateTime();
+        fnc_CargarPluginDateTime();
         // fnc_CargarAutocompleteProductos()
 
         // fnc_CargarDataTableListadoProductos();
@@ -686,6 +686,25 @@
         CargarSelect('PEN', $("#moneda"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_moneda');
 
         CargarSelect(null, $("#motivo_nota_credito"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_motivo_nota_credito');
+    }
+
+    /*===================================================================*/
+    // P L U G I N   D A T E T I M E P I C K E R
+    /*===================================================================*/
+    function fnc_CargarPluginDateTime() {
+        $('#fecha_emision').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.lang('es', {
+                months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'
+                    .split('_'),
+                monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split(
+                    '_'),
+                weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
+                weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
+                weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
+            }),
+            defaultDate: moment(),
+        });
     }
 
     /*===================================================================*/
@@ -875,7 +894,7 @@
         // console.log("🚀 ~ file: venta_nota_credito.php:633 ~ fnc_GuardarVenta ~ detalle_productos:", detalle_productos)
 
         var $productos = [];
-        
+
 
         $('#tbl_ListadoProductos').DataTable().rows().eq(0).each(function(index) {
 
@@ -900,7 +919,7 @@
 
         });
 
-        
+
         console.log($productos);
 
         var formData = new FormData();
