@@ -952,9 +952,9 @@
         });
 
 
-        console.log($("#frm-datos-comprobante").serialize());
-        console.log($("#frm-datos-comprobante-modificado").serialize());
-        return;
+        // console.log($("#frm-datos-comprobante").serialize());
+        // console.log($("#frm-datos-comprobante-modificado").serialize());
+        // return;
 
         var formData = new FormData();
         formData.append('accion', 'registrar_nota_credito');
