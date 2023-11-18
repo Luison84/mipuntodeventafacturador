@@ -139,7 +139,7 @@
                                     <!-- CORRELATIVO -->
                                     <div class="col-12 col-md-4 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Correlativo</label>
-                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm readonly" id="correlativo" name="correlativo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required readonly>
+                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm readonly" id="correlativo" name="correlativo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                     </div>
 
                                     <!-- MONEDA -->
