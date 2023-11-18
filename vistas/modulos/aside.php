@@ -96,9 +96,8 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
 
                 <li class="nav-item">
                     <a style="cursor: pointer;" class="nav-link">
-                        <i class="nav-icon fas fa-sign-out-alt"></i>
                         <p>
-                            Contacto: Luis Lozano Arica
+                            Contacto: Luis Lozano Arica <br>
                             Celular: +51932676811
                         </p>
                     </a>
