@@ -71,89 +71,92 @@
                 <!-- --------------------------------------------------------- -->
                 <div class="col-12 col-lg-6" id="comprobante">
 
-                    <div class="card card-gray shadow">
+                    <form id="frm-datos-comprobante" class="needs-validation-comprobante" novalidate>
 
-                        <div class="card-header">
-                            <h3 class="card-title fs-6">COMPROBANTE DE PAGO</h3>
-                            <div class="card-tools m-0">
+                        <div class="card card-gray shadow">
 
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
+                            <div class="card-header">
+                                <h3 class="card-title fs-6">COMPROBANTE DE PAGO</h3>
+                                <div class="card-tools m-0">
 
-                            </div> <!-- ./ end card-tools -->
-                        </div> <!-- ./ end card-header -->
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                        <i class="fas fa-times"></i>
+                                    </button>
 
-                        <div class="card-body py-2" id="card-body-comprobante">
+                                </div> <!-- ./ end card-tools -->
+                            </div> <!-- ./ end card-header -->
 
-                            <div class="row">
+                            <div class="card-body py-2" id="card-body-comprobante">
 
-                                <!-- EMITIR POR -->
-                                <div class="col-12 mb-2">
-                                    <label class="mb-0 ml-1 text-sm my-text-color">
-                                        <i class="fas fa-building mr-1 my-text-color"></i> Empresa Emisora
-                                    </label>
-                                    <select class="form-select" id="empresa_emisora" name="empresa_emisora" aria-label="Floating label select example" required>
-                                    </select>
-                                    <div class="invalid-feedback">Seleccione Empresa</div>
-                                </div>
+                                <div class="row">
 
-
-                                <!-- FECHA DE EMISION -->
-                                <div class="col-12 col-md-4 mb-2">
-                                    <label class="mb-0 ml-1 text-sm my-text-color">
-                                        <i class="fas fa-calendar-alt mr-1 my-text-color"></i> Fecha Emisión
-                                    </label>
-                                    <div class="input-group input-group-sm mb-3 ">
-                                        <span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" data-toggle="datetimepicker" data-target="#fecha_emision">
-                                            <i class="fas fa-calendar-alt ml-1 text-white"></i>
-                                        </span>
-                                        <input type="text" class="form-control form-control-sm datetimepicker-input" style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;" aria-label="Sizing example input" id="fecha_emision" name="fecha_emision" aria-describedby="inputGroup-sizing-sm" required>
-                                        <div class="invalid-feedback">Ingrese Fecha de Emisión</div>
+                                    <!-- EMITIR POR -->
+                                    <div class="col-12 mb-2">
+                                        <label class="mb-0 ml-1 text-sm my-text-color">
+                                            <i class="fas fa-building mr-1 my-text-color"></i> Empresa Emisora
+                                        </label>
+                                        <select class="form-select" id="empresa_emisora" name="empresa_emisora" aria-label="Floating label select example" required>
+                                        </select>
+                                        <div class="invalid-feedback">Seleccione Empresa</div>
                                     </div>
-                                </div>
 
-                                <!-- TIPO COMPROBANTE -->
-                                <div class="col-12 col-md-8 mb-2">
-                                    <label class="mb-0 ml-1 text-sm my-text-color">
-                                        <i class="fas fa-file-contract mr-1 my-text-color"></i>Tipo de Comprobante
-                                    </label>
-                                    <select class="form-select" id="tipo_comprobante" name="tipo_comprobante" aria-label="Floating label select example" required readonly>
-                                    </select>
-                                    <div class="invalid-feedback">Seleccione Tipo de Comprobante</div>
-                                </div>
 
-                                <!-- SERIE -->
-                                <div class="col-12 col-md-4 mb-2">
-                                    <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Serie</label>
-                                    <select class="form-select" id="serie" name="serie" aria-label="Floating label select example" required>
-                                    </select>
-                                    <div class="invalid-feedback">Seleccione Serie del Comprobante</div>
-                                </div>
+                                    <!-- FECHA DE EMISION -->
+                                    <div class="col-12 col-md-4 mb-2">
+                                        <label class="mb-0 ml-1 text-sm my-text-color">
+                                            <i class="fas fa-calendar-alt mr-1 my-text-color"></i> Fecha Emisión
+                                        </label>
+                                        <div class="input-group input-group-sm mb-3 ">
+                                            <span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" data-toggle="datetimepicker" data-target="#fecha_emision">
+                                                <i class="fas fa-calendar-alt ml-1 text-white"></i>
+                                            </span>
+                                            <input type="text" class="form-control form-control-sm datetimepicker-input" style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;" aria-label="Sizing example input" id="fecha_emision" name="fecha_emision" aria-describedby="inputGroup-sizing-sm" required>
+                                            <div class="invalid-feedback">Ingrese Fecha de Emisión</div>
+                                        </div>
+                                    </div>
 
-                                <!-- CORRELATIVO -->
-                                <div class="col-12 col-md-4 mb-2">
-                                    <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Correlativo</label>
-                                    <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="correlativo" name="correlativo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required readonly>
-                                </div>
+                                    <!-- TIPO COMPROBANTE -->
+                                    <div class="col-12 col-md-8 mb-2">
+                                        <label class="mb-0 ml-1 text-sm my-text-color">
+                                            <i class="fas fa-file-contract mr-1 my-text-color"></i>Tipo de Comprobante
+                                        </label>
+                                        <select class="form-select" id="tipo_comprobante" name="tipo_comprobante" aria-label="Floating label select example" required readonly>
+                                        </select>
+                                        <div class="invalid-feedback">Seleccione Tipo de Comprobante</div>
+                                    </div>
 
-                                <!-- MONEDA -->
-                                <div class="col-12 col-md-4 mb-2">
-                                    <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-money-bill-wave mr-1 my-text-color"></i>Moneda</label>
-                                    <select class="form-select" id="moneda" name="moneda" aria-label="Floating label select example" required>
-                                    </select>
-                                    <div class="invalid-feedback">Seleccione la moneda</div>
+                                    <!-- SERIE -->
+                                    <div class="col-12 col-md-4 mb-2">
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Serie</label>
+                                        <select class="form-select" id="serie" name="serie" aria-label="Floating label select example" required>
+                                        </select>
+                                        <div class="invalid-feedback">Seleccione Serie del Comprobante</div>
+                                    </div>
+
+                                    <!-- CORRELATIVO -->
+                                    <div class="col-12 col-md-4 mb-2">
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Correlativo</label>
+                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="correlativo" name="correlativo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required readonly>
+                                    </div>
+
+                                    <!-- MONEDA -->
+                                    <div class="col-12 col-md-4 mb-2">
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-money-bill-wave mr-1 my-text-color"></i>Moneda</label>
+                                        <select class="form-select" id="moneda" name="moneda" aria-label="Floating label select example" required>
+                                        </select>
+                                        <div class="invalid-feedback">Seleccione la moneda</div>
+                                    </div>
+
                                 </div>
 
                             </div>
 
                         </div>
 
-                    </div>
-
+                    </form>
                 </div>
 
                 <!-- --------------------------------------------------------- -->
@@ -451,7 +454,7 @@
         })
 
         $("#btnGuardarNotaCredito").on('click', function() {
-            fnc_GuardarVenta();
+            fnc_GuardarNotaCredito();
         })
 
         /* ======================================================================================
@@ -888,10 +891,23 @@
     /*===================================================================*/
     //G U A R D A R   V E N T A
     /*===================================================================*/
-    function fnc_GuardarVenta() {
+    function fnc_GuardarNotaCredito() {
 
-        // var detalle_productos = $("#tbl_ListadoProductos").DataTable().rows().data().toArray();
-        // console.log("🚀 ~ file: venta_nota_credito.php:633 ~ fnc_GuardarVenta ~ detalle_productos:", detalle_productos)
+        form_comprobante_validate = validarFormulario('needs-validation-comprobante');
+
+        //INICIO DE LAS VALIDACIONES
+        if (!form_comprobante_validate) {
+            mensajeToast("error", "complete los datos del comprobante");
+            return;
+        }
+
+        form_comprobante_modificado_validate = validarFormulario('needs-validation-comprobante-modificado');
+
+        //INICIO DE LAS VALIDACIONES
+        if (!form_comprobante_modificado_validate) {
+            mensajeToast("error", "complete los datos del comprobante a modificar");
+            return;
+        }
 
         var $productos = [];
 
@@ -920,10 +936,14 @@
         });
 
 
-        console.log($productos);
+        console.log($("#frm-datos-comprobante").serialize());
+        console.log($("#frm-datos-comprobante-modificado").serialize());
+        return;
 
         var formData = new FormData();
         formData.append('accion', 'registrar_nota_credito');
+        formData.append('datos_comprobante', $("#frm-datos-comprobante").serialize());
+        formData.append('datos_comprobante_modificado', $("#frm-datos-comprobante-modificado").serialize());
         formData.append('productos', JSON.stringify($productos));
 
         response = SolicitudAjax('ajax/ventas.ajax.php', 'POST', formData);

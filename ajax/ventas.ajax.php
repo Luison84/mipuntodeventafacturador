@@ -400,6 +400,7 @@ if (isset($_POST["accion"])) {
                 R E G I S T R A R   V E N T A   Y   D E T A L L E   E N   L A   B D
                  *****************************************************************************************/
                 $id_venta = VentasModelo::mdlRegistrarNotaCredito($venta, $detalle_venta, $_POST["id_caja"]);
+                return;
                 
 
                 /*****************************************************************************************
