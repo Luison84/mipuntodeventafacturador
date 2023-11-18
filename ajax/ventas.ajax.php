@@ -293,13 +293,17 @@ if (isset($_POST["accion"])) {
         case 'registrar_nota_credito':
 
             //Datos del comprobante
-            $formulario_venta = [];
-            parse_str($_POST['datos_venta'], $formulario_venta);
+            $datos_comprobante = [];
+            parse_str($_POST['datos_comprobante'], $datos_comprobante);
+
+            //Datos del comprobante modificado
+            $datos_comprobante_modificado = [];
+            parse_str($_POST['datos_comprobante_modificado'], $datos_comprobante_modificado);
 
             $detalle_productos = json_decode($_POST["productos"]);
 
             // DATOS DEL EMISOR:
-            $datos_emisor = VentasModelo::mdlObtenerDatosEmisor($formulario_venta["empresa_emisora"]);
+            $datos_emisor = VentasModelo::mdlObtenerDatosEmisor($datos_comprobante["empresa_emisora"]);
 
             $count_items = 0;
 
@@ -314,8 +318,6 @@ if (isset($_POST["accion"])) {
             for ($i = 0; $i < count($detalle_productos); $i++) {
 
                 $count_items = $count_items + 1;
-
-                // $datos_producto = ProductosModelo::mdlGetDatosProducto($detalle_productos[$i]->codigo_producto);
 
                 $igv_producto = 0; //EN CASO EL PRODUCTO NO TENGA IGV, SE MANTIENE CON EL VALOR = 0
                 $factor_igv = 1; //EN CASO EL PRODUCTO NO TENGA IGV, SE MANTIENE CON EL FACTOR = 1
@@ -370,28 +372,34 @@ if (isset($_POST["accion"])) {
 
 
             //DATOS DE LA VENTA:
-            $venta['id_empresa_emisora'] = $datos_emisor["id_empresa"];
-            $venta['id_cliente'] = $datos_cliente["id"];
-            $venta['tipo_operacion'] = $formulario_venta['tipo_operacion'];
-            $venta['tipo_comprobante'] = $formulario_venta["tipo_comprobante"];
-            $venta['id_serie'] = $serie['id'];
-            $venta['serie'] = $serie['serie'];
-            $venta['correlativo'] = intval($serie['correlativo']) + 1;
-            $venta['fecha_emision'] = $formulario_venta['fecha_emision'];
-            $venta['hora_emision'] = Date('h:m:s');
-            $venta['fecha_vencimiento'] = Date('Y-m-d');
-            $venta['moneda'] = $formulario_venta["moneda"];
-            $venta['forma_pago'] = '';
-            $venta['monto_credito'] = round($total_operaciones_gravadas + $total_operaciones_exoneradas + $total_operaciones_inafectas + $total_igv, 2);
-            $venta['total_impuestos'] = $total_igv;
-            $venta['total_operaciones_gravadas'] = round($total_operaciones_gravadas, 2);
-            $venta['total_operaciones_exoneradas'] = round($total_operaciones_exoneradas, 2);
-            $venta['total_operaciones_inafectas'] = round($total_operaciones_inafectas, 2);
-            $venta['total_igv'] = round($total_igv, 2);
-            $venta['total_sin_impuestos'] = 0.00;
-            $venta['total_con_impuestos'] = 0.00;
-            $venta['total_a_pagar'] = round($total_operaciones_gravadas + $total_operaciones_exoneradas + $total_operaciones_inafectas + $total_igv, 2);
-            $venta['cuotas'] = $cuotas;
+            $venta['id_empresa_emisora']            = $datos_emisor["id_empresa"];
+            $venta['id_cliente']                    = $datos_cliente["id"];
+            $venta['tipo_operacion']                = $datos_comprobante['tipo_operacion'];
+            $venta['tipo_comprobante']              = $datos_comprobante["tipo_comprobante"];
+            $venta['id_serie']                      = $serie['id'];
+            $venta['serie']                         = $serie['serie'];
+            $venta['correlativo']                   = intval($serie['correlativo']) + 1;
+            $venta['fecha_emision']                 = $datos_comprobante['fecha_emision'];
+            $venta['hora_emision']                  = Date('h:m:s');
+            $venta['fecha_vencimiento']             = Date('Y-m-d');
+            $venta['moneda']                        = $datos_comprobante["moneda"];
+            $venta['forma_pago']                    = '';
+            $venta['monto_credito']                 = round($total_operaciones_gravadas + $total_operaciones_exoneradas + $total_operaciones_inafectas + $total_igv, 2);
+            $venta['total_impuestos']               = $total_igv;
+            $venta['total_operaciones_gravadas']    = round($total_operaciones_gravadas, 2);
+            $venta['total_operaciones_exoneradas']  = round($total_operaciones_exoneradas, 2);
+            $venta['total_operaciones_inafectas']   = round($total_operaciones_inafectas, 2);
+            $venta['total_igv']                     = round($total_igv, 2);
+            $venta['total_sin_impuestos']           = 0.00;
+            $venta['total_con_impuestos']           = 0.00;
+            $venta['total_a_pagar']                 = round($total_operaciones_gravadas + $total_operaciones_exoneradas + $total_operaciones_inafectas + $total_igv, 2);
+            $venta['cuotas']                        = $cuotas;
+
+            $venta['tipo_comprobante_modificado']   = $datos_comprobante_modificado['tipo_comprobante_modificado'];
+            $venta['serie_modificado']              = $datos_comprobante_modificado['serie_modificado'];
+            $venta['correlativo_modificado']        = $datos_comprobante_modificado['correlativo_modificado'];
+            $venta['motivo_nota_credito']           = $datos_comprobante_modificado['motivo_nota_credito'];
+            $venta['descripcion_nota_credito']      = $datos_comprobante_modificado['descripcion_nota_credito'];
 
 
             if ($formulario_venta['rb_generar_venta'] == 1) {
@@ -399,9 +407,9 @@ if (isset($_POST["accion"])) {
                 /*****************************************************************************************
                 R E G I S T R A R   V E N T A   Y   D E T A L L E   E N   L A   B D
                  *****************************************************************************************/
-                $id_venta = VentasModelo::mdlRegistrarNotaCredito($venta, $detalle_venta, $_POST["id_caja"]);
+                $id_venta = VentasModelo::mdlRegistrarNotaCredito($venta, $detalle_venta);
                 return;
-                
+
 
                 /*****************************************************************************************
                     G E N E R A R    C O M P R O B A N T E    E L E C T R Ó N I C O ( X M L )
@@ -417,7 +425,7 @@ if (isset($_POST["accion"])) {
                     $venta['serie'] . '-' .
                     $venta['correlativo'];
 
-                $resultado = ApiFacturacion::Genera_XML_Factura_Boleta($path_xml, $name_xml, $datos_emisor, $datos_cliente, $venta, $detalle_venta);
+                $resultado = ApiFacturacion::Genera_XML_Nota_Credito($path_xml, $name_xml, $datos_emisor, $datos_cliente, $venta, $detalle_venta);
 
                 /******************************************************************************************/
                 // F I R M A R   X M L 

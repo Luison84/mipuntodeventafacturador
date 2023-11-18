@@ -133,7 +133,7 @@
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Serie</label>
                                         <select class="form-select" id="serie" name="serie" aria-label="Floating label select example" required>
                                         </select>
-                                        <div class="invalid-feedback">Seleccione Serie del Comprobante</div>
+                                        <div class="invalid-feedback">Seleccione Serie</div>
                                     </div>
 
                                     <!-- CORRELATIVO -->
@@ -204,7 +204,7 @@
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Serie</label>
                                         <select class="form-select" id="serie_modificado" name="serie_modificado" aria-label="Floating label select example" required>
                                         </select>
-                                        <div class="invalid-feedback">Seleccione Serie del Comprobante</div>
+                                        <div class="invalid-feedback">Seleccione Serie</div>
                                     </div>
 
                                     <!-- CORRELATIVO -->

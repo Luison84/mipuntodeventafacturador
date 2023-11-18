@@ -197,7 +197,7 @@ class VentasModelo
     /* =========================================================================================
     R E G I S T R A R   V E N T A
     ========================================================================================= */
-    static public function mdlRegistrarNotaCredito($venta, $detalle_venta, $id_caja)
+    static public function mdlRegistrarNotaCredito($venta, $detalle_venta)
     {
 
         $id_usuario = $_SESSION["usuario"]->id_usuario;
@@ -212,7 +212,11 @@ class VentasModelo
                                                     id_cliente, 
                                                     id_serie, 
                                                     serie, 
-                                                    correlativo, 
+                                                    correlativo,
+                                                    tipo_comprobante_modificado,
+                                                    serie_modificado,
+                                                    correlativo_modificado,
+                                                    motivo_nota_credito_debito,
                                                     fecha_emision, 
                                                     hora_emision, 
                                                     fecha_vencimiento, 
@@ -230,6 +234,10 @@ class VentasModelo
                     :id_serie, 
                     :serie, 
                     :correlativo, 
+                    :tipo_comprobante_modificado,
+                    :serie_modificado,
+                    :correlativo_modificado,
+                    :motivo_nota_credito_debito,
                     :fecha_emision, 
                     :hora_emision, 
                     :fecha_vencimiento, 
@@ -248,7 +256,14 @@ class VentasModelo
                 ':id_cliente' => $venta['id_cliente'],
                 ':id_serie' => $venta['id_serie'],
                 ':serie' => $venta['serie'],
-                ':correlativo' => $venta['correlativo'],
+                ':motivo_nota_credito_debito' => $venta['correlativo'],
+
+                ':tipo_comprobante_modificado' => $venta['tipo_comprobante_modificado'],
+                ':serie_modificado' => $venta['serie_modificado'],
+                ':correlativo_modificado' => $venta['correlativo_modificado'],
+                ':correlativo' => $venta['motivo_nota_credito'],
+
+
                 ':fecha_emision' => $venta['fecha_emision'],
                 ':hora_emision' => $venta['hora_emision'],
                 ':fecha_vencimiento' => $venta['fecha_vencimiento'],
