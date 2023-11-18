@@ -200,6 +200,7 @@ class VentasModelo
     static public function mdlRegistrarNotaCredito($venta, $detalle_venta)
     {
 
+        $mensaje = "";
         $id_usuario = $_SESSION["usuario"]->id_usuario;
 
         $date = date('Y-m-d');
@@ -350,12 +351,16 @@ class VentasModelo
                 $dbh->commit();
 
             }
+
+            $mensaje="registrado ok";
         } catch (Exception $e) {
             $dbh->rollBack();
+            $mensaje = $e->getMessage();
             return 0;
         }
 
-        return $id_venta;
+        // return $id_venta;
+        return $mensaje;
     }
 
     static public function mdlListarVentas($fechaDesde, $fechaHasta)
