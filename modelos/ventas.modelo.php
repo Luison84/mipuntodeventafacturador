@@ -257,12 +257,12 @@ class VentasModelo
                 ':id_cliente' => $venta['id_cliente'],
                 ':id_serie' => $venta['id_serie'],
                 ':serie' => $venta['serie'],
-                ':motivo_nota_credito_debito' => $venta['correlativo'],
+                ':correlativo' => $venta['correlativo'],
 
                 ':tipo_comprobante_modificado' => $venta['tipo_comprobante_modificado'],
                 ':serie_modificado' => $venta['serie_modificado'],
                 ':correlativo_modificado' => $venta['correlativo_modificado'],
-                ':correlativo' => $venta['motivo_nota_credito'],
+                ':motivo_nota_credito_debito' => $venta['motivo_nota_credito'],
 
 
                 ':fecha_emision' => $venta['fecha_emision'],
