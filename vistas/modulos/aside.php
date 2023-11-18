@@ -22,6 +22,11 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
     <a href="index.php" class="brand-link">
         <img src="vistas/assets/dist/img/mi_logo_tutorialesphperu.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">TUTORIALES PHPERU</span>
+        <br>
+        <p>
+            Contacto: Luis Lozano Arica <br>
+            Celular: +51932676811
+        </p>
     </a>
 
 
@@ -93,7 +98,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
                         </p>
                     </a>
                 </li>
-
+                <!-- 
                 <li class="nav-item">
                     <a style="cursor: pointer;" class="nav-link">
                         <p>
@@ -101,7 +106,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
                             Celular: +51932676811
                         </p>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -142,5 +147,4 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
 
         // $(".sidebar-mini").addClass('sidebar-collapse')
     })
-
 </script>
