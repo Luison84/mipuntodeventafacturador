@@ -727,12 +727,14 @@
     /*===================================================================*/
     function fnc_RecuperarVenta() {
 
+        var validation = 1; // true
+
         form_comprobante_validate = validarFormulario('needs-validation-comprobante');
 
         //INICIO DE LAS VALIDACIONES
         if (!form_comprobante_validate) {
             mensajeToast("error", "complete los datos obligatorios");
-            return;
+            validation = 0;
         }
 
         form_comprobante_modificado_validate = validarFormulario('needs-validation-comprobante-modificado');
@@ -740,8 +742,10 @@
         //INICIO DE LAS VALIDACIONES
         if (!form_comprobante_modificado_validate) {
             mensajeToast("error", "complete los datos obligatorios");
-            return;
+            validation = 0;
         }
+
+        if(!validation) return;
 
         $("#listado-productos").removeClass('d-none');
         $("#resumen-venta").removeClass('d-none');
