@@ -733,7 +733,7 @@
 
         //INICIO DE LAS VALIDACIONES
         if (!form_comprobante_validate) {
-            mensajeToast("error", "complete los datos obligatorios");
+            mensajeToast("error", "complete los datos obligatorios de la Nota de Crédito");
             validation = 0;
         }
 
@@ -741,7 +741,7 @@
 
         //INICIO DE LAS VALIDACIONES
         if (!form_comprobante_modificado_validate) {
-            mensajeToast("error", "complete los datos obligatorios");
+            mensajeToast("error", "complete los datos obligatorios del comprobante a modificar");
             validation = 0;
         }
 
