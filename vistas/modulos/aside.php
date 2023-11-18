@@ -23,7 +23,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
         <img src="vistas/assets/dist/img/mi_logo_tutorialesphperu.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">TUTORIALES PHPERU</span>
         <br>
-        <p class="fs-6">
+        <p class="fs-6 text-center mt-2">
             Contacto: Luis Lozano Arica <br>
             Celular: +51932676811
         </p>
