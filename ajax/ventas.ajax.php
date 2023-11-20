@@ -368,7 +368,7 @@ if (isset($_POST["accion"])) {
             }
 
             //OBTENER LA SERIE DEL COMPROBANTE
-            $serie = VentasModelo::mdlObtenerSerie($formulario_venta['serie']);
+            $serie = VentasModelo::mdlObtenerSerie($datos_comprobante['serie']);
 
 
             //DATOS DE LA VENTA:
