@@ -264,7 +264,6 @@ class VentasModelo
                 ':correlativo_modificado' => $venta['correlativo_modificado'],
                 ':motivo_nota_credito_debito' => $venta['motivo_nota_credito'],
 
-
                 ':fecha_emision' => $venta['fecha_emision'],
                 ':hora_emision' => $venta['hora_emision'],
                 ':fecha_vencimiento' => $venta['fecha_vencimiento'],
