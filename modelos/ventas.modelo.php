@@ -280,14 +280,14 @@ class VentasModelo
             $id_venta = $dbh->lastInsertId();
             $dbh->commit();
 
-            $stmt = $dbh->prepare("UPDATE serie
-                                     SET correlativo = correlativo + 1 
-                                    WHERE id = ?");
-            $dbh->beginTransaction();
-            $stmt->execute(array(
-                $venta['id_serie']
-            ));
-            $dbh->commit();
+            // $stmt = $dbh->prepare("UPDATE serie
+            //                          SET correlativo = correlativo + 1 
+            //                         WHERE id = ?");
+            // $dbh->beginTransaction();
+            // $stmt->execute(array(
+            //     $venta['id_serie']
+            // ));
+            // $dbh->commit();
 
             //GUARDAR EL DETALLE DE LA VENTA:
             // foreach ($detalle_venta as $producto) {
