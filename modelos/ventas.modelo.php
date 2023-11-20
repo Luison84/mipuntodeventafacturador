@@ -200,6 +200,8 @@ class VentasModelo
     static public function mdlRegistrarNotaCredito($venta, $detalle_venta)
     {
 
+        var_dump('$venta = ' . $venta);
+        return;
         $mensaje = "";
         $id_usuario = $_SESSION["usuario"]->id_usuario;
 
