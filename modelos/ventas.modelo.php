@@ -291,66 +291,66 @@ class VentasModelo
             $dbh->commit();
 
             //GUARDAR EL DETALLE DE LA VENTA:
-            foreach ($detalle_venta as $producto) {
+            // foreach ($detalle_venta as $producto) {
 
-                $stmt = $dbh->prepare("INSERT INTO detalle_venta(id_venta, 
-                                                                item, 
-                                                                codigo_producto, 
-                                                                descripcion, 
-                                                                porcentaje_igv, 
-                                                                cantidad, 
-                                                                costo_unitario,
-                                                                valor_unitario, 
-                                                                precio_unitario, 
-                                                                valor_total, 
-                                                                igv, 
-                                                                importe_total)
-                            VALUES(:id_venta, 
-                                    :item, 
-                                    :codigo_producto, 
-                                    :descripcion, 
-                                    :porcentaje_igv, 
-                                    :cantidad, 
-                                    :costo_unitario,
-                                    :valor_unitario, 
-                                    :precio_unitario, 
-                                    :valor_total, 
-                                    :igv, 
-                                    :importe_total
+            //     $stmt = $dbh->prepare("INSERT INTO detalle_venta(id_venta, 
+            //                                                     item, 
+            //                                                     codigo_producto, 
+            //                                                     descripcion, 
+            //                                                     porcentaje_igv, 
+            //                                                     cantidad, 
+            //                                                     costo_unitario,
+            //                                                     valor_unitario, 
+            //                                                     precio_unitario, 
+            //                                                     valor_total, 
+            //                                                     igv, 
+            //                                                     importe_total)
+            //                 VALUES(:id_venta, 
+            //                         :item, 
+            //                         :codigo_producto, 
+            //                         :descripcion, 
+            //                         :porcentaje_igv, 
+            //                         :cantidad, 
+            //                         :costo_unitario,
+            //                         :valor_unitario, 
+            //                         :precio_unitario, 
+            //                         :valor_total, 
+            //                         :igv, 
+            //                         :importe_total
 
-                            )");
-                $dbh->beginTransaction();
-                $stmt->execute(array(
-                    ':id_venta' => $id_venta,
-                    ':item' => $producto['item'],
-                    ':codigo_producto' => $producto['codigo'],
-                    ':descripcion' => $producto['descripcion'],
-                    ':porcentaje_igv' => $producto['porcentaje_igv'],
-                    ':cantidad' => $producto['cantidad'],
-                    ':costo_unitario' => $producto['costo_unitario'],
-                    ':valor_unitario' => $producto['valor_unitario'],
-                    ':precio_unitario' => $producto['precio_unitario'],
-                    ':valor_total' => $producto['valor_total'],
-                    ':igv' => $producto['igv'],
-                    ':importe_total' => $producto['importe_total']
-                ));
-                $dbh->commit();
+            //                 )");
+            //     $dbh->beginTransaction();
+            //     $stmt->execute(array(
+            //         ':id_venta' => $id_venta,
+            //         ':item' => $producto['item'],
+            //         ':codigo_producto' => $producto['codigo'],
+            //         ':descripcion' => $producto['descripcion'],
+            //         ':porcentaje_igv' => $producto['porcentaje_igv'],
+            //         ':cantidad' => $producto['cantidad'],
+            //         ':costo_unitario' => $producto['costo_unitario'],
+            //         ':valor_unitario' => $producto['valor_unitario'],
+            //         ':precio_unitario' => $producto['precio_unitario'],
+            //         ':valor_total' => $producto['valor_total'],
+            //         ':igv' => $producto['igv'],
+            //         ':importe_total' => $producto['importe_total']
+            //     ));
+            //     $dbh->commit();
 
 
-                /* **************************************************************
-                R E G I S T R A R   K A R D E X   D E   D E V O L U C I O N
-                ************************************************************** */
-                $stmt = $dbh->prepare("call prc_registrar_kardex_anulacion(:id_venta, :codigo_producto)");
+            //     /* **************************************************************
+            //     R E G I S T R A R   K A R D E X   D E   D E V O L U C I O N
+            //     ************************************************************** */
+            //     $stmt = $dbh->prepare("call prc_registrar_kardex_anulacion(:id_venta, :codigo_producto)");
 
-                $dbh->beginTransaction();
-                $stmt->execute(array(
-                    ':id_venta' => $venta["id_comprobante"],
-                    ':codigo_producto' => $producto["codigo_producto"]
-                ));
+            //     $dbh->beginTransaction();
+            //     $stmt->execute(array(
+            //         ':id_venta' => $venta["id_comprobante"],
+            //         ':codigo_producto' => $producto["codigo_producto"]
+            //     ));
 
-                $dbh->commit();
+            //     $dbh->commit();
 
-            }
+            // }
 
             $mensaje="registrado ok";
         } catch (Exception $e) {
@@ -359,8 +359,8 @@ class VentasModelo
             return 0;
         }
 
-        // return $id_venta;
-        return $mensaje;
+        return $id_venta;
+        // return $mensaje;
     }
 
     static public function mdlListarVentas($fechaDesde, $fechaHasta)
