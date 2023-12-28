@@ -500,7 +500,7 @@
         }, 1);
 
 
-        // $('#tbl_perfiles_asignar').DataTable().columns.adjust();
+        $('#tbl_perfiles_asignar').DataTable().columns.adjust();
 
     }
 
