@@ -165,7 +165,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <?php if (isset($_SESSION["usuario"])) : ?>
 
-    <body class="hold-transition sidebar-mini layout-fixed">
+    <body class="hold-transition sidebar-mini layout-fixed  control-sidebar-slide-open">
 
         <div class="wrapper">
 
