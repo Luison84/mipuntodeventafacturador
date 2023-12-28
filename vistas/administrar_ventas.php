@@ -26,26 +26,45 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="">Ventas desde:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend"><span class="input-group-text"><i class="far fa-calendar-alt"></i></span></div>
-                                        <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" id="ventas_desde">
-                                    </div>
+
+                            <!-- FECHA DESDE -->
+                            <div class="col-12 col-md-4 mb-2">
+                                <label class="mb-0 ml-1 text-sm my-text-color">
+                                    <i class="fas fa-calendar-alt mr-1 my-text-color"></i> Fecha Emisión
+                                </label>
+                                <div class="input-group input-group-sm mb-3 ">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" data-toggle="datetimepicker" data-target="#fecha_emision">
+                                        <i class="fas fa-calendar-alt ml-1 text-white"></i>
+                                    </span>
+                                    <input type="text" class="form-control form-control-sm datetimepicker-input" style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;" aria-label="Sizing example input" id="fecha_emision" name="fecha_emision" aria-describedby="inputGroup-sizing-sm" required>
+                                    <div class="invalid-feedback">Ingrese Fecha de Emisión</div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="">Ventas hasta:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend"><span class="input-group-text"><i class="far fa-calendar-alt"></i></span></div>
-                                        <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" id="ventas_hasta">
-                                    </div>
+
+
+                            <!-- FECHA HASTA -->
+                            <div class="col-12 col-md-4 mb-2">
+                                <label class="mb-0 ml-1 text-sm my-text-color">
+                                    <i class="fas fa-calendar-alt mr-1 my-text-color"></i> Fecha Emisión
+                                </label>
+                                <div class="input-group input-group-sm mb-3 ">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" data-toggle="datetimepicker" data-target="#fecha_emision">
+                                        <i class="fas fa-calendar-alt ml-1 text-white"></i>
+                                    </span>
+                                    <input type="text" class="form-control form-control-sm datetimepicker-input" style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;" aria-label="Sizing example input" id="fecha_emision" name="fecha_emision" aria-describedby="inputGroup-sizing-sm" required>
+                                    <div class="invalid-feedback">Ingrese Fecha de Emisión</div>
                                 </div>
                             </div>
+
                             <div class="col-md-8 d-flex flex-row align-items-center justify-content-end">
-                                <div class="form-group m-0"><a href="" class="btn btn-primary" style="width:120px;" id="btnFiltrar">Buscar</a></div>
+                                <!-- <div class="form-group m-0"><a href="" class="btn btn-primary" style="width:120px;" id="btnFiltrar">Buscar</a></div> -->
+
+                                <a class="btn btn-sm btn-success  fw-bold  w-100" id="btnFiltrar" style="position: relative;">
+                                    <span class="text-button">BUSCAR</span>
+                                    <span class="btn fw-bold icon-btn-success d-flex align-items-center">
+                                        <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
+                                    </span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -79,7 +98,7 @@
 </div>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
 
         var table, ventas_desde, ventas_hasta;
         var groupColumn = 0;
@@ -93,19 +112,23 @@
 
         ventas_desde = $("#ventas_desde").val();
         ventas_hasta = $("#ventas_hasta").val();
-        
-        ventas_desde = ventas_desde.substr(6,4) + '-' + ventas_desde.substr(3,2) + '-' + ventas_desde.substr(0,2) ;
-        ventas_hasta = ventas_hasta.substr(6,4) + '-' + ventas_hasta.substr(3,2) + '-' + ventas_hasta.substr(0,2) ;
 
-        table = $('#lstVentas').DataTable({  
-            "columnDefs": [
-                { visible: false, targets: groupColumn },
+        ventas_desde = ventas_desde.substr(6, 4) + '-' + ventas_desde.substr(3, 2) + '-' + ventas_desde.substr(0, 2);
+        ventas_hasta = ventas_hasta.substr(6, 4) + '-' + ventas_hasta.substr(3, 2) + '-' + ventas_hasta.substr(0, 2);
+
+        table = $('#lstVentas').DataTable({
+            "columnDefs": [{
+                    visible: false,
+                    targets: groupColumn
+                },
                 {
-                    targets: [1,2,3,4,5],
+                    targets: [1, 2, 3, 4, 5],
                     orderable: false
                 }
             ],
-            "order": [[ 6, 'desc' ]],
+            "order": [
+                [6, 'desc']
+            ],
             dom: 'Bfrtip',
             buttons: [
                 'excel', 'print', 'pageLength',
@@ -121,35 +144,39 @@
                 data: {
                     'accion': 2,
                     'fechaDesde': ventas_desde,
-                    'fechaHasta' : ventas_hasta
-                }                              
+                    'fechaHasta': ventas_hasta
+                }
             },
-            drawCallback: function (settings) {
-                
+            drawCallback: function(settings) {
+
                 var api = this.api();
-                var rows = api.rows( {page:'current'} ).nodes();
-                var last=null;
-    
-                api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {                
-                                    
-                    if ( last !== group ) {
+                var rows = api.rows({
+                    page: 'current'
+                }).nodes();
+                var last = null;
+
+                api.column(groupColumn, {
+                    page: 'current'
+                }).data().each(function(group, i) {
+
+                    if (last !== group) {
 
                         const data = group.split("-");
                         var nroBoleta = data[0];
-                        nroBoleta = nroBoleta.split(":")[1].trim();                        
+                        nroBoleta = nroBoleta.split(":")[1].trim();
 
                         $(rows).eq(i).before(
-                            '<tr class="group">'+
-                                '<td colspan="6" class="fs-6 fw-bold fst-italic bg-success text-white"> ' +
-                                    '<i nroBoleta = ' + nroBoleta + ' class="fas fa-trash fs-6 text-danger mx-2 btnEliminarVenta" style="cursor:pointer;"></i> '+
-                                        group +  
-                                '</td>'+
+                            '<tr class="group">' +
+                            '<td colspan="6" class="fs-6 fw-bold fst-italic bg-success text-white"> ' +
+                            '<i nroBoleta = ' + nroBoleta + ' class="fas fa-trash fs-6 text-danger mx-2 btnEliminarVenta" style="cursor:pointer;"></i> ' +
+                            group +
+                            '</td>' +
                             '</tr>'
                         );
 
                         last = group;
                     }
-                } );
+                });
             },
             language: {
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
