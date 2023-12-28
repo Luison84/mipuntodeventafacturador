@@ -62,7 +62,7 @@
         <div class="col-12 col-lg-8">
             <div class="card card-gray shadow">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-list"></i> Listado de Categorias</h3>
+                    <h3 class="card-title"><i class="fas fa-list"></i> Listado de Categorías</h3>
                 </div>
                 <div class="card-body">
                     <table id="tbl_categorias" class="table table-striped w-100 shadow border border-secondary">
