@@ -30,13 +30,13 @@
                             <!-- FECHA DESDE -->
                             <div class="col-12 col-md-3 mb-2">
                                 <label class="mb-0 ml-1 text-sm my-text-color">
-                                    <i class="fas fa-calendar-alt mr-1 my-text-color"></i> Fecha Emisión
+                                    <i class="fas fa-calendar-alt mr-1 my-text-color"></i> Desde
                                 </label>
                                 <div class="input-group input-group-sm mb-3 ">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" data-toggle="datetimepicker" data-target="#fecha_emision">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" data-toggle="datetimepicker" data-target="#fecha_desde">
                                         <i class="fas fa-calendar-alt ml-1 text-white"></i>
                                     </span>
-                                    <input type="text" class="form-control form-control-sm datetimepicker-input" style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;" aria-label="Sizing example input" id="fecha_emision" name="fecha_emision" aria-describedby="inputGroup-sizing-sm" required>
+                                    <input type="text" class="form-control form-control-sm datetimepicker-input" style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;" aria-label="Sizing example input" id="fecha_desde" name="fecha_desde" aria-describedby="inputGroup-sizing-sm" required>
                                     <div class="invalid-feedback">Ingrese Fecha de Emisión</div>
                                 </div>
                             </div>
@@ -45,19 +45,19 @@
                             <!-- FECHA HASTA -->
                             <div class="col-12 col-md-3 mb-2">
                                 <label class="mb-0 ml-1 text-sm my-text-color">
-                                    <i class="fas fa-calendar-alt mr-1 my-text-color"></i> Fecha Emisión
+                                    <i class="fas fa-calendar-alt mr-1 my-text-color"></i> Hasta
                                 </label>
                                 <div class="input-group input-group-sm mb-3 ">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" data-toggle="datetimepicker" data-target="#fecha_emision">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" data-toggle="datetimepicker" data-target="#fecha_hasta">
                                         <i class="fas fa-calendar-alt ml-1 text-white"></i>
                                     </span>
-                                    <input type="text" class="form-control form-control-sm datetimepicker-input" style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;" aria-label="Sizing example input" id="fecha_emision" name="fecha_emision" aria-describedby="inputGroup-sizing-sm" required>
+                                    <input type="text" class="form-control form-control-sm datetimepicker-input" style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;" aria-label="Sizing example input" id="fecha_hasta" name="fecha_hasta" aria-describedby="inputGroup-sizing-sm" required>
                                     <div class="invalid-feedback">Ingrese Fecha de Emisión</div>
                                 </div>
                             </div>
 
                             <div class="col-md-6 d-flex flex-row align-items-center justify-content-end">
-                                <a class="btn btn-sm btn-success  fw-bold  w-50" id="btnFiltrar" style="position: relative;">
+                                <a class="btn btn-sm btn-success  fw-bold  w-25" id="btnFiltrar" style="position: relative;">
                                     <span class="text-button">BUSCAR</span>
                                     <span class="btn fw-bold icon-btn-success d-flex align-items-center">
                                         <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
