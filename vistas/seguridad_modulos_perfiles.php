@@ -499,8 +499,7 @@
             });
         }, 1);
 
-
-        $('#tbl_perfiles_asignar').DataTable().columns.adjust();
+        ajustarHeadersDataTables($("#tbl_perfiles_asignar"));
 
     }
 
