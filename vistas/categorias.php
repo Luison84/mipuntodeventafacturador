@@ -34,7 +34,7 @@
                         <div class="row">
 
                             <div class="col-md-12">
-                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-layer-group mr-1 my-text-color"></i>Categorpia</label>
+                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-layer-group mr-1 my-text-color"></i>Categoría</label>
                                 <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="descripcion" name="descripcion" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                 <div class="invalid-feedback">Ingrese la categoría</div>
                             </div>
@@ -96,7 +96,7 @@
     $(document).ready(function() {
 
         fnc_CargarDatatableCategorias();
-        // fnc_CargarEditableCategorias();
+        fnc_CargarEditableCategorias();
 
         $("#btnRegistrarCategoria").on('click', function() {
             fnc_guardarCategoria();
