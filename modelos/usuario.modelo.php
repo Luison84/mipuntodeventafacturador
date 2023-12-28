@@ -21,7 +21,7 @@ class UsuarioModelo
                                                 where u.usuario = :usuario
                                                 and u.clave = :password
                                                 and vista_inicio = 1
-                                                and estado = 1");
+                                                and u.estado = 1");
 
             $stmt->bindParam(":usuario", $usuario, PDO::PARAM_STR);
             $stmt->bindParam(":password", $password, PDO::PARAM_STR);
