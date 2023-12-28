@@ -67,7 +67,7 @@
                 <div class="card-body">
                     <table id="tbl_categorias" class="table table-striped w-100 shadow border border-secondary">
                         <thead class="bg-main text-left">
-                            <th>id</th>
+                            <th>Id</th>
                             <th>Categoría</th>
                             <th>Estado</th>
                             <th>F. Creación</th>
