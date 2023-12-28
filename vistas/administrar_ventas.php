@@ -28,7 +28,7 @@
                         <div class="row">
 
                             <!-- FECHA DESDE -->
-                            <div class="col-12 col-md-4 mb-2">
+                            <div class="col-12 col-md-3 mb-2">
                                 <label class="mb-0 ml-1 text-sm my-text-color">
                                     <i class="fas fa-calendar-alt mr-1 my-text-color"></i> Fecha Emisión
                                 </label>
@@ -43,7 +43,7 @@
 
 
                             <!-- FECHA HASTA -->
-                            <div class="col-12 col-md-4 mb-2">
+                            <div class="col-12 col-md-3 mb-2">
                                 <label class="mb-0 ml-1 text-sm my-text-color">
                                     <i class="fas fa-calendar-alt mr-1 my-text-color"></i> Fecha Emisión
                                 </label>
@@ -56,10 +56,8 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-8 d-flex flex-row align-items-center justify-content-end">
-                                <!-- <div class="form-group m-0"><a href="" class="btn btn-primary" style="width:120px;" id="btnFiltrar">Buscar</a></div> -->
-
-                                <a class="btn btn-sm btn-success  fw-bold  w-100" id="btnFiltrar" style="position: relative;">
+                            <div class="col-md-6 d-flex flex-row align-items-center justify-content-end">
+                                <a class="btn btn-sm btn-success  fw-bold  w-50" id="btnFiltrar" style="position: relative;">
                                     <span class="text-button">BUSCAR</span>
                                     <span class="btn fw-bold icon-btn-success d-flex align-items-center">
                                         <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
