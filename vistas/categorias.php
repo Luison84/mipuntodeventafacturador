@@ -26,7 +26,7 @@
                 <div class="card-header">
                     <h3 class="card-title"><i class="fas fa-edit"></i> Registro de Categorías</h3>
                 </div>
-                
+
                 <div class="card-body">
 
                     <form class="needs-validation-categorias" novalidate>
@@ -96,6 +96,7 @@
     $(document).ready(function() {
 
         fnc_CargarDatatableCategorias();
+        // fnc_CargarEditableCategorias();
 
         $("#btnRegistrarCategoria").on('click', function() {
             fnc_guardarCategoria();
@@ -153,56 +154,6 @@
             }
         })
 
-        $("#tbl_categorias").on('draw.dt', function() {
-            $("#tbl_categorias").Tabledit({
-                url: 'ajax/actions_editable/actions_categorias.php',
-                dataType: 'json',
-                columns: {
-                    identifier: [0, 'id'],
-                    editable: [
-                        [1, 'descripcion']
-                    ]
-                },
-                restoreButton: true,
-                buttons: {
-                    edit: {
-                        class: 'btn btn-sm m-0 p-0 data-bs-toggle="tooltip" data-bs-placement="top" title="Activar/Editar Categoría"',
-                        html: '<i class="fas fa-edit text-primary fs-5"></i>',
-                        action: 'edit'
-                    },
-                    delete: {
-                        class: 'btn btn-sm mx-1 p-0  data-bs-toggle="tooltip" data-bs-placement="top" title="Activar/Desactivar Categoría"',
-                        html: '<i class="fas fa-toggle-on text-danger fs-5"></i>',
-                        action: 'delete'
-                    },
-                    save: {
-                        class: 'btn btn-sm btn-success p-0 px-1 rounded-pill',
-                        html: '<i class="fas fa-check "></i>'
-                    },
-                    restore: {
-                        class: 'btn btn-sm btn-warning',
-                        html: 'Restore',
-                        action: 'restore'
-                    },
-                    confirm: {
-                        class: 'btn btn-sm btn-danger p-0 px-1 rounded-pill',
-                        html: '<i class="fas fa-check "></i>'
-                    }
-                },
-                onSuccess: function(data, textStatus, jqXHR) {
-                    if (data.action == "delete") {
-                        mensajeToast("success", "Se actualizó el estado de la Categoría")
-                        $("#tbl_categorias").DataTable().ajax.reload();
-                    }
-                    if (data.action == "edit") {
-                        mensajeToast("success", "Se actualizó la Categoría")
-                        // fnc_ObtenerEstadoCajaPorDia();
-                        // $("#tbl_categorias").DataTable().ajax.reload();
-                        fnc_CargarDatatableCategorias();
-                    }
-                }
-            })
-        })
 
         // $('#tbl_categorias').DataTable({
         //     dom: 'Bfrtip',
@@ -263,6 +214,60 @@
         //         "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
         //     }
         // });
+    }
+
+    function fnc_CargarEditableCategorias() {
+
+        $("#tbl_categorias").on('draw.dt', function() {
+            $("#tbl_categorias").Tabledit({
+                url: 'ajax/actions_editable/actions_categorias.php',
+                dataType: 'json',
+                columns: {
+                    identifier: [0, 'id'],
+                    editable: [
+                        [1, 'descripcion']
+                    ]
+                },
+                restoreButton: true,
+                buttons: {
+                    edit: {
+                        class: 'btn btn-sm m-0 p-0 data-bs-toggle="tooltip" data-bs-placement="top" title="Activar/Editar Categoría"',
+                        html: '<i class="fas fa-edit text-primary fs-5"></i>',
+                        action: 'edit'
+                    },
+                    delete: {
+                        class: 'btn btn-sm mx-1 p-0  data-bs-toggle="tooltip" data-bs-placement="top" title="Activar/Desactivar Categoría"',
+                        html: '<i class="fas fa-toggle-on text-danger fs-5"></i>',
+                        action: 'delete'
+                    },
+                    save: {
+                        class: 'btn btn-sm btn-success p-0 px-1 rounded-pill',
+                        html: '<i class="fas fa-check "></i>'
+                    },
+                    restore: {
+                        class: 'btn btn-sm btn-warning',
+                        html: 'Restore',
+                        action: 'restore'
+                    },
+                    confirm: {
+                        class: 'btn btn-sm btn-danger p-0 px-1 rounded-pill',
+                        html: '<i class="fas fa-check "></i>'
+                    }
+                },
+                onSuccess: function(data, textStatus, jqXHR) {
+                    if (data.action == "delete") {
+                        mensajeToast("success", "Se actualizó el estado de la Categoría")
+                        $("#tbl_categorias").DataTable().ajax.reload();
+                    }
+                    if (data.action == "edit") {
+                        mensajeToast("success", "Se actualizó la Categoría")
+                        // fnc_ObtenerEstadoCajaPorDia();
+                        $("#tbl_categorias").DataTable().ajax.reload();
+                        // fnc_CargarDatatableCategorias();
+                    }
+                }
+            })
+        })
     }
 
     function fnc_guardarCategoria() {

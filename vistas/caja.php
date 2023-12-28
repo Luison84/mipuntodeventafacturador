@@ -1,4 +1,6 @@
-<!-- Content Header (Page header) -->
+<!-- =============================================================================================================================
+C O N T E N T   H E A D E R
+===============================================================================================================================-->
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -17,7 +19,9 @@
 </div>
 <!-- /.content-header -->
 
-<!-- Main content -->
+<!-- =============================================================================================================================
+M A I N   C O N T E N T
+===============================================================================================================================-->
 <div class="content">
 
     <div class="container-fluid">
@@ -44,7 +48,6 @@
                         </div> <!-- ./ end card-tools -->
 
                     </div> <!-- ./ end card-header -->
-
 
                     <div class="card-body" style="display: none;">
 
@@ -398,9 +401,8 @@ M O D A L   C I E R R E   D E   C A J A
 
 <div class="loading">Loading</div>
 
-
-
 <script>
+
     $(document).ready(function() {
 
         fnc_MostrarLoader()
@@ -408,9 +410,7 @@ M O D A L   C I E R R E   D E   C A J A
         fnc_ObtenerEstadoCajaPorDia();
         fnc_CargarDataTableArqueosCaja();
         fnc_CargarDataTableDevoluciones();
-        // fnc_CargarTableditDevoluciones();
         fnc_CargarDataTableGastos();
-        // fnc_CargarTableditGastos();
 
         $("#btnAbrirCerrarCaja").on('click', function() {
 
