@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="col-md-6 d-flex flex-row align-items-center justify-content-end">
-                                <a class="btn btn-sm btn-success  fw-bold  w-25" id="btnFiltrar" style="position: relative;">
+                                <a class="btn btn-sm btn-success fw-bold w-25" id="btnFiltrar" style="position: relative;">
                                     <span class="text-button">BUSCAR</span>
                                     <span class="btn fw-bold icon-btn-success d-flex align-items-center">
                                         <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
@@ -69,11 +69,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mb-3">
-            <div class="col-md-12">
-                <h4>Total venta: S./ <span id="totalVenta">0.00</span></h4>
-            </div>
-        </div>
+        
         <div class="row">
             <div class="col-md-12">
                 <table class="display nowrap table-striped w-100 shadow" id="lstVentas">
