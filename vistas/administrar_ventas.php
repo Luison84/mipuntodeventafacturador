@@ -74,16 +74,53 @@
 
         <div class="row">
             <div class="col-md-12">
-                <table class="display nowrap table-striped w-100 shadow" id="lstVentas">
+                <table class="display nowrap table-striped w-100 shadow" id="tbl_ventas">
                     <thead class="bg-gray">
                         <tr>
-                            <th>Nro Boleta</th>
-                            <th>Codigo Barras</th>
-                            <th>Categoria</th>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Total Venta</th>
-                            <th>Fecha Venta</th>
+                            <th>Fec. Emisión</th>
+                            <th>Fec. Vencimiento</th>
+                            <th>id_tipo_comprobante</th>
+                            <th>serie</th>
+                            <th>correlativo</th>
+                            <th>id_tipo_documento</th>
+                            <th>nro_documento</th>
+                            <th>nombres_apellidos_razon_social</th>
+                            <th>valor_facturado_exportacion</th>
+                            <th>base_imponible_operacion_gravada</th>
+                            <th>importe_total_operacion_exonerada</th>
+                            <th>importe_total_operacion_inafecta</th>
+                            <th>isc</th>
+                            <th>igv</th>
+                            <th>otros_tributos_no_base_imponible</th>
+                            <th>importe_total_comprobante_pago</th>
+                            <th>tipo_cambio</th>
+                            <th>fecha_referencia</th>
+                            <th>tipo_referencia</th>
+                            <th>serie_referencia</th>
+                            <th>nro_comprobante_pago_o_documento</th>
+                            <th>moneda</th>
+                            <th>equivalente_dolares_americanos</th>
+                            <th>fecha_vencimiento</th>
+                            <th>condicion_contado_credito</th>
+                            <th>codigo_centro_costos</th>
+                            <th>codigo_centro_costos_2</th>
+                            <th>cuenta_contable_base_imponible</th>
+                            <th>cuenta_contable_otros_tributos</th>
+                            <th>cuenta_contable_total</th>
+                            <th>regimen_especial</th>
+                            <th>porcentaje_regimen_especial</th>
+                            <th>importe_regimen_especial</th>
+                            <th>serie_documento_regimen_especial</th>
+                            <th>numero_documento_regimen_especial</th>
+                            <th>fecha_documento_regimen_especial</th>
+                            <th>codigo_presupuesto</th>
+                            <th>porcentaje_igv</th>
+                            <th>glosa</th>
+                            <th>medio_pago</th>
+                            <th>condicion_percepción</th>
+                            <th>importe_calculo_regimen_especial</th>
+                            <th>impuesto_consumo_bolsas_plastico</th>
+                            <th>cuenta_contable_icbper</th>
                         </tr>
                     </thead>
                     <tbody class="small"></tbody>
@@ -96,9 +133,14 @@
 <script>
     $(document).ready(function() {
 
-        fnc_CargarPluginDateTime();
-
+        fnc_InicializarFormulario();
+        
     })
+
+    function fnc_InicializarFormulario() {
+        fnc_CargarPluginDateTime();
+        fnc_CargarDataTableVentas();
+    }
 
     /*===================================================================*/
     // P L U G I N   D A T E T I M E P I C K E R
@@ -135,14 +177,14 @@
 
     }
 
-    function fnc_CargarDataTableListadoBoletas() {
+    function fnc_CargarDataTableVentas() {
 
-        if ($.fn.DataTable.isDataTable('#tbl_boletas')) {
-            $('#tbl_boletas').DataTable().destroy();
-            $('#tbl_boletas tbody').empty();
+        if ($.fn.DataTable.isDataTable('#tbl_ventas')) {
+            $('#tbl_ventas').DataTable().destroy();
+            $('#tbl_ventas tbody').empty();
         }
 
-        $("#tbl_boletas").DataTable({
+        $("#tbl_ventas").DataTable({
             dom: 'Bfrtip',
             buttons: [{
                 extend: 'excel',
@@ -166,4 +208,5 @@
             }
         })
     }
+
 </script>
