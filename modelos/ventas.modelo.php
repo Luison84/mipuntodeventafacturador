@@ -777,7 +777,7 @@ class VentasModelo
                                 when v.estado_respuesta_sunat is null then "Pendiente de envío"
                             end) like "%' . $post["search"]["value"] . '%"                      
                         or concat(v.serie,'-',v.correlativo) like "%' . $post["search"]["value"] . '%")';
-            var_dump($query);
+            // var_dump($query);
         }
 
         if (isset($post["order"])) {
