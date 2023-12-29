@@ -747,8 +747,8 @@ class VentasModelo
             "mensaje_respuesta_sunat"
         ];
 
-        $query = ' SELECT 
-                         "" as opciones,
+        $query = " SELECT 
+                         '' as opciones,
                          v.id,
                         concat(v.serie,'-',v.correlativo) as comprobante, 
                         v.fecha_emision,
@@ -758,19 +758,17 @@ class VentasModelo
                         concat(mon.simbolo,format(v.total_igv,2)) as igv,
                         concat(mon.simbolo,format(v.importe_total,2)) as importe_total,
                         v.estado_respuesta_sunat,
-                        case when v.estado_respuesta_sunat = 2 then "Enviado, con errores"
-                            when v.estado_respuesta_sunat = 1 then "Comprobante enviado correctamente"
-                            when v.estado_respuesta_sunat is null then "Pendiente de envío"
+                        case when v.estado_respuesta_sunat = 2 then 'Enviado, con errores'
+                            when v.estado_respuesta_sunat = 1 then 'Comprobante enviado correctamente'
+                            when v.estado_respuesta_sunat is null then 'Pendiente de envío'
                         end as estado_sunat,
                         nombre_xml,
                         estado_comprobante,
                         mensaje_respuesta_sunat
                 from venta v inner join serie s on v.id_serie = s.id
-                             inner join moneda mon on mon.id = v.id_moneda ';
+                             inner join moneda mon on mon.id = v.id_moneda";
 
         if (isset($post["search"]["value"])) {
-
-            
             $query .= '  WHERE s.id_tipo_comprobante = "03"
                         AND v.id_usuario = "' . $id_usuario . '"
                         AND ( v.serie like "%' . $post["search"]["value"] . '%" 
@@ -778,11 +776,9 @@ class VentasModelo
                                 when v.estado_respuesta_sunat = 1 then "Comprobante enviado correctamente"
                                 when v.estado_respuesta_sunat is null then "Pendiente de envío"
                             end) like "%' . $post["search"]["value"] . '%"                      
-                        or concat(v.serie,'-',v.correlativo) like upper("%' . $post["search"]["value"] . '%)")';
+                        or concat(v.serie,'-',v.correlativo) like "%' . $post["search"]["value"] . '%")';
             var_dump($query);
         }
-
-        
 
         if (isset($post["order"])) {
             $query .= ' ORDER BY ' . $columns[$post['order']['0']['column']] . ' ' . $post['order']['0']['dir'] . ' ';
