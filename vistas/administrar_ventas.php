@@ -48,6 +48,8 @@
                                     <i class="fas fa-calendar-alt mr-1 my-text-color"></i> Hasta
                                 </label>
                                 <div class="input-group input-group-sm mb-3 ">
+
+
                                     <span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" data-toggle="datetimepicker" data-target="#fecha_hasta">
                                         <i class="fas fa-calendar-alt ml-1 text-white"></i>
                                     </span>
@@ -69,7 +71,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-12">
                 <table class="display nowrap table-striped w-100 shadow" id="lstVentas">
@@ -94,89 +96,74 @@
 <script>
     $(document).ready(function() {
 
-        var table, ventas_desde, ventas_hasta;
-        var groupColumn = 0;
-
-        $('#ventas_desde, #ventas_hasta').inputmask('dd/mm/yyyy', {
-            'placeholder': 'dd/mm/yyyy'
-        })
-
-        $("#ventas_desde").val(moment().startOf('month').format('DD/MM/YYYY'));
-        $("#ventas_hasta").val(moment().format('DD/MM/YYYY'));
-
-        ventas_desde = $("#ventas_desde").val();
-        ventas_hasta = $("#ventas_hasta").val();
-
-        ventas_desde = ventas_desde.substr(6, 4) + '-' + ventas_desde.substr(3, 2) + '-' + ventas_desde.substr(0, 2);
-        ventas_hasta = ventas_hasta.substr(6, 4) + '-' + ventas_hasta.substr(3, 2) + '-' + ventas_hasta.substr(0, 2);
-
-        table = $('#lstVentas').DataTable({
-            "columnDefs": [{
-                    visible: false,
-                    targets: groupColumn
-                },
-                {
-                    targets: [1, 2, 3, 4, 5],
-                    orderable: false
-                }
-            ],
-            "order": [
-                [6, 'desc']
-            ],
-            dom: 'Bfrtip',
-            buttons: [
-                'excel', 'print', 'pageLength',
-
-            ],
-            lengthMenu: [0, 5, 10, 15, 20, 50],
-            "pageLength": 15,
-            ajax: {
-                url: 'ajax/ventas.ajax.php',
-                type: 'POST',
-                dataType: 'json',
-                "dataSrc": "",
-                data: {
-                    'accion': 2,
-                    'fechaDesde': ventas_desde,
-                    'fechaHasta': ventas_hasta
-                }
-            },
-            drawCallback: function(settings) {
-
-                var api = this.api();
-                var rows = api.rows({
-                    page: 'current'
-                }).nodes();
-                var last = null;
-
-                api.column(groupColumn, {
-                    page: 'current'
-                }).data().each(function(group, i) {
-
-                    if (last !== group) {
-
-                        const data = group.split("-");
-                        var nroBoleta = data[0];
-                        nroBoleta = nroBoleta.split(":")[1].trim();
-
-                        $(rows).eq(i).before(
-                            '<tr class="group">' +
-                            '<td colspan="6" class="fs-6 fw-bold fst-italic bg-success text-white"> ' +
-                            '<i nroBoleta = ' + nroBoleta + ' class="fas fa-trash fs-6 text-danger mx-2 btnEliminarVenta" style="cursor:pointer;"></i> ' +
-                            group +
-                            '</td>' +
-                            '</tr>'
-                        );
-
-                        last = group;
-                    }
-                });
-            },
-            language: {
-                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
-            }
-        });
-
+        fnc_CargarPluginDateTime();
 
     })
+
+    /*===================================================================*/
+    // P L U G I N   D A T E T I M E P I C K E R
+    /*===================================================================*/
+    function fnc_CargarPluginDateTime() {
+
+        $('#fecha_desde').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.lang('es', {
+                months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'
+                    .split('_'),
+                monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split(
+                    '_'),
+                weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
+                weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
+                weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
+            }),
+            defaultDate: moment(),
+        });
+
+        $('#fecha_hasta').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.lang('es', {
+                months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'
+                    .split('_'),
+                monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split(
+                    '_'),
+                weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
+                weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
+                weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
+            }),
+            defaultDate: moment(),
+        });
+
+    }
+
+    function fnc_CargarDataTableListadoBoletas() {
+
+        if ($.fn.DataTable.isDataTable('#tbl_boletas')) {
+            $('#tbl_boletas').DataTable().destroy();
+            $('#tbl_boletas tbody').empty();
+        }
+
+        $("#tbl_boletas").DataTable({
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'excel',
+                title: function() {
+                    var printTitle = 'LISTADO DE COMPROBANTES';
+                    return printTitle
+                }
+            }, 'pageLength'],
+            pageLength: 10,
+            ajax: {
+                url: 'ajax/ventas.ajax.php',
+                data: {
+                    'accion': 'reporte_ventas'
+                },
+                type: 'POST'
+            },
+            scrollX: true,
+            scrollY: "63vh",
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+            }
+        })
+    }
 </script>

@@ -1577,4 +1577,15 @@ class VentasModelo
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_NAMED);
     }
+
+    static public function mdlReporteVentas($_post){
+
+        $stmt = Conexion::conectar()->prepare("call prc_reporte_ventas()");
+
+        // $stmt->bindParam(":id_serie", $id_serie, PDO::PARAM_STR);
+        // $stmt->bindParam(":correlativo", $correlativo, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll();
+
+    }
 }

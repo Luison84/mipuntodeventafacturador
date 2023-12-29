@@ -953,6 +953,15 @@ if (isset($_POST["accion"])) {
             echo json_encode($response, JSON_NUMERIC_CHECK);
 
             break;
+
+
+        case "reporte_ventas":
+
+            $response = VentasModelo::mdlReporteVentas($_POST);
+
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+
+            break;
     }
 }
 
