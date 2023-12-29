@@ -769,6 +769,8 @@ class VentasModelo
                              inner join moneda mon on mon.id = v.id_moneda";
 
         if (isset($post["search"]["value"])) {
+
+            var_dump("entro");
             $query .= '  WHERE s.id_tipo_comprobante = "03"
                         AND v.id_usuario = "' . $id_usuario . '"
                         AND ( v.serie like "%' . $post["search"]["value"] . '%" 
@@ -779,7 +781,7 @@ class VentasModelo
                         or concat(v.serie,'-',v.correlativo) like upper("%' . $post["search"]["value"] . '%)")';
         }
 
-        var_dump($query);
+        
 
         if (isset($post["order"])) {
             $query .= ' ORDER BY ' . $columns[$post['order']['0']['column']] . ' ' . $post['order']['0']['dir'] . ' ';
