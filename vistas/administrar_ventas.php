@@ -75,7 +75,7 @@
         <div class="row">
             <div class="col-md-12">
                 <table class="display nowrap table-striped w-100 shadow" id="tbl_ventas">
-                    <thead class="bg-gray">
+                    <thead class="bg-main">
                         <tr>
                             <th>Fec. Emisión</th>
                             <th>Fec. Vencimiento</th>
