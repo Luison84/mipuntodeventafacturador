@@ -205,6 +205,11 @@
             },
             scrollX: true,
             scrollY: "63vh",
+            columnDefs: [{
+                    "className": "dt-center",
+                    "targets": "_all"
+                },
+            ],
             language: {
                 url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
             }
