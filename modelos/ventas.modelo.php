@@ -770,7 +770,7 @@ class VentasModelo
 
         if (isset($post["search"]["value"])) {
 
-            var_dump("entro");
+            
             $query .= '  WHERE s.id_tipo_comprobante = "03"
                         AND v.id_usuario = "' . $id_usuario . '"
                         AND ( v.serie like "%' . $post["search"]["value"] . '%" 
@@ -779,6 +779,7 @@ class VentasModelo
                                 when v.estado_respuesta_sunat is null then "Pendiente de envío"
                             end) like "%' . $post["search"]["value"] . '%"                      
                         or concat(v.serie,'-',v.correlativo) like upper("%' . $post["search"]["value"] . '%)")';
+            var_dump($query);
         }
 
         
