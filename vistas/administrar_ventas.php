@@ -79,48 +79,48 @@
                         <tr>
                             <th>Fec. Emisión</th>
                             <th>Fec. Vencimiento</th>
-                            <th>id_tipo_comprobante</th>
-                            <th>serie</th>
-                            <th>correlativo</th>
-                            <th>id_tipo_documento</th>
-                            <th>nro_documento</th>
-                            <th>nombres_apellidos_razon_social</th>
-                            <th>valor_facturado_exportacion</th>
-                            <th>base_imponible_operacion_gravada</th>
-                            <th>importe_total_operacion_exonerada</th>
-                            <th>importe_total_operacion_inafecta</th>
-                            <th>isc</th>
-                            <th>igv</th>
-                            <th>otros_tributos_no_base_imponible</th>
-                            <th>importe_total_comprobante_pago</th>
-                            <th>tipo_cambio</th>
-                            <th>fecha_referencia</th>
-                            <th>tipo_referencia</th>
-                            <th>serie_referencia</th>
-                            <th>nro_comprobante_pago_o_documento</th>
-                            <th>moneda</th>
-                            <th>equivalente_dolares_americanos</th>
-                            <th>fecha_vencimiento</th>
-                            <th>condicion_contado_credito</th>
-                            <th>codigo_centro_costos</th>
-                            <th>codigo_centro_costos_2</th>
-                            <th>cuenta_contable_base_imponible</th>
-                            <th>cuenta_contable_otros_tributos</th>
-                            <th>cuenta_contable_total</th>
-                            <th>regimen_especial</th>
-                            <th>porcentaje_regimen_especial</th>
-                            <th>importe_regimen_especial</th>
-                            <th>serie_documento_regimen_especial</th>
-                            <th>numero_documento_regimen_especial</th>
-                            <th>fecha_documento_regimen_especial</th>
-                            <th>codigo_presupuesto</th>
-                            <th>porcentaje_igv</th>
-                            <th>glosa</th>
-                            <th>medio_pago</th>
-                            <th>condicion_percepción</th>
-                            <th>importe_calculo_regimen_especial</th>
-                            <th>impuesto_consumo_bolsas_plastico</th>
-                            <th>cuenta_contable_icbper</th>
+                            <th>Tipo</th>
+                            <th>Serie</th>
+                            <th>Número</th>
+                            <th>Tipo Doc. Ident.</th>
+                            <th>Nro Doc. Ident.</th>
+                            <th>Apellidos y Nombres / Razón Social</th>
+                            <th>Valor Facturado Exportacion</th>
+                            <th>Base Imponible Operación Gravada</th>
+                            <th>Importe Total Operacion Exonerada</th>
+                            <th>Importe Total Operacion Inafecta</th>
+                            <th>ISC</th>
+                            <th>IGV</th>
+                            <th>Otros Tributos No Forma Parte Base Imponible</th>
+                            <th>Importe Total Comprobante Pago</th>
+                            <th>Tipo Cambio</th>
+                            <th>Fecha Referencia</th>
+                            <th>Tipo Referencia</th>
+                            <th>Serie Referencia</th>
+                            <th>Nro Comprobante Pago o Documento</th>
+                            <th>Moneda</th>
+                            <th>Equivalente Dólares Americanos</th>
+                            <th>Fecha Vencimiento</th>
+                            <th>Condición Contado/Crédito</th>
+                            <th>Codigo Centro Costos</th>
+                            <th>codigo_centro Costos 2</th>
+                            <th>Cuenta Contable Base Imponible</th>
+                            <th>Cuenta Contable Otros Tributos</th>
+                            <th>Cuenta Contable Total</th>
+                            <th>Régimen Especial</th>
+                            <th>Porcentaje Régimen Especial</th>
+                            <th>Importe Régimen Especial</th>
+                            <th>Serie Documento Régimen Especial</th>
+                            <th>Numero Documento Regimen Especial</th>
+                            <th>Fecha Documento Regimen Especial</th>
+                            <th>Código Presupuesto</th>
+                            <th>Porcentaje IGV</th>
+                            <th>Glosa</th>
+                            <th>Medio Pago</th>
+                            <th>Condición Percepción</th>
+                            <th>Importe Calculo Régimen Especial</th>
+                            <th>Impuesto Consumo Bolsas Plástico</th>
+                            <th>Cuenta Contable ICBPER</th>
                         </tr>
                     </thead>
                     <tbody class="small"></tbody>
