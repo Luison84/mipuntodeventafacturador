@@ -196,7 +196,7 @@
             pageLength: [5, 10, 15, 30, 50, 100],
             pageLength: 10,
             ajax: {
-                url: "ajax/productos.ajax.php",
+                url: "ajax/ventas.ajax.php",
                 dataSrc: '',
                 type: "POST",
                 data: {
