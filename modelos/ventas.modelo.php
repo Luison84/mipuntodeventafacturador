@@ -1578,9 +1578,9 @@ class VentasModelo
         return $stmt->fetchAll(PDO::FETCH_NAMED);
     }
 
-    static public function mdlReporteVentas($_post){
+    static public function mdlReporteVentas(){
 
-        $stmt = Conexion::conectar()->prepare("call prc_reporte_ventas()");
+        $stmt = Conexion::conectar()->prepare("call prc_ReporteVentas()");
 
         // $stmt->bindParam(":id_serie", $id_serie, PDO::PARAM_STR);
         // $stmt->bindParam(":correlativo", $correlativo, PDO::PARAM_STR);
