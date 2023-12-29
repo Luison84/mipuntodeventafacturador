@@ -776,7 +776,7 @@ class VentasModelo
                                 when v.estado_respuesta_sunat = 1 then "Comprobante enviado correctamente"
                                 when v.estado_respuesta_sunat is null then "Pendiente de envío"
                             end) like "%' . $post["search"]["value"] . '%"                      
-                        or concat(v.serie,'-',v.correlativo) like "%' . $post["search"]["value"] . '%")';
+                        or concat(v.serie,'-',v.correlativo) like "% upper(' . $post["search"]["value"] . ')%")';
         }
 
         if (isset($post["order"])) {
