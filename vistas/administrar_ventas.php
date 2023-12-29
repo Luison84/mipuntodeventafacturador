@@ -193,13 +193,15 @@
                     return printTitle
                 }
             }, 'pageLength'],
+            pageLength: [5, 10, 15, 30, 50, 100],
             pageLength: 10,
             ajax: {
-                url: 'ajax/ventas.ajax.php',
+                url: "ajax/productos.ajax.php",
+                dataSrc: '',
+                type: "POST",
                 data: {
-                    'accion': 'reporte_ventas'
+                    'accion': 'reporte_ventas' //1: LISTAR PRODUCTOS
                 },
-                type: 'POST'
             },
             scrollX: true,
             scrollY: "63vh",
