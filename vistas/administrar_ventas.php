@@ -204,7 +204,7 @@
                 },
             },
             scrollX: true,
-            scrollY: "63vh",
+            // scrollY: "63vh",
             columnDefs: [{
                     "className": "dt-center",
                     "targets": "_all"
