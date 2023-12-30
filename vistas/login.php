@@ -51,7 +51,7 @@
                         INGRESAR
                     </a>
 
-                    <a style="cursor: pointer;" class="fw-bold text-secondary mt-2" id="btnReestablecerPassword">Reestablecer Contraseña</a>
+                    <a style="cursor: pointer;" class="fw-bold text-secondary mt-2 float-right" id="btnReestablecerPassword">Reestablecer Contraseña</a>
 
                 </form>
 
