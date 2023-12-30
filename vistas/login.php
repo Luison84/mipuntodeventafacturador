@@ -48,6 +48,8 @@
                     <a class="btn btn-md w-50" id="btnIniciarSesion">
                         INGRESAR
                     </a>
+
+                    <a id="btnReestablecerPassword">Reestablecer Contraseña</a>
                     
                 </form>
 
