@@ -1384,7 +1384,7 @@ class VentasModelo
         $stmt = Conexion::conectar()->prepare("SELECT id, 
                                                     id_venta, 
                                                     cuota, 
-                                                    importe, 
+                                                    round(importe, 2) as importe,
                                                     fecha_vencimiento, 
                                                     estado
                                             FROM cuotas c 
