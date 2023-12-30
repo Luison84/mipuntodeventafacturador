@@ -1144,7 +1144,7 @@ if (isset($_GET["accion"])) {
             $pdf->Ln();
             $pdf->Cell(70, 4, utf8_decode("ser consultada en: www.tutorialesphperu.com"), 0, 0, 'L');
 
-            $pdf->Ln();
+            $pdf->Ln(10);
             $pdf->SetFont('Arial', 'B', 8);
             $pdf->Cell(70, 4, "GRACIAS POR TU COMPRA", 0, 0, 'C');
 
