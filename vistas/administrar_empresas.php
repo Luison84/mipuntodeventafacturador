@@ -594,10 +594,12 @@
     // PREVISUALIZAR LA IMAGEN
     function previewFile(input) {
 
-        alert("entro")
+        
         var file = $("input[type=file]").get(0).files[0];
 
         if (file) {
+            alert("entro")
+            
             var reader = new FileReader();
 
             reader.onload = function() {
