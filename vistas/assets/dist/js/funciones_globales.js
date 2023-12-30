@@ -263,6 +263,30 @@ function validateJS(event, type) {
         
     }
 
+    if (type == "usuario_login") {
+       
+            var formData = new FormData();
+            formData.append('accion', 'validar_usuario_sistema_login');
+            formData.append('usuario', event.target.value);
+            response = SolicitudAjax('ajax/usuarios.ajax.php', 'POST', formData);
+    
+            if(response['existe'] == 0){
+    
+                console.log($(event.target).parent());
+                
+                $(event.target).parent().addClass("was-validated");
+    
+                $(event.target).parent().children(".invalid-feedback").html("El usuario no existe");
+        
+                event.target.value = "";
+                event.target.focus();
+                return;
+            }
+
+       
+        
+    }
+
     if (type == "text") {
 
         var pattern = /^[A-Za-zñÑáéíóúÁÉÍÓÚ ]{1,}$/;

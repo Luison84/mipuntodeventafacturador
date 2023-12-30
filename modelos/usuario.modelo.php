@@ -253,6 +253,19 @@ class UsuarioModelo
         return $stmt->fetch(PDO::FETCH_NAMED);
     }
 
+    static public function mdlValidarUsuarioSistemaLogin($usuario)
+    {
+
+        $stmt = Conexion::conectar()->prepare(" SELECT count(1) as existe
+                                            FROM usuarios usu 
+                                            WHERE usuario = :usuario");
+
+        $stmt->bindParam(":usuario", $usuario, PDO::PARAM_STR);
+
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_NAMED);
+    }
+
     static public function mdlActualizarUsuario($usuario)
     {
 
