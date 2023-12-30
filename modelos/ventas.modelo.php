@@ -1078,7 +1078,7 @@ class VentasModelo
                                                     v.correlativo,
                                                     v.fecha_emision,
                                                     v.hora_emision,
-                                                    '' as cajero,
+                                                    u.usuario as cajero,
                                                     format(v.total_operaciones_gravadas,2) as ope_gravada,
                                                     format(v.total_operaciones_exoneradas,2) as ope_inafecta,
                                                     format(v.total_operaciones_inafectas,2) as ope_exonerada,
@@ -1096,6 +1096,7 @@ class VentasModelo
                                                         inner join moneda m on m.id = v.id_moneda
                                                         inner join serie s on s.id = v.id_serie
                                                         inner join clientes c on c.id = v.id_cliente
+                                                        inner join usuarios u on u.id = v.id_usuario
                                             WHERE v.id = :id_venta");
         $stmt->bindParam(":id_venta", $id_venta, PDO::PARAM_STR);
         $stmt->execute();
