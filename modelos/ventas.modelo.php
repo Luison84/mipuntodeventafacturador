@@ -775,7 +775,7 @@ class VentasModelo
                         AND v.id_usuario = "' . $id_usuario . '"
                         AND (v.serie like "%' . $post["search"]["value"] . '%"
                              or v.correlativo like "%' . $post["search"]["value"] . '%"
-                             or concat(v.serie,'-',v.correlativo) like "%' . $post["search"]["value"] . '%")';
+                             or concat(v.serie,"-",v.correlativo) like "%' . $post["search"]["value"] . '%")';
                         // AND ( v.serie like "%' . $post["search"]["value"] . '%" 
                         //         or ( case when v.estado_respuesta_sunat = 2 then "Enviado, con errores"
                         //                   when v.estado_respuesta_sunat = 1 then "Comprobante enviado correctamente"
