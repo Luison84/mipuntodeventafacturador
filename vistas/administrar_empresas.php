@@ -227,7 +227,7 @@
 
                                     <div class="col-12 col-lg-3 mb-2">
                                     <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Empresa Principal?</label>
-                                        <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-center my-0 ">
+                                        <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-start my-0 ">
                                             <div class="icheck-warning d-inline mx-2">
                                                 <input type="radio" id="rb-venta-envio" value="1" name="rb_generar_venta" checked="">
                                                 <label for="rb-venta-envio">
