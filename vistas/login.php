@@ -107,7 +107,7 @@
 
                             <!-- PASSWORD -->
                             <div class="col-12 mb-2">
-                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-lock mr-1 my-text-color"></i>Contraseña <span class="text-danger" style="font-size: 10px;">(Mínimo 6 caracateres)</span></label>
+                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-lock mr-1 my-text-color"></i>Contraseña <span class="text-danger" style="font-size: 12px;">(Mínimo 6 caracateres)</span></label>
                                 <input autocomplete="false" type="password" style="border-radius: 20px;" placeholder="Ingrese el password" class="form-control form-control-sm" id="password" name="password" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                 <div class="invalid-feedback">Ingrese la contraseña</div>
 
