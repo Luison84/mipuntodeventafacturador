@@ -766,16 +766,20 @@ class VentasModelo
                         estado_comprobante,
                         mensaje_respuesta_sunat
                 from venta v inner join serie s on v.id_serie = s.id
-                             inner join moneda mon on mon.id = v.id_moneda ';
+                             inner join moneda mon on mon.id = v.id_moneda';
 
         // var_dump($post["search"]["value"]);
 
         if (isset($post["search"]["value"]) && strlen($post["search"]["value"]) > 0) {
-            $query .= '  WHERE s.id_tipo_comprobante = "03" ;
-                        AND v.id_usuario = "' . $id_usuario . '"
-                        AND ( v.serie like "%' . $post["search"]["value"] . '%"                                          
-                                or v.correlativo like "%' . $post["search"]["value"] . '%"
-                                or concat(v.serie,'-',v.correlativo) like "%' . $post["search"]["value"] . '%")';
+            $query .= '  WHERE s.id_tipo_comprobante = "03"
+                        AND v.id_usuario = "' . $id_usuario . '"';
+                        // AND ( v.serie like "%' . $post["search"]["value"] . '%" 
+                        //         or ( case when v.estado_respuesta_sunat = 2 then "Enviado, con errores"
+                        //                   when v.estado_respuesta_sunat = 1 then "Comprobante enviado correctamente"
+                        //                   when v.estado_respuesta_sunat is null then "Pendiente de envío"
+                        //              end) like "%' . $post["search"]["value"] . '%"                      
+                        //         or v.correlativo like "%' . $post["search"]["value"] . '%"
+                        //         or concat(v.serie,'-',v.correlativo) like "%' . $post["search"]["value"] . '%")';
                 
         }
 
