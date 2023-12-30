@@ -84,7 +84,7 @@
                 <!-- cabecera del modal -->
                 <div class="modal-header my-bg py-1">
 
-                    <h5 class="modal-title text-white text-lg">Reestablecer Contraseña</h5>
+                    <h5 class="modal-title text-white">Reestablecer Contraseña</h5>
 
                     <button type="button" class="btn btn-danger btn-sm text-white text-sm" data-bs-dismiss="modal">
                         <i class="fas fa-times text-sm m-0 p-0"></i>
@@ -97,8 +97,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <a class="btn btn-secondary btn-sm" data-bs-dismiss="modal" id="btnCancelarRegistroStock">Cancelar</a>
-                    <a class="btn btn-primary btn-sm" id="btnGuardarNuevorStock">Guardar</a>
+                    <a class="btn btn-secondary btn-xs" data-bs-dixsiss="modal" id="btnCancelarRegistroStock">Cancelar</a>
+                    <a class="btn btn-primary btn-xs" id="btnGuardarNuevorStock">Guardar</a>
                 </div>
 
             </div>
