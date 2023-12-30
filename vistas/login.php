@@ -17,14 +17,16 @@
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="vistas/assets/dist/css/style_login.css" />
 
-    
-<style>
 
-.container, .container-lg, .container-md, .container-sm, .container-xl {
-    min-width: 100%;
-}
-
-</style>
+    <style>
+        .container,
+        .container-lg,
+        .container-md,
+        .container-sm,
+        .container-xl {
+            min-width: 100%;
+        }
+    </style>
 </head>
 <!-- <body class="hold-transition login-page" style="background-image: url('vistas/assets/imagenes/fondo_login_2.jpg');  background-repeat: no-repeat;  background-position: 0% 50%; background-size: 100% 110%;"> -->
 
@@ -39,39 +41,19 @@
                     <h2 class="title">INICIAR SESION</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" placeholder="Usuario" id="loginUsuario" required/>
+                        <input type="text" placeholder="Usuario" id="loginUsuario" required />
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Contraseña" id="loginPassword" required/>
+                        <input type="password" placeholder="Contraseña" id="loginPassword" required />
                     </div>
                     <a class="btn btn-md w-50" id="btnIniciarSesion">
                         INGRESAR
                     </a>
 
                     <a style="cursor: pointer;" class="fw-bold text-secondary mt-2" id="btnReestablecerPassword">Reestablecer Contraseña</a>
-                    
-                </form>
 
-                <!-- <form class="sign-up-form">
-                    <h2 class="title">Registrarse</h2>
-                    <div class="input-field">
-                        <i class="fas fa-user"></i>
-                        <input type="text" placeholder="Usuario" />
-                    </div>
-                    <div class="input-field">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" placeholder="Contraseña" />
-                    </div>
-                    <div class="input-field">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Confirmar Contraseña" />
-                    </div>
-                    <a class="btn btn-md w-50">
-                        Registrarse
-                    </a>
-                    
-                </form> -->
+                </form>
 
             </div>
         </div>
@@ -84,29 +66,38 @@
                     <p>
                         Explora las funcionalidades que te ofrece el sistema de punto de venta con Facturación Electrónica
                     </p>
-                    <!-- <button class="btn transparent" id="sign-up-btn">
-                        Regístrate
-                    </button> -->
 
                 </div>
                 <img src="vistas/assets/dist/img/log.svg" class="image" alt="" />
             </div>
-
-            <!-- <div class="panel right-panel">
-                <div class="content">
-                    <h3>Ya tienes cuenta ?</h3>
-                    <p>
-                        Explora las funcionalidades que te ofrece el sistema de punto de venta con Facturación Electrónica
-                    </p>
-                    <button class="btn transparent" id="sign-in-btn">
-                        Ingresar
-                    </button>
-                </div>
-                <img src="vistas/assets/dist/img/register.svg" class="image" alt="" />
-            </div>
-             -->
         </div>
 
+    </div>
+
+    <!-- =============================================================================================================================
+    VENTA MODAL PARA CAMBIAR PASSWORD
+    ===============================================================================================================================-->
+    <div class="modal fade" id="modalReestablecerPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header bg-gray py-2">
+                    <h6 class="modal-title" id="titulo_modal_stock">Reestablecer Contraseña</h6>
+                    <button type="button" class="btn-close text-white fs-6" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                </div>
+
+                <div class="modal-footer">
+                    <a class="btn btn-secondary btn-sm" data-bs-dismiss="modal" id="btnCancelarRegistroStock">Cancelar</a>
+                    <a class="btn btn-primary btn-sm" id="btnGuardarNuevorStock">Guardar</a>
+                </div>
+
+            </div>
+        </div>
     </div>
 
     <!-- jQuery -->
@@ -131,6 +122,10 @@
                     fnc_login();
                 }
             });
+
+            $("#btnReestablecerPassword").on('click', function() {
+                $("#modalReestablecerPassword").modal('show');
+            })
         })
 
         function fnc_login() {
@@ -185,6 +180,7 @@
 
 
         }
+
     </script>
 </body>
 
