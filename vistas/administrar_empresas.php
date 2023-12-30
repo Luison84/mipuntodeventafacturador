@@ -233,7 +233,8 @@
                                     </div>
 
                                     <!-- PREVIEW IMAGEN -->
-                                    <div class="col-12 col-lg-3">
+                                    <div class="col-12 col-lg-2">
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Vista Previa</label>
                                         <div style="width: 100%; height: 155px;">
                                             <img id="previewImg" src="vistas/assets/imagenes/no_image.jpg" class="border border-secondary" style="object-fit: fill; width: 100%; height: 100%;" alt="">
                                         </div>
@@ -589,5 +590,21 @@
         // Initiate additional resize handling on datatable
         resizeHandler(element);
 
+    }
+
+    // PREVISUALIZAR LA IMAGEN
+    function previewFile(input) {
+
+        var file = $("input[type=file]").get(0).files[0];
+
+        if (file) {
+            var reader = new FileReader();
+
+            reader.onload = function() {
+                $("#previewImg").attr("src", reader.result);
+            }
+
+            reader.readAsDataURL(file);
+        }
     }
 </script>
