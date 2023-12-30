@@ -304,12 +304,14 @@ class UsuarioModelo
         return $respuesta;
     }
 
-    static public function mdlReestablecerPassword($usuario, $newPassword) 
+    static public function mdlReestablecerPassword($usuario, $password) 
     {
 
         $dbh = Conexion::conectar();
 
         try {
+
+            $newPassword = crypt($password, '$2a$07$azybxcags23425sdg23sdfhsd$');
 
             $stmt = $dbh->prepare("UPDATE   usuarios
                                      SET    clave = ?
