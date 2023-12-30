@@ -226,15 +226,15 @@
                                     </div>
 
                                     <!-- IMAGEN -->
-                                    <div class="col-12 mb-2">
+                                    <div class="col-12 col-lg-9 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Seleccione una imagen</label>
                                         <!-- <input type="file" class="form-control form-control-sm" id="imagen" name="imagen" accept="image/*" onchange="previewFile(this)"> -->
                                         <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*" onchange="previewFile(this)">
                                     </div>
 
                                     <!-- PREVIEW IMAGEN -->
-                                    <div class="col-12 col-lg-5">
-                                        <div style="width: 100%; height: 255px;">
+                                    <div class="col-12 col-lg-3">
+                                        <div style="width: 100%; height: 155px;">
                                             <img id="previewImg" src="vistas/assets/imagenes/no_image.jpg" class="border border-secondary" style="object-fit: fill; width: 100%; height: 100%;" alt="">
                                         </div>
                                     </div>
