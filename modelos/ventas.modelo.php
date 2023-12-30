@@ -1079,6 +1079,8 @@ class VentasModelo
                                                     v.fecha_emision,
                                                     v.hora_emision,
                                                     u.usuario as cajero,
+                                                    u.nombre_usuario as nombre_cajero,
+                                                    u.apellido_usuario as apellido_cajero,
                                                     format(v.total_operaciones_gravadas,2) as ope_gravada,
                                                     format(v.total_operaciones_exoneradas,2) as ope_inafecta,
                                                     format(v.total_operaciones_inafectas,2) as ope_exonerada,
