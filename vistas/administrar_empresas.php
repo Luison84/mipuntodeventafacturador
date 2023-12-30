@@ -596,6 +596,7 @@
 
         
         var file = $("input[type=file]").get(0).files[0];
+        console.log("🚀 ~ file: administrar_empresas.php:599 ~ previewFile ~ file:", file)
 
         if (file) {
             alert("entro")
