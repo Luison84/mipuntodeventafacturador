@@ -86,7 +86,7 @@
 
                     <h5 class="modal-title text-white">Reestablecer Contraseña</h5>
 
-                    <button type="button" class="btn btn-danger btn-sm text-white " data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-danger btn-sm text-white p-0 m-0" style="width: 36px !important;" data-bs-dismiss="modal">
                         <i class="fas fa-times  m-0 p-0"></i>
                     </button>
 
@@ -97,8 +97,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <a class="btn btn-secondary btn-sm " style="height: 30px !important; font: size 18px !important;" data-bs-dixsiss="modal" id="btnCancelarRegistroStock">Cancelar</a>
-                    <a class="btn btn-primary btn-sm " style="height: 30px !important; font: size 18px !important;" id="btnGuardarNuevorStock">Guardar</a>
+                    <a class="btn btn-secondary btn-sm " style="height: 30px !important; font-size: 18px !important;" data-bs-dixsiss="modal" id="btnCancelarRegistroStock">Cancelar</a>
+                    <a class="btn btn-primary btn-sm " style="height: 30px !important; font-size: 18px !important;" id="btnGuardarNuevorStock">Guardar</a>
                 </div>
 
             </div>
