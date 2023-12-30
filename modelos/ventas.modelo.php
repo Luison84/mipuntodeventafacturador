@@ -799,7 +799,7 @@ class VentasModelo
 
         $stmt = Conexion::conectar()->prepare($query);
 
-        var_dump($query);
+        // var_dump($query);
 
         $stmt->execute();
 
