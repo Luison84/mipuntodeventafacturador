@@ -239,6 +239,26 @@ function validateJS(event, type) {
                 event.target.focus();
                 return;
             }
+        }else{
+
+            var formData = new FormData();
+            formData.append('accion', 'validar_usuario_sistema_nuevo');
+            formData.append('usuario', event.target.value);
+            response = SolicitudAjax('ajax/usuarios.ajax.php', 'POST', formData);
+    
+            if(response['existe'] > 0){
+    
+                console.log($(event.target).parent());
+                
+                $(event.target).parent().addClass("was-validated");
+    
+                $(event.target).parent().children(".invalid-feedback").html("El usuario ya fue registrado");
+        
+                event.target.value = "";
+                event.target.focus();
+                return;
+            }
+
         }
         
     }

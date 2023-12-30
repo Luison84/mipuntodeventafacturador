@@ -240,6 +240,19 @@ class UsuarioModelo
         return $stmt->fetch(PDO::FETCH_NAMED);
     }
 
+    static public function mdlValidarUsuarioSistemaNuevo($usuario)
+    {
+
+        $stmt = Conexion::conectar()->prepare(" SELECT count(1) as existe
+                                            FROM usuarios usu 
+                                            WHERE usuario = :usuario");
+
+        $stmt->bindParam(":usuario", $usuario, PDO::PARAM_STR);
+
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_NAMED);
+    }
+
     static public function mdlActualizarUsuario($usuario)
     {
 
@@ -273,6 +286,34 @@ class UsuarioModelo
             $dbh->rollBack();
             $respuesta['tipo_msj'] = 'error';
             $respuesta['msj'] = 'Error al registrar al cliente ' . $e->getMessage();
+        }
+
+        return $respuesta;
+    }
+
+    static public function mdlReestablecerPassword($usuario, $newPassword) 
+    {
+
+        $dbh = Conexion::conectar();
+
+        try {
+
+            $stmt = $dbh->prepare("UPDATE   usuarios
+                                     SET    clave = ?
+                                    WHERE   usuario = ?");
+            $dbh->beginTransaction();
+            $stmt->execute(array(
+                $newPassword,
+                $usuario['id_usuario']
+            ));
+            $dbh->commit();
+
+            $respuesta['tipo_msj'] = 'success';
+            $respuesta['msj'] = 'La contraseña se cambio correctamente';
+        } catch (Exception $e) {
+            $dbh->rollBack();
+            $respuesta['tipo_msj'] = 'error';
+            $respuesta['msj'] = 'Error al actualizar la contraseña ' . $e->getMessage();
         }
 
         return $respuesta;

@@ -94,7 +94,7 @@
 
                 <div class="modal-body">
 
-                    <form id="frm-datos-usuario" class="needs-validation-usuarios" autocomplete="off" novalidate>
+                    <form id="frm-datos-usuario" class="needs-validation-usuario" autocomplete="off" novalidate>
 
                         <div class="row">
 
@@ -107,7 +107,7 @@
 
                             <!-- PASSWORD -->
                             <div class="col-12 mb-2">
-                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-lock mr-1 my-text-color"></i>Contraseña <span class="text-danger">Mínimo 6 caracateres</span></label>
+                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-lock mr-1 my-text-color"></i>Contraseña <span class="text-danger" style="font-size: 15px;">(Mínimo 6 caracateres)</span></label>
                                 <input autocomplete="false" type="password" style="border-radius: 20px;" placeholder="Ingrese el password" class="form-control form-control-sm" id="password" name="password" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                 <div class="invalid-feedback">Ingrese la contraseña</div>
 
@@ -125,7 +125,7 @@
                             <div class="col-12 mt-2">
 
                                 <a class="btn btn-secondary btn-sm " style="height: 30px !important; font-size: 18px !important;background-color: #dc3545 !important;" data-bs-dismiss="modal" id="btnCancelarRegistroStock">Cancelar</a>
-                                <a class="btn btn-primary btn-sm " style="height: 30px !important; font-size: 18px !important;" id="btnGuardarNuevorStock">Guardar</a>
+                                <a class="btn btn-primary btn-sm " style="height: 30px !important; font-size: 18px !important;" id="btnCambiarPassword">Guardar</a>
 
                             </div>
 
@@ -189,6 +189,11 @@
                     return;
                 }
             })
+
+            $("#btnCambiarPassword").on('click', function() {
+                fnc_CambiarPassword();
+            });
+
         })
 
         function fnc_login() {
@@ -242,6 +247,50 @@
 
 
 
+        }
+
+        function fnc_CambiarPassword() {
+
+            form_usuario_validate = validarFormulario('needs-validation-usuario');
+
+            //INICIO DE LAS VALIDACIONES
+            if (!form_usuario_validate) {
+                mensajeToast("error", "complete los datos obligatorios");
+                return;
+            }
+
+            Swal.fire({
+                title: 'Está seguro(a) de cambiar la contraseña?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si!',
+                cancelButtonText: 'No',
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    var formData = new FormData();
+
+                    formData.append('accion', 'cambiar_password');
+                    formData.append('datos_usuario', $("#frm-datos-usuario").serialize());
+
+                    response = SolicitudAjax('ajax/usuarios.ajax.php', 'POST', formData);
+
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: response['tipo_msj'],
+                        title: response['msj'],
+                        showConfirmButton: true,
+                        timer: 2000
+                    });
+
+                    $("#modalReestablecerPassword").modal('hide');
+
+                }
+
+            })
         }
     </script>
 </body>
