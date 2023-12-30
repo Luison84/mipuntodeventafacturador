@@ -1032,6 +1032,10 @@ if (isset($_GET["accion"])) {
             $pdf->Cell(70, 6, utf8_decode("FECHA EMISIÓN: " . $venta["fecha_emision"] . "  " . $venta["hora_emision"]), 0, 0, 'C');
             $pdf->Ln(5);
             $pdf->Cell(70, 6, strtoupper(utf8_decode("CAJERO: " . $venta["nombre_cajero"] . " " . $venta["apellido_cajero"])), 0, 0, 'C');
+            $pdf->Ln(5);
+            $pdf->Cell(70, 6, strtoupper(utf8_decode("CLIENTE: " . $venta["nombres_apellidos_razon_social"])), 0, 0, 'C');
+            $pdf->Ln(5);
+            $pdf->Cell(70, 6, strtoupper(utf8_decode("NRO. DOC.: " . $venta["nro_documento"])), 0, 0, 'C');
 
 
             $pdf->Ln(10);
@@ -1086,19 +1090,11 @@ if (isset($_GET["accion"])) {
             $pdf->Ln(10);
             //FIN RESUMEN IMPORTES
 
-            //DATOS DEL CLIENTE
-            $pdf->Cell(15, 4, strtoupper("Cliente: "), 0, 0, 'L');
-            $pdf->Cell(55, 4, strtoupper($venta["nombres_apellidos_razon_social"]), 0, 0, 'L');
-
-            $pdf->Ln(5);
-            $pdf->Cell(15, 4, strtoupper("Nro. Doc: "), 0, 0, 'L');
-            $pdf->Cell(55, 4, strtoupper($venta["nro_documento"]), 0, 0, 'L');
 
             //FORMA DE PAGO
-            $pdf->Ln(5);
             $pdf->Cell(20, 4, strtoupper("Forma de Pago: "), 0, 0, 'L');
             $pdf->Cell(40, 4, strtoupper($venta["forma_pago"]), 0, 0, 'L');
-            
+
             //CALENDARIO DE PAGOS
             if ($venta["forma_pago"] == "Credito") {
 
@@ -1120,7 +1116,7 @@ if (isset($_GET["accion"])) {
                     $pdf->Cell(20, 4, "", 0, 0, 'L');
                 }
             }
-          
+
             $pdf->Ln(30);
             $pdf->SetFont('Arial', '', 6);
             //QR
