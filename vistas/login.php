@@ -94,12 +94,107 @@
 
                 <div class="modal-body">
 
+                    <form id="frm-datos-usuarios" class="needs-validation-usuarios" novalidate>
+
+                        <div class="row">
+
+                            <!-- NOMBRES -->
+                            <div class="col-4 mb-2">
+                                <input type="hidden" name="id_usuario" id="id_usuario" value="0">
+                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-user-alt mr-1 my-text-color"></i>Nombres</label>
+                                <input type="text" style="border-radius: 20px;" placeholder="Ingrese los nombres del usuario" class="form-control form-control-sm " id="nombres" name="nombres" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                <div class="invalid-feedback">Ingrese el nombre del usuario</div>
+                            </div>
+
+                            <!-- APELLIDOS -->
+                            <div class="col-4 mb-2">
+                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-user-alt mr-1 my-text-color"></i>Apellidos</label>
+                                <input type="text" style="border-radius: 20px;" placeholder="Ingrese los apellidos del usuario" class="form-control form-control-sm " id="apellidos" name="apellidos" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                <div class="invalid-feedback">Ingrese el apellidos del usuario</div>
+                                <!-- </div> -->
+
+                            </div>
+
+                            <!-- USUARIO DEL SISTEMA -->
+                            <div class="col-4 mb-2">
+                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card mr-1 my-text-color"></i>Usuario del Sistema</label>
+                                <input type="text" style="border-radius: 20px;" placeholder="Ingrese el usuario del sistema" class="form-control form-control-sm" id="usuario" name="usuario" aria-label="Small" id_usuario="0" aria-describedby="inputGroup-sizing-sm" onchange="validateJS(event, 'usuario_sistema')" required>
+                                <div class="invalid-feedback">Ingrese usuario del sistema</div>
+                            </div>
+
+                            <!-- PASSWORD -->
+                            <div class="col-3 mb-2">
+                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-lock mr-1 my-text-color"></i>Contraseña</label>
+                                <input type="password" style="border-radius: 20px;" placeholder="Ingrese el password" class="form-control form-control-sm" id="password" name="password" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                <div class="invalid-feedback">Ingrese la contraseña</div>
+
+                            </div>
+
+                            <!-- CONFIRMAR PASSWORD -->
+                            <div class="col-3 mb-2">
+                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-lock mr-1 my-text-color"></i>Confirmar Contraseña</label>
+                                <input type="password" style="border-radius: 20px;" placeholder="Ingrese confirmacion de password" class="form-control form-control-sm" id="confirmar_password" name="confirmar_password" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                <div class="invalid-feedback">Ingrese la confirmación</div>
+
+                            </div>
+
+                            <!-- PERFIL -->
+                            <div class="col-3 mb-2">
+
+                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card-alt mr-1 my-text-color"></i>Perfil</label>
+                                <select class="form-select" id="perfil" name="perfil" aria-label="Floating label select example" required>
+                                </select>
+                                <div class="invalid-feedback">Seleccione el Perfil</div>
+                            </div>
+
+                            <!-- CAJA -->
+                            <div class="col-3 mb-2">
+                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-cash-register mr-1 my-text-color"></i>Caja</label>
+                                <select class="form-select" id="caja" name="caja" aria-label="Floating label select example" required>
+                                </select>
+                                <div class="invalid-feedback">Seleccione la caja</div>
+                            </div>
+
+                            <!-- ESTADO -->
+                            <div class="col-3 mb-2">
+                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-toggle-on mr-1 my-text-color"></i>Estado</label>
+                                <select class="form-select" id="estado" name="estado" aria-label="Floating label select example" required>
+                                    <option value="" disabled>--Seleccione un estado--</option>
+                                    <option value="1" selected>ACTIVO</option>
+                                    <option value="0">INACTIVO</option>
+                                </select>
+                                <div class="invalid-feedback">Seleccione el estado</div>
+                            </div>
+
+
+                            <div class="col-12 mt-2">
+                                <div class="float-right">
+                                    <a class="btn btn-sm btn-danger  fw-bold " id="btnCancelarUsuario" style="position: relative; width: 160px;">
+                                        <span class="text-button">CANCELAR</span>
+                                        <span class="btn fw-bold icon-btn-danger ">
+                                            <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
+                                        </span>
+                                    </a>
+
+                                    <a class="btn btn-sm btn-success  fw-bold " id="btnRegistrarUsuario" style="position: relative; width: 160px;">
+                                        <span class="text-button">GUARDAR</span>
+                                        <span class="btn fw-bold icon-btn-success ">
+                                            <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
+                                        </span>
+                                    </a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </form>
+
                 </div>
 
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                     <a class="btn btn-secondary btn-sm " style="height: 30px !important; font-size: 18px !important;" data-bs-dixsiss="modal" id="btnCancelarRegistroStock">Cancelar</a>
                     <a class="btn btn-primary btn-sm " style="height: 30px !important; font-size: 18px !important;" id="btnGuardarNuevorStock">Guardar</a>
-                </div>
+                </div> -->
 
             </div>
         </div>
