@@ -226,11 +226,23 @@
                                     </div>
 
                                     <div class="col-12 col-lg-2 text-center mb-2">
+                                    <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Empresa Principal?</label>
                                         <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-center my-0 ">
                                             <div class="icheck-warning d-inline mx-2">
                                                 <input type="radio" id="rb-venta-envio" value="1" name="rb_generar_venta" checked="">
                                                 <label for="rb-venta-envio">
-                                                    Generar Venta y Enviar Comprobante
+                                                    Si
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-2 text-center mb-2">
+                                        <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-center my-0 ">
+                                            <div class="icheck-success d-inline mx-2">
+                                                <input type="radio" id="rb-venta" value="2" name="rb_generar_venta">
+                                                <label for="rb-venta">
+                                                    No
                                                 </label>
                                             </div>
                                         </div>
