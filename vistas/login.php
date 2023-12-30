@@ -49,7 +49,7 @@
                         INGRESAR
                     </a>
 
-                    <a id="btnReestablecerPassword">Reestablecer Contraseña</a>
+                    <a style="cursor: pointer;" class="fw-bold text-secondary" id="btnReestablecerPassword">Reestablecer Contraseña</a>
                     
                 </form>
 
