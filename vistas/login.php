@@ -107,7 +107,7 @@
 
                             <!-- PASSWORD -->
                             <div class="col-12 mb-2">
-                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-lock mr-1 my-text-color"></i>Contraseña</label>
+                                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-lock mr-1 my-text-color"></i>Contraseña <span class="text-danger">Mínimo 6 caracateres</span></label>
                                 <input autocomplete="false" type="password" style="border-radius: 20px;" placeholder="Ingrese el password" class="form-control form-control-sm" id="password" name="password" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                 <div class="invalid-feedback">Ingrese la contraseña</div>
 
@@ -123,21 +123,6 @@
 
 
                             <div class="col-12 mt-2">
-                                <!-- <div class="float-right">
-                                    <a class="btn btn-sm btn-danger  fw-bold " id="btnCancelarUsuario" style="position: relative; width: 160px;">
-                                        <span class="text-button">CANCELAR</span>
-                                        <span class="btn fw-bold icon-btn-danger ">
-                                            <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
-                                        </span>
-                                    </a>
-
-                                    <a class="btn btn-sm btn-success  fw-bold " id="btnRegistrarUsuario" style="position: relative; width: 160px;">
-                                        <span class="text-button">GUARDAR</span>
-                                        <span class="btn fw-bold icon-btn-success ">
-                                            <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
-                                        </span>
-                                    </a>
-                                </div> -->
 
                                 <a class="btn btn-secondary btn-sm " style="height: 30px !important; font-size: 18px !important;background-color: #dc3545 !important;" data-bs-dismiss="modal" id="btnCancelarRegistroStock">Cancelar</a>
                                 <a class="btn btn-primary btn-sm " style="height: 30px !important; font-size: 18px !important;" id="btnGuardarNuevorStock">Guardar</a>
@@ -183,6 +168,26 @@
 
             $("#btnReestablecerPassword").on('click', function() {
                 $("#modalReestablecerPassword").modal('show');
+            })
+
+            $("#confirmar_password").change(function() {
+                if ($("#confirmar_password").val() != $("#password").val()) {
+
+                    $("#confirmar_password").parent().addClass("was-validated")
+                    $("#confirmar_password").parent().children(".invalid-feedback").html("Las contraseñas no coinciden");
+                    $("#confirmar_password").val("") //limpiar el valor para que se muestre el mensaje de validación
+                    return;
+                }
+            })
+
+            $("#password").change(function() {
+
+                if ($("#password").val().length < 6) {
+                    $("#password").parent().addClass("was-validated")
+                    $("#password").parent().children(".invalid-feedback").html("Mínimo 6 caracteres");
+                    $("#password").val("") //limpiar el valor para que se muestre el mensaje de validación
+                    return;
+                }
             })
         })
 
