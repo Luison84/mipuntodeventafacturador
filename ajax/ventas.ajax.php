@@ -1088,10 +1088,11 @@ if (isset($_GET["accion"])) {
 
             $pdf->Cell(20, 4, "Forma de Pago", 0, 0, 'L');
             $pdf->Cell(10, 4, $venta["forma_pago"], 0, 0, 'L');
-            $pdf->Ln(5);
+            
 
             if ($venta["forma_pago"] == "Credito") {
 
+                $pdf->Ln(5);
                 $pdf->SetFont('Arial', '', 6);
                 $pdf->Cell(10, 4, "Cuota", 0, 0, 'L');
                 $pdf->Cell(20, 4, "Fecha Vencimiento", 0, 0, 'L');
