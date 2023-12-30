@@ -228,7 +228,6 @@
                                     <!-- IMAGEN -->
                                     <div class="col-12 col-lg-9 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Seleccione una imagen</label>
-                                        <!-- <input type="file" class="form-control form-control-sm" id="imagen" name="imagen" accept="image/*" onchange="previewFile(this)"> -->
                                         <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*" onchange="previewFile(this)">
                                     </div>
 
