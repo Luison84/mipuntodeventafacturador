@@ -595,7 +595,7 @@
     function previewFile(input) {
 
         
-        var file = $("input[type=file]").get(0).files[0];
+        var file = $("#imagen").get(0).files[0];
         console.log("🚀 ~ file: administrar_empresas.php:599 ~ previewFile ~ file:", file)
 
         if (file) {
