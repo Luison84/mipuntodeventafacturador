@@ -51,7 +51,7 @@
                         INGRESAR
                     </a>
 
-                    <a style="cursor: pointer;" class="fw-bold text-secondary mt-2 float-right" id="btnReestablecerPassword">Reestablecer Contraseña</a>
+                    <a style="cursor: pointer;" class="fw-bold text-secondary mt-2" id="btnReestablecerPassword">Reestablecer Contraseña</a>
 
                 </form>
 
@@ -274,7 +274,8 @@
                     var formData = new FormData();
 
                     formData.append('accion', 'cambiar_password');
-                    formData.append('datos_usuario', $("#frm-datos-usuario").serialize());
+                    formData.append('usuario', $("#usuario").val());
+                    formData.append('password', $("#password").val());
 
                     response = SolicitudAjax('ajax/usuarios.ajax.php', 'POST', formData);
 

@@ -56,5 +56,12 @@ if (isset($_POST["accion"])) {
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
 
             break;
+
+        case 'cambiar_password':
+
+            $response = UsuarioModelo::mdlReestablecerPassword($_POST["usuario"], $_POST["password"]);
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+
+            break;
     }
 }
