@@ -993,7 +993,7 @@ class VentasModelo
                              inner join moneda mon on mon.id = v.id_moneda";
 
         if (isset($post["search"]["value"])) {
-            $query .= '  WHERE s.id_tipo_comprobante = "03"
+            $query .= '  WHERE s.id_tipo_comprobante = "01"
                 AND v.id_usuario = "' . $id_usuario . '"
                 AND (v.serie like "%' . $post["search"]["value"] . '%"
                      or v.correlativo like "%' . $post["search"]["value"] . '%"
