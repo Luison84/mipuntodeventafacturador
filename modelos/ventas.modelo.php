@@ -768,9 +768,9 @@ class VentasModelo
                 from venta v inner join serie s on v.id_serie = s.id
                              inner join moneda mon on mon.id = v.id_moneda";
 
-        var_dump($post["search"]["value"]);
+        // var_dump($post["search"]["value"]);
 
-        if (isset($post["search"]["value"])) {
+        if (isset($post["search"]["value"]) && strlen($post["search"]["value"]) > 0) {
             $query .= '  WHERE s.id_tipo_comprobante = "03"
                         AND v.id_usuario = "' . $id_usuario . '"
                         AND ( v.serie like "%' . $post["search"]["value"] . '%" 
