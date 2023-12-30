@@ -1690,7 +1690,7 @@ MODAL CUOTAS DEL CREDITO
                                         </button>
 
                                         <div class="dropdown-menu z-3">
-                                            <a class="dropdown-item btnImprimirFactura" style='cursor:pointer;'><i class='px-1 fas fa-print fs-5 text-secondary'></i> <span class='my-color'>Imprimir Boleta (ticket)</span></a>`
+                                            <a class="dropdown-item btnImprimirFactura" style='cursor:pointer;'><i class='px-1 fas fa-print fs-5 text-secondary'></i> <span class='my-color'>Imprimir Factura (ticket)</span></a>`
 
                         if (rowData[9] == 1) {
 
