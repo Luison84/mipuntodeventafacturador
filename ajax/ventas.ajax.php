@@ -1031,7 +1031,7 @@ if (isset($_GET["accion"])) {
             $pdf->Ln(5);
             $pdf->Cell(70, 6, utf8_decode("FECHA EMISIÓN: " . $venta["fecha_emision"] . "  " . $venta["hora_emision"]), 0, 0, 'C');
             $pdf->Ln(5);
-            $pdf->Cell(70, 6, utf8_decode("CAJERO: " . $venta["cajero"]), 0, 0, 'C');
+            $pdf->Cell(70, 6, strtoupper(utf8_decode("CAJERO: " . $venta["cajero"])), 0, 0, 'C');
 
 
             $pdf->Ln(10);
