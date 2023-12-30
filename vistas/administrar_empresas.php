@@ -225,7 +225,7 @@
                                         <div class="invalid-feedback">Seleccion Estado</div>
                                     </div>
 
-                                    <div class="col-12 col-lg-2 text-center mb-2">
+                                    <div class="col-12 col-lg-3 text-center mb-2">
                                     <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Empresa Principal?</label>
                                         <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-center my-0 ">
                                             <div class="icheck-warning d-inline mx-2">
@@ -234,11 +234,6 @@
                                                     Si
                                                 </label>
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-lg-2 text-center mb-2">
-                                        <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-center my-0 ">
                                             <div class="icheck-success d-inline mx-2">
                                                 <input type="radio" id="rb-venta" value="2" name="rb_generar_venta">
                                                 <label for="rb-venta">
@@ -248,8 +243,19 @@
                                         </div>
                                     </div>
 
+                                    <!-- <div class="col-12 col-lg-2 text-center mb-2">
+                                        <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-center my-0 ">
+                                            <div class="icheck-success d-inline mx-2">
+                                                <input type="radio" id="rb-venta" value="2" name="rb_generar_venta">
+                                                <label for="rb-venta">
+                                                    No
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div> -->
+
                                     <!-- IMAGEN -->
-                                    <div class="col-12 col-lg-8 mb-2">
+                                    <div class="col-12 col-lg-7 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Seleccione logo</label>
                                         <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*" onchange="previewFile(this)">
                                     </div>
