@@ -1141,6 +1141,7 @@ if (isset($_GET["accion"])) {
             //TEXTO
             $pdf->SetFillColor(255, 255, 255);
             $pdf->Cell(70, 4, utf8_decode("Representación impresa de la Boleta de Venta Electrónica, esta puede"), 0, 0, 'L');
+            $pdf->Ln();
             $pdf->Cell(70, 4, utf8_decode("ser consultada en: www.tutorialesphperu.com"), 0, 0, 'L');
 
             $pdf->Ln();
