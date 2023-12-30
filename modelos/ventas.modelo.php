@@ -772,7 +772,8 @@ class VentasModelo
 
         if (isset($post["search"]["value"]) && strlen($post["search"]["value"]) > 0) {
             $query .= '  WHERE s.id_tipo_comprobante = "03"
-                        AND v.id_usuario = "' . $id_usuario . '"';
+                        AND v.id_usuario = "' . $id_usuario . '"
+                        AND (v.serie like "%' . $post["search"]["value"] . '%")';
                         // AND ( v.serie like "%' . $post["search"]["value"] . '%" 
                         //         or ( case when v.estado_respuesta_sunat = 2 then "Enviado, con errores"
                         //                   when v.estado_respuesta_sunat = 1 then "Comprobante enviado correctamente"
