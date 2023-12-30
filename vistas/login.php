@@ -81,10 +81,15 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
 
-                <div class="modal-header bg-gray py-2">
-                    <h6 class="modal-title" id="titulo_modal_stock">Reestablecer Contraseña</h6>
-                    <button type="button" class="btn-close text-white fs-6" data-bs-dismiss="modal" aria-label="Close">
+                <!-- cabecera del modal -->
+                <div class="modal-header my-bg py-1">
+
+                    <h5 class="modal-title text-white text-lg">Reestablecer Contraseña</h5>
+
+                    <button type="button" class="btn btn-danger btn-sm text-white text-sm" data-bs-dismiss="modal">
+                        <i class="fas fa-times text-sm m-0 p-0"></i>
                     </button>
+
                 </div>
 
                 <div class="modal-body">
@@ -180,7 +185,6 @@
 
 
         }
-
     </script>
 </body>
 
