@@ -94,11 +94,9 @@
 
                 <div class="modal-body">
 
-                    <form id="frm-datos-usuarios" class="needs-validation-usuarios" novalidate>
+                    <form id="frm-datos-usuario" class="needs-validation-usuarios" novalidate>
 
                         <div class="row">
-
-                        
 
                             <!-- USUARIO DEL SISTEMA -->
                             <div class="col-12 mb-2">
@@ -121,11 +119,11 @@
                                 <input type="password" style="border-radius: 20px;" placeholder="Ingrese confirmacion de password" class="form-control form-control-sm" id="confirmar_password" name="confirmar_password" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                 <div class="invalid-feedback">Ingrese la confirmación</div>
 
-                            </div>                           
+                            </div>
 
 
                             <div class="col-12 mt-2">
-                                <div class="float-right">
+                                <!-- <div class="float-right">
                                     <a class="btn btn-sm btn-danger  fw-bold " id="btnCancelarUsuario" style="position: relative; width: 160px;">
                                         <span class="text-button">CANCELAR</span>
                                         <span class="btn fw-bold icon-btn-danger ">
@@ -139,7 +137,10 @@
                                             <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
                                         </span>
                                     </a>
-                                </div>
+                                </div> -->
+
+                                <a class="btn btn-secondary btn-sm " style="height: 30px !important; font-size: 18px !important;" data-bs-dixsiss="modal" id="btnCancelarRegistroStock">Cancelar</a>
+                                <a class="btn btn-primary btn-sm " style="height: 30px !important; font-size: 18px !important;" id="btnGuardarNuevorStock">Guardar</a>
 
                             </div>
 
