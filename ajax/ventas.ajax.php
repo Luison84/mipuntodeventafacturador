@@ -1111,6 +1111,14 @@ if (isset($_GET["accion"])) {
                 }
             }
 
+            $pdf->Ln(5);
+            $pdf->Cell(20, 4, "Cliente: ", 0, 0, 'L');
+            $pdf->Cell(10, 4, "Luis Angel Lozano Arica", 0, 0, 'L');
+
+
+            $pdf->Ln(5);
+            $pdf->Cell(20, 4, "Nro. Doc: ", 0, 0, 'L');
+            $pdf->Cell(10, 4, "45257895", 0, 0, 'L');
 
             $pdf->Ln(30);
             $pdf->SetFont('Arial', '', 6);
