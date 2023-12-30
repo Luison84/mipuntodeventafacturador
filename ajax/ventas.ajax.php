@@ -1096,8 +1096,8 @@ if (isset($_GET["accion"])) {
 
             //FORMA DE PAGO
             $pdf->Ln(5);
-            $pdf->Cell(15, 4, strtoupper("Forma de Pago"), 0, 0, 'L');
-            $pdf->Cell(55, 4, strtoupper($venta["forma_pago"]), 0, 0, 'L');
+            $pdf->Cell(20, 4, strtoupper("Forma de Pago"), 0, 0, 'L');
+            $pdf->Cell(40, 4, strtoupper($venta["forma_pago"]), 0, 0, 'L');
             
             //CALENDARIO DE PAGOS
             if ($venta["forma_pago"] == "Credito") {
