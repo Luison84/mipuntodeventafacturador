@@ -1087,12 +1087,12 @@ if (isset($_GET["accion"])) {
             //FIN RESUMEN IMPORTES
 
             //DATOS DEL CLIENTE
-            $pdf->Cell(10, 4, strtoupper("Cliente: "), 0, 0, 'L');
-            $pdf->Cell(60, 4, strtoupper("Luis Angel Lozano Arica"), 0, 0, 'L');
+            $pdf->Cell(15, 4, strtoupper("Cliente: "), 0, 0, 'L');
+            $pdf->Cell(55, 4, strtoupper("Luis Angel Lozano Arica"), 0, 0, 'L');
 
             $pdf->Ln(5);
-            $pdf->Cell(10, 4, strtoupper("Nro. Doc: "), 0, 0, 'L');
-            $pdf->Cell(60, 4, strtoupper("45257895"), 0, 0, 'L');
+            $pdf->Cell(15, 4, strtoupper("Nro. Doc: "), 0, 0, 'L');
+            $pdf->Cell(55, 4, strtoupper("45257895"), 0, 0, 'L');
 
             //FORMA DE PAGO
             $pdf->Ln(5);
