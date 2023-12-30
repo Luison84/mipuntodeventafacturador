@@ -317,7 +317,7 @@ class UsuarioModelo
             $dbh->beginTransaction();
             $stmt->execute(array(
                 $newPassword,
-                $usuario['id_usuario']
+                $usuario
             ));
             $dbh->commit();
 
