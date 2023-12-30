@@ -1021,7 +1021,7 @@ if (isset($_GET["accion"])) {
             $pdf->Ln(15);
             $pdf->SetFont('Arial', '', 8);
             if ($venta["id_tipo_comprobante"] == "01") {
-                $pdf->Cell(70, 6, utf8_decode("FACTURA DE VENTA ELECTRÓNICA"), 0, 0, 'C');
+                $pdf->Cell(70, 6, utf8_decode("FACTURA ELECTRÓNICA"), 0, 0, 'C');
             } else {
                 $pdf->Cell(70, 6, utf8_decode("BOLETA DE VENTA ELECTRÓNICA"), 0, 0, 'C');
             }
