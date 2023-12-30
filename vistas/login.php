@@ -94,21 +94,21 @@
 
                 <div class="modal-body">
 
-                    <form id="frm-datos-usuario" class="needs-validation-usuarios" novalidate>
+                    <form id="frm-datos-usuario" class="needs-validation-usuarios" autocomplete="off" novalidate>
 
                         <div class="row">
 
                             <!-- USUARIO DEL SISTEMA -->
                             <div class="col-12 mb-2">
                                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-id-card mr-1 my-text-color"></i>Usuario del Sistema</label>
-                                <input type="text" style="border-radius: 20px;" placeholder="Ingrese el usuario del sistema" class="form-control form-control-sm" id="usuario" name="usuario" aria-label="Small" id_usuario="0" aria-describedby="inputGroup-sizing-sm" onchange="validateJS(event, 'usuario_existente')" required>
+                                <input autocomplete="false" type="text" style="border-radius: 20px;" placeholder="Ingrese el usuario del sistema" class="form-control form-control-sm" id="usuario" name="usuario" aria-label="Small" id_usuario="0" aria-describedby="inputGroup-sizing-sm" onchange="validateJS(event, 'usuario_existente')" required>
                                 <div class="invalid-feedback">Ingrese usuario del sistema</div>
                             </div>
 
                             <!-- PASSWORD -->
                             <div class="col-12 mb-2">
                                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-lock mr-1 my-text-color"></i>Contraseña</label>
-                                <input type="password" style="border-radius: 20px;" placeholder="Ingrese el password" class="form-control form-control-sm" id="password" name="password" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                <input autocomplete="false" type="password" style="border-radius: 20px;" placeholder="Ingrese el password" class="form-control form-control-sm" id="password" name="password" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                 <div class="invalid-feedback">Ingrese la contraseña</div>
 
                             </div>
@@ -116,7 +116,7 @@
                             <!-- CONFIRMAR PASSWORD -->
                             <div class="col-12 mb-2">
                                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-lock mr-1 my-text-color"></i>Confirmar Contraseña</label>
-                                <input type="password" style="border-radius: 20px;" placeholder="Ingrese confirmacion de password" class="form-control form-control-sm" id="confirmar_password" name="confirmar_password" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                <input autocomplete="false" type="password" style="border-radius: 20px;" placeholder="Ingrese confirmacion de password" class="form-control form-control-sm" id="confirmar_password" name="confirmar_password" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                 <div class="invalid-feedback">Ingrese la confirmación</div>
 
                             </div>
