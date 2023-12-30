@@ -139,7 +139,7 @@
                                     </a>
                                 </div> -->
 
-                                <a class="btn btn-secondary btn-sm " style="height: 30px !important; font-size: 18px !important;" data-bs-dixsiss="modal" id="btnCancelarRegistroStock">Cancelar</a>
+                                <a class="btn btn-secondary btn-sm " style="height: 30px !important; font-size: 18px !important;background-color: #dc3545 !important;" data-bs-dixsiss="modal" id="btnCancelarRegistroStock">Cancelar</a>
                                 <a class="btn btn-primary btn-sm " style="height: 30px !important; font-size: 18px !important;" id="btnGuardarNuevorStock">Guardar</a>
 
                             </div>
