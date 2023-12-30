@@ -1052,7 +1052,7 @@ if (isset($_GET["accion"])) {
                 $pdf->Ln(5);
                 $pdf->SetFont('Arial', '', 6);
                 $pdf->Cell(13, 4, strlen(utf8_decode($detalle["codigo_producto"])) > 6 ? substr(utf8_decode($detalle["codigo_producto"]), 0, 6) . "..." : utf8_decode($detalle["codigo_producto"]), 0, 0, 'L');
-                $pdf->Cell(30, 4, strlen(utf8_decode($detalle["descripcion"])) > 25 ? substr(utf8_decode($detalle["descripcion"]), 0, 25) . "..." : utf8_decode($detalle["descripcion"]), 0, 0, 'L');
+                $pdf->Cell(30, 4, strtoupper(strlen(utf8_decode($detalle["descripcion"])) > 25 ? substr(utf8_decode($detalle["descripcion"]), 0, 25) . "..." : utf8_decode($detalle["descripcion"])), 0, 0, 'L');
                 $pdf->Cell(8, 4, $detalle["cantidad"], 0, 0, 'C');
                 $pdf->Cell(10, 4, $detalle["precio_unitario"], 0, 0, 'C');
                 $pdf->Cell(8, 4, $detalle["importe_total"], 0, 0, 'R');
@@ -1096,7 +1096,7 @@ if (isset($_GET["accion"])) {
 
             //FORMA DE PAGO
             $pdf->Ln(5);
-            $pdf->Cell(20, 4, strtoupper("Forma de Pago"), 0, 0, 'L');
+            $pdf->Cell(20, 4, strtoupper("Forma de Pago: "), 0, 0, 'L');
             $pdf->Cell(40, 4, strtoupper($venta["forma_pago"]), 0, 0, 'L');
             
             //CALENDARIO DE PAGOS
