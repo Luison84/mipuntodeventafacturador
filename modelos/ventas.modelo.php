@@ -353,7 +353,7 @@ class VentasModelo
 
             // }
 
-            $mensaje="registrado ok";
+            $mensaje = "registrado ok";
         } catch (Exception $e) {
             $dbh->rollBack();
             $mensaje = $e->getMessage();
@@ -770,21 +770,13 @@ class VentasModelo
 
         // var_dump($post["search"]["value"]);
 
-        if (isset($post["search"]["value"]) && strlen($post["search"]["value"]) > 0) {
+        if (isset($post["search"]["value"])) {
             $query .= '  WHERE s.id_tipo_comprobante = "03"
                         AND v.id_usuario = "' . $id_usuario . '"
                         AND (v.serie like "%' . $post["search"]["value"] . '%"
                              or v.correlativo like "%' . $post["search"]["value"] . '%"
                              or concat(v.serie,"-",v.correlativo) like "%' . $post["search"]["value"] . '%"
                              or v.fecha_emision like "%' . $post["search"]["value"] . '%")';
-                        // AND ( v.serie like "%' . $post["search"]["value"] . '%" 
-                        //         or ( case when v.estado_respuesta_sunat = 2 then "Enviado, con errores"
-                        //                   when v.estado_respuesta_sunat = 1 then "Comprobante enviado correctamente"
-                        //                   when v.estado_respuesta_sunat is null then "Pendiente de envío"
-                        //              end) like "%' . $post["search"]["value"] . '%"                      
-                        //         or v.correlativo like "%' . $post["search"]["value"] . '%"
-                        //         or concat(v.serie,'-',v.correlativo) like "%' . $post["search"]["value"] . '%")';
-                
         }
 
         if (isset($post["order"])) {
@@ -1001,14 +993,12 @@ class VentasModelo
                              inner join moneda mon on mon.id = v.id_moneda";
 
         if (isset($post["search"]["value"])) {
-            $query .= '  WHERE s.id_tipo_comprobante = "01"
-                        AND v.id_usuario = "' . $id_usuario . '"
-                        AND ( v.serie like "%' . $post["search"]["value"] . '%" 
-                        or ( case when v.estado_respuesta_sunat = 2 then "Enviado, con errores"
-                                when v.estado_respuesta_sunat = 1 then "Comprobante enviado correctamente"
-                                when v.estado_respuesta_sunat is null then "Pendiente de envío"
-                            end) like "%' . $post["search"]["value"] . '%"                      
-                        or v.correlativo like "%' . $post["search"]["value"] . '%")';
+            $query .= '  WHERE s.id_tipo_comprobante = "03"
+                AND v.id_usuario = "' . $id_usuario . '"
+                AND (v.serie like "%' . $post["search"]["value"] . '%"
+                     or v.correlativo like "%' . $post["search"]["value"] . '%"
+                     or concat(v.serie,"-",v.correlativo) like "%' . $post["search"]["value"] . '%"
+                     or v.fecha_emision like "%' . $post["search"]["value"] . '%")';
         }
 
         if (isset($post["order"])) {
@@ -1588,7 +1578,8 @@ class VentasModelo
         return $stmt->fetchAll(PDO::FETCH_NAMED);
     }
 
-    static public function mdlReporteVentas(){
+    static public function mdlReporteVentas()
+    {
 
         $stmt = Conexion::conectar()->prepare("call prc_ReporteVentas()");
 
@@ -1596,6 +1587,5 @@ class VentasModelo
         // $stmt->bindParam(":correlativo", $correlativo, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchAll();
-
     }
 }
