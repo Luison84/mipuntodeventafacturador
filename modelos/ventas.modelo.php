@@ -1129,7 +1129,6 @@ class VentasModelo
                                                     round(ifnull(v.total_operaciones_gravadas,0) + ifnull(v.total_operaciones_exoneradas,0) + ifnull(v.total_operaciones_inafectas,0),2) as total_sin_impuestos,
                                                     round(ifnull(v.total_operaciones_gravadas,0) + ifnull(v.total_operaciones_exoneradas,0) + ifnull(v.total_operaciones_inafectas,0) + ifnull(v.total_igv,0),2) as total_con_impuestos,
                                                     round(ifnull(v.total_operaciones_gravadas,0) + ifnull(v.total_operaciones_exoneradas,0) + ifnull(v.total_operaciones_inafectas,0) + ifnull(v.total_igv,0),2) as total_a_pagar
-
                                             FROM venta v inner join empresas e on v.id_empresa_emisora = e.id_empresa
                                                         inner join moneda m on m.id = v.id_moneda
                                                         inner join serie s on s.id = v.id_serie
