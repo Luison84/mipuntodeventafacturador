@@ -245,7 +245,7 @@ class EmpresasModelo
     //=========================================================================================
     // A C T U A L I Z A R   E M P R E S A
     //=========================================================================================
-    static public function mdlActualizarEmpresa($empresa, $certificado = null)
+    static public function mdlActualizarEmpresa($empresa, $certificado = null, $imagen_logo = null)
     {
 
         $dbh = Conexion::conectar();
@@ -277,6 +277,9 @@ class EmpresasModelo
                                             clave_certificado = ?,
                                             usuario_sol = ?, 
                                             clave_sol = ?, 
+                                            es_principal = ?,
+                                            fact_bol_defecto = ?,
+                                            logo = ?,
                                             estado = ?
                                     WHERE   id_empresa = ?");
             $dbh->beginTransaction();
@@ -296,6 +299,9 @@ class EmpresasModelo
                 $empresa['clave_certificado'] ?? $clave_certificado_actual,
                 $empresa['usuario_sol'],
                 $empresa['clave_sol'],
+                $empresa['rb_empresa_principal'],
+                $empresa['rb_fact_bol_defecto'],
+                $imagen_logo["nuevoNombre"] ?? '',
                 $empresa['estado'],
                 $empresa['id_empresa']
             ));
@@ -305,6 +311,12 @@ class EmpresasModelo
             if ($certificado) {
                 $guardarCertificado = new EmpresasModelo();
                 $guardarCertificado->guardarCertificado('../fe/certificado/', $certificado);
+            }
+
+            //GUARDAMOS EL LOGO DE LA EMPRESA
+            if ($imagen_logo) {
+                $guardarImagen = new EmpresasModelo();
+                $guardarImagen->guardarImagen($imagen_logo["folder"], $imagen_logo["ubicacionTemporal"], $imagen_logo["nuevoNombre"]);
             }
 
             $respuesta['tipo_msj'] = 'success';
