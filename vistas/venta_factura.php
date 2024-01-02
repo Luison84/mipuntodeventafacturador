@@ -669,6 +669,17 @@ MODAL CUOTAS DEL CREDITO
             }
         });
 
+        $("#direccion").on('keypress', function(e) {
+            if (e.which == 13) {
+                $("#telefono").focus();
+            }
+        });
+
+        $("#telefono").on('keypress', function(e) {
+            if (e.which == 13) {
+                $("#producto").focus();
+            }
+        });
 
         /* ======================================================================================
         EVENTO PARA MODIFICAR EL PRECIO DE VENTA DEL PRODUCTO
