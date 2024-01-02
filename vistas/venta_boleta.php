@@ -586,7 +586,7 @@
                 fnc_ConsultarNroDocumento($("#nro_documento").val())
             }
         });
-        
+
         $("#direccion").on('keypress', function(e) {
             if (e.which == 13) {
                 $("#telefono").focus();
@@ -1585,6 +1585,8 @@
                 } else if ($("#tipo_documento").val() == 6) {
                     $("#nombre_cliente_razon_social").val(response['razonSocial']);
                     $("#direccion").val(response['direccion']);
+
+                    $("#direccion").focus();
                 }
 
             }
