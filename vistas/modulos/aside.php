@@ -145,7 +145,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
         formData.append('accion','obtener_empresa_principal');
 
         var response = SolicitudAjax("ajax/empresas.ajax.php","POST",formData);
-        console.log("🚀 ~ file: aside.php:148 ~ fnc_CargarLogoEmpresa ~ response:", response)
+        console.log("🚀 ~ file: aside.php:148 ~ fnc_CargarLogoEmpresa ~ response:", response.logo)
 
         $("#logo_sistema").attr("src", "vistas/assets/dist/img/logos_empresas/" + response.logo);
     }
