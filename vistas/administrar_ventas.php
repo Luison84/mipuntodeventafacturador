@@ -134,6 +134,10 @@
     $(document).ready(function() {
 
         fnc_InicializarFormulario();
+
+        $("#btnFiltrar").on("click", function(){
+            fnc_CargarDataTableVentas();
+        })
         
     })
 
