@@ -183,8 +183,8 @@
 
     function fnc_CargarDataTableVentas() {
 
-        $fecha_desde;
-        $fecha_hasta;
+        var $fecha_desde;
+        var $fecha_hasta;
 
         if($("#fecha_desde").val() == "") {
             $fecha_desde = '2023-01-01';
