@@ -39,6 +39,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
                 <img src="vistas/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
+                <?php echo strlen($_SESSION["usuario"]->nombre_usuario) ?>
                 <h6 class="text-warning"><?php echo "Hola, " . strlen($_SESSION["usuario"]->nombre_usuario) > 5 ? "Hola, " . substr($_SESSION["usuario"]->nombre_usuario,0,5) . "..." : $_SESSION["usuario"]->nombre_usuario ?></h6>
             </div>
         </div>
