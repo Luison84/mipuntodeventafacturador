@@ -443,7 +443,8 @@
 
         let accion = '';
         var certificado_valido = true;
-
+        var imagen_valida = true;
+        
         form_empresas_validate = validarFormulario('needs-validation-empresas');
 
         var formData = new FormData();
@@ -491,7 +492,7 @@
 
                     var ext = file_image.substring(file_image.lastIndexOf("."));
 
-                    if (ext.toUpperCase() != ".JPG" && ext.toUpperCase() != ".PNG" && ext.toUpperCase() != ".GIF" && ext.toUpperCase() != ".JPEG" && ext.toUpperCase() != ".WEBP") {
+                    if (ext != ".jpg" && ext != ".png" && ext != ".gif" && ext != ".jpeg" && ext != ".webp") {
                         mensajeToast('error', "La extensión " + ext + " no es una imagen válida");
                         imagen_valida = false;
                     }
