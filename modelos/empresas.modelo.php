@@ -209,7 +209,7 @@ class EmpresasModelo
                 ':clave_sol' => $empresa['clave_sol'],
                 ':es_principal' => $empresa['rb_empresa_principal'],
                 ':fact_bol_defecto' => $empresa['rb_fact_bol_defecto'],
-                ':logo' => $imagen_logo["nuevoNombre"],
+                ':logo' => $imagen_logo["nuevoNombre"] ?? '',
                 ':estado' => $empresa['estado']
             ));
             $dbh->commit();
