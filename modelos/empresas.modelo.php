@@ -267,20 +267,20 @@ class EmpresasModelo
             if ($empresa['rb_empresa_principal'] == "1") {
 
                 $stmt = $dbh->prepare("UPDATE   empresas
-                                     SET    es_principal = ?");
+                                     SET    es_principal = :es_principal");
                 $dbh->beginTransaction();
                 $stmt->execute(array(
-                    0
+                    ':es_principal' => 2
                 ));
                 $dbh->commit();
             }
             if ($empresa['rb_fact_bol_defecto'] == "1") {
 
                 $stmt = $dbh->prepare("UPDATE   empresas
-                                        SET    fact_bol_defecto = ?");
+                                        SET    fact_bol_defecto = :fact_bol_defecto");
                 $dbh->beginTransaction();
                 $stmt->execute(array(
-                    0
+                    ':fact_bol_defecto' => 2
                 ));
                 $dbh->commit();
             }
