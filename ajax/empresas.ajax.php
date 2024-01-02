@@ -81,7 +81,7 @@ if (isset($_POST["accion"])) {
 
             $response = EmpresasModelo::mdlObtenerEmpresaPorId($formulario_empresa["id_empresa"]);
 
-            var_dump($response["logo"]);
+            var_dump($_FILES["archivo_imagen"]["name"]);
 
             return;
 
