@@ -392,11 +392,11 @@
     
     function fnc_AgregarInputsFacturacion(){
         $("#section-facturacion").append(
-            '<div class="col-12 col-lg-4 mb-2">' + 
-                '<label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Seleccione el Certificado Digital </label>'+
-                '<input type="file" class="form-control" id="certificado" name="certificado" accept=".pfx" required />'+
-                '<div class="invalid-feedback">Seleccione certificado</div>'+
-            '</div> ';
+            ' <div class="col-12 col-lg-4 mb-2"> ' + 
+                ' <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Seleccione el Certificado Digital </label> '+
+                ' <input type="file" class="form-control" id="certificado" name="certificado" accept=".pfx" required /> '+
+                ' <div class="invalid-feedback">Seleccione certificado</div> '+
+            ' </div> ';
 
         );
     }
