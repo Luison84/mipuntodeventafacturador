@@ -84,6 +84,8 @@ if (isset($_POST["accion"])) {
 
             if (isset($_FILES["archivo_imagen"]["name"]) && $_FILES["archivo_imagen"]["name"] != $response["logo"]) {
 
+                var_dump("entro");
+                return;
                 $imagen_logo["ubicacionTemporal"] =  $_FILES["archivo_imagen"]["tmp_name"][0];
 
                 //capturamos el nombre de la imagen
