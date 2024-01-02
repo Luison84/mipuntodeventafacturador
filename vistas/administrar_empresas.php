@@ -691,7 +691,7 @@
         $("#clave_certificado").val('')
         $("#usuario_sol").val('')
         $("#clave_sol").val('')
-        $("#iptImagen").val('');
+        $("#imagen").val('');
         $("#previewImg").attr("src", "vistas/assets/imagenes/no_image.jpg");
         $("#estado").val('1')
 
