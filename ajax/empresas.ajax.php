@@ -40,8 +40,7 @@ if (isset($_POST["accion"])) {
             //Datos del formulario
             $formulario_empresa = [];
             parse_str($_POST['datos_empresa'], $formulario_empresa);
-
-            var_dump("llego");
+            
             
             if (isset($_FILES["archivo"]["name"])) {
                 $certificado["ubicacionTemporal"] =  $_FILES["archivo"]["tmp_name"][0];
@@ -61,7 +60,8 @@ if (isset($_POST["accion"])) {
                 $imagen_logo["folder"] = '../vistas/assets/dist/img/logos_empresas/';
 
             }
-            
+            var_dump($imagen_logo);
+            return;
             $response = EmpresasModelo::mdlRegistrarEmpresa($formulario_empresa, $certificado, $imagen_logo);
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
 
