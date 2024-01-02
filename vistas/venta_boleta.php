@@ -581,6 +581,24 @@
         //     }
         // });
 
+        $("#nro_documento").on('keypress', function(e) {
+            if (e.which == 13) {
+                fnc_ConsultarNroDocumento($("#nro_documento").val())
+            }
+        });
+        
+        $("#direccion").on('keypress', function(e) {
+            if (e.which == 13) {
+                $("#telefono").focus();
+            }
+        });
+
+        $("#telefono").on('keypress', function(e) {
+            if (e.which == 13) {
+                $("#producto").focus();
+            }
+        });
+
         /* ======================================================================================
         EVENTO PARA MODIFICAR EL PRECIO DE VENTA DEL PRODUCTO
         ====================================================================================== */
