@@ -39,7 +39,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
                 <img src="vistas/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <h6 class="text-warning"><?php echo strlen($_SESSION["usuario"]->nombre_usuario) > 10 ? "Hola, " . substr($_SESSION["usuario"]->nombre_usuario,0,10) . "..." : "Hola, " . $_SESSION["usuario"]->nombre_usuario ?></h6>
+                <h6 class="text-warning"><?php echo strlen($_SESSION["usuario"]->nombre_usuario) > 10 ? "Hola, " . substr($_SESSION["usuario"]->nombre_usuario, 0, 10) . "..." : "Hola, " . $_SESSION["usuario"]->nombre_usuario ?></h6>
             </div>
         </div>
 
@@ -115,38 +115,37 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
 </aside>
 
 <script>
-    $(".nav-link").on('click', function() {
 
-        $(".nav-link").removeClass('active');
-        $(this).addClass('active');
+    $(document).ready(function() {
 
-        // if ($(window).width() < 768) {
-        //     console.log($(this))
-        //     if($(this))
-        //     $(".sidebar-mini").removeClass('sidebar-open')
-        //     $(".sidebar-mini").addClass('sidebar-collapse')
-        //     $(".sidebar-mini").addClass('sidebar-closed')
-        //     alert("click")
-        // } 
+        $(".nav-link").on('click', function() {
+            $(".nav-link").removeClass('active');
+            $(this).addClass('active');
+        })
 
+        $(".nav-item").on('click', function() {
 
+            if (!$(this).children().hasClass('nav-treeview')) {
+
+                if ($(window).width() < 768) {
+                    $(".sidebar-mini").removeClass('sidebar-open')
+                    $(".sidebar-mini").addClass('sidebar-collapse')
+                    $(".sidebar-mini").addClass('sidebar-closed')
+                    $(this).children().addClass('active');
+                }
+
+            }    
+        })
+
+        fnc_CargarLogoEmpresa();
     })
 
-    $(".nav-item").on('click', function() {
+    function fnc_CargarLogoEmpresa(){
+        var formData = new FormData();
+        formData.append('accion','obtener_empresa_principal');
 
-        if (!$(this).children().hasClass('nav-treeview')) {
+        var response = SolicitudAjax("ajax/empresas.ajax.php","POST",formData);
 
-            if ($(window).width() < 768) {
-                $(".sidebar-mini").removeClass('sidebar-open')
-                $(".sidebar-mini").addClass('sidebar-collapse')
-                $(".sidebar-mini").addClass('sidebar-closed')
-                $(this).children().addClass('active');
-            }
-
-        }
-
-        // $(".sidebar-mini").addClass('sidebar-collapse')        
-    })
-
-    $("#logo_sistema").attr("src", "vistas/assets/dist/img/logos_empresas/mi_logo_tutorialesphperu.png")
+        $("#logo_sistema").attr("src", "vistas/assets/dist/img/logos_empresas/" + response.logo);
+    }
 </script>

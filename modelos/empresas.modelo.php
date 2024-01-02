@@ -418,4 +418,16 @@ class EmpresasModelo
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_NAMED);
     }
+
+    static public function mdlObtenerEmpresaPrincipal()
+    {
+
+        $stmt = Conexion::conectar()->prepare("SELECT *                                                        
+                                                FROM empresas
+                                                WHERE es_principal = 1
+                                                LIMIT 1");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_NAMED);
+    }
+
 }

@@ -109,5 +109,11 @@ if (isset($_POST["accion"])) {
             $response = EmpresasModelo::mdlObtenerEmpresaDefecto();
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
             break;
+
+        case "obtener_empresa_principal":
+
+            $response = EmpresasModelo::mdlObtenerEmpresaDefecto();
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+            break;
     }
 }
