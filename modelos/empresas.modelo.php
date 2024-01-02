@@ -360,6 +360,9 @@ class EmpresasModelo
                                                         clave_sol,
                                                         certificado_digital,
                                                         clave_certificado,
+                                                        es_principal,
+                                                        fact_bol_defecto,
+                                                        logo,
                                                         estado
                                                 FROM empresas
                                                 where id_empresa = :id_empresa");

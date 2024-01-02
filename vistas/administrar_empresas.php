@@ -658,6 +658,20 @@
             dataTransfer.items.add(myFile);
             fileInput.files = dataTransfer.files;
 
+            const fileInputLogo = document.querySelector('input[name="imagen"]');
+
+            // Create a new File object
+            const myFileLogo = new File(['Logo Empresa'], response.logo, {
+                type: 'text/plain',
+                lastModified: new Date(),
+            });
+
+            // Now let's create a DataTransfer to get a FileList
+            const dataTransferLogo = new DataTransfer();
+            dataTransferLogo.items.add(myFileLogo);
+            fileInputLogo.files = dataTransferLogo.files;
+            
+
 
             $("#clave_certificado").val(response.clave_certificado)
             $("#usuario_sol").val(response.usuario_sol)
