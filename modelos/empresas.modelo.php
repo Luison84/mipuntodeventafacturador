@@ -222,7 +222,7 @@ class EmpresasModelo
 
             //GUARDAMOS EL LOGO DE LA EMPRESA
             if ($imagen_logo) {
-                $guardarImagen = new ProductosModelo();
+                $guardarImagen = new EmpresasModelo();
                 $guardarImagen->guardarImagen($imagen_logo["folder"], $imagen_logo["ubicacionTemporal"], $imagen_logo["nuevoNombre"]);
             }            
 
