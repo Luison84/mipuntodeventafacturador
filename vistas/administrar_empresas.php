@@ -396,33 +396,34 @@
             <div class="col-12 col-lg-2 mb-2">
                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Ruta Certificado</label>
                 <input type="text" value="../fe/certificado/" style="border-radius: 20px;" class="form-control form-control-sm" id="ruta_certificado" name="ruta_certificado" aria-label="Small" aria-describedby="inputGroup-sizing-sm" readonly>
-            </div>
- 
-            <div class="col-12 col-lg-4 mb-2">
+            </div> `);
+        
+        $("#section-facturacion").append(
+            `<div class="col-12 col-lg-4 mb-2">
                 <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Seleccione el Certificado Digital </label>
                 <input type="file" class="form-control" id="certificado" name="certificado" accept=".pfx" required>
                 <div class="invalid-feedback">Seleccione certificado</div>
-            </div>
+            </div>`);
 
-            <div class="col-12 col-lg-2 mb-2">
-                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Clave Certificado </label>
-                <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="clave_certificado" name="clave_certificado" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-                <div class="invalid-feedback">Ingrese clave</div>
-            </div>
+            // <div class="col-12 col-lg-2 mb-2">
+            //     <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Clave Certificado </label>
+            //     <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="clave_certificado" name="clave_certificado" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+            //     <div class="invalid-feedback">Ingrese clave</div>
+            // </div>
 
-            <div class="col-12 col-lg-2 mb-2">
-                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Usuario SOL </label>
-                <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="usuario_sol" name="usuario_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-                <div class="invalid-feedback">Ingrese usuario sol</div>
-            </div> 
+            // <div class="col-12 col-lg-2 mb-2">
+            //     <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Usuario SOL </label>
+            //     <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="usuario_sol" name="usuario_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+            //     <div class="invalid-feedback">Ingrese usuario sol</div>
+            // </div> 
 
-            <div class="col-12 col-lg-2 mb-2">
-                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Clave SOL </label>
-                <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="clave_sol" name="clave_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-                <div class="invalid-feedback">Ingrese clave sol</div>
-            </div> `
+            // <div class="col-12 col-lg-2 mb-2">
+            //     <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Clave SOL </label>
+            //     <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="clave_sol" name="clave_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+            //     <div class="invalid-feedback">Ingrese clave sol</div>
+            // </div> `
 
-        );
+        // );
     }
 
     function fnc_CargarDatatableEmpresas() {
