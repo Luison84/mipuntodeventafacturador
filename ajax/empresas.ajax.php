@@ -112,7 +112,7 @@ if (isset($_POST["accion"])) {
 
         case "obtener_empresa_principal":
 
-            $response = EmpresasModelo::mdlObtenerEmpresaDefecto();
+            $response = EmpresasModelo::mdlObtenerEmpresaPrincipal();
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
             break;
     }
