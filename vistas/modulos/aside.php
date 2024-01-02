@@ -146,5 +146,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
         }
 
         // $(".sidebar-mini").addClass('sidebar-collapse')
+
+        $("#logo_sistema").attr("src", "vistas/assets/dist/img/logos_empresas/mi_logo_tutorialesphperu.png")
     })
 </script>
