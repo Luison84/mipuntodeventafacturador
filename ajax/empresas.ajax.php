@@ -41,6 +41,8 @@ if (isset($_POST["accion"])) {
             $formulario_empresa = [];
             parse_str($_POST['datos_empresa'], $formulario_empresa);
 
+            var_dump("llego");
+            
             if (isset($_FILES["archivo"]["name"])) {
                 $certificado["ubicacionTemporal"] =  $_FILES["archivo"]["tmp_name"][0];
                 $certificado["nombre_archivo"] = $_FILES["archivo"]["name"][0];             
