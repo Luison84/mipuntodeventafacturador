@@ -1585,9 +1585,9 @@
                 } else if ($("#tipo_documento").val() == 6) {
                     $("#nombre_cliente_razon_social").val(response['razonSocial']);
                     $("#direccion").val(response['direccion']);
-
-                    $("#direccion").focus();
                 }
+
+                $("#direccion").focus();
 
             }
         }
