@@ -229,14 +229,14 @@
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Empresa Principal?</label>
                                         <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-start my-0 ">
                                             <div class="icheck-warning d-inline mx-2">
-                                                <input type="radio" id="rb-venta-envio" value="1" name="rb_generar_venta" checked="">
-                                                <label for="rb-venta-envio">
+                                                <input type="radio" id="rb-si-empresa" value="1" name="rb_empresa_principal" >
+                                                <label for="rb-si-empresa">
                                                     Si
                                                 </label>
                                             </div>
                                             <div class="icheck-success d-inline mx-2">
-                                                <input type="radio" id="rb-venta" value="2" name="rb_generar_venta">
-                                                <label for="rb-venta">
+                                                <input type="radio" id="rb-no-empresa" value="2" name="rb_empresa_principal" checked="">
+                                                <label for="rb-no-empresa">
                                                     No
                                                 </label>
                                             </div>
@@ -244,17 +244,17 @@
                                     </div>
 
                                     <div class="col-12 col-lg-2 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Empresa Fact/Bol Defecto?</label>
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Fact/Bol Defecto?</label>
                                         <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-start my-0 ">
                                             <div class="icheck-warning d-inline mx-2">
-                                                <input type="radio" id="rb-venta-envio" value="1" name="rb_generar_venta" checked="">
-                                                <label for="rb-venta-envio">
+                                                <input type="radio" id="rb-si-defecto" value="1" name="rb_fact_bol_defecto">
+                                                <label for="rb-si-defecto">
                                                     Si
                                                 </label>
                                             </div>
                                             <div class="icheck-success d-inline mx-2">
-                                                <input type="radio" id="rb-venta" value="2" name="rb_generar_venta">
-                                                <label for="rb-venta">
+                                                <input type="radio" id="rb-no-defecto" value="2" name="rb_fact_bol_defecto" checked="">
+                                                <label for="rb-no-defecto">
                                                     No
                                                 </label>
                                             </div>
@@ -483,6 +483,25 @@
 
                     const inputCertificado = document.querySelector('#certificado');
                     formData.append('archivo[]', inputCertificado.files[0])
+                }
+
+                var file_image = $("#imagen").val();
+
+                if (file_image) {
+
+                    var ext = file_image.substring(file_image.lastIndexOf("."));
+
+                    if (ext != ".jpg" && ext != ".png" && ext != ".gif" && ext != ".jpeg" && ext != ".webp") {
+                        mensajeToast('error', "La extensión " + ext + " no es una imagen válida");
+                        imagen_valida = false;
+                    }
+
+                    if (!imagen_valida) {
+                        return;
+                    }
+
+                    const inputImage = document.querySelector('#imagen');
+                    formData.append('archivo_imagen[]', inputImage.files[0])
                 }
 
                 if ($("#id_empresa").val() > 0) accion = 'actualizar_empresa'

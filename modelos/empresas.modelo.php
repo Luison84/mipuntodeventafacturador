@@ -145,7 +145,7 @@ class EmpresasModelo
     //=========================================================================================
     // R E G I S T R A R   E M P R E S A
     //=========================================================================================
-    static public function mdlRegistrarEmpresa($empresa, $certificado = null)
+    static public function mdlRegistrarEmpresa($empresa, $certificado = null, $imagen_logo = null)
     {
 
         $dbh = Conexion::conectar();
@@ -167,6 +167,9 @@ class EmpresasModelo
                                                         clave_certificado,
                                                         usuario_sol, 
                                                         clave_sol, 
+                                                        es_principal,
+                                                        fact_bol_defecto,
+                                                        logo,
                                                         estado)
                                     VALUES(:razon_social, 
                                             UPPER(:nombre_comercial), 
@@ -183,6 +186,9 @@ class EmpresasModelo
                                             :clave_certificado,
                                             :usuario_sol, 
                                             :clave_sol, 
+                                            :es_principal,
+                                            :fact_bol_defecto,
+                                            :logo,
                                             :estado)");
             $dbh->beginTransaction();
             $stmt->execute(array(
@@ -201,6 +207,9 @@ class EmpresasModelo
                 ':clave_certificado' => $empresa['clave_certificado'] ,
                 ':usuario_sol' => $empresa['usuario_sol'],
                 ':clave_sol' => $empresa['clave_sol'],
+                ':es_principal' => $empresa['rb_empresa_principal'],
+                ':fact_bol_defecto' => $empresa['rb_fact_bol_defecto'],
+                ':logo' => $imagen_logo["nuevoNombre"],
                 ':estado' => $empresa['estado']
             ));
             $dbh->commit();
@@ -211,6 +220,12 @@ class EmpresasModelo
                 $guardarCertificado->guardarCertificado('../fe/certificado/', $certificado);
             }
 
+            //GUARDAMOS EL LOGO DE LA EMPRESA
+            if ($imagen_logo) {
+                $guardarImagen = new ProductosModelo();
+                $guardarImagen->guardarImagen($imagen_logo["folder"], $imagen_logo["ubicacionTemporal"], $imagen_logo["nuevoNombre"]);
+            }            
+
             $respuesta['tipo_msj'] = 'success';
             $respuesta['msj'] = 'Se registró la empresa correctamente';
         } catch (Exception $e) {
@@ -220,6 +235,11 @@ class EmpresasModelo
         }
 
         return $respuesta;
+    }
+
+    public function guardarImagen($folder, $ubicacionTemporal, $nuevoNombre)
+    {
+        file_put_contents(strtolower($folder . $nuevoNombre), file_get_contents($ubicacionTemporal));
     }
 
     //=========================================================================================

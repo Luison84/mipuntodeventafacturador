@@ -45,8 +45,22 @@ if (isset($_POST["accion"])) {
                 $certificado["ubicacionTemporal"] =  $_FILES["archivo"]["tmp_name"][0];
                 $certificado["nombre_archivo"] = $_FILES["archivo"]["name"][0];             
             }
+
+            if (isset($_FILES["archivo_imagen"]["name"])) {
+
+                $imagen_logo["ubicacionTemporal"] =  $_FILES["archivo_imagen"]["tmp_name"][0];
+
+                //capturamos el nombre de la imagen
+                $info = new SplFileInfo($_FILES["archivo_imagen"]["name"][0]);
+
+                //generamos un nombre aleatorio y unico para la imagen
+                $imagen_logo["nuevoNombre"] = sprintf("%s_%d.%s", uniqid(), rand(100, 999), $info->getExtension());
+
+                $imagen_logo["folder"] = '../vistas/assets/dist/img/logos_empresas/';
+
+            }
             
-            $response = EmpresasModelo::mdlRegistrarEmpresa($formulario_empresa, $certificado);
+            $response = EmpresasModelo::mdlRegistrarEmpresa($formulario_empresa, $certificado, $imagen_logo);
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
 
             break;
