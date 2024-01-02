@@ -100,7 +100,27 @@
 
                                 <div class="row">
 
-                                    <div class="col-12 col-lg-3 mb-2">
+                                    <!-- MOSTRAR EN FACTURA O BOLETA POR DEFECTO -->
+                                    <div class="col-12 col-lg-2 mb-2">
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-invoice mr-1 my-text-color"></i>Fact/Bol Defecto? <strong class="text-danger">*</strong></label>
+                                        <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-start my-0 ">
+                                            <div class="icheck-warning d-inline mx-2">
+                                                <input type="radio" id="rb-si-defecto" value="1" name="rb_fact_bol_defecto">
+                                                <label for="rb-si-defecto">
+                                                    Si
+                                                </label>
+                                            </div>
+                                            <div class="icheck-success d-inline mx-2">
+                                                <input type="radio" id="rb-no-defecto" value="2" name="rb_fact_bol_defecto" checked="">
+                                                <label for="rb-no-defecto">
+                                                    No
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- TIPO DE DOCUMENTO -->
+                                    <div class="col-12 col-lg-2 mb-2">
                                         <input type="hidden" name="id_empresa" id="id_empresa" value="0">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-contract mr-1 my-text-color"></i>Tipo Documento <strong class="text-danger">*</strong></label>
                                         <select class="form-select" id="tipo_documento" name="tipo_documento" aria-label="Floating label select example" required readonly>
@@ -108,24 +128,28 @@
                                         <div class="invalid-feedback">Seleccione el Tipo de Documento</div>
                                     </div>
 
-                                    <div class="col-12 col-lg-3 mb-2">
+                                    <!-- NRO DE DOCUMENTO -->
+                                    <div class="col-12 col-lg-2 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Nro Documento <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="nro_documento" name="nro_documento" onchange="validateJS(event, 'ruc_empresa')" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el Nro de Documento</div>
                                     </div>
 
+                                    <!-- RAZÓN SOCIAL -->
                                     <div class="col-12 col-lg-6 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Razón Social <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="razon_social" name="razon_social" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese Razón Social</div>
                                     </div>
 
+                                    <!-- NOMBRE COMERCIAL -->
                                     <div class="col-12 col-lg-6 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Nombre Comercial <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="nombre_comercial" name="nombre_comercial" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese Nombre Comercial</div>
                                     </div>
 
+                                    <!-- DIRECCIÓN -->
                                     <div class="col-12 col-lg-6 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Dirección <strong class="text-danger">*</strong></label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="direccion" name="direccion" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
@@ -187,31 +211,27 @@
 
                                     <!-- SELECCIONAR CERTIFICADO DIGITAL -->
                                     <div class="col-12 col-lg-4 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Seleccione el Certificado Digital <strong class="text-danger">*</strong> </label>
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Seleccione el Certificado Digital </label>
                                         <input type="file" class="form-control" id="certificado" name="certificado" accept=".pfx">
-                                        <div class="invalid-feedback">Seleccione Certificado</div>
                                     </div>
 
                                     <!-- CLAVE CERTIFICADO DIGITAL -->
                                     <div class="col-12 col-lg-2 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Clave Certificado <strong class="text-danger">*</strong></label>
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Clave Certificado </label>
                                         <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="clave_certificado" name="clave_certificado" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                        <div class="invalid-feedback">Ingrese clave</div>
                                     </div>
 
 
                                     <!-- USUARIO SOL -->
                                     <div class="col-12 col-lg-2 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Usuario SOL <strong class="text-danger">*</strong></label>
-                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="usuario_sol" name="usuario_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-                                        <div class="invalid-feedback">Ingrese Usuario SOL</div>
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Usuario SOL </label>
+                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="usuario_sol" name="usuario_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                                     </div>
 
                                     <!-- CLAVE SOL -->
                                     <div class="col-12 col-lg-2 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Clave SOL <strong class="text-danger">*</strong></label>
-                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="clave_sol" name="clave_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-                                        <div class="invalid-feedback">Ingrese Clave SOL</div>
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Clave SOL </label>
+                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="clave_sol" name="clave_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                                     </div>
 
                                     <!-- ESTADO -->
@@ -225,11 +245,12 @@
                                         <div class="invalid-feedback">Seleccion Estado</div>
                                     </div>
 
+                                    <!-- ES EMPRESA PRINCIPAL -->
                                     <div class="col-12 col-lg-2 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-store mr-1 my-text-color"></i>Empresa Principal? <strong class="text-danger">*</strong></label>
                                         <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-start my-0 ">
                                             <div class="icheck-warning d-inline mx-2">
-                                                <input type="radio" id="rb-si-empresa" value="1" name="rb_empresa_principal" >
+                                                <input type="radio" id="rb-si-empresa" value="1" name="rb_empresa_principal">
                                                 <label for="rb-si-empresa">
                                                     Si
                                                 </label>
@@ -243,6 +264,7 @@
                                         </div>
                                     </div>
 
+                                    <!-- MOSTRAR EN FACTURA O BOLETA POR DEFECTO -->
                                     <div class="col-12 col-lg-2 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-invoice mr-1 my-text-color"></i>Fact/Bol Defecto? <strong class="text-danger">*</strong></label>
                                         <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-start my-0 ">
@@ -261,20 +283,9 @@
                                         </div>
                                     </div>
 
-                                    <!-- <div class="col-12 col-lg-2 text-center mb-2">
-                                        <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-center my-0 ">
-                                            <div class="icheck-success d-inline mx-2">
-                                                <input type="radio" id="rb-venta" value="2" name="rb_generar_venta">
-                                                <label for="rb-venta">
-                                                    No
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
                                     <!-- IMAGEN -->
                                     <div class="col-12 col-lg-6 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Seleccione logo <strong class="text-danger">*</strong></label>
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Seleccione logo </label>
                                         <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*" onchange="previewFile(this)">
                                     </div>
 
@@ -444,7 +455,7 @@
         let accion = '';
         var certificado_valido = true;
         var imagen_valida = true;
-        
+
         form_empresas_validate = validarFormulario('needs-validation-empresas');
 
         var formData = new FormData();
