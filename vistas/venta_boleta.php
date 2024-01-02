@@ -916,7 +916,7 @@
         console.log("🚀 ~ file: venta_boleta.php:916 ~ CargarSelects ~ response:", response)
 
         // EMPRESA EMISORA
-        CargarSelect(1, $("#empresa_emisora"), "--Seleccionar--", "ajax/empresas.ajax.php", 'obtener_empresas_select');
+        CargarSelect(response.id_empresa ?? "", $("#empresa_emisora"), "--Seleccionar--", "ajax/empresas.ajax.php", 'obtener_empresas_select');
 
         // TIPO DE COMPROBANTE
         CargarSelect('03', $("#tipo_comprobante"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante');
