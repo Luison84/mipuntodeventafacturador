@@ -252,7 +252,7 @@ class EmpresasModelo
 
         try {
 
-            $stmt = Conexion::conectar()->prepare("select certificado_digital, clave_certificado from empresas where id_empresa = :id_empresa");
+            $stmt = Conexion::conectar()->prepare("select certificado_digital, clave_certificado, logo from empresas where id_empresa = :id_empresa");
             $stmt->bindParam(":id_empresa", $empresa["id_empresa"], PDO::PARAM_STR);
             $stmt->execute();
 
@@ -260,6 +260,7 @@ class EmpresasModelo
 
             $certificado_actual = $datos["certificado_digital"];
             $clave_certificado_actual = $datos["clave_certificado"];
+            $logo_actual = $datos["logo"];
 
             $stmt = $dbh->prepare("UPDATE   empresas
                                      SET    razon_social = upper(?), 
@@ -301,7 +302,7 @@ class EmpresasModelo
                 $empresa['clave_sol'],
                 $empresa['rb_empresa_principal'],
                 $empresa['rb_fact_bol_defecto'],
-                $imagen_logo["nuevoNombre"] ?? '',
+                $imagen_logo["nuevoNombre"] ?? $logo_actual,
                 $empresa['estado'],
                 $empresa['id_empresa']
             ));
