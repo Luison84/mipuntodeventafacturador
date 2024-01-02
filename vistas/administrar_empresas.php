@@ -384,6 +384,15 @@
             fnc_LimpiarFomulario();
         })
 
+        $('input[type=radio][name=rb_genera_facturacion]').change(function() {
+            if (this.value == '1') {
+                fnc_AgregarInputsFacturacion();
+            }
+            else if (this.value == '2') {
+                fnc_QuitarInputsFacturacion();
+            }
+        });
+
     })
 
     function CargarSelects() {
@@ -391,6 +400,7 @@
     }
     
     function fnc_AgregarInputsFacturacion(){
+
         $("#section-facturacion").append(
             `  
             <div class="col-12 col-lg-2 mb-2">
@@ -423,6 +433,11 @@
             </div> `
 
         );
+    }
+
+    function fnc_QuitarInputsFacturacion(){
+
+        $("#section-facturacion").html('');
     }
 
     function fnc_CargarDatatableEmpresas() {
