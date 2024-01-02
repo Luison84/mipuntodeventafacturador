@@ -205,8 +205,8 @@
                 type: "POST",
                 data: {
                     'accion': 'reporte_ventas', //1: LISTAR PRODUCTOS
-                    'fecha_desde': $("#fecha_desde").val(),
-                    'fecha_hasta': $("#fecha_hasta").val()
+                    'fecha_desde': $("#fecha_desde").val() ?? '2023-01-01',
+                    'fecha_hasta': $("#fecha_hasta").val() ?? '2050-13-31'
                 },
             },
             scrollX: true,
