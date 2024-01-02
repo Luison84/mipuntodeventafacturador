@@ -662,7 +662,7 @@
 
             // Create a new File object
             const myFileLogo = new File(['Logo Empresa'], response.logo, {
-                type: 'text/plain',
+                type: 'image/*',
                 lastModified: new Date(),
             });
 
