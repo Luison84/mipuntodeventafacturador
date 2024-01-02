@@ -676,6 +676,7 @@
             $("#clave_certificado").val(response.clave_certificado)
             $("#usuario_sol").val(response.usuario_sol)
             $("#clave_sol").val(response.clave_sol)
+            $("#previewImg").attr("src", 'vistas/assets/imagenes/productos/' + (response.logo ? response.logo : 'no_image.jpg'));
             $("#estado").val(response.estado)
         }
 
