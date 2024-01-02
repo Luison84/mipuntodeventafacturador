@@ -491,7 +491,7 @@
 
                     var ext = file_image.substring(file_image.lastIndexOf("."));
 
-                    if (ext != ".jpg" && ext != ".png" && ext != ".gif" && ext != ".jpeg" && ext != ".webp") {
+                    if (ext.toUpperCase() != ".JPG" && ext.toUpperCase() != ".PNG" && ext.toUpperCase() != ".GIF" && ext.toUpperCase() != ".JPEG" && ext.toUpperCase() != ".WEBP") {
                         mensajeToast('error', "La extensión " + ext + " no es una imagen válida");
                         imagen_valida = false;
                     }
