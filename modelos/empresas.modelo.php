@@ -383,4 +383,15 @@ class EmpresasModelo
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_NAMED);
     }
+
+    static public function mdlObtenerEmpresaDefecto(){
+
+        $stmt = Conexion::conectar()->prepare("SELECT id_empresa                                                        
+                                                FROM empresas
+                                                WHERE fact_bol_defecto = 1
+                                                LIMIT 1");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_NAMED);
+
+    }
 }

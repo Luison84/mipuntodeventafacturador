@@ -83,7 +83,7 @@ if (isset($_POST["accion"])) {
 
             if (isset($_FILES["archivo_imagen"]["name"]) && $_FILES["archivo_imagen"]["name"][0] != $response["logo"]) {
 
-                
+
                 $imagen_logo["ubicacionTemporal"] =  $_FILES["archivo_imagen"]["tmp_name"][0];
 
                 //capturamos el nombre de la imagen
@@ -95,13 +95,19 @@ if (isset($_POST["accion"])) {
                 $imagen_logo["folder"] = '../vistas/assets/dist/img/logos_empresas/';
 
                 $response = EmpresasModelo::mdlActualizarEmpresa($formulario_empresa, $certificado, $imagen_logo);
-            }else{
+            } else {
                 $response = EmpresasModelo::mdlActualizarEmpresa($formulario_empresa, $certificado, null);
             }
 
-            
+
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
 
+            break;
+
+        case "obtener_empresa_defecto":
+
+            $response = EmpresasModelo::mdlObtenerEmpresaDefecto();
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
             break;
     }
 }
