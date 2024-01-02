@@ -1623,6 +1623,8 @@ MODAL CUOTAS DEL CREDITO
                 $("#nombre_cliente_razon_social").val(response['razonSocial']);
                 $("#direccion").val(response['direccion']);
                 if (response['telefono']) $("#telefono").val(response['telefono']);
+
+                if(!response['direccion']) $("#direccion").focus();
             }
 
         }
