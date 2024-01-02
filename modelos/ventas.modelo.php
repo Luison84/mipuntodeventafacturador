@@ -1580,13 +1580,13 @@ class VentasModelo
         return $stmt->fetchAll(PDO::FETCH_NAMED);
     }
 
-    static public function mdlReporteVentas()
+    static public function mdlReporteVentas($fecha_desde, $fecha_hasta)
     {
 
-        $stmt = Conexion::conectar()->prepare("call prc_ReporteVentas()");
+        $stmt = Conexion::conectar()->prepare("call prc_ReporteVentas(:fecha_desde, :fecha_hasta)");
 
-        // $stmt->bindParam(":id_serie", $id_serie, PDO::PARAM_STR);
-        // $stmt->bindParam(":correlativo", $correlativo, PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_desde", $fecha_desde, PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_hasta", $fecha_hasta, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchAll();
     }

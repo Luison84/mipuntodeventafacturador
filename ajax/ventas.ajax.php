@@ -957,7 +957,7 @@ if (isset($_POST["accion"])) {
 
         case "reporte_ventas":
 
-            $response = VentasModelo::mdlReporteVentas();
+            $response = VentasModelo::mdlReporteVentas($_POST["fecha_desde"], $_POST["fecha_hasta"]);
 
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
 

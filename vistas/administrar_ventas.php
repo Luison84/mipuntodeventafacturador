@@ -200,7 +200,9 @@
                 dataSrc: '',
                 type: "POST",
                 data: {
-                    'accion': 'reporte_ventas' //1: LISTAR PRODUCTOS
+                    'accion': 'reporte_ventas', //1: LISTAR PRODUCTOS
+                    'fecha_desde': $("#fecha_desde").val(),
+                    'fecha_hasta': $("#fecha_hasta").val()
                 },
             },
             scrollX: true,
