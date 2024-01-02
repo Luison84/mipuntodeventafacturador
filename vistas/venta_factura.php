@@ -1624,7 +1624,7 @@ MODAL CUOTAS DEL CREDITO
                 $("#direccion").val(response['direccion']);
                 if (response['telefono']) $("#telefono").val(response['telefono']);
 
-                if(!response['direccion']) $("#direccion").focus();
+                $("#direccion").focus();
             }
 
         }
