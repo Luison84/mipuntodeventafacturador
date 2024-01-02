@@ -183,6 +183,21 @@
 
     function fnc_CargarDataTableVentas() {
 
+        $fecha_desde;
+        $fecha_hasta;
+
+        if($("#fecha_desde").val() == "") {
+            $fecha_desde = '2023-01-01';
+        }else{
+            $fecha_desde = $("#fecha_desde").val();
+        }
+
+        if($("#fecha_hasta").val() == "") {
+            $fecha_hasta = '2050-12-31';
+        }else{
+            $fecha_hasta = $("#fecha_hasta").val();
+        }
+
         if ($.fn.DataTable.isDataTable('#tbl_ventas')) {
             $('#tbl_ventas').DataTable().destroy();
             $('#tbl_ventas tbody').empty();
@@ -205,8 +220,8 @@
                 type: "POST",
                 data: {
                     'accion': 'reporte_ventas', //1: LISTAR PRODUCTOS
-                    'fecha_desde': $("#fecha_desde").val() ?? '2023-01-01',
-                    'fecha_hasta': $("#fecha_hasta").val() ?? '2050-13-31'
+                    'fecha_desde': $fecha_desde,
+                    'fecha_hasta': $fecha_hasta
                 },
             },
             scrollX: true,
