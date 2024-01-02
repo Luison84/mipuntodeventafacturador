@@ -226,7 +226,7 @@
                                     </div>
 
                                     <div class="col-12 col-lg-2 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Empresa Principal?</label>
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-store mr-1 my-text-color"></i>Empresa Principal?</label>
                                         <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-start my-0 ">
                                             <div class="icheck-warning d-inline mx-2">
                                                 <input type="radio" id="rb-si-empresa" value="1" name="rb_empresa_principal" >
@@ -244,7 +244,7 @@
                                     </div>
 
                                     <div class="col-12 col-lg-2 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Fact/Bol Defecto?</label>
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-invoice mr-1 my-text-color"></i>Fact/Bol Defecto?</label>
                                         <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-start my-0 ">
                                             <div class="icheck-warning d-inline mx-2">
                                                 <input type="radio" id="rb-si-defecto" value="1" name="rb_fact_bol_defecto">
