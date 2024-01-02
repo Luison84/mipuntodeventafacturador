@@ -102,7 +102,7 @@
 
                                     <!-- MOSTRAR EN FACTURA O BOLETA POR DEFECTO -->
                                     <div class="col-12 col-lg-2 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-invoice mr-1 my-text-color"></i>Fact/Bol Defecto? <strong class="text-danger">*</strong></label>
+                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-invoice mr-1 my-text-color"></i>Factura Electrónicamente?<strong class="text-danger">*</strong></label>
                                         <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-start my-0 ">
                                             <div class="icheck-warning d-inline mx-2">
                                                 <input type="radio" id="rb-si-defecto" value="1" name="rb_fact_bol_defecto">
