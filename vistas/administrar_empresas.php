@@ -203,7 +203,7 @@
 
                                     </div>
 
-                                    <div id="section-facturacion">
+                                    <div class="row" id="section-facturacion">
 
                                         <!-- RUTA CERTIFICADO -->
                                         <!-- <div class="col-12 col-lg-2 mb-2">
