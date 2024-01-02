@@ -40,7 +40,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
             </div>
             <div class="info">
                 <?php echo strlen($_SESSION["usuario"]->nombre_usuario) ?>
-                <h6 class="text-warning"><?php echo "Hola, " . strlen($_SESSION["usuario"]->nombre_usuario) > 5 ? "Hola, " . substr($_SESSION["usuario"]->nombre_usuario,0,5) . "..." : $_SESSION["usuario"]->nombre_usuario ?></h6>
+                <h6 class="text-warning"><?php echo strlen($_SESSION["usuario"]->nombre_usuario) > 8 ? "Hola, " . substr($_SESSION["usuario"]->nombre_usuario,0,8) . "..." : "Hola, " . $_SESSION["usuario"]->nombre_usuario ?></h6>
             </div>
         </div>
 
