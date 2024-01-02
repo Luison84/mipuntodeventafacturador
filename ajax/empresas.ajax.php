@@ -78,7 +78,10 @@ if (isset($_POST["accion"])) {
                 $certificado["nombre_archivo"] = $_FILES["archivo"]["name"][0];
             }
 
-            if (isset($_FILES["archivo_imagen"]["name"])) {
+
+            $response = EmpresasModelo::mdlObtenerEmpresaPorId($formulario_empresa["id_empresa"]);
+
+            if (isset($_FILES["archivo_imagen"]["name"]) && $_FILES["archivo_imagen"]["name"] != $response["id_empresa"]) {
 
                 $imagen_logo["ubicacionTemporal"] =  $_FILES["archivo_imagen"]["tmp_name"][0];
 
