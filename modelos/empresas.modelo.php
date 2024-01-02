@@ -204,7 +204,7 @@ class EmpresasModelo
                 ':distrito' => $empresa['distrito'],
                 ':ubigeo' => $empresa['ubigeo'],
                 ':certificado_digital' => $certificado["nombre_archivo"],
-                ':clave_certificado' => $empresa['clave_certificado'] ,
+                ':clave_certificado' => $empresa['clave_certificado'],
                 ':usuario_sol' => $empresa['usuario_sol'],
                 ':clave_sol' => $empresa['clave_sol'],
                 ':es_principal' => $empresa['rb_empresa_principal'],
@@ -224,7 +224,7 @@ class EmpresasModelo
             if ($imagen_logo) {
                 $guardarImagen = new EmpresasModelo();
                 $guardarImagen->guardarImagen($imagen_logo["folder"], $imagen_logo["ubicacionTemporal"], $imagen_logo["nuevoNombre"]);
-            }            
+            }
 
             $respuesta['tipo_msj'] = 'success';
             $respuesta['msj'] = 'Se registró la empresa correctamente';
@@ -261,6 +261,29 @@ class EmpresasModelo
             $certificado_actual = $datos["certificado_digital"];
             $clave_certificado_actual = $datos["clave_certificado"];
             $logo_actual = $datos["logo"];
+
+            // SI SE MARCO COMO PRINCIPAL, SE DEBEN DESMARCAR TODAS LAS DEMAS EMPRESAS
+
+            if ($empresa['rb_empresa_principal'] == "1") {
+
+                $stmt = $dbh->prepare("UPDATE   empresas
+                                     SET    es_principal = ?");
+                $dbh->beginTransaction();
+                $stmt->execute(array(
+                    0
+                ));
+                $dbh->commit();
+            }
+            if ($empresa['rb_fact_bol_defecto'] == "1") {
+
+                $stmt = $dbh->prepare("UPDATE   empresas
+                                        SET    fact_bol_defecto = ?");
+                $dbh->beginTransaction();
+                $stmt->execute(array(
+                    0
+                ));
+                $dbh->commit();
+            }
 
             $stmt = $dbh->prepare("UPDATE   empresas
                                      SET    razon_social = upper(?), 
@@ -319,6 +342,7 @@ class EmpresasModelo
                 $guardarImagen = new EmpresasModelo();
                 $guardarImagen->guardarImagen($imagen_logo["folder"], $imagen_logo["ubicacionTemporal"], $imagen_logo["nuevoNombre"]);
             }
+
 
             $respuesta['tipo_msj'] = 'success';
             $respuesta['msj'] = 'Se actualizó la empresa correctamente';
@@ -384,7 +408,8 @@ class EmpresasModelo
         return $stmt->fetch(PDO::FETCH_NAMED);
     }
 
-    static public function mdlObtenerEmpresaDefecto(){
+    static public function mdlObtenerEmpresaDefecto()
+    {
 
         $stmt = Conexion::conectar()->prepare("SELECT id_empresa                                                        
                                                 FROM empresas
@@ -392,6 +417,5 @@ class EmpresasModelo
                                                 LIMIT 1");
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_NAMED);
-
     }
 }

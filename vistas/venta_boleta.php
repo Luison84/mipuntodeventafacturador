@@ -913,7 +913,6 @@
         formData.append("accion", "obtener_empresa_defecto");
 
         var response = SolicitudAjax("ajax/empresas.ajax.php","POST", formData);
-        console.log("🚀 ~ file: venta_boleta.php:916 ~ CargarSelects ~ response:", response)
 
         // EMPRESA EMISORA
         CargarSelect(response.id_empresa ?? "", $("#empresa_emisora"), "--Seleccionar--", "ajax/empresas.ajax.php", 'obtener_empresas_select');

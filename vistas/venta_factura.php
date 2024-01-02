@@ -1006,7 +1006,13 @@ MODAL CUOTAS DEL CREDITO
     //CARGAR DROPDOWN'S
     /*===================================================================*/
     function fnc_CargarSelects() {
-        CargarSelect(1, $("#empresa_emisora"), "--Seleccionar--", "ajax/empresas.ajax.php", 'obtener_empresas_select');
+
+        var formData = new FormData();
+        formData.append("accion", "obtener_empresa_defecto");
+        var response = SolicitudAjax("ajax/empresas.ajax.php","POST", formData);
+
+        // EMPRESA EMISORA
+        CargarSelect(response.id_empresa ?? "", $("#empresa_emisora"), "--Seleccionar--", "ajax/empresas.ajax.php", 'obtener_empresas_select');        
         CargarSelect('01', $("#tipo_comprobante"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante');
         CargarSelect(null, $("#serie"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_serie_comprobante', $('#tipo_comprobante').val());
         CargarSelect('PEN', $("#moneda"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_moneda');
