@@ -39,7 +39,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
                 <img src="vistas/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <h6 class="text-warning"><?php echo $_SESSION["usuario"]->nombre_usuario . ' ' . $_SESSION["usuario"]->apellido_usuario ?></h6>
+                <h6 class="text-warning"><?php echo $_SESSION["usuario"]->nombre_usuario ?></h6>
             </div>
         </div>
 
