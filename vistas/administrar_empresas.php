@@ -100,19 +100,19 @@
 
                                 <div class="row">
 
-                                    <!-- MOSTRAR EN FACTURA O BOLETA POR DEFECTO -->
+                                    <!-- GENERA FACTURACIÓN -->
                                     <div class="col-12 col-lg-2 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-file-invoice mr-1 my-text-color"></i>Genera Facturación?<strong class="text-danger">*</strong></label>
                                         <div class="form-group clearfix w-100 d-flex justify-content-start justify-content-lg-start my-0 ">
                                             <div class="icheck-warning d-inline mx-2">
-                                                <input type="radio" id="rb-si-defecto" value="1" name="rb_fact_bol_defecto">
-                                                <label for="rb-si-defecto">
+                                                <input type="radio" id="rb-si-genera" value="1" name="rb_genera_facturacion" checked="">
+                                                <label for="rb-si-genera">
                                                     Si
                                                 </label>
                                             </div>
                                             <div class="icheck-success d-inline mx-2">
-                                                <input type="radio" id="rb-no-defecto" value="2" name="rb_fact_bol_defecto" checked="">
-                                                <label for="rb-no-defecto">
+                                                <input type="radio" id="rb-no-genera" value="2" name="rb_genera_facturacion">
+                                                <label for="rb-no-genera">
                                                     No
                                                 </label>
                                             </div>
@@ -203,35 +203,43 @@
 
                                     </div>
 
-                                    <!-- RUTA CERTIFICADO -->
-                                    <div class="col-12 col-lg-2 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Ruta Certificado</label>
-                                        <input type="text" value="../fe/certificado/" style="border-radius: 20px;" class="form-control form-control-sm" id="ruta_certificado" name="ruta_certificado" aria-label="Small" aria-describedby="inputGroup-sizing-sm" readonly>
-                                    </div>
+                                    <div id="section-facturacion">
 
-                                    <!-- SELECCIONAR CERTIFICADO DIGITAL -->
-                                    <div class="col-12 col-lg-4 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Seleccione el Certificado Digital </label>
-                                        <input type="file" class="form-control" id="certificado" name="certificado" accept=".pfx">
-                                    </div>
+                                        <!-- RUTA CERTIFICADO -->
+                                        <!-- <div class="col-12 col-lg-2 mb-2">
+                                            <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Ruta Certificado</label>
+                                            <input type="text" value="../fe/certificado/" style="border-radius: 20px;" class="form-control form-control-sm" id="ruta_certificado" name="ruta_certificado" aria-label="Small" aria-describedby="inputGroup-sizing-sm" readonly>
+                                        </div> -->
 
-                                    <!-- CLAVE CERTIFICADO DIGITAL -->
-                                    <div class="col-12 col-lg-2 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Clave Certificado </label>
-                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="clave_certificado" name="clave_certificado" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                    </div>
+                                        <!-- SELECCIONAR CERTIFICADO DIGITAL -->
+                                        <!-- <div class="col-12 col-lg-4 mb-2">
+                                            <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Seleccione el Certificado Digital </label>
+                                            <input type="file" class="form-control" id="certificado" name="certificado" accept=".pfx" required>
+                                            <div class="invalid-feedback">Seleccione certificado</div>
+                                        </div> -->
+
+                                        <!-- CLAVE CERTIFICADO DIGITAL -->
+                                        <!-- <div class="col-12 col-lg-2 mb-2">
+                                            <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Clave Certificado </label>
+                                            <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="clave_certificado" name="clave_certificado" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                            <div class="invalid-feedback">Ingrese clave</div>
+                                        </div> -->
 
 
-                                    <!-- USUARIO SOL -->
-                                    <div class="col-12 col-lg-2 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Usuario SOL </label>
-                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="usuario_sol" name="usuario_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                    </div>
+                                        <!-- USUARIO SOL -->
+                                        <!-- <div class="col-12 col-lg-2 mb-2">
+                                            <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Usuario SOL </label>
+                                            <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="usuario_sol" name="usuario_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                            <div class="invalid-feedback">Ingrese usuario sol</div>
+                                        </div> -->
 
-                                    <!-- CLAVE SOL -->
-                                    <div class="col-12 col-lg-2 mb-2">
-                                        <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Clave SOL </label>
-                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="clave_sol" name="clave_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                        <!-- CLAVE SOL -->
+                                        <!-- <div class="col-12 col-lg-2 mb-2">
+                                            <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-list-ol mr-1 my-text-color"></i>Clave SOL </label>
+                                            <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="clave_sol" name="clave_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                            <div class="invalid-feedback">Ingrese clave sol</div>
+                                        </div> -->
+                                        
                                     </div>
 
                                     <!-- ESTADO -->
@@ -343,6 +351,7 @@
 
         CargarSelects();
         fnc_CargarDatatableEmpresas();
+        fnc_AgregarInputsFacturacion();
 
         $("#btnRegistrarEmpresa").on('click', function() {
             fnc_GuardarDatosEmpresa();
@@ -379,6 +388,17 @@
 
     function CargarSelects() {
         CargarSelect('6', $("#tipo_documento"), "--Seleccione Tipo Documento--", "ajax/ventas.ajax.php", 'obtener_tipo_documento', null, 0);
+    }
+    
+    function fnc_AgregarInputsFacturacion(){
+        $("#section-facturacion").append(
+            ` <div class="col-12 col-lg-4 mb-2">
+                <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-image mr-1 my-text-color"></i>Seleccione el Certificado Digital </label>
+                <input type="file" class="form-control" id="certificado" name="certificado" accept=".pfx" required />
+                <div class="invalid-feedback">Seleccione certificado</div>
+            </div> `;
+
+        );
     }
 
     function fnc_CargarDatatableEmpresas() {
