@@ -679,9 +679,9 @@
             $("#clave_sol").val(response.clave_sol)
             if(response.es_principal == "1"){
                 console.log("🚀 ~ file: administrar_empresas.php:681 ~ fnc_ModalActualizarEmpresa ~ response.es_principal :", response.es_principal )
-                $("#rb_si_empresa").prop("checked", true);
+                $("#rb-si-empresa").prop("checked", true);
             }else{
-                $("#rb_no_empresa").prop("checked", true);
+                $("#rb-no-empresa").prop("checked", true);
             }
             $("#previewImg").attr("src", 'vistas/assets/dist/img/logos_empresas/' + (response.logo ? response.logo : 'no_image.jpg'));
             $("#estado").val(response.estado)
