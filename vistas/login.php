@@ -123,14 +123,11 @@
 
 
                             <div class="col-6 mt-2">
-
-                                <a class="btn btn-secondary btn-sm " style="height: 30px !important; font-size: 18px !important;background-color: #dc3545 !important; width: 130px !important;" data-bs-dismiss="modal" id="btnCancelarRegistroStock">Cancelar</a>
-
-
+                                <a class="btn btn-secondary btn-sm " style="height: 30px !important; font-size: 18px !important;background-color: #dc3545 !important; " data-bs-dismiss="modal" id="btnCancelarRegistroStock">Cancelar</a>
                             </div>
 
                             <div class="col-6 mt-2">
-                                <a class="btn btn-primary btn-sm " style="height: 30px !important; font-size: 18px !important; width: 130px !important;" id="btnCambiarPassword">Guardar</a>
+                                <a class="btn btn-primary btn-sm " style="height: 30px !important; font-size: 18px !important; " id="btnCambiarPassword">Guardar</a>
 
                             </div>
 
