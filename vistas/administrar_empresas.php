@@ -678,13 +678,21 @@
             $("#usuario_sol").val(response.usuario_sol)
             $("#clave_sol").val(response.clave_sol)
             if(response.es_principal == "1"){
-                console.log("🚀 ~ file: administrar_empresas.php:681 ~ fnc_ModalActualizarEmpresa ~ response.es_principal :", response.es_principal )
                 $("#rb-si-empresa").prop("checked", true);
                 $("#rb-no-empresa").prop("checked", false);
             }else{
                 $("#rb-si-empresa").prop("checked", false);
                 $("#rb-no-empresa").prop("checked", true);
             }
+
+            if(response.fact_bol_defecto == "1"){
+                $("#rb-si-defecto").prop("checked", true);
+                $("#rb-no-defecto").prop("checked", false);
+            }else{
+                $("#rb-si-defecto").prop("checked", false);
+                $("#rb-no-defecto").prop("checked", true);
+            }
+
             $("#previewImg").attr("src", 'vistas/assets/dist/img/logos_empresas/' + (response.logo ? response.logo : 'no_image.jpg'));
             $("#estado").val(response.estado)
         }
