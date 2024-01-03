@@ -258,8 +258,15 @@ class EmpresasModelo
 
             $datos = $stmt->fetch();
 
-            $certificado_actual = $datos["certificado_digital"];
-            $clave_certificado_actual = $datos["clave_certificado"];
+            if($empresa['rb_genera_facturacion'] == 1){
+                $certificado_actual = $datos["certificado_digital"];
+                $clave_certificado_actual = $datos["clave_certificado"];
+            }else{
+                $certificado_actual = "";
+                $clave_certificado_actual = "";
+            }
+            
+
             $logo_actual = $datos["logo"];
 
             // SI SE MARCO COMO PRINCIPAL, SE DEBEN DESMARCAR TODAS LAS DEMAS EMPRESAS

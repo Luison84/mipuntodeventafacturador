@@ -96,7 +96,7 @@ if (isset($_POST["accion"])) {
 
                 $response = EmpresasModelo::mdlActualizarEmpresa($formulario_empresa, $certificado, $imagen_logo);
             } else {
-                $response = EmpresasModelo::mdlActualizarEmpresa($formulario_empresa, $certificado, null);
+                $response = EmpresasModelo::mdlActualizarEmpresa($formulario_empresa, $certificado);
             }
 
 
