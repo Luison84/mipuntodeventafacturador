@@ -543,7 +543,7 @@
         /*===================================================================*/
         // I N I C I A L I Z A R   F O R M U L A R I O 
         /*===================================================================*/
-        fnc_InicializarFormulario();
+        fnc_InicializarFormulario();        
 
 
         $('#tipo_comprobante').on('change', function(e) {
@@ -900,6 +900,8 @@
         $("#resumen_total_venta").html('S/ 0.00')
 
         $(".needs-validation-venta").removeClass("was-validated");
+
+        fnc_VerificarEmpresaFacturacionElectronica();
     }
 
     /*===================================================================*/
@@ -954,6 +956,21 @@
             }),
             defaultDate: moment(),
         });
+    }
+
+    /*===================================================================*/
+    // V E R I F I C A   S I   E M P R E S A   G E N E R A   F A C T U R A C I O N   E L E C T R O N I C A
+    /*===================================================================*/
+    function fnc_VerificarEmpresaFacturacionElectronica(){
+
+        var formData = new FormData();
+        formData.append('accion', 'verificar_empresa_facturacion_electronica');
+        formData.append('id_empresa', $("#empresa_emisora").val());
+
+        var response = SolicitudAjax("ajax/empresa.ajax.php", "POST", formData);
+        console.log("🚀 ~ file: venta_boleta.php:971 ~ fnc_VerificarEmpresaFacturacionElectronica ~ response:", response)
+
+        
     }
 
     /*===================================================================*/

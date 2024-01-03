@@ -390,6 +390,7 @@ class EmpresasModelo
     static public function mdlObtenerEmpresaPorId($id_empresa)
     {
         $stmt = Conexion::conectar()->prepare("SELECT id_empresa, 
+                                                        genera_fact_electronica,
                                                         razon_social, 
                                                         nombre_comercial, 
                                                         id_tipo_documento as tipo_documento, 
