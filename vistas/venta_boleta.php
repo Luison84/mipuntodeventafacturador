@@ -967,7 +967,7 @@
         formData.append('accion', 'verificar_empresa_facturacion_electronica');
         formData.append('id_empresa', $("#empresa_emisora").val());
 
-        var response = SolicitudAjax("ajax/empresa.ajax.php", "POST", formData);
+        var response = SolicitudAjax("ajax/empresas.ajax.php", "POST", formData);
         console.log("🚀 ~ file: venta_boleta.php:971 ~ fnc_VerificarEmpresaFacturacionElectronica ~ response:", response)
 
         
