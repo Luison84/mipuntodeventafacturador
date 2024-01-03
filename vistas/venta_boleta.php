@@ -971,11 +971,11 @@
         console.log("🚀 ~ file: venta_boleta.php:971 ~ fnc_VerificarEmpresaFacturacionElectronica ~ response:", response)
 
         if(response.genera_fact_electronica == "1"){
-            $("rb-venta-envio").attr("disabled",false);
-            $("rb-venta").attr("disabled",false);
+            $("rb-venta-envio").prop("disabled",false);
+            $("rb-venta").prop("disabled",false);
         }else{
-            $("rb-venta-envio").attr("disabled",true);
-            $("rb-venta").attr("disabled",true);
+            $("rb-venta-envio").prop("disabled",true);
+            $("rb-venta").prop("disabled",true);
         }
         
     }
