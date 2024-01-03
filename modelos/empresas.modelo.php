@@ -262,8 +262,8 @@ class EmpresasModelo
                 $certificado_actual = $datos["certificado_digital"];
                 $clave_certificado_actual = $datos["clave_certificado"];
             }else{
-                $certificado_actual = "";
-                $clave_certificado_actual = "";
+                $certificado_actual = null;
+                $clave_certificado_actual = null;
             }
             
 
@@ -293,7 +293,8 @@ class EmpresasModelo
             }
 
             $stmt = $dbh->prepare("UPDATE   empresas
-                                     SET    razon_social = upper(?), 
+                                     SET    genera_fact_electronica = ?,
+                                            razon_social = upper(?), 
                                             nombre_comercial = upper(?), 
                                             id_tipo_documento = ?, 
                                             ruc = ?, 
@@ -315,6 +316,7 @@ class EmpresasModelo
                                     WHERE   id_empresa = ?");
             $dbh->beginTransaction();
             $stmt->execute(array(
+                $empresa['rb_genera_facturacion'],
                 $empresa['razon_social'],
                 $empresa['nombre_comercial'],
                 $empresa['tipo_documento'],
