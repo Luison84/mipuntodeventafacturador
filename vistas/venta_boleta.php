@@ -970,6 +970,13 @@
         var response = SolicitudAjax("ajax/empresas.ajax.php", "POST", formData);
         console.log("🚀 ~ file: venta_boleta.php:971 ~ fnc_VerificarEmpresaFacturacionElectronica ~ response:", response)
 
+        if(response.genera_fact_electronica == "1"){
+            $("rb-venta-envio").css("disabled",false);
+            $("rb-venta").css("disabled",false);
+        }else{
+            $("rb-venta-envio").css("disabled",true);
+            $("rb-venta").css("disabled",true);
+        }
         
     }
 
