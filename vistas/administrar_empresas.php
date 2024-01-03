@@ -628,6 +628,7 @@
             datos.append('id_empresa', data['1']);
 
             response = SolicitudAjax('ajax/empresas.ajax.php', 'POST', datos);
+            console.log("🚀 ~ file: administrar_empresas.php:631 ~ fnc_ModalActualizarEmpresa ~ response:", response)
 
 
             $("#id_empresa").val(response.id_empresa);
