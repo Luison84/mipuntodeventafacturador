@@ -604,8 +604,8 @@
             fnc_LimpiarFomulario();
         } else {
             
-            // $("#listado-empresas-tab").prop('disabled', true)
-
+            fnc_QuitarInputsFacturacion();
+            
             //ACTIVAR PANE REGISTRO DE PROVEEDORES:
             $("#registrar-empresas-tab").addClass('active')
             $("#registrar-empresas-tab").attr('aria-selected', true)
