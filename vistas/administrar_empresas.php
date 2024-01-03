@@ -632,6 +632,15 @@
 
 
             $("#id_empresa").val(response.id_empresa);
+
+            if(response.genera_fact_electronica == "1"){
+                $("#rb-si-genera").prop("checked", true);
+                $("#rb-no-genera").prop("checked", false);
+            }else{
+                $("#rb-si-genera").prop("checked", false);
+                $("#rb-no-genera").prop("checked", true);
+            }
+
             $("#tipo_documento").val(response.tipo_documento);
             $("#nro_documento").val(response.ruc);
             $("#razon_social").val(response.razon_social)
