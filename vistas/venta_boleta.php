@@ -976,6 +976,9 @@
         }else{
             $("#rb-venta-envio").prop("disabled",true);
             $("#rb-venta").prop("disabled",true);
+
+            $("#rb-venta-envio").prop("checked", false);
+            $("#rb-venta").prop("checked", true);
         }
         
     }
