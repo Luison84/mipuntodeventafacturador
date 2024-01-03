@@ -546,6 +546,10 @@
         fnc_InicializarFormulario();        
 
 
+        $('#empresa_emisora').on('change', function(e) {
+           fnc_VerificarEmpresaFacturacionElectronica();
+        });
+
         $('#tipo_comprobante').on('change', function(e) {
             $("#correlativo").val('')
             CargarSelect(null, $("#serie"), "--Seleccionar--", "ajax/ventas.ajax.php",
