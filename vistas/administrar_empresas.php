@@ -676,6 +676,7 @@
             $("#clave_certificado").val(response.clave_certificado)
             $("#usuario_sol").val(response.usuario_sol)
             $("#clave_sol").val(response.clave_sol)
+            $("#rb_empresa_principal").val(response.es_principal);
             $("#previewImg").attr("src", 'vistas/assets/dist/img/logos_empresas/' + (response.logo ? response.logo : 'no_image.jpg'));
             $("#estado").val(response.estado)
         }
