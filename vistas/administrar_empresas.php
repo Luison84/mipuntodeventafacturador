@@ -676,7 +676,7 @@
             $("#clave_certificado").val(response.clave_certificado)
             $("#usuario_sol").val(response.usuario_sol)
             $("#clave_sol").val(response.clave_sol)
-            if(response.logo == "1"){
+            if(response.es_principal == "1"){
                 $("#rb_si_empresa").prop("checked", true);
             }else{
                 $("#rb_no_empresa").prop("checked", true);
