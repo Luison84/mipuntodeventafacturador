@@ -239,7 +239,7 @@
                                             <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="clave_sol" name="clave_sol" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                             <div class="invalid-feedback">Ingrese clave sol</div>
                                         </div> -->
-                                        
+
                                     </div>
 
                                     <!-- ESTADO -->
@@ -387,8 +387,7 @@
         $('input[type=radio][name=rb_genera_facturacion]').change(function() {
             if (this.value == '1') {
                 fnc_AgregarInputsFacturacion();
-            }
-            else if (this.value == '2') {
+            } else if (this.value == '2') {
                 fnc_QuitarInputsFacturacion();
             }
         });
@@ -398,8 +397,8 @@
     function CargarSelects() {
         CargarSelect('6', $("#tipo_documento"), "--Seleccione Tipo Documento--", "ajax/ventas.ajax.php", 'obtener_tipo_documento', null, 0);
     }
-    
-    function fnc_AgregarInputsFacturacion(){
+
+    function fnc_AgregarInputsFacturacion() {
 
         $("#section-facturacion").append(
             `  
@@ -435,7 +434,7 @@
         );
     }
 
-    function fnc_QuitarInputsFacturacion(){
+    function fnc_QuitarInputsFacturacion() {
 
         $("#section-facturacion").html('');
     }
@@ -633,12 +632,15 @@
 
             $("#id_empresa").val(response.id_empresa);
 
-            if(response.genera_fact_electronica == "1"){
+            if (response.genera_fact_electronica == "1") {
                 $("#rb-si-genera").prop("checked", true);
                 $("#rb-no-genera").prop("checked", false);
-            }else{
+                fnc_AgregarInputsFacturacion();
+
+            } else {
                 $("#rb-si-genera").prop("checked", false);
                 $("#rb-no-genera").prop("checked", true);
+                fnc_QuitarInputsFacturacion();
             }
 
             $("#tipo_documento").val(response.tipo_documento);
@@ -654,19 +656,21 @@
             $("#ubigeo").val(response.ubigeo)
 
 
+            if (response.genera_fact_electronica == "1") {
+                const fileInput = document.querySelector('input[type="file"]');
 
-            const fileInput = document.querySelector('input[type="file"]');
+                // Create a new File object
+                const myFile = new File(['Certificado Digital'], response.certificado_digital, {
+                    type: 'text/plain',
+                    lastModified: new Date(),
+                });
 
-            // Create a new File object
-            const myFile = new File(['Certificado Digital'], response.certificado_digital, {
-                type: 'text/plain',
-                lastModified: new Date(),
-            });
+                // Now let's create a DataTransfer to get a FileList
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(myFile);
+                fileInput.files = dataTransfer.files;
+            }
 
-            // Now let's create a DataTransfer to get a FileList
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(myFile);
-            fileInput.files = dataTransfer.files;
 
             const fileInputLogo = document.querySelector('input[name="imagen"]');
 
@@ -680,24 +684,27 @@
             const dataTransferLogo = new DataTransfer();
             dataTransferLogo.items.add(myFileLogo);
             fileInputLogo.files = dataTransferLogo.files;
-            
 
 
-            $("#clave_certificado").val(response.clave_certificado)
-            $("#usuario_sol").val(response.usuario_sol)
-            $("#clave_sol").val(response.clave_sol)
-            if(response.es_principal == "1"){
+            if (response.genera_fact_electronica == "1") {
+                $("#clave_certificado").val(response.clave_certificado)
+                $("#usuario_sol").val(response.usuario_sol)
+                $("#clave_sol").val(response.clave_sol)
+            }
+
+
+            if (response.es_principal == "1") {
                 $("#rb-si-empresa").prop("checked", true);
                 $("#rb-no-empresa").prop("checked", false);
-            }else{
+            } else {
                 $("#rb-si-empresa").prop("checked", false);
                 $("#rb-no-empresa").prop("checked", true);
             }
 
-            if(response.fact_bol_defecto == "1"){
+            if (response.fact_bol_defecto == "1") {
                 $("#rb-si-defecto").prop("checked", true);
                 $("#rb-no-defecto").prop("checked", false);
-            }else{
+            } else {
                 $("#rb-si-defecto").prop("checked", false);
                 $("#rb-no-defecto").prop("checked", true);
             }
