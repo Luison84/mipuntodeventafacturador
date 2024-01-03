@@ -352,6 +352,7 @@
         CargarSelects();
         fnc_CargarDatatableEmpresas();
         // fnc_AgregarInputsFacturacion();
+        fnc_QuitarInputsFacturacion();
 
         $("#btnRegistrarEmpresa").on('click', function() {
             fnc_GuardarDatosEmpresa();
@@ -602,7 +603,7 @@
         if (fila_actualizar.parents('tr').hasClass('selected')) {
             fnc_LimpiarFomulario();
         } else {
-
+            
             // $("#listado-empresas-tab").prop('disabled', true)
 
             //ACTIVAR PANE REGISTRO DE PROVEEDORES:
