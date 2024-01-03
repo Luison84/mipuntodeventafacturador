@@ -351,7 +351,7 @@
 
         CargarSelects();
         fnc_CargarDatatableEmpresas();
-        fnc_AgregarInputsFacturacion();
+        // fnc_AgregarInputsFacturacion();
 
         $("#btnRegistrarEmpresa").on('click', function() {
             fnc_GuardarDatosEmpresa();
