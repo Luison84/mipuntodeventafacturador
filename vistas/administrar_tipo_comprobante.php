@@ -325,8 +325,8 @@
         $("#listado-comprobantes").addClass('active show')
 
         //DESACTIVAR PANE LISTADO DE TIPO DE comprobante
-        $("#registrar-comprobante-tab").removeClass('active')
-        $("#registrar-comprobante-tab").attr('aria-selected', false)
+        $("#registrar-comprobantes-tab").removeClass('active')
+        $("#registrar-comprobantes-tab").attr('aria-selected', false)
         $("#registrar-comprobantes").removeClass('active show')
 
         fnc_CargarDatatableTipoComprobante();
