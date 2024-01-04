@@ -104,6 +104,13 @@ if (isset($_POST["accion"])) {
 
             break;
 
+
+        case "eliminar_empresa":
+
+            $response = EmpresasModelo::mdlEliminarEmpresa($_POST["id_empresa"]);
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+            break;
+
         case "obtener_empresa_defecto":
 
             $response = EmpresasModelo::mdlObtenerEmpresaDefecto();

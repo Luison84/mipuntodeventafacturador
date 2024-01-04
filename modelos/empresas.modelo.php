@@ -258,14 +258,14 @@ class EmpresasModelo
 
             $datos = $stmt->fetch();
 
-            if($empresa['rb_genera_facturacion'] == 1){
+            if ($empresa['rb_genera_facturacion'] == 1) {
                 $certificado_actual = $datos["certificado_digital"];
                 $clave_certificado_actual = $datos["clave_certificado"];
-            }else{
+            } else {
                 $certificado_actual = null;
                 $clave_certificado_actual = null;
             }
-            
+
 
             $logo_actual = $datos["logo"];
 
@@ -429,6 +429,46 @@ class EmpresasModelo
         return $stmt->fetch(PDO::FETCH_NAMED);
     }
 
+    static public function mdlEliminarEmpresa($id_empresa)
+    {
+
+        $dbh = Conexion::conectar();
+
+        try {
+
+            // Validamos que la empresa no tenga ventas asociadas
+            $stmt = Conexion::conectar()->prepare("SELECT count(1) as cantidad FROM ventas where id_empresa = :id_empresa");
+            $stmt->bindParam(":id_empresa", $id_empresa, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $existen_datos = $stmt->fetch(PDO::FETCH_NAMED);
+
+            if ($existen_datos["cantidad"] > 0) {
+
+                $respuesta['tipo_msj'] = 'error';
+                $respuesta['msj'] = 'No se puede eliminar la empresa porque tiene ventas asociadas';
+
+                return $respuesta;
+            }
+
+            $stmt = $dbh->prepare("DELETE FROM empresas WHERE id_empresa = :id_empresa");
+            $dbh->beginTransaction();
+            $stmt->execute(array(
+                ':id_empresa' => $id_empresa
+            ));
+            $dbh->commit();
+
+            $respuesta['tipo_msj'] = 'success';
+            $respuesta['msj'] = 'Se eliminó la empresa correctamente';
+        } catch (Exception $e) {
+            $dbh->rollBack();
+            $respuesta['tipo_msj'] = 'error';
+            $respuesta['msj'] = 'Error al eliminar la empresa ' . $e->getMessage();
+        }
+
+        return $respuesta;
+    }
+
     static public function mdlObtenerEmpresaPrincipal()
     {
 
@@ -439,5 +479,4 @@ class EmpresasModelo
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_NAMED);
     }
-
 }

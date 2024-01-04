@@ -362,6 +362,10 @@
             fnc_ModalActualizarEmpresa($(this));
         })
 
+        $('#tbl_empresas tbody').on('click', '.btnEliminarEmpresa', function() {
+            fnc_ModalEliminarEmpresa($(this));
+        })
+
         $("#btnCancelarEmpresa").on('click', function() {
             fnc_LimpiarFomulario();
         });
@@ -496,9 +500,12 @@
                     targets: 0,
                     orderable: false,
                     createdCell: function(td, cellData, rowData, row, col) {
-                        $(td).html("<span class='btnEditarEmpresa text-primary px-1' style='cursor:pointer;'>" +
-                            "<i class='fas fa-pencil-alt fs-6'></i>" +
-                            "</span>")
+                        $(td).html(`<span class='btnEditarEmpresa text-primary px-1' style='cursor:pointer;'>
+                                        <i class='fas fa-pencil-alt fs-6'></i>
+                                    </span>
+                                    <span class='btnElimimarEmpresa text-danger px-1' style='cursor:pointer;'>
+                                        <i class='fas fa-trash fs-6'></i>
+                                    </span>`)
                     }
                 }
 
@@ -603,9 +610,9 @@
         if (fila_actualizar.parents('tr').hasClass('selected')) {
             fnc_LimpiarFomulario();
         } else {
-            
+
             fnc_QuitarInputsFacturacion();
-            
+
             //ACTIVAR PANE REGISTRO DE PROVEEDORES:
             $("#registrar-empresas-tab").addClass('active')
             $("#registrar-empresas-tab").attr('aria-selected', true)
@@ -628,8 +635,6 @@
             datos.append('id_empresa', data['1']);
 
             response = SolicitudAjax('ajax/empresas.ajax.php', 'POST', datos);
-            console.log("🚀 ~ file: administrar_empresas.php:631 ~ fnc_ModalActualizarEmpresa ~ response:", response)
-
 
             $("#id_empresa").val(response.id_empresa);
 
@@ -713,6 +718,30 @@
             $("#previewImg").attr("src", 'vistas/assets/dist/img/logos_empresas/' + (response.logo ? response.logo : 'no_image.jpg'));
             $("#estado").val(response.estado)
         }
+
+    }
+
+    function fnc_ModalEliminarEmpresa(fila_eliminar) {
+
+        var data = (fila_eliminar.parents('tr').hasClass('child')) ?
+            $("#tbl_empresas").DataTable().row(fila_eliminar.parents().prev('tr')).data() :
+            $("#tbl_empresas").DataTable().row(fila_eliminar.parents('tr')).data();
+
+        var datos = new FormData();
+        datos.append('accion', 'eliminar_empresa');
+        datos.append('id_empresa', data['1']);
+
+        response = SolicitudAjax('ajax/empresas.ajax.php', 'POST', datos);
+
+        Swal.fire({
+            position: 'top-center',
+            icon: response['tipo_msj'],
+            title: response['msj'],
+            showConfirmButton: true,
+            timer: 2000
+        });
+
+        $("#tbl_empresas").DataTable().ajax.reload();
 
     }
 
