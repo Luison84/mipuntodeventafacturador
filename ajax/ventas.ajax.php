@@ -989,9 +989,8 @@ if (isset($_GET["accion"])) {
             $pdf->AddPage();
             $pdf->setMargins(5, 5, 5);
 
-            var_dump($venta);
-            return;
-            
+           
+
             //NOMBRE DE LA EMPRESA
             $pdf->SetFont('Arial', 'B', 12);
             $pdf->Cell(60, 10, 'TUTORIALES PHPERU', 0, 0, 'C');
@@ -999,7 +998,8 @@ if (isset($_GET["accion"])) {
             //LOGO
             $pdf->Image('../vistas/assets/dist/img/logos_empresas/no_image.jpg', 30, 18, 20, 20, 'PNG');
 
-           
+            var_dump($venta);
+            return;
 
             $pdf->Ln(25);
 
