@@ -191,8 +191,7 @@
             },
             scrollX: true,
             scrollY: "63vh",
-            columnDefs: [
-                {
+            columnDefs: [{
                     "className": "dt-center",
                     "targets": "_all"
                 },
@@ -318,7 +317,18 @@
         $("#codigo").val('')
         $("#descripcion").val('')
         $("#estado").val('1');
+
+        $(".needs-validation-tipo-comprobante").removeClass("was-validated");
+
+        $("#listado-comprobantes-tab").addClass('active')
+        $("#listado-comprobantes-tab").attr('aria-selected', true)
+        $("#listado-comprobantes").addClass('active show')
+
+        //DESACTIVAR PANE LISTADO DE TIPO DE comprobante
+        $("#registrar-comprobante-tab").removeClass('active')
+        $("#registrar-comprobante-tab").attr('aria-selected', false)
+        $("#registrar-comprobantes").removeClass('active show')
+
         fnc_CargarDatatableTipoComprobante();
-        $(".needs-validation-comprobante").removeClass("was-validated");
     }
 </script>
