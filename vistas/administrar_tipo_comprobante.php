@@ -191,7 +191,12 @@
             },
             scrollX: true,
             scrollY: "63vh",
-            columnDefs: [{
+            columnDefs: [
+                {
+                    "className": "dt-center",
+                    "targets": "_all"
+                },
+                {
                     targets: 3,
                     createdCell: function(td, cellData, rowData, row, col) {
                         if (rowData[3] != 'ACTIVO') {
