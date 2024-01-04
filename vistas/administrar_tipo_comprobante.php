@@ -90,7 +90,7 @@
                                     <!-- CODIGO -->
                                     <div class="col-3 mb-2">
                                         <label class="mb-0 ml-1 text-sm my-text-color"><i class="fas fa-barcode mr-1 my-text-color"></i>Código <strong class="text-danger fw-bold">*</strong></label>
-                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="codigo" name="codigo" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                                        <input type="text" style="border-radius: 20px;" class="form-control form-control-sm" id="codigo" name="codigo" onchange="validateJS(event, 'codigo_tipo_comprobante')" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                                         <div class="invalid-feedback">Ingrese el Código del comprobante</div>
                                     </div>
 

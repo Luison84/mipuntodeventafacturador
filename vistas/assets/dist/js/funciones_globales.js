@@ -172,6 +172,29 @@ function validateJS(event, type) {
         
     }
 
+    
+    if (type == "codigo_tipo_comprobante") {
+
+        var formData = new FormData();
+
+        formData.append('accion', 'validar_codigo_tipo_comprobante');
+        formData.append('codigo_tipo_comprobante', event.target.value);
+        response = SolicitudAjax('ajax/tipo_comprobante.ajax.php', 'POST', formData);
+
+        if(response['existe'] > 0){
+
+            $(event.target).parent().addClass("was-validated");
+
+            $(event.target).parent().children(".invalid-feedback").html("El código ya fue registrado");
+    
+            event.target.value = "";
+            event.target.focus();
+            return;
+        }
+
+        
+    }
+
     if (type == "codigo_producto") {
 
         var formData = new FormData();

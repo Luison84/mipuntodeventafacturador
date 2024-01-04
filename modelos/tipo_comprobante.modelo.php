@@ -108,4 +108,17 @@ class TipoComprobanteModelo
         return $respuesta;
 
     }
+
+    static public function mdlValidarCodigoTipoComprobante($codigo_tipo_comprobante)
+    {
+
+        $stmt = Conexion::conectar()->prepare(" SELECT count(1) as existe
+                                            FROM tipo_comprobante 
+                                            WHERE id = :codigo_tipo_comprobante");
+
+        $stmt->bindParam(":codigo_tipo_comprobante", $codigo_tipo_comprobante, PDO::PARAM_STR);
+
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_NAMED);
+    }
 }

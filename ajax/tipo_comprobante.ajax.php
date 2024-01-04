@@ -19,11 +19,17 @@ if (isset($_POST["accion"])) {
 
         case 'registrar_comprobante':
 
-             //Datos del formulario
-             $formulario_comprobante = [];
-             parse_str($_POST['datos_comprobante'], $formulario_comprobante);
+            //Datos del formulario
+            $formulario_comprobante = [];
+            parse_str($_POST['datos_comprobante'], $formulario_comprobante);
 
             $response = TipoComprobanteModelo::mdlRegistrarComprobante($formulario_comprobante);
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+            break;
+
+        case 'validar_codigo_tipo_comprobante':
+
+            $response = TipoComprobanteModelo::mdlValidarCodigoTipoComprobante($_POST['codigo_tipo_comprobante']);
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
             break;
     }
