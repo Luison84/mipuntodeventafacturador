@@ -2175,19 +2175,24 @@ MODAL CUOTAS DEL CREDITO
                     })
                 }
 
-                window.open('https://tutorialesphperu.com/pos///vistas/generar_ticket.php?id_venta=' +
-                    response["id_venta"],
-                    "ModalPopUp",
-                    "toolbar=no," +
-                    "scrollbars=no," +
-                    "location=no," +
-                    "statusbar=no," +
-                    "menubar=no," +
-                    "resizable=0," +
-                    "width=400," +
-                    "height=600," +
-                    "left = 450," +
-                    "top=200");
+                // window.open('https://tutorialesphperu.com/pos/vistas/generar_ticket.php?id_venta=' +
+                //     response["id_venta"],
+                //     "ModalPopUp",
+                //     "toolbar=no," +
+                //     "scrollbars=no," +
+                //     "location=no," +
+                //     "statusbar=no," +
+                //     "menubar=no," +
+                //     "resizable=0," +
+                //     "width=400," +
+                //     "height=600," +
+                //     "left = 450," +
+                //     "top=200");
+
+                window.open('https://tutorialesphperu.com/pos/vistas/generar_factura_a4.php?id_venta=' + response["id_venta"],
+                    'fullscreen=yes' +
+                    "resizable=0,"
+                );
 
                 fnc_InicializarFormulario();
 

@@ -3,7 +3,8 @@
 require_once "../modelos/ventas.modelo.php";
 require_once "../modelos/productos.modelo.php";
 require_once "apis/api_facturacion.php";
-
+require "../vendor/autoload.php";
+use Dompdf\Dompdf;
 
 
 /* ===================================================================================  */
@@ -972,6 +973,29 @@ if (isset($_GET["accion"])) {
 
     switch ($_GET["accion"]) {
 
+        case 'generar_factura_a4':
+
+            $venta = VentasModelo::mdlObtenerVentaPorId($_GET["id_venta"]);
+            $detalle_venta = VentasModelo::mdlObtenerDetalleVentaPorId($_GET["id_venta"]);
+
+            ob_start();
+
+            require "impresion_factura_a4.php";
+
+            $html = ob_get_clean();
+
+            $dompdf = new Dompdf();
+
+            $dompdf->loadHtml($html);
+            $dompdf->setpaper('A4');
+            $dompdf->render();
+            $dompdf->stream('factura_a4.pdf', array('Attachment' => false));
+
+            $_SESSION["compra"] = '';
+            $_SESSION["cliente"] = '';
+
+            break;
+
         case 'generar_ticket':
 
             require('../vistas/assets/plugins/fpdf/fpdf.php');
@@ -983,13 +1007,13 @@ if (isset($_GET["accion"])) {
                 $cuotas = VentasModelo::mdlObtenerCuotas($_GET["id_venta"]);
             }
 
-           
+
 
             $pdf = new FPDF($orientation = 'P', $unit = 'mm', array(80, 1000));
             $pdf->AddPage();
             $pdf->setMargins(5, 5, 5);
 
-           
+
 
             //NOMBRE DE LA EMPRESA
             $pdf->SetFont('Arial', 'B', 12);
