@@ -995,6 +995,9 @@ if (isset($_GET["accion"])) {
             //LOGO
             $pdf->Image('../vistas/assets/dist/img/logos_empresas/no_image.jpg', 30, 18, 20, 20, 'PNG');
 
+            var_dump($venta);
+            return;
+            
             $pdf->Ln(25);
 
             //EMPRESA
