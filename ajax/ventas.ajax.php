@@ -983,6 +983,9 @@ if (isset($_GET["accion"])) {
                 $cuotas = VentasModelo::mdlObtenerCuotas($_GET["id_venta"]);
             }
 
+            var_dump($venta);
+            return;
+
             $pdf = new FPDF($orientation = 'P', $unit = 'mm', array(80, 1000));
             $pdf->AddPage();
             $pdf->setMargins(5, 5, 5);
@@ -995,9 +998,8 @@ if (isset($_GET["accion"])) {
             //LOGO
             $pdf->Image('../vistas/assets/dist/img/logos_empresas/no_image.jpg', 30, 18, 20, 20, 'PNG');
 
-            var_dump($venta);
-            return;
-            
+           
+
             $pdf->Ln(25);
 
             //EMPRESA
