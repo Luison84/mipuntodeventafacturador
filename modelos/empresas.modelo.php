@@ -437,7 +437,7 @@ class EmpresasModelo
         try {
 
             // Validamos que la empresa no tenga ventas asociadas
-            $stmt = Conexion::conectar()->prepare("SELECT count(1) as cantidad FROM ventas where id_empresa_emisora = :id_empresa");
+            $stmt = Conexion::conectar()->prepare("SELECT count(1) as cantidad FROM venta where id_empresa_emisora = :id_empresa");
             $stmt->bindParam(":id_empresa", $id_empresa, PDO::PARAM_STR);
             $stmt->execute();
 
