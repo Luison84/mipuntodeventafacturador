@@ -71,6 +71,7 @@
                                             <th>Código</th>
                                             <th>Descripcion</th>
                                             <th>Estado</th>
+                                            <th>Opciones</th>
                                         </thead>
                                     </table>
                                 </div>
