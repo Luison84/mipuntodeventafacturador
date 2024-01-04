@@ -638,7 +638,12 @@ MODAL CUOTAS DEL CREDITO
         /* VERIFICAR EL ESTADO DE LA CAJA */
         fnc_ObtenerEstadoCajaPorDia()
 
-        fnc_InicializarFormulario();        
+        fnc_InicializarFormulario();
+        
+        $('#empresa_emisora').on('change', function(e) {
+            fnc_VerificarEmpresaFacturacionElectronica();
+        });
+        
 
         $('#tipo_comprobante').on('change', function(e) {
             $("#correlativo").val('')
