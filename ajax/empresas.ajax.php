@@ -102,9 +102,6 @@ if (isset($_POST["accion"])) {
                 // $response = EmpresasModelo::mdlActualizarEmpresa($formulario_empresa, $certificado, $imagen_logo);
             } 
 
-            var_dump($certificado);
-            return;
-            
             $response = EmpresasModelo::mdlActualizarEmpresa($formulario_empresa, $certificado, $imagen_logo);
 
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
