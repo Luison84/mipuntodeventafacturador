@@ -633,12 +633,12 @@ MODAL CUOTAS DEL CREDITO
 
         fnc_MostrarLoader()
 
-        fnc_InicializarFormulario();
+        fnc_VerificarEmpresasRegistradas();
 
         /* VERIFICAR EL ESTADO DE LA CAJA */
         fnc_ObtenerEstadoCajaPorDia()
 
-        fnc_VerificarEmpresasRegistradas();
+        fnc_InicializarFormulario();        
 
         $('#tipo_comprobante').on('change', function(e) {
             $("#correlativo").val('')

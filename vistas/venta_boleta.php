@@ -534,14 +534,16 @@
     $(document).ready(function() {
 
         /*===================================================================*/
+        // V E R I F I C A R   E M P R E S A S   R E G I S T R A D A S
+        /*===================================================================*/
+        fnc_VerificarEmpresasRegistradas();
+
+        /*===================================================================*/
         // V E R I F I C A R   E L   E S T A D O   D E   L A   C A J A
         /*===================================================================*/
         fnc_ObtenerEstadoCajaPorDia()
 
-        /*===================================================================*/
-        // V E R I F I C A R   E M P R E S A S   R E G I S T R A D A S
-        /*===================================================================*/
-        fnc_VerificarEmpresasRegistradas();
+
 
         fnc_MostrarLoader()
 
@@ -1971,7 +1973,7 @@
         response = SolicitudAjax('ajax/empresas.ajax.php', 'POST', datos)
 
         //CUANDO LA CAJA ESTA CERRADA
-        if (response['cantidad'] == '0' ) {
+        if (response['cantidad'] == '0') {
             Swal.fire({
                 position: 'top-center',
                 icon: 'warning',
@@ -1982,7 +1984,7 @@
             $(this).addClass('active');
             CargarContenido('vistas/administrar_empresas.php', 'content-wrapper');
 
-        } 
+        }
     }
 
     // function ajustarHeadersDataTables(element) {
