@@ -500,10 +500,10 @@
                     targets: 0,
                     orderable: false,
                     createdCell: function(td, cellData, rowData, row, col) {
-                        $(td).html(`<span class='btnEditarEmpresa text-primary px-1' style='cursor:pointer;'>
+                        $(td).html(`<span class='btnEditarEmpresa text-primary px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Editar Empresa'>
                                         <i class='fas fa-pencil-alt fs-6'></i>
                                     </span>
-                                    <span class='btnElimimarEmpresa text-danger px-1' style='cursor:pointer;'>
+                                    <span class='btnEliminarEmpresa text-danger px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar Empresa'>
                                         <i class='fas fa-trash fs-6'></i>
                                     </span>`)
                     }
