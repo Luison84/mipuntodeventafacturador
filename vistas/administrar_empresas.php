@@ -723,25 +723,43 @@
 
     function fnc_ModalEliminarEmpresa(fila_eliminar) {
 
-        var data = (fila_eliminar.parents('tr').hasClass('child')) ?
-            $("#tbl_empresas").DataTable().row(fila_eliminar.parents().prev('tr')).data() :
-            $("#tbl_empresas").DataTable().row(fila_eliminar.parents('tr')).data();
-
-        var datos = new FormData();
-        datos.append('accion', 'eliminar_empresa');
-        datos.append('id_empresa', data['1']);
-
-        response = SolicitudAjax('ajax/empresas.ajax.php', 'POST', datos);
-
         Swal.fire({
-            position: 'top-center',
-            icon: response['tipo_msj'],
-            title: response['msj'],
-            showConfirmButton: true,
-            timer: 2000
-        });
+            title: 'Está seguro de eliminar la empresa?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, deseo eliminarla!',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
 
-        $("#tbl_empresas").DataTable().ajax.reload();
+            if (result.isConfirmed) {
+
+                var data = (fila_eliminar.parents('tr').hasClass('child')) ?
+                    $("#tbl_empresas").DataTable().row(fila_eliminar.parents().prev('tr')).data() :
+                    $("#tbl_empresas").DataTable().row(fila_eliminar.parents('tr')).data();
+
+                var datos = new FormData();
+                datos.append('accion', 'eliminar_empresa');
+                datos.append('id_empresa', data['1']);
+
+                response = SolicitudAjax('ajax/empresas.ajax.php', 'POST', datos);
+
+                Swal.fire({
+                    position: 'top-center',
+                    icon: response['tipo_msj'],
+                    title: response['msj'],
+                    showConfirmButton: true,
+                    timer: 2000
+                });
+
+                $("#tbl_empresas").DataTable().ajax.reload();
+
+            }
+        })
+
+
+
 
     }
 
