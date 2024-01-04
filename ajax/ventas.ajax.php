@@ -993,7 +993,7 @@ if (isset($_GET["accion"])) {
             $pdf->Cell(60, 10, 'TUTORIALES PHPERU', 0, 0, 'C');
 
             //LOGO
-            $pdf->Image('../vistas/assets/dist/img/logos_empresas/no_image.png', 30, 18, 20, 20, 'PNG');
+            $pdf->Image('../vistas/assets/dist/img/logos_empresas/no_image.jpg', 30, 18, 20, 20, 'PNG');
 
             $pdf->Ln(25);
 
