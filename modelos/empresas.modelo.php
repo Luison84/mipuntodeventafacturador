@@ -443,10 +443,6 @@ class EmpresasModelo
 
             $existen_datos = $stmt->fetch(PDO::FETCH_NAMED);
 
-            var_dump($existen_datos);
-
-            return;
-
             if ($existen_datos["cantidad"] > 0) {
 
                 $respuesta['tipo_msj'] = 'error';
