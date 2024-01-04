@@ -66,7 +66,7 @@
                                 <!--LISTADO DE CATEGORIAS -->
                                 <div class="col-md-12">
                                     <table id="tbl_tipo_comprobante" class="table table-striped w-100 shadow border border-secondary">
-                                        <thead class="bg-main text-left">
+                                        <thead class="bg-main text-center">
                                             <th>id</th>
                                             <th>Código</th>
                                             <th>Descripcion</th>
