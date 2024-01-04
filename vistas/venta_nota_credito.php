@@ -399,6 +399,7 @@
 
         fnc_MostrarLoader()
 
+        fnc_VerificarEmpresasRegistradas();
         /*===================================================================*/
         // I N I C I A L I Z A R   F O R M U L A R I O 
         /*===================================================================*/
@@ -661,6 +662,28 @@
         // $(".needs-validation-venta").removeClass("was-validated");
     }
 
+    function fnc_VerificarEmpresasRegistradas() {
+
+        var datos = new FormData();
+        datos.append('accion', 'verificar_empresas_registradas');
+
+        response = SolicitudAjax('ajax/empresas.ajax.php', 'POST', datos)
+
+        //CUANDO LA CAJA ESTA CERRADA
+        if (response['cantidad'] == '0') {
+            Swal.fire({
+                position: 'top-center',
+                icon: 'warning',
+                title: 'Debe registrar la Empresa del Negocio',
+                showConfirmButton: true
+            })
+            $(".nav-link").removeClass('active');
+            $(this).addClass('active');
+            CargarContenido('vistas/administrar_empresas.php', 'content-wrapper');
+
+        }
+    }
+
     /*===================================================================*/
     // C A R G A R   D R O P D O W N'S
     /*===================================================================*/
@@ -735,7 +758,7 @@
             validation = 0;
         }
 
-        if(!validation) return;
+        if (!validation) return;
 
         $("#listado-productos").removeClass('d-none');
         $("#resumen-venta").removeClass('d-none');
