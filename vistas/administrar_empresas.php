@@ -749,8 +749,7 @@
                     position: 'top-center',
                     icon: response['tipo_msj'],
                     title: response['msj'],
-                    showConfirmButton: true,
-                    timer: 2000
+                    showConfirmButton: true
                 });
 
                 $("#tbl_empresas").DataTable().ajax.reload();
