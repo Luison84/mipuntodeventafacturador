@@ -344,9 +344,11 @@ class EmpresasModelo
             $dbh->commit();
 
             //GUARDAMOS EL CERTIFICADO
-            if ($certificado && $certificado_actual != strtolower($certificado['nombre_archivo'])) {
-                $guardarCertificado = new EmpresasModelo();
-                $guardarCertificado->guardarCertificado('../fe/certificado/', $certificado);
+            if (isset($certificado)) {
+                if ($certificado_actual != strtolower($certificado['nombre_archivo'])) {
+                    $guardarCertificado = new EmpresasModelo();
+                    $guardarCertificado->guardarCertificado('../fe/certificado/', $certificado);
+                }
             }
 
             //GUARDAMOS EL LOGO DE LA EMPRESA

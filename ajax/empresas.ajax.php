@@ -41,7 +41,6 @@ if (isset($_POST["accion"])) {
             $formulario_empresa = [];
             parse_str($_POST['datos_empresa'], $formulario_empresa);
 
-
             $certificado = null;
             $imagen_logo = null;
 
