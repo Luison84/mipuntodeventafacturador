@@ -639,11 +639,11 @@ MODAL CUOTAS DEL CREDITO
         fnc_ObtenerEstadoCajaPorDia()
 
         fnc_InicializarFormulario();
-        
+
         $('#empresa_emisora').on('change', function(e) {
             fnc_VerificarEmpresaFacturacionElectronica();
         });
-        
+
 
         $('#tipo_comprobante').on('change', function(e) {
             $("#correlativo").val('')
@@ -1006,6 +1006,31 @@ MODAL CUOTAS DEL CREDITO
         $(".needs-validation-venta-factura").removeClass("was-validated");
 
         $("#mdlCronogramaPagos").modal('hide')
+
+    }
+
+    /*===================================================================*/
+    // V E R I F I C A   S I   E M P R E S A   G E N E R A   F A C T U R A C I O N   E L E C T R O N I C A
+    /*===================================================================*/
+    function fnc_VerificarEmpresaFacturacionElectronica() {
+
+        var formData = new FormData();
+        formData.append('accion', 'verificar_empresa_facturacion_electronica');
+        formData.append('id_empresa', $("#empresa_emisora").val());
+
+        var response = SolicitudAjax("ajax/empresas.ajax.php", "POST", formData);
+        console.log("🚀 ~ file: venta_boleta.php:971 ~ fnc_VerificarEmpresaFacturacionElectronica ~ response:", response)
+
+        if (response.genera_fact_electronica == "1") {
+            $("#rb-venta-envio").prop("disabled", false);
+            $("#rb-venta").prop("disabled", false);
+        } else {
+            $("#rb-venta-envio").prop("disabled", true);
+            $("#rb-venta").prop("disabled", true);
+
+            $("#rb-venta-envio").prop("checked", false);
+            $("#rb-venta").prop("checked", true);
+        }
 
     }
 
