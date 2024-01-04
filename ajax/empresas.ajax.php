@@ -99,11 +99,13 @@ if (isset($_POST["accion"])) {
 
                 $imagen_logo["folder"] = '../vistas/assets/dist/img/logos_empresas/';
 
-                $response = EmpresasModelo::mdlActualizarEmpresa($formulario_empresa, $certificado, $imagen_logo);
-            } else {
-                $response = EmpresasModelo::mdlActualizarEmpresa($formulario_empresa, $certificado);
-            }
+                // $response = EmpresasModelo::mdlActualizarEmpresa($formulario_empresa, $certificado, $imagen_logo);
+            } 
 
+            var_dump($certificado);
+            return;
+            
+            $response = EmpresasModelo::mdlActualizarEmpresa($formulario_empresa, $certificado, $imagen_logo);
 
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
 
