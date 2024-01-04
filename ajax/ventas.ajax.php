@@ -996,7 +996,7 @@ if (isset($_GET["accion"])) {
             $pdf->Cell(60, 10, 'TUTORIALES PHPERU', 0, 0, 'C');
 
             //LOGO
-            $pdf->Image('../vistas/assets/dist/img/logos_empresas/mi_logo_tutorialesphperu.png', 30, 18, 20, 20, 'PNG');
+            $pdf->Image('../vistas/assets/dist/img/logos_empresas/' . $venta["logo"] ?? 'mi_logo_tutorialesphperu.png', 30, 18, 20, 20, 'PNG');
 
             $pdf->Ln(25);
 
