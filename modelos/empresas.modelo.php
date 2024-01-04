@@ -479,4 +479,12 @@ class EmpresasModelo
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_NAMED);
     }
+
+    static public function mdlVerificarEmpresasRegistradas()
+    {
+
+        $stmt = Conexion::conectar()->prepare("SELECT count(1) as cantidad FROM empresas where estado = 1");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_NAMED);
+    }
 }

@@ -127,5 +127,11 @@ if (isset($_POST["accion"])) {
             $response = EmpresasModelo::mdlObtenerEmpresaPorId($_POST["id_empresa"]);
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
             break;
+
+        case "verificar_empresas_registradas":
+
+            $response = EmpresasModelo::mdlVerificarEmpresasRegistradas();
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+            break;
     }
 }

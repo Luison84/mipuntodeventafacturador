@@ -538,16 +538,21 @@
         /*===================================================================*/
         fnc_ObtenerEstadoCajaPorDia()
 
+        /*===================================================================*/
+        // V E R I F I C A R   E M P R E S A S   R E G I S T R A D A S
+        /*===================================================================*/
+        fnc_VerificarEmpresasRegistradas();
+
         fnc_MostrarLoader()
 
         /*===================================================================*/
         // I N I C I A L I Z A R   F O R M U L A R I O 
         /*===================================================================*/
-        fnc_InicializarFormulario();        
+        fnc_InicializarFormulario();
 
 
         $('#empresa_emisora').on('change', function(e) {
-           fnc_VerificarEmpresaFacturacionElectronica();
+            fnc_VerificarEmpresaFacturacionElectronica();
         });
 
         $('#tipo_comprobante').on('change', function(e) {
@@ -723,7 +728,7 @@
                                     .data(`<input type="number"  min="0"
                                             style="width:80px;" 
                                             codigoProducto = "` +
-                                            cod_producto_actual + `" 
+                                        cod_producto_actual + `" 
                                             class="form-control form-control-sm text-center iptCantidad m-0 p-0 rounded-pill" 
                                             value="` + cantidad_actual + `">`).draw();
 
@@ -918,7 +923,7 @@
         var formData = new FormData();
         formData.append("accion", "obtener_empresa_defecto");
 
-        var response = SolicitudAjax("ajax/empresas.ajax.php","POST", formData);
+        var response = SolicitudAjax("ajax/empresas.ajax.php", "POST", formData);
 
         // EMPRESA EMISORA
         CargarSelect(response.id_empresa ?? "", $("#empresa_emisora"), "--Seleccionar--", "ajax/empresas.ajax.php", 'obtener_empresas_select');
@@ -965,7 +970,7 @@
     /*===================================================================*/
     // V E R I F I C A   S I   E M P R E S A   G E N E R A   F A C T U R A C I O N   E L E C T R O N I C A
     /*===================================================================*/
-    function fnc_VerificarEmpresaFacturacionElectronica(){
+    function fnc_VerificarEmpresaFacturacionElectronica() {
 
         var formData = new FormData();
         formData.append('accion', 'verificar_empresa_facturacion_electronica');
@@ -974,17 +979,17 @@
         var response = SolicitudAjax("ajax/empresas.ajax.php", "POST", formData);
         console.log("🚀 ~ file: venta_boleta.php:971 ~ fnc_VerificarEmpresaFacturacionElectronica ~ response:", response)
 
-        if(response.genera_fact_electronica == "1"){
-            $("#rb-venta-envio").prop("disabled",false);
-            $("#rb-venta").prop("disabled",false);
-        }else{
-            $("#rb-venta-envio").prop("disabled",true);
-            $("#rb-venta").prop("disabled",true);
+        if (response.genera_fact_electronica == "1") {
+            $("#rb-venta-envio").prop("disabled", false);
+            $("#rb-venta").prop("disabled", false);
+        } else {
+            $("#rb-venta-envio").prop("disabled", true);
+            $("#rb-venta").prop("disabled", true);
 
             $("#rb-venta-envio").prop("checked", false);
             $("#rb-venta").prop("checked", true);
         }
-        
+
     }
 
     /*===================================================================*/
@@ -1956,6 +1961,28 @@
         } else {
             $("#id_caja").val(response["id"]);
         }
+    }
+
+    function fnc_VerificarEmpresasRegistradas() {
+
+        var datos = new FormData();
+        datos.append('accion', 'verificar_empresas_registradas');
+
+        response = SolicitudAjax('ajax/empresas.ajax.php', 'POST', datos)
+
+        //CUANDO LA CAJA ESTA CERRADA
+        if (response['cantidad'] == '0' ) {
+            Swal.fire({
+                position: 'top-center',
+                icon: 'warning',
+                title: 'Debe registrar la Empresa del Negocio',
+                showConfirmButton: true
+            })
+            $(".nav-link").removeClass('active');
+            $(this).addClass('active');
+            CargarContenido('vistas/administrar_empresas.php', 'content-wrapper');
+
+        } 
     }
 
     // function ajustarHeadersDataTables(element) {
