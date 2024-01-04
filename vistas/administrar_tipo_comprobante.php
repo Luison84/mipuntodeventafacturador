@@ -318,7 +318,7 @@
         $("#descripcion").val('')
         $("#estado").val('1');
 
-        $(".needs-validation-tipo-comprobante").removeClass("was-validated");
+        $(".needs-validation-comprobante").removeClass("was-validated");
 
         $("#listado-comprobantes-tab").addClass('active')
         $("#listado-comprobantes-tab").attr('aria-selected', true)
