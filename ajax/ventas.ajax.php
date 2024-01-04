@@ -979,9 +979,6 @@ if (isset($_GET["accion"])) {
 
             $venta = VentasModelo::mdlObtenerVentaPorId($_GET["id_venta"]);
 
-            var_dump($venta);
-            return;
-
             if ($venta["forma_pago"] == "Credito") {
                 $cuotas = VentasModelo::mdlObtenerCuotas($_GET["id_venta"]);
             }
