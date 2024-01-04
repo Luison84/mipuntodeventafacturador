@@ -152,7 +152,8 @@ class EmpresasModelo
 
         try {
 
-            $stmt = $dbh->prepare("INSERT INTO empresas(razon_social, 
+            $stmt = $dbh->prepare("INSERT INTO empresas(genera_fact_electronica,
+                                                        razon_social, 
                                                         nombre_comercial, 
                                                         id_tipo_documento, 
                                                         ruc, 
@@ -171,7 +172,8 @@ class EmpresasModelo
                                                         fact_bol_defecto,
                                                         logo,
                                                         estado)
-                                    VALUES(:razon_social, 
+                                    VALUES(:genera_fact_electronica,
+                                            :razon_social, 
                                             UPPER(:nombre_comercial), 
                                             :id_tipo_documento, 
                                             :ruc, 
@@ -192,6 +194,7 @@ class EmpresasModelo
                                             :estado)");
             $dbh->beginTransaction();
             $stmt->execute(array(
+                ':genera_fact_electronica' => $empresa['rb_genera_facturacion'],
                 ':razon_social' => $empresa['razon_social'],
                 ':nombre_comercial' => $empresa['nombre_comercial'],
                 ':id_tipo_documento' => $empresa['tipo_documento'],
