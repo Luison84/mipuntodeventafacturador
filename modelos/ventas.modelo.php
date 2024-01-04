@@ -1068,6 +1068,7 @@ class VentasModelo
     {
 
         $stmt = Conexion::conectar()->prepare("SELECT e.id_empresa,
+                                                    e.logo,
                                                     v.id_cliente,
                                                     e.razon_social as empresa,
                                                     e.ruc,
@@ -1109,7 +1110,6 @@ class VentasModelo
     {
 
         $stmt = Conexion::conectar()->prepare("SELECT e.id_empresa,
-                                                    e.logo,
                                                     v.id_cliente,
                                                     v.tipo_operacion,
                                                     s.id_tipo_comprobante as tipo_comprobante,
