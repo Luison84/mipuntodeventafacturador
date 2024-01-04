@@ -63,6 +63,9 @@ if (isset($_POST["accion"])) {
                 $imagen_logo["folder"] = '../vistas/assets/dist/img/logos_empresas/';
             }
 
+            var_dump($certificado);
+            return;
+
             $response = EmpresasModelo::mdlRegistrarEmpresa($formulario_empresa, $certificado, $imagen_logo);
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
 
