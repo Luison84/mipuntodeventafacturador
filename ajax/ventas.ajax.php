@@ -998,9 +998,6 @@ if (isset($_GET["accion"])) {
             //LOGO
             $pdf->Image('../vistas/assets/dist/img/logos_empresas/mi_logo_tutorialesphperu.png', 30, 18, 20, 20, 'PNG');
 
-            var_dump($venta);
-            return;
-
             $pdf->Ln(25);
 
             //EMPRESA
