@@ -631,12 +631,14 @@ MODAL CUOTAS DEL CREDITO
 
     $(document).ready(function() {
 
-        fnc_MostrarLoader()        
+        fnc_MostrarLoader()
 
         fnc_InicializarFormulario();
 
         /* VERIFICAR EL ESTADO DE LA CAJA */
         fnc_ObtenerEstadoCajaPorDia()
+
+        fnc_VerificarEmpresasRegistradas();
 
         $('#tipo_comprobante').on('change', function(e) {
             $("#correlativo").val('')
@@ -1009,10 +1011,10 @@ MODAL CUOTAS DEL CREDITO
 
         var formData = new FormData();
         formData.append("accion", "obtener_empresa_defecto");
-        var response = SolicitudAjax("ajax/empresas.ajax.php","POST", formData);
+        var response = SolicitudAjax("ajax/empresas.ajax.php", "POST", formData);
 
         // EMPRESA EMISORA
-        CargarSelect(response.id_empresa ?? "", $("#empresa_emisora"), "--Seleccionar--", "ajax/empresas.ajax.php", 'obtener_empresas_select');        
+        CargarSelect(response.id_empresa ?? "", $("#empresa_emisora"), "--Seleccionar--", "ajax/empresas.ajax.php", 'obtener_empresas_select');
         CargarSelect('01', $("#tipo_comprobante"), "--Seleccionar--", "ajax/series.ajax.php", 'obtener_tipo_comprobante');
         CargarSelect(null, $("#serie"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_serie_comprobante', $('#tipo_comprobante').val());
         CargarSelect('PEN', $("#moneda"), "--Seleccionar--", "ajax/ventas.ajax.php", 'obtener_moneda');
@@ -1911,6 +1913,28 @@ MODAL CUOTAS DEL CREDITO
 
         } else {
             $("#id_caja").val(response["id"]);
+        }
+    }
+
+    function fnc_VerificarEmpresasRegistradas() {
+
+        var datos = new FormData();
+        datos.append('accion', 'verificar_empresas_registradas');
+
+        response = SolicitudAjax('ajax/empresas.ajax.php', 'POST', datos)
+
+        //CUANDO LA CAJA ESTA CERRADA
+        if (response['cantidad'] == '0') {
+            Swal.fire({
+                position: 'top-center',
+                icon: 'warning',
+                title: 'Debe registrar la Empresa del Negocio',
+                showConfirmButton: true
+            })
+            $(".nav-link").removeClass('active');
+            $(this).addClass('active');
+            CargarContenido('vistas/administrar_empresas.php', 'content-wrapper');
+
         }
     }
 
