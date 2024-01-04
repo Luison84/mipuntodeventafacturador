@@ -983,14 +983,15 @@ if (isset($_GET["accion"])) {
                 $cuotas = VentasModelo::mdlObtenerCuotas($_GET["id_venta"]);
             }
 
-            var_dump($venta);
-            return;
+           
 
             $pdf = new FPDF($orientation = 'P', $unit = 'mm', array(80, 1000));
             $pdf->AddPage();
             $pdf->setMargins(5, 5, 5);
 
-
+            var_dump($venta);
+            return;
+            
             //NOMBRE DE LA EMPRESA
             $pdf->SetFont('Arial', 'B', 12);
             $pdf->Cell(60, 10, 'TUTORIALES PHPERU', 0, 0, 'C');
