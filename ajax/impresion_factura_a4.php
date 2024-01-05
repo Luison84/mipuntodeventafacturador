@@ -11744,10 +11744,7 @@
         <table class="table">
             <tbody>
                 <tr>
-                    <td rowspan="2" style="font-size: 30px;text-align: center; font-weight: bold;"><?php echo $compra->empresa; ?></td>
-                    <!-- <td style="border: 1px solid; text-align: center">
-                        Fecha: <?php echo $compra->fecha_compra; ?><br>
-                    </td> -->
+                    <td rowspan="2" style="font-size: 30px;text-align: center; font-weight: bold;"><?php echo $venta->empresa; ?></td>
                 </tr>                
             </tbody>
         </table>
