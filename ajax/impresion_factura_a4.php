@@ -11741,25 +11741,22 @@
 
     <div class="container-fluid">
 
-        <table class="table">
-            <tbody>
-                <tr>
-                    <td style="font-size: 20px;text-align: center; font-weight: bold;">Logo</td>
-                    <td style="text-align: center; font-weight: bold;">
-                        <span style="font-size: 20px;"> 
-                            <?php echo $venta["empresa"]; ?> 
-                        </span>  <br>
-                        <span style="font-size: 20px;"> 
-                            <?php echo $venta["direccion_empresa"]; ?>
-                        </span>  <br>
-                    </td>
-                    <td style="font-size: 15px;text-align: center; font-weight: bold;">Recuadro de la Factura ?></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-3">
+                <div class="w-100 h-100">
+                    <img src="vistas/assets/dist/img/logos_empresas/"<?php echo $venta["logo"] ?> alt="">
+                </div>                
+            </div>
+            <div class="col-6">
+                <span style="font-size: 20px;">
+                    <?php echo $venta["empresa"]; ?>
+                    <?php echo $venta["direccion_empresa"]; ?>
+                </span>
+            </div>
+            <div class="col-3">
 
-        <br>
-        <br>
+            </div>
+        </div>       
 
     </div>
 
