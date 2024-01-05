@@ -11744,7 +11744,7 @@
         <table class="table">
             <tbody>
                 <tr>
-                    <td rowspan="2" style="font-size: 30px;text-align: center; font-weight: bold;"><?php echo $venta->empresa; ?></td>
+                    <td rowspan="2" style="font-size: 30px;text-align: center; font-weight: bold;"><?php echo $venta["empresa"]; ?></td>
                 </tr>                
             </tbody>
         </table>
