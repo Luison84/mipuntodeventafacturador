@@ -11744,8 +11744,17 @@
         <table class="table">
             <tbody>
                 <tr>
-                    <td rowspan="2" style="font-size: 20px;text-align: center; font-weight: bold;"><?php echo $venta["empresa"]; ?></td>
-                </tr>                
+                    <td style="font-size: 20px;text-align: center; font-weight: bold;">Logo</td>
+                    <td style="text-align: center; font-weight: bold;">
+                        <span style="font-size: 20px;"> 
+                            <?php echo $venta["empresa"]; ?> 
+                        </span>  <br>
+                        <span style="font-size: 20px;"> 
+                            <?php echo $venta["direccion_empresa"]; ?>
+                        </span>  <br>
+                    </td>
+                    <td style="font-size: 15px;text-align: center; font-weight: bold;">Recuadro de la Factura ?></td>
+                </tr>
             </tbody>
         </table>
 
