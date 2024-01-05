@@ -11744,12 +11744,14 @@
         <div class="row">
             <div class="col-3">
                 <div class="w-100 h-100">
-                    <img src="vistas/assets/dist/img/logos_empresas/"<?php echo $venta["logo"] ?> alt="">
+                    <img src="../vistas/assets/dist/img/logos_empresas/"<?php echo $venta["logo"] ?> alt="">
                 </div>                
             </div>
             <div class="col-6">
                 <span style="font-size: 20px;">
-                    <?php echo $venta["empresa"]; ?>
+                    <?php echo $venta["empresa"]; ?>                    
+                </span>
+                <span style="font-size: 13px;">
                     <?php echo $venta["direccion_empresa"]; ?>
                 </span>
             </div>
