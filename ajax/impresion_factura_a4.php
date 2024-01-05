@@ -11744,7 +11744,7 @@
         <div class="row">
             <div class="col-3">
                 <div class="w-100 h-100">
-                    <img src="../vistas/assets/dist/img/logos_empresas/<?php echo $venta["logo"] ?> "alt="" style="width: 100px;height: 100px;">
+                    <img src="https://tutorialesphperu.com/pos/vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png" alt="" style="width: 100px;height: 100px;">
                 </div>                
             </div>
             <div class="col-6">
