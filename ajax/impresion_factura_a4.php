@@ -1,8 +1,4 @@
-<?php
 
-require("https://tutorialesphperu.com/pos/phpqrcode/qrlib.php");
-
-?>
 
 <html lang="en">
 
