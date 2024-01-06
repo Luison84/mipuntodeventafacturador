@@ -11752,13 +11752,13 @@
                 <td style="width: 20%;">
                     <img src="<?php echo $imagenBase64 ?>" width="140" alt="">
                 </td>
-                <td style="text-align: center;width: 60%;">
+                <td style="text-align: center;width: 55%;">
                     <span style="font-size: 20px;"><?php echo $venta["empresa"] ?></span> <br>
                     <span style="font-size: 14px;"><?php echo $venta["direccion_empresa"] ?></span> <br>
                     <span style="font-size: 14px;"><?php echo $venta["ubigeo"] ?></span> <br>
                     <span style="font-size: 14px;"><?php echo $venta["email"] . "  " . $venta["telefono"] ?></span> <br>
                 </td>
-                <td style="text-align: center;width: 20%;">
+                <td style="text-align: center;width: 25%;">
                     <table style="width: 100%;">
                         <tr>
                             <td style="border-color: #000;text-align: center;border-width: 5px;border-color: black;border-style: double;padding: 5px 15px;">
