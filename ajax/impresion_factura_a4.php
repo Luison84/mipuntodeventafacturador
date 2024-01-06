@@ -11750,7 +11750,7 @@
         <body>
             <tr>
                 <td><img src="<?php echo $imagenBase64 ?>" width="130" alt=""></td>
-                <td colspan="3" style="text-align: center;">
+                <td colspan="4" style="text-align: center;">
                     <span style="font-size: 25px;"><?php echo $venta["empresa"] ?></span> <br>
                     <span><?php echo $venta["direccion_empresa"] ?></span> <br>
                     <span><?php echo $venta["ubigeo"] ?></span> <br>
