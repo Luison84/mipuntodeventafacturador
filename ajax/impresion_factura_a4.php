@@ -1,5 +1,3 @@
-
-
 <html lang="en">
 
 <head>
@@ -11847,14 +11845,59 @@
     <br><br>
 
     <?php
-    
-    $imagenQRBase64 = "data:image/png;base64," . base64_encode(file_get_contents($ruta_qr));  
+
+    $imagenQRBase64 = "data:image/png;base64," . base64_encode(file_get_contents($ruta_qr));
 
     ?>
 
-    <div>
-        <img src="<?php echo $imagenQRBase64 ?>" width="140" alt="">
-    </div>
+    <table>
+
+        <body>
+
+            <tr>
+                <td style="width: 30%;"><img src="<?php echo $imagenQRBase64 ?>" width="140" alt=""></td>
+                <td style="width: 70%;">
+                    <table>
+
+                        <body>
+                            <tr>
+                                <td>
+                                    <span>Operaciones Gravadas</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Operaciones Inafectas</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Operaciones Exoneradas</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Subtotal</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Total IGV</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Total</span>
+                                </td>
+                            </tr>
+                        </body>
+                    </table>
+                </td>
+            </tr>
+
+        </body>
+    </table>
+
 </body>
 
 </html>
