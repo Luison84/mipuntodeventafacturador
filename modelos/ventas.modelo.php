@@ -1115,7 +1115,7 @@ class VentasModelo
                                                     e.razon_social as empresa,
                                                     e.ruc,
                                                     e.direccion as direccion_empresa,
-                                                    e.telefono,
+                                                    e.telefono as telefono_empresa,
                                                     e.email,
                                                     concat(e.provincia  ,'-' ,e.departamento ,'-' ,e.distrito) as ubigeo,
                                                     s.id_tipo_comprobante,
