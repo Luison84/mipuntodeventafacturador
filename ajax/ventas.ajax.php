@@ -977,6 +977,8 @@ if (isset($_GET["accion"])) {
 
         case 'generar_factura_a4':
 
+            require "../phpqrcode/qrlib.php";
+
             $venta = VentasModelo::mdlObtenerVentaPorIdFormatoA4($_GET["id_venta"]);
             $detalle_venta = VentasModelo::mdlObtenerDetalleVentaPorId($_GET["id_venta"]);
 
@@ -986,7 +988,7 @@ if (isset($_GET["accion"])) {
             QRcode::png($text_qr, $ruta_qr, 'Q', 15, 0);
 
             ob_start();
-            require "../phpqrcode/qrlib.php";
+            
             require "impresion_factura_a4.php";
 
             $html = ob_get_clean();
