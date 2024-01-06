@@ -11756,7 +11756,7 @@
                     <span style="font-size: 14px;"><?php echo $venta["ubigeo"] ?></span> <br>
                     <span style="font-size: 14px;"><?php echo $venta["email"] . "  " . $venta["telefono"] ?></span> <br>
                 </td>
-                <td>
+                <td style="text-align: right;">
                     <table>
                         <tr>
                             <td style="border-color: #000;text-align: center;border-width: 5px;border-color: black;border-style: double;padding: 5px 15px;">
