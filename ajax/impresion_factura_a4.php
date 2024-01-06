@@ -11777,16 +11777,22 @@
     <!-- DATOS DEL CLIENTE -->
 
     <table style="width: 100%;margin-top: 20px;">
+
         <body>
             <tr style="border-width: 1px;border-color: black; ">
                 <td style="padding: 15px 15px;">
 
                     <table>
+                        <thead>
+                            <tr style="width:20%;font-size: 15px;border: 1px solid #34495e;text-align: center;background-color: #34495e; color: white;font-weight: bold;">
+                                <td>
+                                    <span>DATOS DEL CLIENTE</span>
+                                </td>
+                            </tr>
+                        </thead>
 
                         <body>
-                            <tr style="width:20%;font-size: 15px;border: 1px solid #34495e;text-align: center;background-color: #34495e; color: white;font-weight: bold;">
-                                <span>DATOS DEL CLIENTE</span>
-                            </tr>
+
                             <tr>
                                 <td style="width: 30%;">
                                     <span style="font-size: 13px;font-weight: bold;">CLIENTE:</span> <br>
@@ -11814,7 +11820,7 @@
 
     </table>
 
-    <br/>
+    <br />
 
     <!-- DETALLA DE LA VENTA -->
     <table class="table">
@@ -11828,17 +11834,17 @@
             </tr>
         </thead>
         <tbody>
-        <?php for ($i = 0; $i < 5; $i++) : ?>
-                    <tr>
-                        <td style="width:20%;font-size: 12px;border: 1px solid #34495e;text-align: center;">68464564564654</td>
-                        <td style="width:45%;font-size: 12px;border: 1px solid #34495e;text-align: center;">ACEITE COSTEÑO 1L</td>
-                        <td style="width:10%;font-size: 12px;border: 1px solid #34495e;text-align: center;">1</td>
-                        <td style="width:12%;font-size: 12px;border: 1px solid #34495e;text-align: center;">S/ 5.00</td>
-                        <td style="width:13%;font-size: 12px;border: 1px solid #34495e;text-align: center;">S/ 5.00</td>
-                    </tr>
+            <?php for ($i = 0; $i < 5; $i++) : ?>
+                <tr>
+                    <td style="width:20%;font-size: 12px;border: 1px solid #34495e;text-align: center;">68464564564654</td>
+                    <td style="width:45%;font-size: 12px;border: 1px solid #34495e;text-align: center;">ACEITE COSTEÑO 1L</td>
+                    <td style="width:10%;font-size: 12px;border: 1px solid #34495e;text-align: center;">1</td>
+                    <td style="width:12%;font-size: 12px;border: 1px solid #34495e;text-align: center;">S/ 5.00</td>
+                    <td style="width:13%;font-size: 12px;border: 1px solid #34495e;text-align: center;">S/ 5.00</td>
+                </tr>
 
-                <?php endfor; ?>
-           
+            <?php endfor; ?>
+
         </tbody>
     </table>
 
