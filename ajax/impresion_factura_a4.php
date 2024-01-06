@@ -11780,11 +11780,11 @@
 
         <body>
             <tr style="border-width: 1px;border-color: black; ">
-                <td style="padding: 15px 15px;">
+                <td>
 
                     <table>
                         <thead>
-                            <tr style="width:20%;font-size: 15px;border: 1px solid #34495e;text-align: center;background-color: #34495e; color: white;font-weight: bold;">
+                            <tr style="width:100%;font-size: 15px;border: 1px solid #34495e;text-align: center;background-color: #34495e; color: white;font-weight: bold;">
                                 <td>
                                     <span>DATOS DEL CLIENTE</span>
                                 </td>
