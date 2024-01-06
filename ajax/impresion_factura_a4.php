@@ -11748,9 +11748,20 @@
 
         <body>
             <tr>
-                <td><img src="<?php echo $imagenBase64 ?>" width="50" alt=""></td>
-                <td>Col2</td>
-                <td>Col3</td>
+                <td><img src="<?php echo $imagenBase64 ?>" width="80" alt=""></td>
+                <td>
+                    <?php echo $venta["empresa"] ?> <br>
+                    <?php echo $venta["direccion_empresa"] ?> <br>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                RUC: 20451245781
+                            </td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
         </body>
     </table>
