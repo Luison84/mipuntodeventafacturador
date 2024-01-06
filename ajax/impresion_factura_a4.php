@@ -11753,7 +11753,7 @@
                     <img src="<?php echo $imagenBase64 ?>" width="140" alt="">
                 </td>
                 <td style="text-align: center;width: 55%;">
-                    <span style="font-size: 20px;"><?php echo $venta["empresa"] ?></span> <br>
+                    <span style="font-size: 23px;font-style: italic;"><?php echo $venta["empresa"] ?></span> <br>
                     <span style="font-size: 14px;"><?php echo $venta["direccion_empresa"] ?></span> <br>
                     <span style="font-size: 14px;"><?php echo $venta["ubigeo"] ?></span> <br>
                     <span style="font-size: 14px;"><?php echo ("email: " . $venta["email"] . "  - Teléfono: " . $venta["telefono_empresa"]) ?></span> <br>
@@ -11787,10 +11787,10 @@
                         <body>
                             <tr>
                                 <td style="width: 30%;">
-                                    <span style="font-size: 13px;">CLIENTE:</span> <br>
-                                    <span style="font-size: 13px;">RUC:</span> <br>
-                                    <span style="font-size: 13px;">DIRECCIÓN:</span> <br>
-                                    <span style="font-size: 13px;">FECHA DE EMISIÓN:</span>
+                                    <span style="font-size: 13px;font-weight: bold;">CLIENTE:</span> <br>
+                                    <span style="font-size: 13px;font-weight: bold;">RUC:</span> <br>
+                                    <span style="font-size: 13px;font-weight: bold;">DIRECCIÓN:</span> <br>
+                                    <span style="font-size: 13px;font-weight: bold;">FECHA DE EMISIÓN:</span>
                                 </td>
                                 <td style="width: 30%;">
                                     <span style="font-size: 13px;">COMERCIAL FERRETERA PRISMA S.A.C.</span><br>
