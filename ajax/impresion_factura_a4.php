@@ -11850,7 +11850,7 @@
 
     ?>
 
-    <table style="width: 100%;">
+    <table style="width: 100%;border: 1px solid black;">
 
         <body>
 
