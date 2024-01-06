@@ -11743,9 +11743,9 @@
 
         <div class="row">
             <div class="col-3">
-                <div class="w-100 h-100">
-                    <img src="https://media.istockphoto.com/id/1446806057/es/foto/joven-estudiante-feliz-usando-computadora-port%C3%A1til-viendo-webinar-escribiendo-en-casa.jpg?s=1024x1024&w=is&k=20&c=1smoRAI4hyQ0C41WhQeea8AtcQvlXaTlgw6RdEG6i5A=" alt="" style="width: 100px;height: 100px;">
-                </div>                
+                <figure class="w-100 h-100">
+                    <img src="https://tutorialesphperu.com/pos/vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png" alt="" style="width: 100px;height: 100px;">
+                </figure>                
             </div>
             <div class="col-6">
                 <span style="font-size: 20px;">
