@@ -11776,10 +11776,10 @@
 
     <!-- DATOS DEL CLIENTE -->
 
-    <table style="width: 100%;border-color: black;margin-top: 20px;">
+    <table style="width: 100%;margin-top: 20px;">
 
         <body>
-            <tr>
+            <tr style=" border-width: 5px;border-color: black;">
                 <span style="font-size: 13px;">CLIENTE</span> <br>
                 <span style="font-size: 13px;">RUC</span> <br>
                 <span style="font-size: 13px;">DIRECCIÓN</span> <br>
