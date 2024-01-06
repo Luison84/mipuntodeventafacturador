@@ -11779,7 +11779,7 @@
     <table style="width: 100%;margin-top: 20px;">
 
         <thead>
-            <tr style="font-size: 15px;text-align: center;background-color: #34495e; color: white;font-weight: bold;">
+            <tr style="font-size: 15px;text-align: left;background-color: #34495e; color: white;font-weight: bold;">
                 <th >
                     <span>DATOS DEL CLIENTE</span>
                 </th>
