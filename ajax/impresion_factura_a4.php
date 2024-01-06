@@ -11870,7 +11870,7 @@
                             </tr>
                             <tr>
                                 <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
-                                    <span style="margin-right: 15px;">Operaciones Gravadas</span>
+                                    <span style="margin-right: 15px;">Operaciones Inafectas</span>
                                 </td>
                                 <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span style="margin-right: 15px;">S. 100</span>
@@ -11878,7 +11878,7 @@
                             </tr>
                             <tr>
                                 <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
-                                    <span style="margin-right: 15px;">Operaciones Gravadas</span>
+                                    <span style="margin-right: 15px;">Operaciones Exoneradas</span>
                                 </td>
                                 <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span style="margin-right: 15px;">S. 100</span>
@@ -11886,7 +11886,7 @@
                             </tr>
                             <tr>
                                 <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
-                                    <span style="margin-right: 15px;">Operaciones Gravadas</span>
+                                    <span style="margin-right: 15px;">Subtotal</span>
                                 </td>
                                 <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span style="margin-right: 15px;">S. 100</span>
@@ -11894,7 +11894,7 @@
                             </tr>
                             <tr>
                                 <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
-                                    <span style="margin-right: 15px;">Operaciones Gravadas</span>
+                                    <span style="margin-right: 15px;">Total IGV</span>
                                 </td>
                                 <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span style="margin-right: 15px;">S. 100</span>
@@ -11902,7 +11902,7 @@
                             </tr>
                             <tr>
                                 <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
-                                    <span style="margin-right: 15px;">Operaciones Gravadas</span>
+                                    <span style="margin-right: 15px;">Total Venta</span>
                                 </td>
                                 <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span style="margin-right: 15px;">S. 100</span>
