@@ -11777,7 +11777,6 @@
     <!-- DATOS DEL CLIENTE -->
 
     <table style="width: 100%;margin-top: 20px;">
-
         <body>
             <tr style="border-width: 1px;border-color: black; ">
                 <td style="padding: 15px 15px;">
@@ -11810,6 +11809,32 @@
             </tr>
         </body>
 
+    </table>
+
+    <!-- DETALLA DE LA VENTA -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:20%">CÓDIGO</th>
+                <th style="width:40%;">DESCRIPCIÓN</th>
+                <th style="width:13%">CANTIDAD</th>
+                <td>PRECIO UNIT.</td>
+                <td>IMPORTE</td>
+            </tr>
+        </thead>
+        <tbody>
+        <?php for ($i = 0; $i < 5; $i++) : ?>
+                    <tr>
+                        <td style="width:20%;font-size: 14px;border: 1px solid;text-align: center;">68464564564654</td>
+                        <td style="width:40%;font-size: 14px;border: 1px solid;text-align: center;">ACEITE COSTEÑO 1L</td>
+                        <td style="width:13%;font-size: 14px;border: 1px solid;text-align: center;">1</td>
+                        <td style="font-size: 14px;border: 1px solid;text-align: center;">S/ 5.00</td>
+                        <td style="font-size: 14px;border: 1px solid;text-align: center;">S/ 5.00</td>
+                    </tr>
+
+                <?php endfor; ?>
+           
+        </tbody>
     </table>
 
 </body>
