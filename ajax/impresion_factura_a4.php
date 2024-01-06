@@ -11748,8 +11748,8 @@
 
         <body>
             <tr>
-                <td><img src="<?php echo $imagenBase64 ?>" width="80" alt=""></td>
-                <td>
+                <td><img src="<?php echo $imagenBase64 ?>" width="100" alt=""></td>
+                <td rowspan="3">
                     <?php echo $venta["empresa"] ?> <br>
                     <?php echo $venta["direccion_empresa"] ?> <br>
                 </td>
