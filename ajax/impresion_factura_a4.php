@@ -11781,7 +11781,7 @@
         <thead>
             <tr style="font-size: 15px;text-align: left;background-color: #34495e; color: white;font-weight: bold;">
                 <th >
-                    <span>DATOS DEL CLIENTE</span>
+                    <span style="margin-left: 10px;">DATOS DEL CLIENTE</span>
                 </th>
             </tr>
         </thead>
@@ -11796,10 +11796,10 @@
 
                             <tr>
                                 <td style="width: 30%;">
-                                    <span style="font-size: 13px;font-weight: bold;">CLIENTE:</span> <br>
-                                    <span style="font-size: 13px;font-weight: bold;">RUC:</span> <br>
-                                    <span style="font-size: 13px;font-weight: bold;">DIRECCIÓN:</span> <br>
-                                    <span style="font-size: 13px;font-weight: bold;">FECHA DE EMISIÓN:</span>
+                                    <span style="margin-left: 10px;font-size: 13px;font-weight: bold;">CLIENTE:</span> <br>
+                                    <span style="margin-left: 10px;font-size: 13px;font-weight: bold;">RUC:</span> <br>
+                                    <span style="margin-left: 10px;font-size: 13px;font-weight: bold;">DIRECCIÓN:</span> <br>
+                                    <span style="margin-left: 10px;font-size: 13px;font-weight: bold;">FECHA DE EMISIÓN:</span>
                                 </td>
                                 <td style="width: 70%;">
                                     <span style="font-size: 13px;">COMERCIAL FERRETERA PRISMA S.A.C.</span><br>
