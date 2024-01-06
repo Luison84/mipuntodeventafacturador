@@ -11784,7 +11784,7 @@
 
                     <table>
                         <thead>
-                            <tr style="width:100%;font-size: 15px;text-align: center;background-color: #34495e; color: white;font-weight: bold;">
+                            <tr style="font-size: 15px;text-align: center;background-color: #34495e; color: white;font-weight: bold;">
                                 <th style="width:100%;">
                                     <span>DATOS DEL CLIENTE</span>
                                 </th>
