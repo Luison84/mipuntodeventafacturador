@@ -11744,7 +11744,7 @@
         <div class="row">
             <div class="col-3">
                 <figure class="w-100 h-100">
-                    <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path(vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png))) }}" class="app-image-style"/>
+                    <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path(../vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png))) }}" class="app-image-style"/>
 
                 </figure>                
             </div>
