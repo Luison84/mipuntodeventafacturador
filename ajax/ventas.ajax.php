@@ -975,7 +975,7 @@ if (isset($_GET["accion"])) {
 
         case 'generar_factura_a4':
 
-            $venta = VentasModelo::mdlObtenerVentaPorId($_GET["id_venta"]);
+            $venta = VentasModelo::mdlObtenerVentaPorIdFormatoA4($_GET["id_venta"]);
             $detalle_venta = VentasModelo::mdlObtenerDetalleVentaPorId($_GET["id_venta"]);
 
             ob_start();

@@ -11753,6 +11753,8 @@
                 <td colspan="3" style="text-align: center;">
                     <?php echo $venta["empresa"] ?> <br>
                     <?php echo $venta["direccion_empresa"] ?> <br>
+                    <?php echo $venta["ubigeo"] ?> <br>
+                    <?php echo $venta["email"] . "  " . $venta["telefono"] ?> <br>
                 </td>
                 <td>
                     <table>

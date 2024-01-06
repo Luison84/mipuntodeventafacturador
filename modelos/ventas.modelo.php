@@ -1106,6 +1106,49 @@ class VentasModelo
         return $stmt->fetch(PDO::FETCH_NAMED);
     }
 
+    static public function mdlObtenerVentaPorIdFormatoA4($id_venta)
+    {
+
+        $stmt = Conexion::conectar()->prepare("SELECT e.id_empresa,
+                                                    e.logo,
+                                                    v.id_cliente,
+                                                    e.razon_social as empresa,
+                                                    e.ruc,
+                                                    e.direccion as direccion_empresa,
+                                                    e.telefono,
+                                                    concat(e.provincia  ,'-' ,e.departamento ,'-' ,e.distrito) as ubigeo,
+                                                    s.id_tipo_comprobante,
+                                                    v.serie,
+                                                    v.correlativo,
+                                                    v.fecha_emision,
+                                                    v.hora_emision,
+                                                    u.usuario as cajero,
+                                                    u.nombre_usuario as nombre_cajero,
+                                                    u.apellido_usuario as apellido_cajero,
+                                                    format(v.total_operaciones_gravadas,2) as ope_gravada,
+                                                    format(v.total_operaciones_exoneradas,2) as ope_inafecta,
+                                                    format(v.total_operaciones_inafectas,2) as ope_exonerada,
+                                                    format(v.total_igv,2) as total_igv,
+                                                    format(v.importe_total,2) as importe_total,
+                                                    c.id_tipo_documento,
+                                                    c.nro_documento,
+                                                    c.nombres_apellidos_razon_social as nombres_apellidos_razon_social,
+                                                    c.direccion,
+                                                    c.telefono,
+                                                    v.hash_signature,
+                                                    m.simbolo,
+                                                    v.forma_pago
+                                            FROM venta v inner join empresas e on v.id_empresa_emisora = e.id_empresa
+                                                        inner join moneda m on m.id = v.id_moneda
+                                                        inner join serie s on s.id = v.id_serie
+                                                        inner join clientes c on c.id = v.id_cliente
+                                                        inner join usuarios u on u.id_usuario = v.id_usuario
+                                            WHERE v.id = :id_venta");
+        $stmt->bindParam(":id_venta", $id_venta, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_NAMED);
+    }
+
     static public function mdlObtenerVentaPorIdXml($id_venta)
     {
 
