@@ -11779,7 +11779,7 @@
     <table style="width: 100%;margin-top: 20px;">
 
         <body>
-            <tr style=" border-width: 1px;border-color: black; padding: 10px;">
+            <tr style=" border-width: 1px;border-color: black; padding-top: 10px;">
                 <span style="font-size: 13px;">CLIENTE</span> <br>
                 <span style="font-size: 13px;">RUC</span> <br>
                 <span style="font-size: 13px;">DIRECCIÓN</span> <br>
