@@ -11781,10 +11781,10 @@
         <body>
             <tr style="border-width: 1px;border-color: black; ">
                 <td style="padding: 15px 15px;">
-                    <span style="font-size: 13px;width: 150px;">CLIENTE:</span> <span>COMERCIAL FERRETERA PRISMA S.A.C.</span><br>
-                    <span style="font-size: 13px;width: 150px;">RUC:  <span>20525994741</span>            </span> <br>
-                    <span style="font-size: 13px;width: 150px;">DIRECCIÓN:  <span>AVENIDA ANGAMOS 154 - SURQUILLO</span>      </span> <br>
-                    <span style="font-size: 13px;width: 150px;">FECHA DE EMISIÓN: <span>2023-12-31</span> </span>
+                    <span style="font-size: 13px;width: 250px;">CLIENTE:</span> <span>COMERCIAL FERRETERA PRISMA S.A.C.</span><br>
+                    <span style="font-size: 13px;width: 250px;">RUC:</span> <span>20525994741</span><br>
+                    <span style="font-size: 13px;width: 250px;">DIRECCIÓN:</span> <span>AVENIDA ANGAMOS 154 - SURQUILLO</span><br>
+                    <span style="font-size: 13px;width: 250px;">FECHA DE EMISIÓN:</span> <span>2023-12-31</span>
                 </td>
             </tr>
         </body>
