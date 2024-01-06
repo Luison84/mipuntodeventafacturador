@@ -11745,7 +11745,7 @@
             <div class="col-3">
                 <?php echo $_SERVER["DOCUMENT_ROOT"].'/pos/vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png';?> 
                 <figure class="w-100 h-100">
-                    <img src="<?php echo $_SERVER["DOCUMENT_ROOT"].'/pos/vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png';?>"/>./vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png" alt="" style="width: 100px;height: 100px;">
+                    <img src="<?php echo $_SERVER["DOCUMENT_ROOT"].'/pos/vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png';?>" />
                 </figure>                
             </div>
             <div class="col-6">
