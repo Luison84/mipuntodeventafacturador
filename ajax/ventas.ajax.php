@@ -979,7 +979,7 @@ if (isset($_GET["accion"])) {
             $detalle_venta = VentasModelo::mdlObtenerDetalleVentaPorId($_GET["id_venta"]);
 
             ob_start();
-            require "https://tutorialesphperu.com/pos/phpqrcode/qrlib.php";
+            require "../phpqrcode/qrlib.php";
             require "impresion_factura_a4.php";            
 
             $html = ob_get_clean();
