@@ -11858,7 +11858,7 @@
 
     QRcode::png($text_qr, $ruta_qr, 'Q', 15, 0);
 
-    $nombreQR = "https://tutorialesphperu.com/pos/fe/qr/prueba_qr";
+    $nombreQR = "https://tutorialesphperu.com/pos/fe/qr/prueba_qr.png";
     $imagenQRBase64 = "data:image/png;base64," . base64_encode(file_get_contents($nombreQR));
 
     // $pdf->Image($ruta_qr, 28, $pdf->GetY() - 20, 25, 25);        
