@@ -11740,7 +11740,7 @@
 <body>
 
     <?php
-    $nombreImagen = "https://tutorialesphperu.com/pos/vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png";
+    $nombreImagen = "https://tutorialesphperu.com/pos/vistas/assets/dist/img/logos_empresas/" . $venta["logo"];
     $imagenBase64 = "data:image/png;base64," . base64_encode(file_get_contents($nombreImagen));
     ?>
 
