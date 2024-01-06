@@ -11861,8 +11861,16 @@
 
                         <body>
                             <tr>
-                                <td style="width: 70%;">
+                                <td style="width: 70%;text-align: right;">
                                     <span>Operaciones Gravadas</span>
+                                </td>
+                                <td style="width: 30%;;text-align: right;">
+                                    <span>S. 100</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Operaciones Inafectas</span>
                                 </td>
                                 <td style="width: 30%;">
                                     <span>S. 100</span>
@@ -11870,31 +11878,33 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <span>Operaciones Inafectas</span>
-                                    <span>S. 100</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
                                     <span>Operaciones Exoneradas</span>
+                                </td>
+                                <td style="width: 30%;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span>Subtotal</span>
+                                </td>
+                                <td style="width: 30%;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span>Total IGV</span>
+                                </td>
+                                <td style="width: 30%;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span>Total</span>
+                                </td>
+                                <td style="width: 30%;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
