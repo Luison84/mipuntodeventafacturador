@@ -1,18 +1,11 @@
-<?php
 
-// echo $_SESSION["compra"]->ruc;
-// $datos_emisor
-
-?>
 
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>    
-
-    <link rel="stylesheet" href='<?php echo $_SERVER["DOCUMENT_ROOT"]. "/pos/vistas/assets/dist/css/bootstrap.min.css" ?>' />
+    <title>Document</title>
 
 </head>
 
@@ -40,7 +33,7 @@
             <div class="col-3">
                 <div class="border border-dark w-100">
                     <span>RUC: 20457845121</span> <br>
-                    <span>FACTURA ELECTRÓNICA</span>
+                    spans
 
                 </div>
             </div>
