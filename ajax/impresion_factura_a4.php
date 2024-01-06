@@ -11748,7 +11748,7 @@
     <table style="width: 100%;">
 
         <body>
-            <tr>
+            <tr style="border-color: #000;">
                 <td style="width: 20%;">
                     <img src="<?php echo $imagenBase64 ?>" width="140" alt="">
                 </td>
