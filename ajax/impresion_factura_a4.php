@@ -11817,11 +11817,11 @@
     <table class="table">
         <thead>
             <tr>
-                <th style="width:20%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;font-weight: bold;">CÓDIGO</th>
-                <th style="width:45%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;font-weight: bold;">DESCRIPCIÓN</th>
-                <th style="width:10%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;font-weight: bold;">CANT.</th>
-                <td style="width:12%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;font-weight: bold;">P. UNIT.</td>
-                <td style="width:13%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;font-weight: bold;">IMPORTE</td>
+                <th style="width:20%;font-size: 14px;border: 1px solid #34495e;text-align: center;background-color: #34495e; color: white;font-weight: bold;">CÓDIGO</th>
+                <th style="width:45%;font-size: 14px;border: 1px solid #34495e;text-align: center;background-color: #34495e; color: white;font-weight: bold;">DESCRIPCIÓN</th>
+                <th style="width:10%;font-size: 14px;border: 1px solid #34495e;text-align: center;background-color: #34495e; color: white;font-weight: bold;">CANT.</th>
+                <td style="width:12%;font-size: 14px;border: 1px solid #34495e;text-align: center;background-color: #34495e; color: white;font-weight: bold;">P. UNIT.</td>
+                <td style="width:13%;font-size: 14px;border: 1px solid #34495e;text-align: center;background-color: #34495e; color: white;font-weight: bold;">IMPORTE</td>
             </tr>
         </thead>
         <tbody>
