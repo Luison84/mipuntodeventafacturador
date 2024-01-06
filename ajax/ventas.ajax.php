@@ -981,7 +981,8 @@ if (isset($_GET["accion"])) {
             ob_start();
 
             require "impresion_factura_a4.php";
-
+            require("../phpqrcode/qrlib.php");
+            
             $html = ob_get_clean();
 
             $dompdf = new Dompdf();

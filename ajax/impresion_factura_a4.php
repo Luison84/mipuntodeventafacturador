@@ -11779,8 +11779,8 @@
     <table style="width: 100%;margin-top: 20px;">
 
         <thead>
-            <tr style="font-size: 15px;text-align: left;background-color: #34495e; color: white;font-weight: bold;">
-                <th >
+            <tr style="font-size: 14px;text-align: left;background-color: #34495e; color: white;font-weight: bold;">
+                <th>
                     <span style="margin-left: 10px;">DATOS DEL CLIENTE</span>
                 </th>
             </tr>
@@ -11849,6 +11849,25 @@
         </tbody>
     </table>
 
+    <br><br>
+
+    <?php
+
+    $text_qr = $venta["ruc"] . " | " . $venta["id_tipo_comprobante"] . " | " . $venta["serie"] . " | " . $venta["correlativo"] . " | " . $venta["total_igv"] . " | " . $venta["importe_total"] . " | " . $venta["fecha_emision"] . " | " . $venta["id_tipo_documento"] . " | " . $venta["nro_documento"];
+    $ruta_qr = "../fe/qr/" . "prueba_qr" . '.png';
+
+    QRcode::png($text_qr, $ruta_qr, 'Q', 15, 0);
+
+    $nombreQR = "https://tutorialesphperu.com/pos/fe/qr/prueba_qr";
+    $imagenQRBase64 = "data:image/png;base64," . base64_encode(file_get_contents($nombreQR));
+
+    // $pdf->Image($ruta_qr, 28, $pdf->GetY() - 20, 25, 25);        
+
+    ?>
+
+    <div>
+        <img src="<?php echo $nombreQR ?>" alt="">
+    </div>
 </body>
 
 </html>
