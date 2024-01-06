@@ -11811,6 +11811,8 @@
 
     </table>
 
+    <br/><br/>
+
     <!-- DETALLA DE LA VENTA -->
     <table class="table">
         <thead>
