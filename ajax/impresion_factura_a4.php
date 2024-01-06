@@ -11861,51 +11861,51 @@
 
                         <body>
                             <tr>
-                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px; margin-right: 15px;">
-                                    <span>Operaciones Gravadas</span>
+                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
+                                    <span style="margin-right: 15px;">Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px; margin-right: 15px;">
-                                    <span>S. 100</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px; margin-right: 15px;">
-                                    <span>Operaciones Gravadas</span>
-                                </td>
-                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px; margin-right: 15px;">
-                                    <span>S. 100</span>
+                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
+                                    <span style="margin-right: 15px;">S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px; margin-right: 15px;">
-                                    <span>Operaciones Gravadas</span>
+                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
+                                    <span style="margin-right: 15px;">Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px; margin-right: 15px;">
-                                    <span>S. 100</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px; margin-right: 15px;">
-                                    <span>Operaciones Gravadas</span>
-                                </td>
-                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px; margin-right: 15px;">
-                                    <span>S. 100</span>
+                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
+                                    <span style="margin-right: 15px;">S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px; margin-right: 15px;">
-                                    <span>Operaciones Gravadas</span>
+                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
+                                    <span style="margin-right: 15px;">Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px; margin-right: 15px;">
-                                    <span>S. 100</span>
+                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
+                                    <span style="margin-right: 15px;">S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px; margin-right: 15px;">
-                                    <span>Operaciones Gravadas</span>
+                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
+                                    <span style="margin-right: 15px;">Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px; margin-right: 15px;">
-                                    <span>S. 100</span>
+                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
+                                    <span style="margin-right: 15px;">S. 100</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
+                                    <span style="margin-right: 15px;">Operaciones Gravadas</span>
+                                </td>
+                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
+                                    <span style="margin-right: 15px;">S. 100</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
+                                    <span style="margin-right: 15px;">Operaciones Gravadas</span>
+                                </td>
+                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
+                                    <span style="margin-right: 15px;">S. 100</span>
                                 </td>
                             </tr>
                         </body>
