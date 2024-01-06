@@ -1,7 +1,6 @@
 <?php
 
-// echo $_SESSION["compra"]->ruc;
-// $datos_emisor
+require("https://tutorialesphperu.com/pos/phpqrcode/qrlib.php");
 
 ?>
 

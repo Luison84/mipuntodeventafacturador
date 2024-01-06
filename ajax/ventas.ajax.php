@@ -980,8 +980,7 @@ if (isset($_GET["accion"])) {
 
             ob_start();
 
-            require "impresion_factura_a4.php";
-            require("https://tutorialesphperu.com/pos/phpqrcode/qrlib.php");
+            require "impresion_factura_a4.php";            
 
             $html = ob_get_clean();
 
