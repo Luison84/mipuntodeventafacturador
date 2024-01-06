@@ -11780,10 +11780,10 @@
 
         <body>
             <tr style="border-width: 1px;border-color: black; ">
-                <span style="font-size: 13px;padding: 15px;">CLIENTE</span> <br>
-                <span style="font-size: 13px;padding: 15px;">RUC</span> <br>
-                <span style="font-size: 13px;padding: 15px;">DIRECCIÓN</span> <br>
-                <span style="font-size: 13px;padding: 15px;">FECHA DE EMISIÓN</span>
+                <span style="font-size: 13px;padding: 15px 15px;">CLIENTE</span> <br>
+                <span style="font-size: 13px;padding: 15px 15px;">RUC</span> <br>
+                <span style="font-size: 13px;padding: 15px 15px;">DIRECCIÓN</span> <br>
+                <span style="font-size: 13px;padding: 15px 15px;">FECHA DE EMISIÓN</span>
             </tr>
 
         </body>
