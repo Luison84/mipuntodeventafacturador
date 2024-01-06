@@ -11749,9 +11749,9 @@
 
         <body>
             <tr>
-                <td><img src="<?php echo $imagenBase64 ?>" width="100" alt=""></td>
+                <td><img src="<?php echo $imagenBase64 ?>" width="150" alt=""></td>
                 <td colspan="3" style="text-align: center;">
-                    <span style="font-size: 20px;"><?php echo $venta["empresa"] ?></span> <br>
+                    <span style="font-size: 30px;"><?php echo $venta["empresa"] ?></span> <br>
                     <span><?php echo $venta["direccion_empresa"] ?></span> <br>
                     <span><?php echo $venta["ubigeo"] ?></span> <br>
                     <span><?php echo $venta["email"] . "  " . $venta["telefono"] ?></span> <br>
