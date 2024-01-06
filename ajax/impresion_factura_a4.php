@@ -11749,15 +11749,17 @@
 
         <body>
             <tr>
-                <td><img src="<?php echo $imagenBase64 ?>" width="130" alt=""></td>
-                <td colspan="5" style="text-align: center;">
+                <td style="width: 20%;">
+                    <img src="<?php echo $imagenBase64 ?>" width="120" alt="">
+                </td>
+                <td style="text-align: center;width: 60%;">
                     <span style="font-size: 20px;"><?php echo $venta["empresa"] ?></span> <br>
                     <span style="font-size: 14px;"><?php echo $venta["direccion_empresa"] ?></span> <br>
                     <span style="font-size: 14px;"><?php echo $venta["ubigeo"] ?></span> <br>
                     <span style="font-size: 14px;"><?php echo $venta["email"] . "  " . $venta["telefono"] ?></span> <br>
                 </td>
-                <td style="text-align: right;">
-                    <table>
+                <td style="text-align: center;width: 20%;">
+                    <table style="width: 100%;">
                         <tr>
                             <td style="border-color: #000;text-align: center;border-width: 5px;border-color: black;border-style: double;padding: 5px 15px;">
                                 <span >RUC: 20451245781</span> <br>
