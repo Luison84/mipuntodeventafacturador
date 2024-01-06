@@ -11818,7 +11818,7 @@
                 <th style="width:20%;font-size: 14px;border: 1px solid;text-align: center;">CÓDIGO</th>
                 <th style="width:40%;font-size: 14px;border: 1px solid;text-align: center;">DESCRIPCIÓN</th>
                 <th style="width:13%;font-size: 14px;border: 1px solid;text-align: center;">CANTIDAD</th>
-                <td style="font-size: 14px;border: 1px solid;text-align: center;">PRECIO UNIT.</td>
+                <td style="font-size: 14px;border: 1px solid;text-align: center;">P. UNIT.</td>
                 <td style="font-size: 14px;border: 1px solid;text-align: center;">IMPORTE</td>
             </tr>
         </thead>
