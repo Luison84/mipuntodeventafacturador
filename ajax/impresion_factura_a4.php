@@ -11742,10 +11742,9 @@
     <div class="container-fluid">
 
         <?php
-        $nombreImagen = $_SERVER["DOCUMENT_ROOT"]. "/pos/vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png";
-        $imagenBase64 = "data:image/png;base64," . base64_encode(file_get_contents($nombreImagen));
+            $nombreImagen = $_SERVER["DOCUMENT_ROOT"]. "/pos/vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png";
+            $imagenBase64 = "data:image/png;base64," . base64_encode(file_get_contents($nombreImagen));
         ?>
-
 
         <div class="row">
             <div class="col-3">                
@@ -11760,7 +11759,11 @@
                 </span>
             </div>
             <div class="col-3">
+                <div class="border border-dark w-100">
+                    <span>RUC: 20457845121</span> <br>
+                    <span>FACTURA ELECTRÓNICA</span>
 
+                </div>
             </div>
         </div>
 
