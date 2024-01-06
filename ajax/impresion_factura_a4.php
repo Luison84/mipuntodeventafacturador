@@ -11759,8 +11759,11 @@
                 <td>
                     <table>
                         <tr>
-                            <td>
-                                RUC: 20451245781
+                            <td style="border-color: #000;">
+                                <span>RUC: 20451245781</span>
+                                <span>FACTURA</span>    
+                                <span>ELECTRÓNICA</span>
+                                <span>F001-156</span>
                             </td>
                         </tr>
                     </table>
