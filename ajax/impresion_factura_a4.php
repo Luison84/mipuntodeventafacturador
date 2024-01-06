@@ -11759,11 +11759,11 @@
                 <td>
                     <table>
                         <tr>
-                            <td style="border-color: #000;">
-                                <span style="text-align: center;">RUC: 20451245781</span> <br>
-                                <span style="text-align: center;">FACTURA</span> <br>
-                                <span style="text-align: center;">ELECTRÓNICA</span> <br>
-                                <span style="text-align: center;">F001-156</span>
+                            <td style="border-color: #000;text-align: center;">
+                                <span >RUC: 20451245781</span> <br>
+                                <span >FACTURA</span> <br>
+                                <span >ELECTRÓNICA</span> <br>
+                                <span >F001-156</span>
                             </td>
                         </tr>
                     </table>
