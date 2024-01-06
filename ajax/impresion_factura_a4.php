@@ -11778,18 +11778,19 @@
 
     <table style="width: 100%;margin-top: 20px;">
 
+        <thead>
+            <tr style="font-size: 15px;text-align: center;background-color: #34495e; color: white;font-weight: bold;">
+                <th >
+                    <span>DATOS DEL CLIENTE</span>
+                </th>
+            </tr>
+        </thead>
+
+
         <body>
             <tr style="border-width: 1px;border-color: black; ">
                 <td>
-
                     <table>
-                        <thead>
-                            <tr style="font-size: 15px;text-align: center;background-color: #34495e; color: white;font-weight: bold;">
-                                <th colspan="7">
-                                    <span>DATOS DEL CLIENTE</span>
-                                </th>
-                            </tr>
-                        </thead>
 
                         <body>
 
