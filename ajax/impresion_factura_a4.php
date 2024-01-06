@@ -11781,10 +11781,31 @@
         <body>
             <tr style="border-width: 1px;border-color: black; ">
                 <td style="padding: 15px 15px;">
-                    <span style="font-size: 13px;width: 250px;">CLIENTE:</span> <span>COMERCIAL FERRETERA PRISMA S.A.C.</span><br>
-                    <span style="font-size: 13px;width: 250px;">RUC:</span> <span>20525994741</span><br>
-                    <span style="font-size: 13px;width: 250px;">DIRECCIÓN:</span> <span>AVENIDA ANGAMOS 154 - SURQUILLO</span><br>
-                    <span style="font-size: 13px;width: 250px;">FECHA DE EMISIÓN:</span> <span>2023-12-31</span>
+
+                    <table>
+
+                        <body>
+                            <tr>
+                                <td style="width: 30%;">
+                                    <span style="font-size: 13px;">CLIENTE:</span> <br>
+                                    <span style="font-size: 13px;">RUC:</span> <br>
+                                    <span style="font-size: 13px;">DIRECCIÓN:</span> <br>
+                                    <span style="font-size: 13px;">FECHA DE EMISIÓN:</span>
+                                </td>
+                                <td style="width: 30%;">
+                                    <span style="font-size: 13px;">COMERCIAL FERRETERA PRISMA S.A.C.</span><br>
+                                    <span style="font-size: 13px;">20525994741</span><br>
+                                    <span style="font-size: 13px;">AVENIDA ANGAMOS 154 - SURQUILLO</span><br>
+                                    <span style="font-size: 13px;">2023-12-31</span>
+                                </td>
+                            </tr>
+
+                        </body>
+                    </table>
+                    <!-- <span>COMERCIAL FERRETERA PRISMA S.A.C.</span><br>
+                     <span>20525994741</span><br>
+                     <span>AVENIDA ANGAMOS 154 - SURQUILLO</span><br>
+                     <span>2023-12-31</span> -->
                 </td>
             </tr>
         </body>
