@@ -983,7 +983,7 @@ if (isset($_GET["accion"])) {
             $detalle_venta = VentasModelo::mdlObtenerDetalleVentaPorId($_GET["id_venta"]);
 
             $text_qr = $venta["ruc"] . " | " . $venta["id_tipo_comprobante"] . " | " . $venta["serie"] . " | " . $venta["correlativo"] . " | " . $venta["total_igv"] . " | " . $venta["importe_total"] . " | " . $venta["fecha_emision"] . " | " . $venta["id_tipo_documento"] . " | " . $venta["nro_documento"];
-            $ruta_qr = "../fe/qr/" . "prueba_qr_2" . '.png';
+            $ruta_qr = "../fe/qr/" . $venta["ruc"] . $venta["id_tipo_comprobante"] . $venta["serie"]  .  $venta["correlativo"] .'.png';
 
             QRcode::png($text_qr, $ruta_qr, 'Q', 15, 0);
 
