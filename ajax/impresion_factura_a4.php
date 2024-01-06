@@ -11750,7 +11750,7 @@
         <body>
             <tr>
                 <td style="width: 20%;">
-                    <img src="<?php echo $imagenBase64 ?>" style="width: 100%;height: 100%;" alt="">
+                    <img src="<?php echo $imagenBase64 ?>" width="140" alt="">
                 </td>
                 <td style="text-align: center;width: 60%;">
                     <span style="font-size: 20px;"><?php echo $venta["empresa"] ?></span> <br>
