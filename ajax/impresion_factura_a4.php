@@ -11751,10 +11751,10 @@
             <tr>
                 <td><img src="<?php echo $imagenBase64 ?>" width="100" alt=""></td>
                 <td colspan="3" style="text-align: center;">
-                    <?php echo $venta["empresa"] ?> <br>
-                    <?php echo $venta["direccion_empresa"] ?> <br>
-                    <?php echo $venta["ubigeo"] ?> <br>
-                    <?php echo $venta["email"] . "  " . $venta["telefono"] ?> <br>
+                    <span style="font-size: 20px;"><?php echo $venta["empresa"] ?></span> <br>
+                    <span><?php echo $venta["direccion_empresa"] ?></span> <br>
+                    <span><?php echo $venta["ubigeo"] ?></span> <br>
+                    <span><?php echo $venta["email"] . "  " . $venta["telefono"] ?></span> <br>
                 </td>
                 <td>
                     <table>
