@@ -11739,7 +11739,7 @@
 
 <body>
 
-    <div class="container">
+    <div class="container-fluid">
 
         <?php
         $nombreImagen = $_SERVER["DOCUMENT_ROOT"]. "/pos/vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png";
