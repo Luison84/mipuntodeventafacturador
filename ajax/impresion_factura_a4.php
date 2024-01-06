@@ -11739,11 +11739,21 @@
 
 <body>
 
-    <div class="row">
-        <div class="col-4">col1</div>
-        <div class="col-4">col2</div>
-        <div class="col-4">col3</div>
-    </div>
+    <?php
+    $nombreImagen = "https://tutorialesphperu.com/pos/vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png";
+    $imagenBase64 = "data:image/png;base64," . base64_encode(file_get_contents($nombreImagen));
+    ?>
+
+    <table>
+
+        <body>
+            <tr>
+                <td><img src="<?php echo $imagenBase64 ?>" width="50" alt=""></td>
+                <td>Col2</td>
+                <td>Col3</td>
+            </tr>
+        </body>
+    </table>
 
 </body>
 
