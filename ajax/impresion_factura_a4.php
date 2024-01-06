@@ -11861,33 +11861,41 @@
 
                         <body>
                             <tr>
-                                <td>
+                                <td style="width: 70%;">
                                     <span>Operaciones Gravadas</span>
+                                </td>
+                                <td style="width: 30%;">
+                                    <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span>Operaciones Inafectas</span>
+                                    <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span>Operaciones Exoneradas</span>
+                                    <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span>Subtotal</span>
+                                    <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span>Total IGV</span>
+                                    <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <span>Total</span>
+                                    <span>S. 100</span>
                                 </td>
                             </tr>
                         </body>
