@@ -11850,61 +11850,61 @@
 
     ?>
 
-    <table style="width: 100%;border: 1px solid black;">
+    <table style="width: 100%;">
 
         <body>
 
             <tr>
                 <td style="width: 30%;"><img src="<?php echo $imagenQRBase64 ?>" width="140" alt=""></td>
                 <td style="width: 70%;">
-                    <table  style="width: 100%;border: 1px solid black;">
+                    <table  style="width: 100%;">
 
                         <body>
                             <tr>
-                                <td style="width: 70%;text-align: right;">
+                                <td style="width: 70%;text-align: right; border: 1px solid black;">
                                     <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right;">
+                                <td style="width: 30%;;text-align: right; border: 1px solid black;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: right;">
+                                <td style="width: 70%;text-align: right; border: 1px solid black;">
                                     <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right;">
+                                <td style="width: 30%;;text-align: right; border: 1px solid black;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: right;">
+                                <td style="width: 70%;text-align: right; border: 1px solid black;">
                                     <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right;">
+                                <td style="width: 30%;;text-align: right; border: 1px solid black;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: right;">
+                                <td style="width: 70%;text-align: right; border: 1px solid black;">
                                     <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right;">
+                                <td style="width: 30%;;text-align: right; border: 1px solid black;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: right;">
+                                <td style="width: 70%;text-align: right; border: 1px solid black;">
                                     <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right;">
+                                <td style="width: 30%;;text-align: right; border: 1px solid black;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: right;">
+                                <td style="width: 70%;text-align: right; border: 1px solid black;">
                                     <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right;">
+                                <td style="width: 30%;;text-align: right; border: 1px solid black;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
