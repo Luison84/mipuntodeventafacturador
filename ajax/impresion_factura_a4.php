@@ -11780,10 +11780,10 @@
 
         <body>
             <tr>
-                <span>CLIENTE</span> <br>
-                <span>RUC</span> <br>
-                <span>DIRECCIÓN</span> <br>
-                <span>FECHA DE EMISIÓN</span>
+                <span style="font-size: 13px;">CLIENTE</span> <br>
+                <span style="font-size: 13px;">RUC</span> <br>
+                <span style="font-size: 13px;">DIRECCIÓN</span> <br>
+                <span style="font-size: 13px;">FECHA DE EMISIÓN</span>
             </tr>
 
         </body>
