@@ -11857,7 +11857,7 @@
             <tr>
                 <td style="width: 30%;"><img src="<?php echo $imagenQRBase64 ?>" width="140" alt=""></td>
                 <td style="width: 70%;">
-                    <table>
+                    <table  style="width: 100%;border: 1px solid black;">
 
                         <body>
                             <tr>
