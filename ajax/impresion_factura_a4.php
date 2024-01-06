@@ -11761,7 +11761,7 @@
                 <td style="text-align: center;width: 25%;">
                     <table style="width: 100%;">
                         <tr>
-                            <td style="font-size: 14px;border-color: #000;text-align: center;border-width: 5px;border-color: black;border-style: double;padding: 5px 15px;">
+                            <td style="font-size: 14px;border-color: #000;text-align: center;border-width: 2px;border-color: black;border-style: double;padding: 5px 15px;">
                                 <span>RUC: 20451245781</span> <br>
                                 <span>FACTURA</span> <br>
                                 <span>ELECTRÓNICA</span> <br>
