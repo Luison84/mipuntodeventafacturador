@@ -11819,9 +11819,9 @@
             <tr>
                 <th style="width:20%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;">CÓDIGO</th>
                 <th style="width:40%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;">DESCRIPCIÓN</th>
-                <th style="width:13%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;">CANTIDAD</th>
-                <td style="font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;">P. UNIT.</td>
-                <td style="font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;">IMPORTE</td>
+                <th style="width:15%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;">CANT.</th>
+                <td style="width:12%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;">P. UNIT.</td>
+                <td style="width:13%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;">IMPORTE</td>
             </tr>
         </thead>
         <tbody>
