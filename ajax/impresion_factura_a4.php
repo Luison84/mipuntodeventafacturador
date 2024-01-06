@@ -11744,7 +11744,7 @@
         <div class="row">
             <div class="col-3">
                 <figure class="w-100 h-100">
-                    <img src="https://tutorialesphperu.com/pos/vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png" alt="" style="width: 100px;height: 100px;">
+                    <img src="./vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png" alt="" style="width: 100px;height: 100px;">
                 </figure>                
             </div>
             <div class="col-6">
