@@ -11744,7 +11744,8 @@
     $imagenBase64 = "data:image/png;base64," . base64_encode(file_get_contents($nombreImagen));
     ?>
 
-    <table>
+
+    <table style="width: 100%;">
 
         <body>
             <tr>
