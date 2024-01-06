@@ -11759,7 +11759,7 @@
                 <td>
                     <table>
                         <tr>
-                            <td style="border-color: #000;text-align: center;border-width: 5px;border-color: black;border-style: double;padding: 5px;">
+                            <td style="border-color: #000;text-align: center;border-width: 5px;border-color: black;border-style: double;padding: 5px 10px;">
                                 <span >RUC: 20451245781</span> <br>
                                 <span >FACTURA</span> <br>
                                 <span >ELECTRÓNICA</span> <br>
