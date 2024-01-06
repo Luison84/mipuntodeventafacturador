@@ -11748,11 +11748,8 @@
 
 
         <div class="row">
-            <div class="col-3">
-                <figure class="w-100 h-100">
-                    <img src="<?php echo $imagenBase64 ?>" />
-
-                </figure>
+            <div class="col-3">                
+                    <img src="<?php echo $imagenBase64 ?>" width="80"/>
             </div>
             <div class="col-6">
                 <span style="font-size: 20px;">
