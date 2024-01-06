@@ -11861,50 +11861,50 @@
 
                         <body>
                             <tr>
-                                <td style="width: 70%;text-align: right; border: 1px solid black;font-size: 12px;">
+                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right; border: 1px solid black;font-size: 12px;">
+                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: right; border: 1px solid black;font-size: 12px;">
+                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right; border: 1px solid black;font-size: 12px;">
+                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: right; border: 1px solid black;font-size: 12px;">
+                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right; border: 1px solid black;font-size: 12px;">
+                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: right; border: 1px solid black;font-size: 12px;">
+                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right; border: 1px solid black;font-size: 12px;">
+                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: right; border: 1px solid black;font-size: 12px;">
+                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right; border: 1px solid black;font-size: 12px;">
+                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: right; border: 1px solid black;font-size: 12px;">
+                                <td style="width: 70%;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;;text-align: right; border: 1px solid black;font-size: 12px;">
+                                <td style="width: 30%;;text-align: right; border: 1px solid #34495e;font-size: 12px;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
