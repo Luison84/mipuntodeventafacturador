@@ -4,12 +4,14 @@ require_once "../modelos/ventas.modelo.php";
 require_once "../modelos/productos.modelo.php";
 require_once "apis/api_facturacion.php";
 require "../vendor/autoload.php";
+
 use Dompdf\Dompdf;
 
 
 /* ===================================================================================  */
 /* P O S T   P E T I C I O N E S  */
 /* ===================================================================================  */
+
 if (isset($_POST["accion"])) {
 
     switch ($_POST["accion"]) {
@@ -978,9 +980,15 @@ if (isset($_GET["accion"])) {
             $venta = VentasModelo::mdlObtenerVentaPorIdFormatoA4($_GET["id_venta"]);
             $detalle_venta = VentasModelo::mdlObtenerDetalleVentaPorId($_GET["id_venta"]);
 
+            $text_qr = $venta["ruc"] . " | " . $venta["id_tipo_comprobante"] . " | " . $venta["serie"] . " | " . $venta["correlativo"] . " | " . $venta["total_igv"] . " | " . $venta["importe_total"] . " | " . $venta["fecha_emision"] . " | " . $venta["id_tipo_documento"] . " | " . $venta["nro_documento"];
+            var_dump($text_qr);
+            $ruta_qr = "https://tutorialesphperu.com/pos/fe/qr/formato_a4_qr.png";
+
+            QRcode::png($text_qr, $ruta_qr, 'Q', 15, 0);
+
             ob_start();
             require "../phpqrcode/qrlib.php";
-            require "impresion_factura_a4.php";            
+            require "impresion_factura_a4.php";
 
             $html = ob_get_clean();
 
