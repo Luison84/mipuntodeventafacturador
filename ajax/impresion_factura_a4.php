@@ -11818,8 +11818,8 @@
         <thead>
             <tr>
                 <th style="width:20%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;font-weight: bold;">CÓDIGO</th>
-                <th style="width:40%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;font-weight: bold;">DESCRIPCIÓN</th>
-                <th style="width:15%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;font-weight: bold;">CANT.</th>
+                <th style="width:45%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;font-weight: bold;">DESCRIPCIÓN</th>
+                <th style="width:10%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;font-weight: bold;">CANT.</th>
                 <td style="width:12%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;font-weight: bold;">P. UNIT.</td>
                 <td style="width:13%;font-size: 14px;border: 1px solid;text-align: center;background-color: #34495e; color: white;font-weight: bold;">IMPORTE</td>
             </tr>
@@ -11828,10 +11828,10 @@
         <?php for ($i = 0; $i < 5; $i++) : ?>
                     <tr>
                         <td style="width:20%;font-size: 12px;border: 1px solid;text-align: center;">68464564564654</td>
-                        <td style="width:40%;font-size: 12px;border: 1px solid;text-align: center;">ACEITE COSTEÑO 1L</td>
-                        <td style="width:13%;font-size: 12px;border: 1px solid;text-align: center;">1</td>
-                        <td style="font-size: 12px;border: 1px solid;text-align: center;">S/ 5.00</td>
-                        <td style="font-size: 12px;border: 1px solid;text-align: center;">S/ 5.00</td>
+                        <td style="width:45%;font-size: 12px;border: 1px solid;text-align: center;">ACEITE COSTEÑO 1L</td>
+                        <td style="width:10%;font-size: 12px;border: 1px solid;text-align: center;">1</td>
+                        <td style="width:12%;font-size: 12px;border: 1px solid;text-align: center;">S/ 5.00</td>
+                        <td style="width:13%;font-size: 12px;border: 1px solid;text-align: center;">S/ 5.00</td>
                     </tr>
 
                 <?php endfor; ?>
