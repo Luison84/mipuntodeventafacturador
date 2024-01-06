@@ -11869,42 +11869,42 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <span>Operaciones Inafectas</span>
+                                <td style="width: 70%;text-align: right;">
+                                    <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;">
+                                <td style="width: 30%;;text-align: right;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <span>Operaciones Exoneradas</span>
+                                <td style="width: 70%;text-align: right;">
+                                    <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;">
+                                <td style="width: 30%;;text-align: right;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <span>Subtotal</span>
+                                <td style="width: 70%;text-align: right;">
+                                    <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;">
+                                <td style="width: 30%;;text-align: right;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <span>Total IGV</span>
+                                <td style="width: 70%;text-align: right;">
+                                    <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;">
+                                <td style="width: 30%;;text-align: right;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <span>Total</span>
+                                <td style="width: 70%;text-align: right;">
+                                    <span>Operaciones Gravadas</span>
                                 </td>
-                                <td style="width: 30%;">
+                                <td style="width: 30%;;text-align: right;">
                                     <span>S. 100</span>
                                 </td>
                             </tr>
