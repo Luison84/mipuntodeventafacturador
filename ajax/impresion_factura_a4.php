@@ -11784,6 +11784,9 @@
                     <table>
 
                         <body>
+                            <tr style="width:20%;font-size: 15px;border: 1px solid #34495e;text-align: center;background-color: #34495e; color: white;font-weight: bold;">
+                                <span>DATOS DEL CLIENTE</span>
+                            </tr>
                             <tr>
                                 <td style="width: 30%;">
                                     <span style="font-size: 13px;font-weight: bold;">CLIENTE:</span> <br>
