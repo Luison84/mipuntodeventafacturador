@@ -11741,16 +11741,22 @@
 
     <div class="container">
 
+        <?php
+        $nombreImagen = "https://tutorialesphperu.com/pos/vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png";
+        $imagenBase64 = "data:image/png;base64," . base64_encode(file_get_contents($nombreImagen));
+        ?>
+
+
         <div class="row">
             <div class="col-3">
                 <figure class="w-100 h-100">
-                    <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path(../vistas/assets/dist/img/logos_empresas/65962c4715b57_330.png))) }}" class="app-image-style"/>
+                    <img src="<?php echo $imagenBase64 ?>" />
 
-                </figure>                
+                </figure>
             </div>
             <div class="col-6">
                 <span style="font-size: 20px;">
-                    <?php echo $venta["empresa"]; ?>                    
+                    <?php echo $venta["empresa"]; ?>
                 </span> <br />
                 <span style="font-size: 13px;">
                     <?php echo $venta["direccion_empresa"]; ?>
@@ -11759,7 +11765,7 @@
             <div class="col-3">
 
             </div>
-        </div>       
+        </div>
 
     </div>
 
