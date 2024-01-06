@@ -11784,10 +11784,10 @@
 
                     <table>
                         <thead>
-                            <tr style="width:100%;font-size: 15px;border: 1px solid #34495e;text-align: center;background-color: #34495e; color: white;font-weight: bold;">
-                                <td>
+                            <tr style="width:100%;font-size: 15px;text-align: center;background-color: #34495e; color: white;font-weight: bold;">
+                                <th>
                                     <span>DATOS DEL CLIENTE</span>
-                                </td>
+                                </th>
                             </tr>
                         </thead>
 
