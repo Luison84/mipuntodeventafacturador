@@ -11744,7 +11744,7 @@
     $imagenBase64 = "data:image/png;base64," . base64_encode(file_get_contents($nombreImagen));
     ?>
 
-
+    <!-- DATOS DE CABECERA -->
     <table style="width: 100%;">
 
         <body>
@@ -11756,22 +11756,38 @@
                     <span style="font-size: 20px;"><?php echo $venta["empresa"] ?></span> <br>
                     <span style="font-size: 14px;"><?php echo $venta["direccion_empresa"] ?></span> <br>
                     <span style="font-size: 14px;"><?php echo $venta["ubigeo"] ?></span> <br>
-                    <span style="font-size: 14px;"><?php echo ("email: ". $venta["email"] . "  - Teléfono: " . $venta["telefono_empresa"]) ?></span> <br>
+                    <span style="font-size: 14px;"><?php echo ("email: " . $venta["email"] . "  - Teléfono: " . $venta["telefono_empresa"]) ?></span> <br>
                 </td>
                 <td style="text-align: center;width: 25%;">
                     <table style="width: 100%;">
                         <tr>
                             <td style="font-size: 14px;border-color: #000;text-align: center;border-width: 5px;border-color: black;border-style: double;padding: 5px 15px;">
-                                <span >RUC: 20451245781</span> <br>
-                                <span >FACTURA</span> <br>
-                                <span >ELECTRÓNICA</span> <br>
-                                <span >F001-156</span>
+                                <span>RUC: 20451245781</span> <br>
+                                <span>FACTURA</span> <br>
+                                <span>ELECTRÓNICA</span> <br>
+                                <span>F001-156</span>
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr>
         </body>
+    </table>
+
+    <!-- DATOS DEL CLIENTE -->
+
+    <table style="width: 100%;border-color: black;margin-top: 20px;">
+
+        <body>
+            <tr>
+                <span>CLIENTE</span> <br>
+                <span>RUC</span> <br>
+                <span>DIRECCIÓN</span> <br>
+                <span>FECHA DE EMISIÓN</span>
+            </tr>
+
+        </body>
+
     </table>
 
 </body>
