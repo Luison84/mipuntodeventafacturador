@@ -11785,7 +11785,7 @@
                     <table>
                         <thead>
                             <tr style="font-size: 15px;text-align: center;background-color: #34495e; color: white;font-weight: bold;">
-                                <th style="width:100%;">
+                                <th style="width:100%;" colspan="2">
                                     <span>DATOS DEL CLIENTE</span>
                                 </th>
                             </tr>
@@ -11800,7 +11800,7 @@
                                     <span style="font-size: 13px;font-weight: bold;">DIRECCIÓN:</span> <br>
                                     <span style="font-size: 13px;font-weight: bold;">FECHA DE EMISIÓN:</span>
                                 </td>
-                                <td style="width: 30%;">
+                                <td style="width: 70%;">
                                     <span style="font-size: 13px;">COMERCIAL FERRETERA PRISMA S.A.C.</span><br>
                                     <span style="font-size: 13px;">20525994741</span><br>
                                     <span style="font-size: 13px;">AVENIDA ANGAMOS 154 - SURQUILLO</span><br>
